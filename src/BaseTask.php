@@ -125,20 +125,9 @@ class BaseTask
     }
 
     /**
-     * Возвращает список доступных `Действий` для текущего `Статуса`.
-     * @return array|null
+     * Возвращает список доступных `Действий` для текущего `Статуса`
+     * @return array Список доступных действий
      */
-    public function getActionList()
-    {
-        $list = [
-            self::STATUS_DRAFT => [self::ACTION_TASK_CREATE],
-            self::STATUS_NEW => []
-        ];
-
-        return ['create', 'close'];
-    }
-
-    /** @return array Список доступных действий */
     private function avaiableActions()
     {
         $statusActions[self::STATUS_NEW] = [
