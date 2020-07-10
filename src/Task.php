@@ -7,7 +7,6 @@
  * @property int $performer_id ID Исполнителя 
  * @property int $customer_id ID Заказчика
  * @property string $status Статус задачи
- * @property string $role Роль пользваотеля
  */
 class Task
 {
@@ -40,39 +39,30 @@ class Task
 
     protected static $_constants;
 
-    public $id;
-    public $customer_id;
-    public $performer_id;
-    public $status;
+    public int $id;
+    public int $customerId;
+    public int $performerId;
+    public string $status;
 
     /**
      * Создание новой схемы 'Задачи'.
      * 
-     * @param integer $customer ID Заказчика
-     * @param integer $performer ID Исполнителя
+     * @param int $customer ID Заказчика
+     * @param int $performer ID Исполнителя
+     * @return void
      */
-    public function __construct($customer = null, $performer = null)
+    public function __construct(int $customer, int $performer)
     {
-        $this->id = random_int(1, 999);
-        
-        if (is_null($customer)) {
-            $customer = random_int(1,30);
-        }
-        if (is_null($performer)) {
-            $performer = random_int(31, 80);
-        }
-        $this->customer_id = $customer;
-        $this->performer_id = $performer;
+        $this->customerId = $customer;
+        $this->performerId = $performer;
     }
 
     /** Заказчик разместил новое задание */
     public function actionCreate()
     {
         $this->id = random_int(10, 9999);
-
         $this->status = self::STATUS_NEW;
         return $this->status;
-        
     }
 
     /** Заказчик отменил задание */
@@ -80,9 +70,8 @@ class Task
     {
         if ($this->canRunAction(__FUNCTION__) && $this->changeStatus(self::STATUS_CANCELED)) {
             return $this->status;
-        }        
+        }
         return false;
-        
     }
 
     /** Заказчик выбрал исполнителя */
@@ -123,6 +112,7 @@ class Task
         }
         return false;
     }
+
     /** Исполнитель начал выполнять задание */
     public function actionStart()
     {
@@ -169,9 +159,9 @@ class Task
     /** 
      * Проверят, допускается ли изменение статуса
      * @param string $status
-     * @return boolean
+     * @return bool
      */
-    private function canChangeStatus($status)
+    private function canChangeStatus(string $status): bool
     {
         $statusChain = [
             self::STATUS_NEW => [
@@ -193,9 +183,9 @@ class Task
      * Проверяет, допускаетлся выполнение Действия
      *
      * @param string $action
-     * @return boolean
+     * @return bool
      */
-    private function canRunAction($action)
+    private function canRunAction(string $action): bool
     {
         $actionChain = [
             self::STATUS_NEW => [
@@ -218,28 +208,6 @@ class Task
     }
 
     /**
-     * Возвращает список доступных `Действий` для текущего `Статуса`
-     * @return array Список доступных действий
-     */
-    private function avaiableActions()
-    {
-        $statusActions[self::STATUS_NEW] = [
-            self::ACTION_CUSTOMER_CANCEL,
-            self::ACTION_PERFORMER_PENDING,
-            self::ACTION_PERFORMER_START
-        ];
-
-        $statusActions[self::STATUS_INPROGRESS] = [
-            self::ACTION_CUSTOMER_COMPLETE,
-            self::ACTION_CUSTOMER_REFUSE,
-            self::ACTION_PERFORMER_DONE,
-        ];
-
-        return isset($statusActions[$this->status]) ? $statusActions[$this->status] : [];
-    }
-
-
-    /**
      * Проверяет соответсвие запрашиваемого статуса к списку возможных статусов.
      * 
      * @property string $status Именованный статус задания.
@@ -257,35 +225,10 @@ class Task
         }
     }
 
-    /**
-     * Метод выполняет проверку, разрешено ли использовать запрашиваемый метод.
-     *
-     * @param string $action
-     * @return boolean
-     */
-    private static function isActionValid($action)
-    {
-        return in_array($action, self::ActionList()) ? true : false;
-    }
-
     /** @return array Список доступных состояний */
     private static function StatusList()
     {
         return self::constants('status_');
-    }
-
-    /** @return array Список доступных Публичных действий */
-    public static function ActionList()
-    {
-        $actions = [];
-        $class = new \ReflectionClass(__CLASS__);
-        foreach ($class->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
-            if (strpos($method->name,'action') !== false ) {
-                $actions[] = $method->name;
-            }
-        }
-
-        return $actions;
     }
 
     /**

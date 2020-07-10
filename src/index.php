@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 require_once 'Task.php';
 
 
-$task1 = new Task();
+$task1 = new Task(-10, (int) 567);
 
 if ($task1->actionCreate()) {
   echo "Задача #{$task1->id} успешно опубликована. Статус: '{$task1->status}'\n";
@@ -31,8 +31,3 @@ if ($task1->actionApprove()) {
 if ($task1->actionComplete()) {
   echo "Исполнитель подтвердил что задача Выполнена. Статус: '{$task1->status}'\n";
 }
-
-
-
-
-
