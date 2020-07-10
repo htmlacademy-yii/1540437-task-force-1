@@ -3,9 +3,8 @@
 /**
  * Базовый класс Задач
  * 
- * @property int $id ID Задачи
- * @property int $performer_id ID Исполнителя 
- * @property int $customer_id ID Заказчика
+ * @property int $performerId ID Исполнителя 
+ * @property int $customerId ID Заказчика
  * @property string $status Статус задачи
  */
 class Task
@@ -21,139 +20,149 @@ class Task
     /** Исполнитель отказался от выполнения задания */
     const STATUS_FAIL = 'fail';
 
-    /** Заказчик разместил новое задание */
-    const ACTION_CUSTOMER_CREATE = 'actionCreate';
     /** Заказчик отменил задание */
-    const ACTION_CUSTOMER_CANCEL = 'actionCancel';
-    /** Заказчик выбрал исполнителя */
-    const ACTION_CUSTOMER_APPROVE = 'actionApprove';
+    const ACTION_CUSTOMER_CANCEL = 'cancel';
     /** Заказчик пометил задание как Завершенное */
-    const ACTION_CUSTOMER_COMPLETE = 'actionComplete';
-
+    const ACTION_CUSTOMER_COMPLETE = 'complete';
     /** Исполнитель откликнулся на новое задание */
-    const ACTION_PERFORMER_PENDING = 'actionPending';
+    const ACTION_PERFORMER_PENDING = 'pending';
     /** Исполнитель отказался от задания */
-    const ACTION_PERFORMER_REFUSE = 'actionRefuse';
-    /** Исполнитель начинает выполнение задания */
-    const ACTION_PERFORMER_START = 'actionStart';
+    const ACTION_PERFORMER_REFUSE = 'refuse';
 
-    protected static $_constants;
+    /**
+     * Список состояний 'Задания'
+     * @var array 
+     */
+    const STATUS_LIST = [
+        self::STATUS_NEW,
+        self::STATUS_CANCELED,
+        self::STATUS_COMPLETE,
+        self::STATUS_FAIL,
+        self::STATUS_INPROGRESS
+    ];
 
-    public int $id;
-    public int $customerId;
-    public int $performerId;
-    public string $status;
+    /** 
+     * Список действий 'Задания'
+     * @var array
+     */
+    const ACTION_LIST = [
+        self::ACTION_CUSTOMER_CANCEL,
+        self::ACTION_CUSTOMER_COMPLETE,
+        self::ACTION_PERFORMER_PENDING,
+        self::ACTION_PERFORMER_REFUSE
+    ];
+
+    protected $customerId;
+    protected $performerId;
+    protected $status;
 
     /**
      * Создание новой схемы 'Задачи'.
      * 
      * @param int $customer ID Заказчика
-     * @param int $performer ID Исполнителя
+     * @param int|null $performer ID Исполнителя, по умолчанию NULL
      * @return void
      */
-    public function __construct(int $customer, int $performer)
+    public function __construct(int $customer, ?int $performer = null)
     {
+        if (!isset($this->status)) {
+            $this->status = self::STATUS_NEW;
+        }
         $this->customerId = $customer;
         $this->performerId = $performer;
     }
 
-    /** Заказчик разместил новое задание */
-    public function actionCreate()
+    /**
+     * Заказчик отменил задание
+     * @return string $status
+     */
+    public function actionCancel(): string
     {
-        $this->id = random_int(10, 9999);
-        $this->status = self::STATUS_NEW;
+        $this->changeStatus(self::STATUS_CANCELED, self::ACTION_CUSTOMER_CANCEL);
         return $this->status;
     }
 
-    /** Заказчик отменил задание */
-    public function actionCancel()
+    /**
+     * Исполнитель отказался от выполнения задания.
+     * @return string $status
+     */
+    public function actionRefuse(): string
     {
-        if ($this->canRunAction(__FUNCTION__) && $this->changeStatus(self::STATUS_CANCELED)) {
-            return $this->status;
-        }
-        return false;
-    }
-
-    /** Заказчик выбрал исполнителя */
-    public function actionApprove()
-    {
-        if ($this->canRunAction(__FUNCTION__) && $this->changeStatus(self::STATUS_INPROGRESS)) {
-            return $this->status;
-        }
-        return false;
-    }
-
-    /** Заказчик отказался от задания */
-    public function actionRefuse()
-    {
-        if ($this->canRunAction(__FUNCTION__) && $this->changeStatus(self::STATUS_FAIL)) {
-            return $this->status;
-        }
-        return false;
+        $this->changeStatus(self::STATUS_FAIL, self::ACTION_PERFORMER_REFUSE);
+        return $this->status;
     }
 
     /**
-     * Заказчик пометил задание как Завершенное
-     * @return string|boolean Новый статус или `false`
+     * Заказчик пометил задание как `Завершенное`
+     * @return string $status
      */
-    public function actionComplete()
+    public function actionComplete(): string
     {
-        if ($this->canRunAction(__FUNCTION__) && $this->changeStatus(self::STATUS_COMPLETE)) {
-            return $this->status;
-        }
-        return false;
+        $this->changeStatus(self::STATUS_COMPLETE, self::ACTION_CUSTOMER_COMPLETE);
+        return $this->status;
     }
 
-    /** Исполнитель предложил свои услуги */
-    public function actionPending()
+    /**
+     * Исполнитель предложил свои услуги
+     * @return string $status
+     */
+    public function actionPending(): string
     {
-        if ($this->canRunAction(__FUNCTION__)) {
-            return $this->status;
-        }
-        return false;
+        $this->changeStatus(self::STATUS_INPROGRESS, self::ACTION_PERFORMER_PENDING);
+        return $this->status;
     }
 
-    /** Исполнитель начал выполнять задание */
-    public function actionStart()
+    /** @return string|null $status */
+    public function getStatus()
     {
-        if ($this->canRunAction(__FUNCTION__) && $this->changeStatus(self::STATUS_INPROGRESS)) {
-            return $this->status;
-        }
-        return false;
+        return $this->status;
     }
 
-    /** Исполнитель завершил задание */
-    public function actionDone()
+    /** @return int $customerId */
+    public function getCustomer()
     {
-        if ($this->canRunAction(__FUNCTION__)) {
-            return true;
-        }
-        return false;
+        return $this->customerId;
+    }
+
+    /** @return int|null $perfomerId */
+    public function getPerformer()
+    {
+        return $this->performerId;
     }
 
     /** 
      * Изменение статуса задания
      * 
      * @param string $status Новый статус.
-     * @return string|false Статус задания
+     * @param string $action Текущее действие. 
+     * @throws NotAllowedChangeStatusException Если `Новое состояние` не допускается к изменению.
+     * @throws NotAllowedActionException Если не возможно выполнить `Действие`.
+     * @return void    
      */
-    private function changeStatus(string $status)
+    public function changeStatus(string $status, string $action): void
     {
-        if (!isset($this->status)) {
-            $this->status = self::STATUS_NEW;
+        $status = trim($status);
+        if (!self::isStatusValid($status)) {
+            throw new NotAllowedChangeStatusException("Состояние '{$status}' - не входит в список допустимых.");
         }
 
-        if ($this->status === $status) {
-            return $this->status;
+        if (!self::isActionValid($action)) {
+            throw new NotAllowedActionException("Действие '{$action}' - не допустимо");
         }
 
-        if (self::isStatusValid($status) && $this->canChangeStatus($status)) {
-            $this->status = $status;
-        } else {
-            return false;
+        if (!$this->canChangeStatus($status)) {
+            throw new NotAllowedChangeStatusException("Из состояния '{$this->status}' не возможно перейти в сосояние '{$status}'");
         }
 
-        return $this->status;
+        if (!$this->canRunAction($action)) {
+            $message = "Не возможно выполнить действие: '{$action}'";
+            if (is_null($this->performerId)) {
+                $message .= " т.к. исполнитель не выбран";
+            }
+            throw new NotAllowedActionException($message);
+        }
+
+        $this->status = $status;
     }
 
     /** 
@@ -161,7 +170,7 @@ class Task
      * @param string $status
      * @return bool
      */
-    private function canChangeStatus(string $status): bool
+    protected function canChangeStatus(string $status): bool
     {
         $statusChain = [
             self::STATUS_NEW => [
@@ -185,21 +194,23 @@ class Task
      * @param string $action
      * @return bool
      */
-    private function canRunAction(string $action): bool
+    protected function canRunAction(string $action): bool
     {
         $actionChain = [
             self::STATUS_NEW => [
-                self::ACTION_CUSTOMER_APPROVE,
-                self::ACTION_CUSTOMER_CANCEL,
-                self::ACTION_PERFORMER_PENDING,
-                self::ACTION_PERFORMER_START
+                self::ACTION_CUSTOMER_CANCEL
             ],
             self::STATUS_INPROGRESS => [
                 self::ACTION_CUSTOMER_CANCEL,
                 self::ACTION_CUSTOMER_COMPLETE,
-                self::ACTION_PERFORMER_REFUSE
             ]
         ];
+
+        if (!is_null($this->performerId)) {
+            $actionChain[self::STATUS_NEW][] = self::ACTION_PERFORMER_PENDING;
+            $actionChain[self::STATUS_INPROGRESS][] = self::ACTION_PERFORMER_REFUSE;
+        }
+
         if (!isset($actionChain[$this->status])) {
             return false;
         }
@@ -210,49 +221,29 @@ class Task
     /**
      * Проверяет соответсвие запрашиваемого статуса к списку возможных статусов.
      * 
-     * @property string $status Именованный статус задания.
-     * @return boolean true or false
+     * @param string $status Именованный статус задания.
+     * @return bool
      */
-    private static function isStatusValid(string $status)
+    public static function isStatusValid(string $status): bool
     {
-        $statusList = array_values(self::StatusList());
-        if (in_array($status, $statusList)) {
-            return true;
-        } else {
-            echo "Состояние '{$status}' не входит с писок допустимых.\n";
-            echo "Не пытайтесь в ручную указывать состояние задачи, используйте доступные действия.\n";
-            return false;
-        }
-    }
-
-    /** @return array Список доступных состояний */
-    private static function StatusList()
-    {
-        return self::constants('status_');
+        return in_array($status, self::STATUS_LIST);
     }
 
     /**
-     * @param string $prefix Prefix
-     * @return array[] $constants
+     * @param string $action Наименование 'Действия'
+     * @return bool
      */
-    private static function constants(string $prefix = '')
+    public static function isActionValid(string $action): bool
     {
-        if (!self::$_constants) {
-            $reflectionClass = new ReflectionClass(__CLASS__);
-            self::$_constants = $reflectionClass->getConstants();
-        }
-
-        if (strlen($prefix)) {
-            $prefix = strtoupper($prefix);
-            $result = [];
-            foreach (self::$_constants as $n => $v) {
-                if ((strpos($n, $prefix)) !== false) {
-                    $result[$n] = $v;
-                }
-            }
-            return $result;
-        }
-
-        return self::$_constants;
+        return in_array($action, self::ACTION_LIST);
     }
+}
+
+
+class NotAllowedActionException extends Exception
+{
+}
+
+class NotAllowedChangeStatusException extends Exception
+{
 }
