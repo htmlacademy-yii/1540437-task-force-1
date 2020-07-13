@@ -3,6 +3,10 @@ error_reporting(E_ALL);
 // ini_set('zend.assertions', -1);
 require_once 'Task.php';
 
+$task = new Task(1, 3);
+
+
+
 echo "\n---- Begin -----\n";
 $task = new Task(1, 2);
 echo "Сценарий 1: 'Испольнитель' откликнулся, 'Заказчик' подтвердил выполнение:";
@@ -79,38 +83,3 @@ try {
 }
 
 echo "\n----- End ------\n";
-
-
-echo "\n--- Проверка на фальшивые 'Действия' и 'Состояния'\n";
-
-$task = new Task(255, 500);
-$status = 'Личный';
-$action = 'Косвенное';
-
-try {
-  $task->changeStatus($status, $action);
-} catch (NotAllowedActionException $e) {
-  echo "{$e->getMessage()}\n";
-} catch (NotAllowedChangeStatusException $e) {
-  echo "{$e->getMessage()}\n";
-}
-$status = $task::STATUS_NEW;
-$action = 'Косвенное';
-try {
-  $task->changeStatus($status, $action);
-} catch (NotAllowedActionException $e) {
-  echo "{$e->getMessage()}\n";
-} catch (NotAllowedChangeStatusException $e) {
-  echo "{$e->getMessage()}\n";
-}
-
-
-$status = 'New';
-$action = 'InProgress';
-try {
-  $task->changeStatus($status, $action);
-} catch (NotAllowedActionException $e) {
-  echo "{$e->getMessage()}\n";
-} catch (NotAllowedChangeStatusException $e) {
-  echo "{$e->getMessage()}\n";
-}

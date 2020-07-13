@@ -34,11 +34,11 @@ class Task
      * @var array 
      */
     const STATUS_LIST = [
-        self::STATUS_NEW,
-        self::STATUS_CANCELED,
-        self::STATUS_COMPLETE,
-        self::STATUS_FAIL,
-        self::STATUS_INPROGRESS
+        self::STATUS_NEW => 'Новое',
+        self::STATUS_CANCELED => 'Отменено',
+        self::STATUS_COMPLETE => 'Завершено',
+        self::STATUS_FAIL => 'Провалено',
+        self::STATUS_INPROGRESS => 'Исполняется'
     ];
 
     /** 
@@ -46,15 +46,15 @@ class Task
      * @var array
      */
     const ACTION_LIST = [
-        self::ACTION_CUSTOMER_CANCEL,
-        self::ACTION_CUSTOMER_COMPLETE,
-        self::ACTION_PERFORMER_PENDING,
-        self::ACTION_PERFORMER_REFUSE
+        self::ACTION_CUSTOMER_CANCEL => 'Отменить',
+        self::ACTION_CUSTOMER_COMPLETE => 'Завершить',
+        self::ACTION_PERFORMER_PENDING => 'Откликнутся',
+        self::ACTION_PERFORMER_REFUSE => 'Отказатся'
     ];
 
-    protected $customerId;
-    protected $performerId;
-    protected $status;
+    private $customerId;
+    private $performerId;
+    private $status;
 
     /**
      * Создание новой схемы 'Задачи'.
@@ -65,11 +65,25 @@ class Task
      */
     public function __construct(int $customer, ?int $performer = null)
     {
-        if (!isset($this->status)) {
-            $this->status = self::STATUS_NEW;
-        }
+        $this->status = self::STATUS_NEW;
         $this->customerId = $customer;
         $this->performerId = $performer;
+    }
+
+    /**
+     * @param string $action Предполагаемое `Действие`
+     * @return string|null Наименование Состояния
+     */
+    public function getNextStatus(string $action): ?string
+    {
+        $map = [
+            self::ACTION_PERFORMER_PENDING => self::STATUS_INPROGRESS,
+            self::ACTION_PERFORMER_REFUSE => self::STATUS_FAIL,
+            self::ACTION_CUSTOMER_CANCEL => self::STATUS_CANCELED,
+            self::ACTION_CUSTOMER_COMPLETE => self::STATUS_COMPLETE
+        ];
+
+        return isset($map[$action]) ? $map[$action] : null;
     }
 
     /**
@@ -78,8 +92,8 @@ class Task
      */
     public function actionCancel(): string
     {
-        $this->changeStatus(self::STATUS_CANCELED, self::ACTION_CUSTOMER_CANCEL);
-        return $this->status;
+        $this->changeStatus(self::ACTION_CUSTOMER_CANCEL);
+        return $this->getStatus();
     }
 
     /**
@@ -88,8 +102,8 @@ class Task
      */
     public function actionRefuse(): string
     {
-        $this->changeStatus(self::STATUS_FAIL, self::ACTION_PERFORMER_REFUSE);
-        return $this->status;
+        $this->changeStatus(self::ACTION_PERFORMER_REFUSE);
+        return $this->getStatus();
     }
 
     /**
@@ -98,8 +112,8 @@ class Task
      */
     public function actionComplete(): string
     {
-        $this->changeStatus(self::STATUS_COMPLETE, self::ACTION_CUSTOMER_COMPLETE);
-        return $this->status;
+        $this->changeStatus(self::ACTION_CUSTOMER_COMPLETE);
+        return $this->getStatus();
     }
 
     /**
@@ -108,31 +122,25 @@ class Task
      */
     public function actionPending(): string
     {
-        $this->changeStatus(self::STATUS_INPROGRESS, self::ACTION_PERFORMER_PENDING);
-        return $this->status;
+        $this->changeStatus(self::ACTION_PERFORMER_PENDING);
+        return $this->getStatus();
     }
 
     /**
      * Возвращает текщуее `Состояние`
      * @return string $status
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
     /**
-     * Устанавливает `Состояние` для приложения
-     *
+     * Устанавливает "Состояние" для приложения
      * @param string $status
-     * @throws NotValidStatusException Если `Состояние` является не допустимым значением
      */
     private function setStatus(string $status): void
     {
-        if (!self::isStatusValid($status)) {
-            throw new NotValidStatusException($status);
-        }
-
         $this->status = $status;
     }
 
@@ -149,13 +157,11 @@ class Task
     }
 
     /**
-     * Карта `Действий`
-     *
-     * @return array
+     * Карта достпуных `Действий` для `Действий`.
+     * @return array [ status => [...allowedActions]]
      */
-    private function getActionsMap(): array
+    private function getStatusActionList(): array
     {
-
         $map = [
             self::STATUS_NEW => [
                 self::ACTION_CUSTOMER_CANCEL
@@ -175,16 +181,14 @@ class Task
     }
 
     /**
-     * Список доступных `Состояний` для перехода`.
+     * Список доступных `Состояний` для перехода.
      * 
-     * 
-     * @param string|null $status
      * @return array [ status => [ ...allowedStatusList ] ]
      */
-    private function getStatusMap(?string $status = null): array
+    private function getStatusList(): array
     {
         $map = [];
-        $map[self::STATUS_NEW] = self::STATUS_CANCELED;
+        $map[self::STATUS_NEW][] = self::STATUS_CANCELED;
 
         if ($this->isHasPerformer()) {
             $map[self::STATUS_NEW][] = self::STATUS_INPROGRESS;
@@ -195,88 +199,87 @@ class Task
             ];
         }
 
-        if (is_null($status)) {
-            return $map;
-        } else {
-            return isset($map[$status]) ? $map[$status] : [];
-        }
+        return $map;
     }
 
     /**
-     * Возвращает список `Действий` текущего `Состояния`
+     * Список доступных действий.
      * 
-     * @return array|null 
+     * @return array
      */
-    public function getActionsByCurrentStatus(): ?array
+    private function getAllowedActionsList(): array
     {
-        $status = $this->getStatus();
-        $actions = $this->getActionsMap();
+        $statusActions = $this->getStatusActionList();
+        $currentStatus = $this->getStatus();
 
-        return isset($actions[$status]) ? $actions[$status] : null;
+        return isset($statusActions[$currentStatus]) ? $statusActions[$currentStatus] : [];
     }
 
+    /** 
+     * Список доступных `Состояний`
+     * @return array
+     */
+    private function getAllowedStatusList(): array
+    {
+        $statusList = $this->getStatusList();
+        $currentStatus = $this->getStatus();
 
+        return isset($statusList[$currentStatus]) ? $statusList[$currentStatus] : [];
+    }
 
     /** 
      * Изменение статуса задания
      * 
-     * @param string $status Новый статус.
      * @param string $action Текущее действие. 
-     * @throws NotAllowedChangeStatusException Если `Новое состояние` не допускается к изменению.
-     * @throws NotAllowedActionException Если не возможно выполнить `Действие`.
      * @return void    
      */
-    public function changeStatus(string $status, string $action): void
+    private function changeStatus(string $currentAction): void
     {
-        $status = trim($status);
-        if (!self::isStatusValid($status)) {
-            throw new NotAllowedChangeStatusException("Состояние '{$status}' - не входит в список допустимых.");
-        }
+        $newStatus = $this->getNextStatus($currentAction);
 
-        if (!self::isActionValid($action)) {
-            throw new NotAllowedActionException("Действие '{$action}' - не допустимо");
+        if ($this->canChangeStatus($newStatus) && $this->canRunAction($currentAction)) {
+            $this->setStatus($newStatus);
         }
-
-        if (!$this->canChangeStatus($status)) {
-            throw new NotAllowedChangeStatusException("Из состояния '{$this->status}' не возможно перейти в сосояние '{$status}'");
-        }
-
-        if (!$this->canRunAction($action)) {
-            $message = "Не возможно выполнить действие: '{$action}'";
-            if (is_null($this->performerId)) {
-                $message .= " т.к. исполнитель не выбран";
-            }
-            throw new NotAllowedActionException($message);
-        }
-
-        $this->setStatus($status);
     }
 
     /** 
      * Проверяет, допускается ли изменение статуса
      * @param string $status
      * @return bool
+     * @throws NotValidStatusException Если не корректное "Состояние"
      */
     protected function canChangeStatus(string $status): bool
     {
-        $statusMap = $this->getStatusMap($status);
-        return in_array($status, $statusMap[$status]);
+        if (!self::isStatusValid($status)) {
+            throw new NotValidStatusException($status);
+        }
+
+        return in_array($status, $this->getAllowedStatusList());
     }
 
     /**
      * Проверяет, допускаетлся выполнение Действия
      *
-     * @param string $action
+     * @param string $action Действие
      * @return bool
+     * @throws NotValidActionException Если не корректное "Действие"
      */
     protected function canRunAction(string $action): bool
     {
-        $actionChain = $this->getActionsByCurrentStatus();
-        if (is_null($actionChain)) {
-            return false;
+        if (!self::isActionValid($action)) {
+            throw new NotValidActionException($action);
         }
 
-        return in_array($action, $actionChain[$this->getStatus()]);
+        return in_array($action, $this->getAllowedActionsList());
+    }
+
+    /**
+     * Проверка на наличие `Исполнителя` в `Задании`.
+     * @return bool
+     */
+    protected function isHasPerformer(): bool
+    {
+        return !is_null($this->getPerformer());
     }
 
     /**
@@ -287,25 +290,53 @@ class Task
      */
     private static function isStatusValid(string $status): bool
     {
-        return in_array($status, self::STATUS_LIST);
+        return in_array($status, self::statusMap(true));
     }
 
     /**
-     * @param string $action Наименование 'Действия'
+     * @param string $action "Действие"
      * @return bool
      */
     private static function isActionValid(string $action): bool
     {
-        return in_array($action, self::ACTION_LIST);
+        return in_array($action, self::actionMap(true));
     }
 
     /**
-     * Проверка на наличие `Исполнителя` в `Задании`.
-     * @return bool
+     * Карта действий.
+     * 
+     * @param bool $onlyKeys
+     * @return array Ассоциативный массив или только ключи
      */
-    private function isHasPerformer(): bool
+    private static function actionMap(bool $onlyKeys = false): array
     {
-        return !is_null($this->getPerformer());
+        $map = [
+            self::ACTION_CUSTOMER_CANCEL => 'Отменить',
+            self::ACTION_CUSTOMER_COMPLETE => 'Завершить',
+            self::ACTION_PERFORMER_PENDING => 'Откликнутся',
+            self::ACTION_PERFORMER_REFUSE => 'Отказатся'
+        ];
+
+        return $onlyKeys ? array_keys($map) : $map;
+    }
+
+    /**
+     * Карта статусов.
+     * 
+     * @param bool $onlyKeys
+     * @return array Ассоциативный массив или только ключи
+     */
+    private static function statusMap(bool $onlyKeys = false): array
+    {
+        $map =  [
+            self::STATUS_NEW => 'Новое',
+            self::STATUS_CANCELED => 'Отменено',
+            self::STATUS_COMPLETE => 'Завершено',
+            self::STATUS_FAIL => 'Провалено',
+            self::STATUS_INPROGRESS => 'Выполняется'
+        ];
+
+        return  $onlyKeys ? array_keys($map) : $map;
     }
 }
 
@@ -318,32 +349,43 @@ class StatusTaskException extends BaseTaskException
 {
 }
 
-/** Status Exceptions */
-
 class NotValidStatusException extends StatusTaskException
 {
-}
-
-class NotFoundStatusException extends StatusTaskException
-{
+    public function __construct(string $status, int $code = 0)
+    {
+        $message = "Не допустимое значение \"Состояния\" - {$status}";
+        parent::__construct($message, $code);
+    }
 }
 
 class NotAllowedStatusException extends StatusTaskException
 {
+    public function __construct(string $status, int $code)
+    {
+        $message = "Не возможно изменить \"Состояние\" на '{$status}'";
+        parent::__construct($message, $code);
+    }
 }
-
-/** Action Exception  */
 
 class ActionTaskException extends BaseTaskException
 {
 }
 
-
-
-class NotAllowedActionException extends Exception
+class NotValidActionException extends ActionTaskException
 {
+    public function __construct(string $action, int $code = 0)
+    {
+        $message = "Не допустимое значение \"Действия\" - {$action}";
+        parent::__construct($message, $code);
+    }
 }
 
-class NotAllowedChangeStatusException extends Exception
+
+class NotAllowedActionException extends ActionTaskException
 {
+    public function __construct(string $action, int $code)
+    {
+        $message = "Не возможно выполнить \"Действие\": '{$action}'";
+        parent::__construct($message, $code);
+    }
 }

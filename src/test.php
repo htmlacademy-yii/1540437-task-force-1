@@ -16,8 +16,10 @@ assert_options(ASSERT_WARNING, 0);
 assert_options(ASSERT_QUIET_EVAL, 1);
 assert_options(ASSERT_CALLBACK, 'assertHandler');
 
-$task1 = new Task(1, 6);
+$task = new Task(1, 6);
 
-assert($task1->actionPending() === Task::STATUS_INPROGRESS, 'Task 1: 1.actionPending');
-assert($task1->actionComplete() === Task::STATUS_COMPLETE, 'Task 1: 2.actionComplete');
-assert($task1->actionPending() === Task::STATUS_COMPLETE, 'Task 1: 3.actionPending');
+assert($task->getNextStatus(Task::ACTION_PERFORMER_PENDING) === Task::STATUS_INPROGRESS, 'action Pending');
+assert($task->getNextStatus(Task::ACTION_PERFORMER_REFUSE) === Task::STATUS_FAIL, 'action Refuse');
+assert($task->getNextStatus(Task::ACTION_CUSTOMER_CANCEL) === Task::STATUS_CANCELED, 'action Cancel');
+assert($task->getNextStatus(Task::ACTION_CUSTOMER_COMPLETE) === Task::STATUS_COMPLETE, 'action Complete');
+assert($task->getNextStatus('Custom') === null, 'action Custom');
