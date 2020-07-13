@@ -112,10 +112,28 @@ class Task
         return $this->status;
     }
 
-    /** @return string|null $status */
+    /**
+     * Возвращает текщуее `Состояние`
+     * @return string $status
+     */
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Устанавливает `Состояние` для приложения
+     *
+     * @param string $status
+     * @throws NotValidStatusException Если `Состояние` является не допустимым значением
+     */
+    private function setStatus(string $status): void
+    {
+        if (!self::isStatusValid($status)) {
+            throw new NotValidStatusException($status);
+        }
+
+        $this->status = $status;
     }
 
     /** @return int $customerId */
@@ -129,6 +147,75 @@ class Task
     {
         return $this->performerId;
     }
+
+    /**
+     * Карта `Действий`
+     *
+     * @return array
+     */
+    private function getActionsMap(): array
+    {
+
+        $map = [
+            self::STATUS_NEW => [
+                self::ACTION_CUSTOMER_CANCEL
+            ],
+            self::STATUS_INPROGRESS => [
+                self::ACTION_CUSTOMER_CANCEL,
+                self::ACTION_CUSTOMER_COMPLETE,
+            ]
+        ];
+
+        if ($this->isHasPerformer()) {
+            $map[self::STATUS_NEW][] = self::ACTION_PERFORMER_PENDING;
+            $map[self::STATUS_INPROGRESS][] = self::ACTION_PERFORMER_REFUSE;
+        }
+
+        return $map;
+    }
+
+    /**
+     * Список доступных `Состояний` для перехода`.
+     * 
+     * 
+     * @param string|null $status
+     * @return array [ status => [ ...allowedStatusList ] ]
+     */
+    private function getStatusMap(?string $status = null): array
+    {
+        $map = [];
+        $map[self::STATUS_NEW] = self::STATUS_CANCELED;
+
+        if ($this->isHasPerformer()) {
+            $map[self::STATUS_NEW][] = self::STATUS_INPROGRESS;
+            $map[self::STATUS_INPROGRESS] = [
+                self::ACTION_PERFORMER_REFUSE,
+                self::STATUS_COMPLETE,
+                self::STATUS_FAIL
+            ];
+        }
+
+        if (is_null($status)) {
+            return $map;
+        } else {
+            return isset($map[$status]) ? $map[$status] : [];
+        }
+    }
+
+    /**
+     * Возвращает список `Действий` текущего `Состояния`
+     * 
+     * @return array|null 
+     */
+    public function getActionsByCurrentStatus(): ?array
+    {
+        $status = $this->getStatus();
+        $actions = $this->getActionsMap();
+
+        return isset($actions[$status]) ? $actions[$status] : null;
+    }
+
+
 
     /** 
      * Изменение статуса задания
@@ -162,30 +249,18 @@ class Task
             throw new NotAllowedActionException($message);
         }
 
-        $this->status = $status;
+        $this->setStatus($status);
     }
 
     /** 
-     * Проверят, допускается ли изменение статуса
+     * Проверяет, допускается ли изменение статуса
      * @param string $status
      * @return bool
      */
     protected function canChangeStatus(string $status): bool
     {
-        $statusChain = [
-            self::STATUS_NEW => [
-                self::STATUS_CANCELED, self::STATUS_INPROGRESS
-            ],
-            self::STATUS_INPROGRESS => [
-                self::STATUS_COMPLETE, self::STATUS_FAIL
-            ]
-        ];
-
-        if (!isset($statusChain[$this->status])) {
-            return false;
-        }
-
-        return in_array($status, $statusChain[$this->status]);
+        $statusMap = $this->getStatusMap($status);
+        return in_array($status, $statusMap[$status]);
     }
 
     /**
@@ -196,26 +271,12 @@ class Task
      */
     protected function canRunAction(string $action): bool
     {
-        $actionChain = [
-            self::STATUS_NEW => [
-                self::ACTION_CUSTOMER_CANCEL
-            ],
-            self::STATUS_INPROGRESS => [
-                self::ACTION_CUSTOMER_CANCEL,
-                self::ACTION_CUSTOMER_COMPLETE,
-            ]
-        ];
-
-        if (!is_null($this->performerId)) {
-            $actionChain[self::STATUS_NEW][] = self::ACTION_PERFORMER_PENDING;
-            $actionChain[self::STATUS_INPROGRESS][] = self::ACTION_PERFORMER_REFUSE;
-        }
-
-        if (!isset($actionChain[$this->status])) {
+        $actionChain = $this->getActionsByCurrentStatus();
+        if (is_null($actionChain)) {
             return false;
         }
 
-        return in_array($action, $actionChain[$this->status]);
+        return in_array($action, $actionChain[$this->getStatus()]);
     }
 
     /**
@@ -224,7 +285,7 @@ class Task
      * @param string $status Именованный статус задания.
      * @return bool
      */
-    public static function isStatusValid(string $status): bool
+    private static function isStatusValid(string $status): bool
     {
         return in_array($status, self::STATUS_LIST);
     }
@@ -233,11 +294,50 @@ class Task
      * @param string $action Наименование 'Действия'
      * @return bool
      */
-    public static function isActionValid(string $action): bool
+    private static function isActionValid(string $action): bool
     {
         return in_array($action, self::ACTION_LIST);
     }
+
+    /**
+     * Проверка на наличие `Исполнителя` в `Задании`.
+     * @return bool
+     */
+    private function isHasPerformer(): bool
+    {
+        return !is_null($this->getPerformer());
+    }
 }
+
+
+class BaseTaskException extends Exception
+{
+}
+
+class StatusTaskException extends BaseTaskException
+{
+}
+
+/** Status Exceptions */
+
+class NotValidStatusException extends StatusTaskException
+{
+}
+
+class NotFoundStatusException extends StatusTaskException
+{
+}
+
+class NotAllowedStatusException extends StatusTaskException
+{
+}
+
+/** Action Exception  */
+
+class ActionTaskException extends BaseTaskException
+{
+}
+
 
 
 class NotAllowedActionException extends Exception
