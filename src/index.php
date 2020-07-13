@@ -1,6 +1,5 @@
 <?php
 error_reporting(E_ALL);
-// ini_set('zend.assertions', -1);
 require_once 'Task.php';
 
 $task = new Task(1, 3);
@@ -14,7 +13,7 @@ try {
   echo "\nStatus after Pending  - '{$task->actionPending()}'";
   echo "\nStatus after Complete - '{$task->actionComplete()}'";
   echo "\nРезультат: 'Success'";
-} catch (Exception $e) {
+} catch (BaseTaskException $e) {
   echo "\nСценарий 1: Fail with message '{$e->getMessage()}'";
 }
 
@@ -25,7 +24,7 @@ try {
   echo "\nStatus after actionPending - '{$task->actionPending()}'";
   echo "\nStatus after actionRefuse  - '{$task->actionRefuse()}'";
   echo "\nРезультат: 'Success'";
-} catch (Exception $e) {
+} catch (BaseTaskException $e) {
   echo "\nРезультат: 'Fail' {$e->getMessage()}";
 }
 
@@ -35,7 +34,7 @@ echo "Сценарий 3: 'Заказчик' закрыл заявку до на
 try {
   echo "\nStatus after actionCancel - '{$task->actionCancel()}'";
   echo "\nРезультат: 'Success'";
-} catch (Exception $e) {
+} catch (BaseTaskException $e) {
   echo "\nResult: Fail with message '{$e->getMessage()}'";
 }
 
@@ -46,7 +45,7 @@ try {
   echo "\nStatus after actionPending - '{$task->actionPending()}'";
   echo "\nStatus after actionCancel - '{$task->actionCancel()}'";
   echo "\nРезультат: 'Fail'";
-} catch (Exception $e) {
+} catch (BaseTaskException $e) {
   echo "\nРезультат: 'Success' {$e->getMessage()}";
 }
 
@@ -56,7 +55,7 @@ echo "Сценарий 5: 'Исполнитель' отказался от не 
 try {
   echo "\nStatus after actionRefuse - '{$task->actionRefuse()}'";
   echo "\nРезультат: 'Fail'";
-} catch (Exception $e) {
+} catch (BaseTaskException $e) {
   echo "\nРезультат: 'Success' {$e->getMessage()}";
 }
 
@@ -67,7 +66,7 @@ try {
   echo "\nStatus after actionPending - '{$task->actionPending()}'";
   echo "\nStatus after actionComplete - '{$task->actionComplete()}'";
   echo "\nРезультат: 'Fail'";
-} catch (Exception $e) {
+} catch (BaseTaskException $e) {
   echo "\nРезультат: 'Success' {$e->getMessage()}";
 }
 
@@ -78,7 +77,7 @@ try {
   echo "\nStatus after actionPending - '{$task->actionPending()}'";
   echo "\nStatus after actionPending - '{$task->actionPending()}'";
   echo "\nРезультат: 'Fail'";
-} catch (Exception $e) {
+} catch (BaseTaskException $e) {
   echo "\nРезультат: 'Success' {$e->getMessage()}";
 }
 
