@@ -6,6 +6,7 @@
  * @property int $performerId ID Исполнителя 
  * @property int $customerId ID Заказчика
  * @property string $status Статус задачи
+ * @property string $role Роль пользователя
  */
 class Task
 {
@@ -29,9 +30,15 @@ class Task
     /** Исполнитель отказался от задания */
     const ACTION_PERFORMER_REFUSE = 'refuse';
 
+    /** Исполнитель */
+    const ROLE_PERFORMER = 'performer';
+    /** Заказчик */
+    const ROLE_CUSTOMER = 'customer';
+
     private $customerId;
     private $performerId;
     private $status;
+    private $role;
 
     /**
      * Создание новой схемы 'Задачи'.
@@ -124,6 +131,32 @@ class Task
         return $this->performerId;
     }
 
+    /** @return string|null $role */
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    /**
+     * Представиться "Заказчиком"
+     * @return self
+     */
+    public function asCustomer(): self
+    {
+        $this->setRole(self::ROLE_CUSTOMER);
+        return $this;
+    }
+
+    /**
+     * Представиться "Исполнителем"
+     * @return self
+     */
+    public function asPerformer(): self
+    {
+        $this->setRole(self::ROLE_PERFORMER);
+        return $this;
+    }
+
     /**
      * Устанавливает новое "Состояние" для приложения
      * @param string $status
@@ -134,89 +167,28 @@ class Task
     }
 
     /**
-     * Проверка на наличие `Исполнителя` в `Задании`.
-     * @return bool
+     * Устанавливает "Роль"
+     * @return void
+     * @throws NotFoundRoleException Если "Роль" не найдена.
      */
-    public function isHasPerformer(): bool
+    private function setRole(string $role): void
     {
-        return !is_null($this->getPerformer());
-    }
-
-
-    /**
-     * Карта достпуных "Действий".
-     * 
-     * @return array
-     */
-    private function getStatusActionList(): array
-    {
-        $map = [
-            self::STATUS_NEW => [
-                self::ACTION_CUSTOMER_CANCEL
-            ],
-            self::STATUS_INPROGRESS => [
-                self::ACTION_CUSTOMER_CANCEL,
-                self::ACTION_CUSTOMER_COMPLETE,
-            ]
-        ];
-
-        if ($this->isHasPerformer()) {
-            $map[self::STATUS_NEW][] = self::ACTION_PERFORMER_PENDING;
-            $map[self::STATUS_INPROGRESS][] = self::ACTION_PERFORMER_REFUSE;
+        if (!self::isRoleValid($role)) {
+            throw new NotFoundRoleException($role);
         }
-
-        return $map;
-    }
-
-    /**
-     * Список доступных "Состояний".
-     * 
-     * @return array
-     */
-    private function getStatusList(): array
-    {
-        $map = [];
-        $map[self::STATUS_NEW][] = self::STATUS_CANCELED;
-
-        if ($this->isHasPerformer()) {
-            $map[self::STATUS_NEW][] = self::STATUS_INPROGRESS;
-            $map[self::STATUS_INPROGRESS] = [
-                self::ACTION_PERFORMER_REFUSE,
-                self::STATUS_COMPLETE,
-                self::STATUS_FAIL
-            ];
-        }
-
-        return $map;
-    }
-
-    /**
-     * Список доступных "Действий" для текущего "Состояния".
-     * 
-     * @return array
-     */
-    private function getAllowedActionsList(): array
-    {
-        $statusActions = $this->getStatusActionList();
-        $currentStatus = $this->getStatus();
-
-        return isset($statusActions[$currentStatus]) ? $statusActions[$currentStatus] : [];
+        $this->role = $role;
     }
 
     /** 
-     * Список доступных "Состояний"
-     * @return array
+     * Сбрасывает "Роль"
      */
-    private function getAllowedStatusList(): array
+    private function resetRole(): void
     {
-        $statusList = $this->getStatusList();
-        $currentStatus = $this->getStatus();
-
-        return isset($statusList[$currentStatus]) ? $statusList[$currentStatus] : [];
+        $this->role = null;
     }
 
     /** 
-     * Изменение статуса задания
+     * Изменяет "Состояние" после выполнения "Действия"
      * 
      * @param string $currentAction Текущее действие. 
      * @return void
@@ -236,6 +208,72 @@ class Task
         }
 
         $this->setStatus($newStatus);
+        $this->resetRole();
+    }
+
+    /**
+     * Проверка на наличие `Исполнителя` в `Задании`.
+     * @return bool
+     */
+    public function isHasPerformer(): bool
+    {
+        return !is_null($this->getPerformer());
+    }
+
+    /**
+     * Возвращает "Действия" текущего пользователя на основе его "Роли"
+     * 
+     * @return array
+     * @throws UndefinedRoleException Если "Роль" не определена.
+     */
+    private function getRoleActions(): array
+    {
+        $currentRole = $this->getRole();
+        if (is_null($currentRole)) {
+            throw new UndefinedRoleException();
+        }
+
+        $actions = self::listRoleActions();
+
+        return isset($actions[$currentRole]) ? $actions[$currentRole] : [];
+    }
+
+    /**
+     * Возвращает "Действия" текущего "Состояния"
+     * @return array
+     */
+    private function getStatusActions(): array
+    {
+        $currentStatus = $this->getStatus();
+        $actions = self::listStatusActions();
+
+        return isset($actions[$currentStatus]) ? $actions[$currentStatus] : [];
+    }
+
+    /**
+     * Список доступных "Действий" для "Состояния".
+     * 
+     * @param string $status
+     * @return array
+     */
+    private function getAllowedActionsList(): array
+    {
+        $roleActions = $this->getRoleActions();
+        $statusActions = $this->getStatusActions();
+
+        return array_intersect($roleActions, $statusActions);
+    }
+
+    /** 
+     * Список доступных "Состояний"
+     * @return array
+     */
+    private function getAllowedStatusList(): array
+    {
+        $statusList = self::listStatusStatuses();
+        $currentStatus = $this->getStatus();
+
+        return isset($statusList[$currentStatus]) ? $statusList[$currentStatus] : [];
     }
 
     /** 
@@ -254,7 +292,7 @@ class Task
     }
 
     /**
-     * Проверяет, допускаетлся выполнение Действия
+     * Проверяет, допускается ли выполнение "Действия"
      *
      * @param string $action Действие
      * @return bool
@@ -288,9 +326,76 @@ class Task
     }
 
     /**
-     * Карта действий.
+     * @param string $role "Роль"
+     * @return bool
+     */
+    private static function isRoleValid(string $role): bool
+    {
+        return in_array($role, self::roleMap(true));
+    }
+
+    /**
+     * Список "Состояний" для каждого "Состояния".
      * 
-     * @param bool $onlyKeys По умалчанию NULL
+     * @return array [ status => [...statuses] ]
+     */
+    private static function listStatusStatuses(): array
+    {
+        return [
+            self::STATUS_NEW => [
+                self::STATUS_CANCELED,
+                self::STATUS_INPROGRESS
+            ],
+            self::STATUS_INPROGRESS => [
+                self::STATUS_COMPLETE,
+                self::STATUS_FAIL
+            ]
+        ];
+    }
+
+    /**
+     * Список "Действий" для каждого "Состояния".
+     * 
+     * @return array [ status => [...actions]]
+     */
+    private static function listStatusActions(): array
+    {
+        return [
+            self::STATUS_NEW => [
+                self::ACTION_CUSTOMER_CANCEL,
+                self::ACTION_PERFORMER_PENDING
+            ],
+            self::STATUS_INPROGRESS => [
+                self::ACTION_CUSTOMER_CANCEL,
+                self::ACTION_CUSTOMER_COMPLETE,
+                self::ACTION_PERFORMER_REFUSE
+            ]
+        ];
+    }
+
+    /** 
+     * Список "Действий" для каждой "Роли"
+     * 
+     * @return array [ role => [...actions]]
+     */
+    private static function listRoleActions(): array
+    {
+        return [
+            self::ROLE_CUSTOMER => [
+                self::ACTION_CUSTOMER_CANCEL,
+                self::ACTION_CUSTOMER_COMPLETE
+            ],
+            self::ROLE_PERFORMER => [
+                self::ACTION_PERFORMER_PENDING,
+                self::ACTION_PERFORMER_REFUSE
+            ]
+        ];
+    }
+
+    /**
+     * Карта всех действий.
+     * 
+     * @param bool $onlyKeys По умалчанию `false`
      * @return array Ассоциативный массив или только ключи
      */
     private static function actionMap(bool $onlyKeys = false): array
@@ -306,9 +411,9 @@ class Task
     }
 
     /**
-     * Карта статусов.
+     * Карта всех статусов.
      * 
-     * @param bool $onlyKeys По умолчанию NULL
+     * @param bool $onlyKeys По умолчанию `false`
      * @return array Ассоциативный массив или только ключи
      */
     private static function statusMap(bool $onlyKeys = false): array
@@ -323,14 +428,49 @@ class Task
 
         return  $onlyKeys ? array_keys($map) : $map;
     }
+
+    /**
+     * Карта всех "Ролей"
+     * 
+     * @param bool $onlyKeys По умолчанию `false`
+     * @return array Ассоциативный массив или только ключи
+     */
+    private static function roleMap(bool $onlyKeys = false): array
+    {
+        $map = [
+            self::ROLE_PERFORMER => 'Исполнитель',
+            self::ROLE_CUSTOMER => 'Заказчик'
+        ];
+
+        return  $onlyKeys ? array_keys($map) : $map;
+    }
 }
 
-
+/**
+ * Кастомное базовое исключение
+ */
 class BaseTaskException extends Exception
 {
 }
 
+/**
+ * Базовое исключение "Состояний"
+ */
 class StatusTaskException extends BaseTaskException
+{
+}
+
+/**
+ * Базовое исключение "Действий"
+ */
+class ActionTaskException extends BaseTaskException
+{
+}
+
+/**
+ * Базовое исключение "Ролей"
+ */
+class RoleTaskException extends BaseTaskException
 {
 }
 
@@ -352,10 +492,6 @@ class NotAllowedStatusException extends StatusTaskException
     }
 }
 
-class ActionTaskException extends BaseTaskException
-{
-}
-
 class NotValidActionException extends ActionTaskException
 {
     public function __construct(string $action, int $code = 0)
@@ -365,12 +501,29 @@ class NotValidActionException extends ActionTaskException
     }
 }
 
-
 class NotAllowedActionException extends ActionTaskException
 {
     public function __construct(string $action, int $code = 0)
     {
         $message = "Не возможно выполнить \"Действие\": '{$action}'";
+        parent::__construct($message, $code);
+    }
+}
+
+class UndefinedRoleException extends RoleTaskException
+{
+    public function __construct()
+    {
+        $message = "\"Роль\" не определена";
+        parent::__construct($message);
+    }
+}
+
+class NotFoundRoleException extends RoleTaskException
+{
+    public function __construct(string $role, int $code = 0)
+    {
+        $message = "Роль '{$role}' не найдена";
         parent::__construct($message, $code);
     }
 }
