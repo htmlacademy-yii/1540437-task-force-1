@@ -1,5 +1,12 @@
 <?php
 
+namespace app\models;
+
+use app\exceptions\task\NotAllowedActionException;
+use app\exceptions\task\NotAllowedStatusException;
+use app\exceptions\task\NotValidActionException;
+use app\exceptions\task\NotValidStatusException;
+
 /**
  * Базовый класс Задач
  * 
@@ -76,7 +83,6 @@ class Task
      */
     public function actionCancel(string $role): string
     {
-
         $this->changeStatus(self::ACTION_CUSTOMER_CANCEL, $role);
         return $this->getStatus();
     }
@@ -189,7 +195,6 @@ class Task
     private function getRoleActions(string $role): array
     {
         $actions = self::listRoleActions();
-
         return isset($actions[$role]) ? $actions[$role] : [];
     }
 
@@ -374,87 +379,5 @@ class Task
         ];
 
         return  $onlyKeys ? array_keys($map) : $map;
-    }
-}
-
-/**
- * Кастомное базовое исключение
- */
-class BaseTaskException extends Exception
-{
-}
-
-/**
- * Базовое исключение "Состояний"
- */
-class StatusTaskException extends BaseTaskException
-{
-}
-
-/**
- * Базовое исключение "Действий"
- */
-class ActionTaskException extends BaseTaskException
-{
-}
-
-/**
- * Базовое исключение "Ролей"
- */
-class RoleTaskException extends BaseTaskException
-{
-}
-
-class NotValidStatusException extends StatusTaskException
-{
-    public function __construct(string $status, int $code = 0)
-    {
-        $message = "Не допустимое значение \"Состояния\" - {$status}";
-        parent::__construct($message, $code);
-    }
-}
-
-class NotAllowedStatusException extends StatusTaskException
-{
-    public function __construct(string $status, int $code = 0)
-    {
-        $message = "Не возможно изменить \"Состояние\" на '{$status}'";
-        parent::__construct($message, $code);
-    }
-}
-
-class NotValidActionException extends ActionTaskException
-{
-    public function __construct(string $action, int $code = 0)
-    {
-        $message = "Не допустимое значение \"Действия\" - {$action}";
-        parent::__construct($message, $code);
-    }
-}
-
-class NotAllowedActionException extends ActionTaskException
-{
-    public function __construct(string $action, int $code = 0)
-    {
-        $message = "Не возможно выполнить \"Действие\": '{$action}'";
-        parent::__construct($message, $code);
-    }
-}
-
-class UndefinedRoleException extends RoleTaskException
-{
-    public function __construct()
-    {
-        $message = "\"Роль\" не определена";
-        parent::__construct($message);
-    }
-}
-
-class NotFoundRoleException extends RoleTaskException
-{
-    public function __construct(string $role, int $code = 0)
-    {
-        $message = "Роль '{$role}' не найдена";
-        parent::__construct($message, $code);
     }
 }
