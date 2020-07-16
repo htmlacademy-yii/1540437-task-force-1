@@ -1,6 +1,8 @@
 <?php
+require_once "vendor/autoload.php";
 error_reporting(E_ALL);
-require_once 'Task.php';
+
+use app\models\Task;
 
 function assertHandler($file, $line, $code, $desc = null)
 {
