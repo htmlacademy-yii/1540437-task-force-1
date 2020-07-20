@@ -17,29 +17,29 @@ use app\exceptions\task\NotValidStatusException;
 class Task
 {
     /** Задание опубликовано, исполнитель ещё не найден */
-    const STATUS_NEW = 'new';
+    const STATUS_NEW = 'NEW';
     /** Заказчик отменил задание */
-    const STATUS_CANCELED = 'canceled';
+    const STATUS_CANCELED = 'CANCELED';
     /** Заказчик выбрал исполнителя для задания */
-    const STATUS_INPROGRESS = 'in_progress';
+    const STATUS_INPROGRESS = 'INPROGRESS';
     /** Заказчик отметил задание как выполненное */
-    const STATUS_COMPLETE = 'complete';
+    const STATUS_COMPLETE = 'COMPLETE';
     /** Исполнитель отказался от выполнения задания */
-    const STATUS_FAIL = 'fail';
+    const STATUS_FAIL = 'FAIL';
 
     /** Заказчик отменил задание */
-    const ACTION_CUSTOMER_CANCEL = 'cancel';
+    const ACTION_CUSTOMER_CANCEL = 'CANCEL';
     /** Заказчик пометил задание как Завершенное */
-    const ACTION_CUSTOMER_COMPLETE = 'complete';
+    const ACTION_CUSTOMER_COMPLETE = 'COMPLETE';
     /** Исполнитель откликнулся на новое задание */
-    const ACTION_PERFORMER_PENDING = 'pending';
+    const ACTION_PERFORMER_PENDING = 'PENDING';
     /** Исполнитель отказался от задания */
-    const ACTION_PERFORMER_REFUSE = 'refuse';
+    const ACTION_PERFORMER_REFUSE = 'REFUSE';
 
     /** Исполнитель */
-    const ROLE_PERFORMER = 'performer';
+    const ROLE_PERFORMER = 'PERFORMER';
     /** Заказчик */
-    const ROLE_CUSTOMER = 'customer';
+    const ROLE_CUSTOMER = 'CUSTOMER';
 
     private $customerId;
     private $performerId;
