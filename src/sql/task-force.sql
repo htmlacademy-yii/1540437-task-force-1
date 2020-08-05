@@ -1,6 +1,9 @@
 -- MySQL Workbench
--- Version: 1.3
+-- Version: 1.4
 -- Author: Alexey Pozhidaev
+
+DROP DATABASE `taskforce`;
+CREATE SCHEMA `taskforce`;
 
 CREATE TABLE IF NOT EXISTS `taskforce`.`cities` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -40,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`users` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uidx_email` (`email` ASC),
   INDEX `idx_role` (`role` ASC),
-  INDEX `fk_users_cities_idx` (`citiy_id` ASC),
+  INDEX `fk_users_cities_idx` (`city_id` ASC),
   CONSTRAINT `fk_users_cities`
-    FOREIGN KEY (`citiy_id`)
+    FOREIGN KEY (`city_id`)
     REFERENCES `taskforce`.`cities` (`id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
@@ -52,6 +55,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `taskforce`.`tasks` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT(10) UNSIGNED NOT NULL,
+  `performer_user_id` INT(10) UNSIGNED NULL DEFAULT NULL,
   `category_id` INT(10) UNSIGNED NOT NULL,
   `city_id` INT(10) UNSIGNED NOT NULL,
   `title` VARCHAR(256) NULL DEFAULT NULL,
@@ -69,7 +73,8 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`tasks` (
   INDEX `idx_start_date` (`start_date` ASC),
   INDEX `fk_tasks_categories_idx` (`category_id` ASC),
   INDEX `fk_tasks_users_idx` (`user_id` ASC),
-  INDEX `fk_tasks_cities_idx` (`city_id` ASC)  
+  INDEX `fk_tasks_cities_idx` (`city_id` ASC),
+  INDEX `fk_tasks_performer_idx` (`performer_user_id` ASC),
   CONSTRAINT `fk_tasks_categories`
     FOREIGN KEY (`category_id`)
     REFERENCES `taskforce`.`categories` (`id`)
@@ -83,6 +88,11 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`tasks` (
   CONSTRAINT `fk_tasks_cities`
     FOREIGN KEY (`city_id`)
     REFERENCES `taskforce`.`cities` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_tasks_user_performer`
+    FOREIGN KEY (`performer_user_id`)
+    REFERENCES `taskforce`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -180,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`user_notifications` (
   `user_id` INT(10) UNSIGNED NOT NULL,
   `new_message` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
   `new_respond` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
-  `task_actions` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1
+  `task_actions` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   INDEX `fk_user_notify_users_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_notify_users`
