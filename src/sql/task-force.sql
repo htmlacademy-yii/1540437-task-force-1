@@ -158,28 +158,29 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `taskforce`.`user_favorites` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT(10) UNSIGNED NOT NULL,
-  `favorit_id` INT(10) UNSIGNED NOT NULL,
+  `favorite_user_id` INT(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_favorites_users_idx` (`user_id` ASC),
-  INDEX `fk_user_favorites_favorite_idx` (`favorit_id` ASC),
+  INDEX `fk_user_favorites_favorite_idx` (`favorite_user_id` ASC),
   CONSTRAINT `fk_user_favorites_users`
     FOREIGN KEY (`user_id`)
     REFERENCES `taskforce`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_favorites_favorite`
-    FOREIGN KEY (`favorit_id`)
+    FOREIGN KEY (`favorite_user_id`)
     REFERENCES `taskforce`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `taskforce`.`user_notify` (
+CREATE TABLE IF NOT EXISTS `taskforce`.`user_notifications` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT(10) UNSIGNED NOT NULL,
-  `message` TEXT NULL DEFAULT NULL,
-  `status` TINYINT(3) UNSIGNED NULL DEFAULT NULL,
+  `new_message` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
+  `new_respond` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
+  `task_actions` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1
   PRIMARY KEY (`id`),
   INDEX `fk_user_notify_users_idx` (`user_id` ASC),
   CONSTRAINT `fk_user_notify_users`
