@@ -17,15 +17,15 @@ use app\exceptions\task\NotValidStatusException;
 class Task
 {
     /** Задание опубликовано, исполнитель ещё не найден */
-    const STATUS_NEW = 1;
+    const STATUS_NEW = 'NEW';
     /** Заказчик отменил задание */
-    const STATUS_CANCELED = 2;
+    const STATUS_CANCELED = 'CANCELED';
     /** Заказчик выбрал исполнителя для задания */
-    const STATUS_INPROGRESS = 3;
+    const STATUS_INPROGRESS = 'INPROGRESS';
     /** Заказчик отметил задание как выполненное */
-    const STATUS_COMPLETE = 4;
+    const STATUS_COMPLETE = 'COMPLETE';
     /** Исполнитель отказался от выполнения задания */
-    const STATUS_FAIL = 5;
+    const STATUS_FAIL = 'FAIL';
 
     /** Заказчик отменил задание */
     const ACTION_CUSTOMER_CANCEL = 'CANCEL';
