@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\bizzlogic;
 
 use app\exceptions\task\NotAllowedActionException;
 use app\exceptions\task\NotAllowedStatusException;

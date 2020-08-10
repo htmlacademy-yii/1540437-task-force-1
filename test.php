@@ -2,7 +2,7 @@
 require_once "vendor/autoload.php";
 error_reporting(E_ALL);
 
-use app\models\Task;
+use app\bizzlogic\Task;
 
 function assertHandler($file, $line, $code, $desc = null)
 {
