@@ -2,20 +2,19 @@
 
 namespace app\bizzlogic;
 
+use app\bizzlogic\actions\task\Cancel as ActionCancel;
+use app\bizzlogic\actions\task\Complete as ActionComplete;
+use app\bizzlogic\actions\task\Pending as ActionPending;
+use app\bizzlogic\actions\task\Refuse as ActionRefuse;
 use app\exceptions\task\NotAllowedActionException;
 use app\exceptions\task\NotAllowedStatusException;
 use app\exceptions\task\NotValidActionException;
 use app\exceptions\task\NotValidStatusException;
 
-use app\actions\task\Cancel as CancleAction;
-use app\actions\task\Complete as CompleteAction;
-use app\actions\task\Pending as PendingAction;
-use app\actions\task\Refuse as RefuseAction;
-
-
 /**
  * Базовый класс Задач
  * 
+ * @property int $userId ID текущего пользователя
  * @property int $performerId ID Исполнителя 
  * @property int $customerId ID Заказчика
  * @property string $status Статус задачи
@@ -34,19 +33,30 @@ class Task
     const STATUS_FAIL = 'FAIL';
 
     /** Заказчик отменил задание */
-    const ACTION_CUSTOMER_CANCEL = 'CANCEL';
+    // const ACTION_CUSTOMER_CANCEL = 'CANCEL';
     /** Заказчик пометил задание как Завершенное */
-    const ACTION_CUSTOMER_COMPLETE = 'COMPLETE';
+    // const ACTION_CUSTOMER_COMPLETE = 'COMPLETE';
     /** Исполнитель откликнулся на новое задание */
-    const ACTION_PERFORMER_PENDING = 'PENDING';
+    // const ACTION_PERFORMER_PENDING = 'PENDING';
     /** Исполнитель отказался от задания */
-    const ACTION_PERFORMER_REFUSE = 'REFUSE';
+    // const ACTION_PERFORMER_REFUSE = 'REFUSE';
 
     /** Исполнитель */
     const ROLE_PERFORMER = 'PERFORMER';
     /** Заказчик */
     const ROLE_CUSTOMER = 'CUSTOMER';
 
+    // private function actions()
+    // {
+    //     return [
+    //         self::ACTION_CUSTOMER_CANCEL => 'app\bizzlogic\actions\task\Cancel',
+    //         self::ACTION_CUSTOMER_COMPLETE => 'app\bizzlogic\actions\task\Complete',
+    //         self::ACTION_PERFORMER_PENDING => 'app\bizzlogic\actions\task\Pending',
+    //         self::ACTION_PERFORMER_REFUSE => 'app\bizzlogic\actions\task\Refuse'
+    //     ];
+    // }
+
+    private $userId;
     private $customerId;
     private $performerId;
     private $status;
@@ -89,8 +99,14 @@ class Task
      */
     public function actionCancel(string $role): string
     {
-        $this->changeStatus(self::ACTION_CUSTOMER_CANCEL, $role);
-        return $this->getStatus();
+        $action = new ActionCancel();
+        $pId = $this->getPerformer();
+        $cId = $this->getCustomer();
+        $uId = $this->getUser();
+        if ($action->can($pId, $cId, $uId)) {
+            $this->changeStatus($action::internalName(), $role);
+            return $this->getStatus();
+        }
     }
 
     /**
@@ -102,7 +118,7 @@ class Task
     public function actionRefuse(string $role): string
     {
 
-        $this->changeStatus(self::ACTION_PERFORMER_REFUSE, $role);
+        $this->changeStatus(ActionRefuse::internalName(), $role);
         return $this->getStatus();
     }
 
@@ -114,7 +130,7 @@ class Task
      */
     public function actionComplete(string $role): string
     {
-        $this->changeStatus(self::ACTION_CUSTOMER_COMPLETE, $role);
+        $this->changeStatus(ActionComplete::internalName(), $role);
         return $this->getStatus();
     }
 
@@ -126,17 +142,28 @@ class Task
      */
     public function actionPending(string $role): string
     {
-        $this->changeStatus(self::ACTION_PERFORMER_PENDING, $role);
+        $this->changeStatus(ActionPending::internalName(), $role);
         return $this->getStatus();
     }
 
     /**
      * Возвращает текщуее `Состояние`
+     * 
      * @return string $status
      */
     public function getStatus(): string
     {
         return $this->status;
+    }
+
+    /**
+     * Текущий пользователь
+     *
+     * @return int $userId
+     */
+    public function getUser(): int
+    {
+        return $this->userId;
     }
 
     /** @return int $customerId */
@@ -153,6 +180,7 @@ class Task
 
     /**
      * Устанавливает новое "Состояние" для приложения
+     * 
      * @param string $status
      */
     private function setStatus(string $status): void
@@ -314,19 +342,19 @@ class Task
     /**
      * Список "Действий" для каждого "Состояния".
      * 
-     * @return array [ status => [...actions]]
+     * @return array [ status => [...Action Objects]]
      */
     private static function listStatusActions(): array
     {
         return [
             self::STATUS_NEW => [
-                self::ACTION_CUSTOMER_CANCEL,
-                self::ACTION_PERFORMER_PENDING
+                new ActionCancel,
+                new ActionPending
             ],
             self::STATUS_INPROGRESS => [
-                self::ACTION_CUSTOMER_CANCEL,
-                self::ACTION_CUSTOMER_COMPLETE,
-                self::ACTION_PERFORMER_REFUSE
+                new ActionCancel,
+                new ActionComplete,
+                new ActionRefuse
             ]
         ];
     }
@@ -340,12 +368,12 @@ class Task
     {
         return [
             self::ROLE_CUSTOMER => [
-                self::ACTION_CUSTOMER_CANCEL,
-                self::ACTION_CUSTOMER_COMPLETE
+                new ActionCancel,
+                new ActionComplete
             ],
             self::ROLE_PERFORMER => [
-                self::ACTION_PERFORMER_PENDING,
-                self::ACTION_PERFORMER_REFUSE
+                new ActionPending,
+                new ActionRefuse
             ]
         ];
     }
@@ -359,10 +387,10 @@ class Task
     private static function actionMap(bool $onlyKeys = false): array
     {
         $map = [
-            self::ACTION_CUSTOMER_CANCEL => 'Отменить',
-            self::ACTION_CUSTOMER_COMPLETE => 'Завершить',
-            self::ACTION_PERFORMER_PENDING => 'Откликнутся',
-            self::ACTION_PERFORMER_REFUSE => 'Отказатся'
+            ActionCancel::internalName() => ActionCancel::name(),
+            ActionComplete::internalName() => ActionComplete::name(),
+            ActionPending::internalName() => ActionPending::name(),
+            ActionRefuse::internalName() => ActionRefuse::name(),
         ];
 
         return $onlyKeys ? array_keys($map) : $map;

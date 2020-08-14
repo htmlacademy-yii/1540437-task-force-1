@@ -7,13 +7,13 @@ namespace app\bizzlogic\actions\task;
 class Cancel extends AbstractTaskAction
 {
     /** {@inheritdoc} */
-    protected static function name(): string
+    public static function name(): string
     {
         return 'Отменить';
     }
 
     /** {@inheritdoc} */
-    protected static function internalName(): string
+    public static function internalName(): string
     {
         return 'act_cancel';
     }

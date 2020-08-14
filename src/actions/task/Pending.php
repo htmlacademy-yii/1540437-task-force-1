@@ -6,13 +6,13 @@ namespace app\bizzlogic\actions\task;
 class Pending extends AbstractTaskAction
 {
     /** {@inheritdoc} */
-    protected static function name(): string
+    public static function name(): string
     {
         return 'Откликнуться';
     }
 
     /** {@inheritdoc} */
-    protected static function internalName(): string
+    public static function internalName(): string
     {
         return 'act_pending';
     }

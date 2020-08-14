@@ -8,12 +8,12 @@ abstract class AbstractTaskAction
     /**
      * @return string Название действия
      */
-    abstract protected static function name(): string;
+    abstract public static function name(): string;
 
     /**
      * @return string Внтуреннее имя
      */
-    abstract protected static function internalName(): string;
+    abstract public static function internalName(): string;
 
     /**
      * Проверка прав на выполеннеи действия
