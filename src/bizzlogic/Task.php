@@ -7,6 +7,12 @@ use app\exceptions\task\NotAllowedStatusException;
 use app\exceptions\task\NotValidActionException;
 use app\exceptions\task\NotValidStatusException;
 
+use app\actions\task\Cancel as CancleAction;
+use app\actions\task\Complete as CompleteAction;
+use app\actions\task\Pending as PendingAction;
+use app\actions\task\Refuse as RefuseAction;
+
+
 /**
  * Базовый класс Задач
  * 

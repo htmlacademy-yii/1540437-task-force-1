@@ -1,24 +1,25 @@
 <?php
 
-namespace app\actions\task;
+namespace app\bizzlogic\actions\task;
 
+/** {@inheritDoc} */
 class Complete extends AbstractTaskAction
 {
     /** {@inheritdoc} */
-    public function getName(): string
+    protected static function name(): string
     {
         return 'Завершить';
     }
 
     /** {@inheritdoc} */
-    public function internalName(): string
+    protected static function internalName(): string
     {
         return 'act_complete';
     }
 
     /** {@inheritdoc} */
-    public function can(): bool
+    public function can(int $performerId, int $customerId, int $userId): bool
     {
-        return true;
+        return $userId === $customerId;
     }
 }
