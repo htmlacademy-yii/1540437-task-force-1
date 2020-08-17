@@ -1,13 +1,10 @@
 <?php
 
-namespace app\exceptions\task;
+namespace app\exceptions\action;
 
-use app\exceptions\base\TaskActionException;
+use app\exceptions\base\ActionException;
 
-/**
- * Если "Действие" задания не доступно
- */
-class NotAllowedActionException extends TaskActionException
+class NotEnoughRightsActionException extends ActionException
 {
     /**
      * Схема "Исключения"
@@ -17,7 +14,7 @@ class NotAllowedActionException extends TaskActionException
      */
     public function __construct(string $action, int $code = 0)
     {
-        $message = "Не возможно выполнить \"Действие\": '{$action}'";
+        $message = "Не хватает прав на выполнения \"Действие\": '{$action}'";
         parent::__construct($message, $code);
     }
 }

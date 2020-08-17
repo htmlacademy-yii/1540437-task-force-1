@@ -1,7 +1,7 @@
 <?php
 require_once "vendor/autoload.php";
 
-use app\models\Task;
+use app\bizzlogic\Task;
 use app\exceptions\base\TaskException as BaseTaskException;
 
 echo "\n---- Begin -----\n";
