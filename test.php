@@ -10,11 +10,11 @@ use app\bizzlogic\Task;
 
 function assertHandler($file, $line, $code, $desc = null)
 {
-  echo "Неудачная проверка утверждения в $file:$line";
-  if ($desc) {
-    echo ":Decription: {$desc}";
-  }
-  echo "\n";
+    echo "Неудачная проверка утверждения в $file:$line";
+    if ($desc) {
+        echo ":Decription: {$desc}";
+    }
+    echo "\n";
 }
 
 assert_options(ASSERT_ACTIVE, 1);
@@ -29,5 +29,3 @@ assert($task->getNextStatus(Pending::internalName()) === Task::STATUS_INPROGRESS
 assert($task->getNextStatus(Refuse::internalName()) === Task::STATUS_FAIL, 'action Refuse');
 assert($task->getNextStatus(Cancel::internalName()) === Task::STATUS_CANCELED, 'action Cancel');
 assert($task->getNextStatus(Complete::internalName()) === Task::STATUS_COMPLETE, 'action Complete');
-
-assert($task->actionCancel(Task::ROLE_CUSTOMER, $userId) === true, 'Action Cancel by Customer');

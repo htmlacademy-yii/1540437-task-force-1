@@ -45,9 +45,9 @@ class Task
     /** Заказчик */
     const ROLE_CUSTOMER = 'CUSTOMER';
 
-    private $_customerId;
-    private $_performerId;
-    private $_status;
+    private $customerId;
+    private $performerId;
+    private $status;
 
     /**
      * Создание новой схемы 'Задачи'.
@@ -58,9 +58,9 @@ class Task
      */
     public function __construct(int $customer, ?int $performer = null)
     {
-        $this->_status = self::STATUS_NEW;
-        $this->_customerId = $customer;
-        $this->_performerId = $performer;
+        $this->status = self::STATUS_NEW;
+        $this->customerId = $customer;
+        $this->performerId = $performer;
     }
 
     /**
@@ -94,7 +94,7 @@ class Task
     {
         try {
             $this->runAction(new ActionCancel(), $role, $userId);
-            return $this->_status;
+            return $this->status;
         } catch (ActionException $e) {
             return $e->getMessage();
         }
@@ -111,7 +111,7 @@ class Task
     {
         try {
             $this->runAction(new ActionRefuse(), $role, $userId);
-            return $this->_status;
+            return $this->status;
         } catch (ActionException $e) {
             return $e->getMessage();
         }
@@ -128,7 +128,7 @@ class Task
     {
         try {
             $this->runAction(new ActionComplete(), $role, $userId);
-            return $this->_status;
+            return $this->status;
         } catch (ActionException $e) {
             return $e->getMessage();
         }
@@ -144,7 +144,7 @@ class Task
     {
         try {
             $this->runAction(new ActionPending(), $role, $userId);
-            return $this->_status;
+            return $this->status;
         } catch (ActionException $e) {
             return $e->getMessage();
         }
@@ -160,7 +160,7 @@ class Task
      */
     private function runAction(AbstractTaskAction $action, string $role, int $userId): bool
     {
-        if ($action->can($this->_performerId, $this->_customerId, $userId)) {
+        if ($action->can($this->performerId, $this->customerId, $userId)) {
             $this->changeStatus($action::internalName(), $role);
             return true;
         } else {
@@ -175,19 +175,19 @@ class Task
      */
     public function getStatus(): string
     {
-        return $this->_status;
+        return $this->status;
     }
 
     /** @return int $customerId */
     public function getCustomer(): int
     {
-        return $this->_customerId;
+        return $this->customerId;
     }
 
     /** @return int|null $perfomerId */
     public function getPerformer(): ?int
     {
-        return $this->_performerId;
+        return $this->performerId;
     }
 
     /**
@@ -197,7 +197,7 @@ class Task
      */
     private function setStatus(string $status): void
     {
-        $this->_status = $status;
+        $this->status = $status;
     }
 
     /**
@@ -383,15 +383,11 @@ class Task
         return [
             self::ROLE_CUSTOMER => [
                 ActionCancel::internalName(),
-                // self::ACTION_CUSTOMER_CANCEL,
                 ActionComplete::internalName(),
-                // self::ACTION_CUSTOMER_COMPLETE
             ],
             self::ROLE_PERFORMER => [
                 ActionPending::internalName(),
-                // self::ACTION_PERFORMER_PENDING,
                 ActionRefuse::internalName(),
-                // self::ACTION_PERFORMER_REFUSE
             ]
         ];
     }
