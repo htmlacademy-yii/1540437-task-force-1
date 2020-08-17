@@ -1,6 +1,6 @@
 <?php
 
-namespace app\bizzlogic\actions\task;
+namespace app\actions\task;
 
 /** {@inheritDoc} */
 class Refuse extends AbstractTaskAction

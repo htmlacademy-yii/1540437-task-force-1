@@ -1,21 +1,29 @@
 <?php
 
+/**
+ * Базоый класс Бизнеслогики
+ *
+ * @author Alexey Pozhidaev <worka@bk.ru>
+ * @link   https://github.com/AlexBad
+ */
+
 namespace app\bizzlogic;
 
-use app\bizzlogic\actions\task\Cancel as ActionCancel;
-use app\bizzlogic\actions\task\Complete as ActionComplete;
-use app\bizzlogic\actions\task\Pending as ActionPending;
-use app\bizzlogic\actions\task\Refuse as ActionRefuse;
+use app\actions\task\AbstractTaskAction;
+use app\actions\task\Cancel as ActionCancel;
+use app\actions\task\Complete as ActionComplete;
+use app\actions\task\Pending as ActionPending;
+use app\actions\task\Refuse as ActionRefuse;
+use app\exceptions\action\NotEnoughRightsActionException;
+use app\exceptions\base\ActionException;
 use app\exceptions\task\NotAllowedActionException;
 use app\exceptions\task\NotAllowedStatusException;
 use app\exceptions\task\NotValidActionException;
 use app\exceptions\task\NotValidStatusException;
 
 /**
- * Базовый класс Задач
- * 
  * @property int $userId ID текущего пользователя
- * @property int $performerId ID Исполнителя 
+ * @property int $performerId ID Исполнителя
  * @property int $customerId ID Заказчика
  * @property string $status Статус задачи
  */
@@ -32,47 +40,27 @@ class Task
     /** Исполнитель отказался от выполнения задания */
     const STATUS_FAIL = 'FAIL';
 
-    /** Заказчик отменил задание */
-    // const ACTION_CUSTOMER_CANCEL = 'CANCEL';
-    /** Заказчик пометил задание как Завершенное */
-    // const ACTION_CUSTOMER_COMPLETE = 'COMPLETE';
-    /** Исполнитель откликнулся на новое задание */
-    // const ACTION_PERFORMER_PENDING = 'PENDING';
-    /** Исполнитель отказался от задания */
-    // const ACTION_PERFORMER_REFUSE = 'REFUSE';
-
     /** Исполнитель */
     const ROLE_PERFORMER = 'PERFORMER';
     /** Заказчик */
     const ROLE_CUSTOMER = 'CUSTOMER';
 
-    // private function actions()
-    // {
-    //     return [
-    //         self::ACTION_CUSTOMER_CANCEL => 'app\bizzlogic\actions\task\Cancel',
-    //         self::ACTION_CUSTOMER_COMPLETE => 'app\bizzlogic\actions\task\Complete',
-    //         self::ACTION_PERFORMER_PENDING => 'app\bizzlogic\actions\task\Pending',
-    //         self::ACTION_PERFORMER_REFUSE => 'app\bizzlogic\actions\task\Refuse'
-    //     ];
-    // }
-
-    private $userId;
-    private $customerId;
-    private $performerId;
-    private $status;
+    private $_customerId;
+    private $_performerId;
+    private $_status;
 
     /**
      * Создание новой схемы 'Задачи'.
-     * 
+     *
      * @param int $customer ID Заказчика
      * @param int|null $performer ID Исполнителя, по умолчанию NULL
      * @return void
      */
     public function __construct(int $customer, ?int $performer = null)
     {
-        $this->status = self::STATUS_NEW;
-        $this->customerId = $customer;
-        $this->performerId = $performer;
+        $this->_status = self::STATUS_NEW;
+        $this->_customerId = $customer;
+        $this->_performerId = $performer;
     }
 
     /**
@@ -82,10 +70,14 @@ class Task
     public function getNextStatus(string $action): ?string
     {
         $map = [
-            self::ACTION_PERFORMER_PENDING => self::STATUS_INPROGRESS,
-            self::ACTION_PERFORMER_REFUSE => self::STATUS_FAIL,
-            self::ACTION_CUSTOMER_CANCEL => self::STATUS_CANCELED,
-            self::ACTION_CUSTOMER_COMPLETE => self::STATUS_COMPLETE
+            ActionPending::internalName() => self::STATUS_INPROGRESS,
+            // self::ACTION_PERFORMER_PENDING => self::STATUS_INPROGRESS,
+            ActionRefuse::internalName() => self::STATUS_FAIL,
+            // self::ACTION_PERFORMER_REFUSE => self::STATUS_FAIL,
+            ActionCancel::internalName() => self::STATUS_CANCELED,
+            // self::ACTION_CUSTOMER_CANCEL => self::STATUS_CANCELED,
+            ActionComplete::internalName() => self::STATUS_COMPLETE
+            // self::ACTION_CUSTOMER_COMPLETE => self::STATUS_COMPLETE
         ];
 
         return isset($map[$action]) ? $map[$action] : null;
@@ -93,105 +85,125 @@ class Task
 
     /**
      * Заказчик отменил задание
-     * 
-     * @param string $role
+     *
+     * @param string $role Роль пользователя
+     * @param int $usrId Ид пользователя
      * @return string $status
      */
-    public function actionCancel(string $role): string
+    public function actionCancel(string $role, int $userId): string
     {
-        $action = new ActionCancel();
-        $pId = $this->getPerformer();
-        $cId = $this->getCustomer();
-        $uId = $this->getUser();
-        if ($action->can($pId, $cId, $uId)) {
-            $this->changeStatus($action::internalName(), $role);
-            return $this->getStatus();
+        try {
+            $this->runAction(new ActionCancel(), $role, $userId);
+            return $this->_status;
+        } catch (ActionException $e) {
+            return $e->getMessage();
         }
     }
 
     /**
      * Исполнитель отказался от выполнения задания.
-     * 
+     *
      * @param string $role
+     * @param int $userId
      * @return string $status
      */
-    public function actionRefuse(string $role): string
+    public function actionRefuse(string $role, int $userId): string
     {
-
-        $this->changeStatus(ActionRefuse::internalName(), $role);
-        return $this->getStatus();
+        try {
+            $this->runAction(new ActionRefuse(), $role, $userId);
+            return $this->_status;
+        } catch (ActionException $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
      * Заказчик пометил задание как `Завершенное`.
-     * 
-     * @param string $role
+     *
+     * @param string $role Роль пользователя
+     * @param int $userId ИД Пользователя
      * @return string $status
      */
-    public function actionComplete(string $role): string
+    public function actionComplete(string $role, $userId): string
     {
-        $this->changeStatus(ActionComplete::internalName(), $role);
-        return $this->getStatus();
+        try {
+            $this->runAction(new ActionComplete(), $role, $userId);
+            return $this->_status;
+        } catch (ActionException $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
      * Исполнитель предложил свои услуги.
-     * 
+     *
      * @param string $role
      * @return string $status
      */
-    public function actionPending(string $role): string
+    public function actionPending(string $role, int $userId): ?string
     {
-        $this->changeStatus(ActionPending::internalName(), $role);
-        return $this->getStatus();
+        try {
+            $this->runAction(new ActionPending(), $role, $userId);
+            return $this->_status;
+        } catch (ActionException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Выполнение Действия
+     *
+     * @param AbstractTaskAction $action
+     * @param string $role
+     * @param int $userId
+     * @return bool
+     */
+    private function runAction(AbstractTaskAction $action, string $role, int $userId): bool
+    {
+        if ($action->can($this->_performerId, $this->_customerId, $userId)) {
+            $this->changeStatus($action::internalName(), $role);
+            return true;
+        } else {
+            throw new NotEnoughRightsActionException($action::internalName());
+        }
     }
 
     /**
      * Возвращает текщуее `Состояние`
-     * 
+     *
      * @return string $status
      */
     public function getStatus(): string
     {
-        return $this->status;
-    }
-
-    /**
-     * Текущий пользователь
-     *
-     * @return int $userId
-     */
-    public function getUser(): int
-    {
-        return $this->userId;
+        return $this->_status;
     }
 
     /** @return int $customerId */
     public function getCustomer(): int
     {
-        return $this->customerId;
+        return $this->_customerId;
     }
 
     /** @return int|null $perfomerId */
     public function getPerformer(): ?int
     {
-        return $this->performerId;
+        return $this->_performerId;
     }
 
     /**
      * Устанавливает новое "Состояние" для приложения
-     * 
+     *
      * @param string $status
      */
     private function setStatus(string $status): void
     {
-        $this->status = $status;
+        $this->_status = $status;
     }
 
-    /** 
+    /**
      * Изменяет "Состояние" после выполнения "Действия"
-     * 
-     * @param string $currentAction Текущее действие. 
+     *
+     * @param string $currentAction Текущее действие.
      * @return void
      * @throws NotAllowedStatusException Если нельзя изменить "Статус"
      * @throws NotAllowedActionException Если нельзя выполнить "Действие"
@@ -213,6 +225,7 @@ class Task
 
     /**
      * Проверка на наличие `Исполнителя` в `Задании`.
+     *
      * @return bool
      */
     public function isHasPerformer(): bool
@@ -222,7 +235,7 @@ class Task
 
     /**
      * Возвращает "Действия" текущего пользователя на основе его "Роли"
-     * 
+     *
      * @return array
      * @throws UndefinedRoleException Если "Роль" не определена.
      */
@@ -246,7 +259,7 @@ class Task
 
     /**
      * Список доступных "Действий" для "Состояния".
-     * 
+     *
      * @param string $role Роль
      * @return array
      */
@@ -258,8 +271,9 @@ class Task
         return array_intersect($roleActions, $statusActions);
     }
 
-    /** 
+    /**
      * Список доступных "Состояний"
+     *
      * @return array
      */
     private function getAllowedStatusList(): array
@@ -270,7 +284,7 @@ class Task
         return isset($statusList[$currentStatus]) ? $statusList[$currentStatus] : [];
     }
 
-    /** 
+    /**
      * Проверяет, допускается ли изменение статуса
      * @param string $status
      * @return bool
@@ -322,7 +336,7 @@ class Task
 
     /**
      * Список "Состояний" для каждого "Состояния".
-     * 
+     *
      * @return array [ status => [...statuses] ]
      */
     private static function listStatusStatuses(): array
@@ -341,46 +355,50 @@ class Task
 
     /**
      * Список "Действий" для каждого "Состояния".
-     * 
-     * @return array [ status => [...Action Objects]]
+     *
+     * @return array [ status => [...Actions name]]
      */
     private static function listStatusActions(): array
     {
         return [
             self::STATUS_NEW => [
-                new ActionCancel,
-                new ActionPending
+                ActionCancel::internalName(),
+                ActionPending::internalName()
             ],
             self::STATUS_INPROGRESS => [
-                new ActionCancel,
-                new ActionComplete,
-                new ActionRefuse
+                ActionCancel::internalName(),
+                ActionComplete::internalName(),
+                ActionRefuse::internalName()
             ]
         ];
     }
 
-    /** 
+    /**
      * Список "Действий" для каждой "Роли"
-     * 
+     *
      * @return array [ role => [...actions]]
      */
     private static function listRoleActions(): array
     {
         return [
             self::ROLE_CUSTOMER => [
-                new ActionCancel,
-                new ActionComplete
+                ActionCancel::internalName(),
+                // self::ACTION_CUSTOMER_CANCEL,
+                ActionComplete::internalName(),
+                // self::ACTION_CUSTOMER_COMPLETE
             ],
             self::ROLE_PERFORMER => [
-                new ActionPending,
-                new ActionRefuse
+                ActionPending::internalName(),
+                // self::ACTION_PERFORMER_PENDING,
+                ActionRefuse::internalName(),
+                // self::ACTION_PERFORMER_REFUSE
             ]
         ];
     }
 
     /**
      * Карта всех действий.
-     * 
+     *
      * @param bool $onlyKeys По умалчанию `false`
      * @return array Ассоциативный массив или только ключи
      */
@@ -398,13 +416,13 @@ class Task
 
     /**
      * Карта всех статусов.
-     * 
+     *
      * @param bool $onlyKeys По умолчанию `false`
      * @return array Ассоциативный массив или только ключи
      */
     private static function statusMap(bool $onlyKeys = false): array
     {
-        $map =  [
+        $map = [
             self::STATUS_NEW => 'Новое',
             self::STATUS_CANCELED => 'Отменено',
             self::STATUS_COMPLETE => 'Завершено',

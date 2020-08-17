@@ -1,6 +1,6 @@
 <?php
 
-namespace app\bizzlogic\actions\task;
+namespace app\actions\task;
 
 abstract class AbstractTaskAction
 {
@@ -17,7 +17,7 @@ abstract class AbstractTaskAction
 
     /**
      * Проверка прав на выполеннеи действия
-     * 
+     *
      * @param int $performerId Исполнитель
      * @param int $customerId Заказчик
      * @param int $userId Пользователь
