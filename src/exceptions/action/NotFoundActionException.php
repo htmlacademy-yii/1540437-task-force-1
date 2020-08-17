@@ -4,6 +4,9 @@ namespace app\exceptions\action;
 
 use app\exceptions\base\ActionException;
 
+/**
+ * Если Действие не найдено
+ */
 class NotFoundActionException extends ActionException
 {
     /**

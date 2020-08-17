@@ -20,6 +20,6 @@ class Pending extends AbstractTaskAction
     /** {@inheritdoc} */
     public function can(int $performerId, int $customerId, int $userId): bool
     {
-        return $userId === $customerId;
+        return $userId === $performerId;
     }
 }

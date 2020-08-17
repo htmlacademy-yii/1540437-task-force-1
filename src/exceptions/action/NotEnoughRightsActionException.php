@@ -4,6 +4,9 @@ namespace app\exceptions\action;
 
 use app\exceptions\base\ActionException;
 
+/**
+ * Если нет прав на выполенние Действия
+ */
 class NotEnoughRightsActionException extends ActionException
 {
     /**
@@ -14,7 +17,7 @@ class NotEnoughRightsActionException extends ActionException
      */
     public function __construct(string $action, int $code = 0)
     {
-        $message = "Не хватает прав на выполнения \"Действие\": '{$action}'";
+        $message = "Не хватает прав на выполнения \"Действия\": '{$action}'";
         parent::__construct($message, $code);
     }
 }

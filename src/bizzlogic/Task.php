@@ -19,6 +19,7 @@ use app\exceptions\base\ActionException;
 use app\exceptions\task\NotAllowedActionException;
 use app\exceptions\task\NotAllowedStatusException;
 use app\exceptions\task\NotValidActionException;
+use app\exceptions\task\NotValidRoleException;
 use app\exceptions\task\NotValidStatusException;
 
 /**
@@ -71,13 +72,9 @@ class Task
     {
         $map = [
             ActionPending::internalName() => self::STATUS_INPROGRESS,
-            // self::ACTION_PERFORMER_PENDING => self::STATUS_INPROGRESS,
             ActionRefuse::internalName() => self::STATUS_FAIL,
-            // self::ACTION_PERFORMER_REFUSE => self::STATUS_FAIL,
             ActionCancel::internalName() => self::STATUS_CANCELED,
-            // self::ACTION_CUSTOMER_CANCEL => self::STATUS_CANCELED,
             ActionComplete::internalName() => self::STATUS_COMPLETE
-            // self::ACTION_CUSTOMER_COMPLETE => self::STATUS_COMPLETE
         ];
 
         return isset($map[$action]) ? $map[$action] : null;
@@ -89,9 +86,13 @@ class Task
      * @param string $role Роль пользователя
      * @param int $usrId Ид пользователя
      * @return string $status
+     * @throws NotValidRoleException Если Роль не корректная
      */
     public function actionCancel(string $role, int $userId): string
     {
+        if (!self::isRoleValid($role)) {
+            throw new NotValidRoleException($role);
+        }
         try {
             $this->runAction(new ActionCancel(), $role, $userId);
             return $this->status;
@@ -126,12 +127,8 @@ class Task
      */
     public function actionComplete(string $role, $userId): string
     {
-        try {
-            $this->runAction(new ActionComplete(), $role, $userId);
-            return $this->status;
-        } catch (ActionException $e) {
-            return $e->getMessage();
-        }
+        $this->runAction(new ActionComplete(), $role, $userId);
+        return $this->status;
     }
 
     /**
@@ -140,14 +137,10 @@ class Task
      * @param string $role
      * @return string $status
      */
-    public function actionPending(string $role, int $userId): ?string
+    public function actionPending(string $role, int $userId): string
     {
-        try {
-            $this->runAction(new ActionPending(), $role, $userId);
-            return $this->status;
-        } catch (ActionException $e) {
-            return $e->getMessage();
-        }
+        $this->runAction(new ActionPending(), $role, $userId);
+        return $this->status;
     }
 
     /**
@@ -157,15 +150,15 @@ class Task
      * @param string $role
      * @param int $userId
      * @return bool
+     * @throws NotEnoughRightsActionException Если нет прав
      */
     private function runAction(AbstractTaskAction $action, string $role, int $userId): bool
     {
-        if ($action->can($this->performerId, $this->customerId, $userId)) {
-            $this->changeStatus($action::internalName(), $role);
-            return true;
-        } else {
+        if (!$action->can($this->performerId, $this->customerId, $userId)) {
             throw new NotEnoughRightsActionException($action::internalName());
         }
+        $this->changeStatus($action::internalName(), $role);
+        return true;
     }
 
     /**
@@ -306,11 +299,16 @@ class Task
      * @param string $role Роль пользователя
      * @return bool
      * @throws NotValidActionException Если не корректное "Действие"
+     * @throws NotValidRoleException Если не корректная "Роль"
      */
     protected function canRunAction(string $action, string $role): bool
     {
         if (!self::isActionValid($action)) {
             throw new NotValidActionException($action);
+        }
+
+        if (!self::isRoleValid($role)) {
+            throw new NotValidRoleException($role);
         }
 
         return in_array($action, $this->getAllowedActionsList($role));
@@ -332,6 +330,15 @@ class Task
     private static function isActionValid(string $action): bool
     {
         return in_array($action, self::actionMap(true));
+    }
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    private static function isRoleValid(string $role) : bool
+    {
+        return in_array($role, self::roleMap(true));
     }
 
     /**
@@ -393,7 +400,7 @@ class Task
     }
 
     /**
-     * Карта всех действий.
+     * Карта всех Действий.
      *
      * @param bool $onlyKeys По умалчанию `false`
      * @return array Ассоциативный массив или только ключи
@@ -411,7 +418,7 @@ class Task
     }
 
     /**
-     * Карта всех статусов.
+     * Карта всех Статусов.
      *
      * @param bool $onlyKeys По умолчанию `false`
      * @return array Ассоциативный массив или только ключи
@@ -424,6 +431,23 @@ class Task
             self::STATUS_COMPLETE => 'Завершено',
             self::STATUS_FAIL => 'Провалено',
             self::STATUS_INPROGRESS => 'Выполняется'
+        ];
+
+        return  $onlyKeys ? array_keys($map) : $map;
+    }
+
+    /**
+     * Карта всех Ролей
+     *
+     * @param bool $onlyKeys
+     *
+     * @return array
+     */
+    private static function roleMap(bool $onlyKeys = false) : array
+    {
+        $map = [
+            self::ROLE_CUSTOMER => 'Заказчик',
+            self::ROLE_PERFORMER => 'Исполнитель'
         ];
 
         return  $onlyKeys ? array_keys($map) : $map;

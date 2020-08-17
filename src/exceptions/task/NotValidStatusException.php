@@ -4,6 +4,9 @@ namespace app\exceptions\task;
 
 use app\exceptions\base\TaskStatusException;
 
+/**
+ * Если значение Состояния не допустимо
+ */
 class NotValidStatusException extends TaskStatusException
 {
     /**
