@@ -86,19 +86,11 @@ class Task
      * @param string $role Роль пользователя
      * @param int $usrId Ид пользователя
      * @return string $status
-     * @throws NotValidRoleException Если Роль не корректная
      */
     public function actionCancel(string $role, int $userId): string
     {
-        if (!self::isRoleValid($role)) {
-            throw new NotValidRoleException($role);
-        }
-        try {
-            $this->runAction(new ActionCancel(), $role, $userId);
-            return $this->status;
-        } catch (ActionException $e) {
-            return $e->getMessage();
-        }
+        $this->runAction(new ActionCancel(), $role, $userId);
+        return $this->status;
     }
 
     /**
@@ -110,12 +102,8 @@ class Task
      */
     public function actionRefuse(string $role, int $userId): string
     {
-        try {
-            $this->runAction(new ActionRefuse(), $role, $userId);
-            return $this->status;
-        } catch (ActionException $e) {
-            return $e->getMessage();
-        }
+        $this->runAction(new ActionRefuse(), $role, $userId);
+        return $this->status;
     }
 
     /**
@@ -230,7 +218,6 @@ class Task
      * Возвращает "Действия" текущего пользователя на основе его "Роли"
      *
      * @return array
-     * @throws UndefinedRoleException Если "Роль" не определена.
      */
     private function getRoleActions(string $role): array
     {
