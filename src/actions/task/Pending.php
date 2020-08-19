@@ -2,6 +2,8 @@
 
 namespace app\actions\task;
 
+use app\exceptions\action\NotEnoughRightsActionException;
+
 /** {@inheritDoc} */
 class Pending extends AbstractTaskAction
 {
@@ -20,6 +22,9 @@ class Pending extends AbstractTaskAction
     /** {@inheritdoc} */
     public function can(int $performerId, int $customerId, int $userId): bool
     {
-        return $userId === $customerId;
+        if ($userId !== $performerId) {
+            throw new NotEnoughRightsActionException('Pending');
+        }
+        return true;
     }
 }

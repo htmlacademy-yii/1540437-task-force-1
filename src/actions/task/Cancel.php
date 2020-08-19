@@ -2,6 +2,8 @@
 
 namespace app\actions\task;
 
+use app\exceptions\action\NotOwnerActionException;
+
 /** {@inheritDoc} */
 class Cancel extends AbstractTaskAction
 {
@@ -20,6 +22,10 @@ class Cancel extends AbstractTaskAction
     /** {@inheritdoc} */
     public function can(int $performerId, int $customerId, int $userId): bool
     {
-        return $customerId === $userId;
+        if ($customerId !== $userId) {
+            throw new NotOwnerActionException();
+        }
+        
+        return true;
     }
 }

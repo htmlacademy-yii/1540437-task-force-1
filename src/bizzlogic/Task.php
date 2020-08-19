@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Базоый класс Бизнеслогики
+ * Базоый класс Бизнеслогики Заданий
  *
  * @author Alexey Pozhidaev <worka@bk.ru>
  * @link   https://github.com/AlexBad
@@ -14,19 +14,9 @@ use app\actions\task\Cancel as ActionCancel;
 use app\actions\task\Complete as ActionComplete;
 use app\actions\task\Pending as ActionPending;
 use app\actions\task\Refuse as ActionRefuse;
-use app\exceptions\action\NotEnoughRightsActionException;
-use app\exceptions\base\ActionException;
-use app\exceptions\task\NotAllowedActionException;
+use app\exceptions\action\NotFoundTaskActionException;
 use app\exceptions\task\NotAllowedStatusException;
-use app\exceptions\task\NotValidActionException;
-use app\exceptions\task\NotValidStatusException;
 
-/**
- * @property int $userId ID текущего пользователя
- * @property int $performerId ID Исполнителя
- * @property int $customerId ID Заказчика
- * @property string $status Статус задачи
- */
 class Task
 {
     /** Задание опубликовано, исполнитель ещё не найден */
@@ -39,11 +29,6 @@ class Task
     const STATUS_COMPLETE = 'COMPLETE';
     /** Исполнитель отказался от выполнения задания */
     const STATUS_FAIL = 'FAIL';
-
-    /** Исполнитель */
-    const ROLE_PERFORMER = 'PERFORMER';
-    /** Заказчик */
-    const ROLE_CUSTOMER = 'CUSTOMER';
 
     private $customerId;
     private $performerId;
@@ -64,108 +49,115 @@ class Task
     }
 
     /**
-     * @param string $action `Действие`
-     * @return string|null Наименование Состояния
+     * @param AbstractTaskAction $actionInternalName Внутренее имя Объекта действия
+     * @return string Новый статус
+     * @throws NotFoundTaskActionException Если Запрашиваемое действие не описано
      */
-    public function getNextStatus(string $action): ?string
+    public function getNextStatus(AbstractTaskAction $action): string
     {
         $map = [
             ActionPending::internalName() => self::STATUS_INPROGRESS,
-            // self::ACTION_PERFORMER_PENDING => self::STATUS_INPROGRESS,
             ActionRefuse::internalName() => self::STATUS_FAIL,
-            // self::ACTION_PERFORMER_REFUSE => self::STATUS_FAIL,
             ActionCancel::internalName() => self::STATUS_CANCELED,
-            // self::ACTION_CUSTOMER_CANCEL => self::STATUS_CANCELED,
             ActionComplete::internalName() => self::STATUS_COMPLETE
-            // self::ACTION_CUSTOMER_COMPLETE => self::STATUS_COMPLETE
         ];
 
-        return isset($map[$action]) ? $map[$action] : null;
+
+        if (!isset($map[$action::internalName()])) {
+            throw new NotFoundTaskActionException($action::internalName());
+        }
+
+        return $map[$action::internalName()];
     }
 
     /**
      * Заказчик отменил задание
      *
-     * @param string $role Роль пользователя
      * @param int $usrId Ид пользователя
-     * @return string $status
+     * @return bool
      */
-    public function actionCancel(string $role, int $userId): string
+    public function cancel(int $userId): bool
     {
-        try {
-            $this->runAction(new ActionCancel(), $role, $userId);
-            return $this->status;
-        } catch (ActionException $e) {
-            return $e->getMessage();
+        $action = new ActionCancel;
+        $nextStatus = $this->getNextStatus($action);
+
+        if (
+            $this->isStatusAllowed($nextStatus) &&
+            $action->can($this->performerId, $this->customerId, $userId)
+        ) {
+            $this->changeStatus($nextStatus);
+            return true;
         }
+
+        return false;
     }
+    
 
     /**
      * Исполнитель отказался от выполнения задания.
      *
-     * @param string $role
      * @param int $userId
-     * @return string $status
+     * @return bool
      */
-    public function actionRefuse(string $role, int $userId): string
+    public function refuse(int $userId): bool
     {
-        try {
-            $this->runAction(new ActionRefuse(), $role, $userId);
-            return $this->status;
-        } catch (ActionException $e) {
-            return $e->getMessage();
+        $action = new ActionRefuse;
+        $nextStatus = $this->getNextStatus($action);
+
+        if (
+            $this->isStatusAllowed($nextStatus) &&
+            $action->can($this->performerId, $this->customerId, $userId)
+        ) {
+            $this->changeStatus($nextStatus);
+            return true;
         }
+
+        return false;
     }
 
     /**
      * Заказчик пометил задание как `Завершенное`.
      *
-     * @param string $role Роль пользователя
-     * @param int $userId ИД Пользователя
-     * @return string $status
+     * @param int $userId
+     * @return bool
      */
-    public function actionComplete(string $role, $userId): string
+    public function complete(int $userId): bool
     {
-        try {
-            $this->runAction(new ActionComplete(), $role, $userId);
-            return $this->status;
-        } catch (ActionException $e) {
-            return $e->getMessage();
+        $action = new ActionComplete;
+        $nextStatus = $this->getNextStatus($action);
+
+        if (
+            $this->isStatusAllowed($nextStatus) &&
+            $action->can($this->performerId, $this->customerId, $userId)
+        ) {
+            $this->changeStatus($nextStatus);
+            return true;
         }
+
+        return false;
     }
 
     /**
      * Исполнитель предложил свои услуги.
      *
-     * @param string $role
-     * @return string $status
-     */
-    public function actionPending(string $role, int $userId): ?string
-    {
-        try {
-            $this->runAction(new ActionPending(), $role, $userId);
-            return $this->status;
-        } catch (ActionException $e) {
-            return $e->getMessage();
-        }
-    }
-
-    /**
-     * Выполнение Действия
-     *
-     * @param AbstractTaskAction $action
-     * @param string $role
      * @param int $userId
      * @return bool
      */
-    private function runAction(AbstractTaskAction $action, string $role, int $userId): bool
+    public function pending(int $userId): bool
     {
-        if ($action->can($this->performerId, $this->customerId, $userId)) {
-            $this->changeStatus($action::internalName(), $role);
+        $action = new ActionPending;
+
+        $nextStatus = $this->getNextStatus($action);
+
+        if (
+            $this->isStatusAllowed($nextStatus) &&
+            $action->can($this->performerId, $this->customerId, $userId)
+        ) {
+            $this->changeStatus($nextStatus);
             return true;
-        } else {
-            throw new NotEnoughRightsActionException($action::internalName());
         }
+
+        return false;
     }
 
     /**
@@ -191,157 +183,37 @@ class Task
     }
 
     /**
-     * Устанавливает новое "Состояние" для приложения
+     * Логика изменения статутса
      *
-     * @param string $status
+     * @param string $status Новый Статутс
+     * @return void
+     * @throws NotAllowedStatusException Если нельзя изменить "Статус"
+
      */
-    private function setStatus(string $status): void
+    private function changeStatus(string $status): void
     {
         $this->status = $status;
     }
 
     /**
-     * Изменяет "Состояние" после выполнения "Действия"
-     *
-     * @param string $currentAction Текущее действие.
-     * @return void
-     * @throws NotAllowedStatusException Если нельзя изменить "Статус"
-     * @throws NotAllowedActionException Если нельзя выполнить "Действие"
-     */
-    private function changeStatus(string $currentAction, string $role): void
-    {
-        $newStatus = $this->getNextStatus($currentAction);
-
-        if (!$this->canChangeStatus($newStatus)) {
-            throw new NotAllowedStatusException($newStatus);
-        }
-
-        if (!$this->canRunAction($currentAction, $role)) {
-            throw new NotAllowedActionException($currentAction);
-        }
-
-        $this->setStatus($newStatus);
-    }
-
-    /**
-     * Проверка на наличие `Исполнителя` в `Задании`.
-     *
+     * @param string|null $newStatus
      * @return bool
      */
-    public function isHasPerformer(): bool
+    private function isStatusAllowed(?string $newStatus): bool
     {
-        return !is_null($this->getPerformer());
+        return in_array($newStatus, self::statusMap($this->status));
     }
 
     /**
-     * Возвращает "Действия" текущего пользователя на основе его "Роли"
+     * Вовзращает карту Статусов в зависимости
+     * от запрашиваемого статуса.
      *
-     * @return array
-     * @throws UndefinedRoleException Если "Роль" не определена.
-     */
-    private function getRoleActions(string $role): array
-    {
-        $actions = self::listRoleActions();
-        return isset($actions[$role]) ? $actions[$role] : [];
-    }
-
-    /**
-     * Возвращает "Действия" текущего "Состояния"
-     * @return array
-     */
-    private function getStatusActions(): array
-    {
-        $currentStatus = $this->getStatus();
-        $actions = self::listStatusActions();
-
-        return isset($actions[$currentStatus]) ? $actions[$currentStatus] : [];
-    }
-
-    /**
-     * Список доступных "Действий" для "Состояния".
-     *
-     * @param string $role Роль
-     * @return array
-     */
-    private function getAllowedActionsList(string $role): array
-    {
-        $roleActions = $this->getRoleActions($role);
-        $statusActions = $this->getStatusActions();
-
-        return array_intersect($roleActions, $statusActions);
-    }
-
-    /**
-     * Список доступных "Состояний"
-     *
-     * @return array
-     */
-    private function getAllowedStatusList(): array
-    {
-        $statusList = self::listStatusStatuses();
-        $currentStatus = $this->getStatus();
-
-        return isset($statusList[$currentStatus]) ? $statusList[$currentStatus] : [];
-    }
-
-    /**
-     * Проверяет, допускается ли изменение статуса
      * @param string $status
-     * @return bool
-     * @throws NotValidStatusException Если не корректное "Состояние"
+     * @return array
      */
-    protected function canChangeStatus(string $status): bool
+    private static function statusMap(string $status): array
     {
-        if (!self::isStatusValid($status)) {
-            throw new NotValidStatusException($status);
-        }
-
-        return in_array($status, $this->getAllowedStatusList());
-    }
-
-    /**
-     * Проверяет, допускается ли выполнение "Действия"
-     *
-     * @param string $action Действие
-     * @param string $role Роль пользователя
-     * @return bool
-     * @throws NotValidActionException Если не корректное "Действие"
-     */
-    protected function canRunAction(string $action, string $role): bool
-    {
-        if (!self::isActionValid($action)) {
-            throw new NotValidActionException($action);
-        }
-
-        return in_array($action, $this->getAllowedActionsList($role));
-    }
-
-    /**
-     * @param string $status "Состояние".
-     * @return bool
-     */
-    private static function isStatusValid(string $status): bool
-    {
-        return in_array($status, self::statusMap(true));
-    }
-
-    /**
-     * @param string $action "Действие"
-     * @return bool
-     */
-    private static function isActionValid(string $action): bool
-    {
-        return in_array($action, self::actionMap(true));
-    }
-
-    /**
-     * Список "Состояний" для каждого "Состояния".
-     *
-     * @return array [ status => [...statuses] ]
-     */
-    private static function listStatusStatuses(): array
-    {
-        return [
+        $map = [
             self::STATUS_NEW => [
                 self::STATUS_CANCELED,
                 self::STATUS_INPROGRESS
@@ -351,81 +223,7 @@ class Task
                 self::STATUS_FAIL
             ]
         ];
-    }
 
-    /**
-     * Список "Действий" для каждого "Состояния".
-     *
-     * @return array [ status => [...Actions name]]
-     */
-    private static function listStatusActions(): array
-    {
-        return [
-            self::STATUS_NEW => [
-                ActionCancel::internalName(),
-                ActionPending::internalName()
-            ],
-            self::STATUS_INPROGRESS => [
-                ActionCancel::internalName(),
-                ActionComplete::internalName(),
-                ActionRefuse::internalName()
-            ]
-        ];
-    }
-
-    /**
-     * Список "Действий" для каждой "Роли"
-     *
-     * @return array [ role => [...actions]]
-     */
-    private static function listRoleActions(): array
-    {
-        return [
-            self::ROLE_CUSTOMER => [
-                ActionCancel::internalName(),
-                ActionComplete::internalName(),
-            ],
-            self::ROLE_PERFORMER => [
-                ActionPending::internalName(),
-                ActionRefuse::internalName(),
-            ]
-        ];
-    }
-
-    /**
-     * Карта всех действий.
-     *
-     * @param bool $onlyKeys По умалчанию `false`
-     * @return array Ассоциативный массив или только ключи
-     */
-    private static function actionMap(bool $onlyKeys = false): array
-    {
-        $map = [
-            ActionCancel::internalName() => ActionCancel::name(),
-            ActionComplete::internalName() => ActionComplete::name(),
-            ActionPending::internalName() => ActionPending::name(),
-            ActionRefuse::internalName() => ActionRefuse::name(),
-        ];
-
-        return $onlyKeys ? array_keys($map) : $map;
-    }
-
-    /**
-     * Карта всех статусов.
-     *
-     * @param bool $onlyKeys По умолчанию `false`
-     * @return array Ассоциативный массив или только ключи
-     */
-    private static function statusMap(bool $onlyKeys = false): array
-    {
-        $map = [
-            self::STATUS_NEW => 'Новое',
-            self::STATUS_CANCELED => 'Отменено',
-            self::STATUS_COMPLETE => 'Завершено',
-            self::STATUS_FAIL => 'Провалено',
-            self::STATUS_INPROGRESS => 'Выполняется'
-        ];
-
-        return  $onlyKeys ? array_keys($map) : $map;
+        return isset($map[$status]) ? $map[$status] : [];
     }
 }
