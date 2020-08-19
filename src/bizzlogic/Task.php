@@ -14,10 +14,8 @@ use app\actions\task\Cancel as ActionCancel;
 use app\actions\task\Complete as ActionComplete;
 use app\actions\task\Pending as ActionPending;
 use app\actions\task\Refuse as ActionRefuse;
-use app\exceptions\action\NotEnoughRightsActionException;
+use app\exceptions\action\NotFoundTaskActionException;
 use app\exceptions\task\NotAllowedStatusException;
-use app\exceptions\task\NotValidStatusException;
-use Exception;
 
 class Task
 {
@@ -51,10 +49,11 @@ class Task
     }
 
     /**
-     * @param string $actionInternalName Внутренее имя Объекта действия
-     * @return string|null Новый статус или NULL если Действие не определено
+     * @param AbstractTaskAction $actionInternalName Внутренее имя Объекта действия
+     * @return string Новый статус
+     * @throws NotFoundTaskActionException Если Запрашиваемое действие не описано
      */
-    public function getNextStatus(string $actionInternalName): ?string
+    public function getNextStatus(AbstractTaskAction $action): string
     {
         $map = [
             ActionPending::internalName() => self::STATUS_INPROGRESS,
@@ -63,13 +62,12 @@ class Task
             ActionComplete::internalName() => self::STATUS_COMPLETE
         ];
 
-        foreach ($map as $internalName => $newStatus) {
-            if ($actionInternalName === $internalName) {
-                return $newStatus;
-            }
+
+        if (!isset($map[$action::internalName()])) {
+            throw new NotFoundTaskActionException($action::internalName());
         }
 
-        return null;
+        return $map[$action::internalName()];
     }
 
     /**
@@ -81,7 +79,7 @@ class Task
     public function cancel(int $userId): bool
     {
         $action = new ActionCancel;
-        $nextStatus = $this->getNextStatus($action::internalName());
+        $nextStatus = $this->getNextStatus($action);
 
         if (
             $this->isStatusAllowed($nextStatus) &&
@@ -104,7 +102,7 @@ class Task
     public function refuse(int $userId): bool
     {
         $action = new ActionRefuse;
-        $nextStatus = $this->getNextStatus($action::internalName());
+        $nextStatus = $this->getNextStatus($action);
 
         if (
             $this->isStatusAllowed($nextStatus) &&
@@ -126,7 +124,7 @@ class Task
     public function complete(int $userId): bool
     {
         $action = new ActionComplete;
-        $nextStatus = $this->getNextStatus($action::internalName());
+        $nextStatus = $this->getNextStatus($action);
 
         if (
             $this->isStatusAllowed($nextStatus) &&
@@ -149,7 +147,7 @@ class Task
     {
         $action = new ActionPending;
 
-        $nextStatus = $this->getNextStatus($action::internalName());
+        $nextStatus = $this->getNextStatus($action);
 
         if (
             $this->isStatusAllowed($nextStatus) &&
@@ -203,9 +201,6 @@ class Task
      */
     private function isStatusAllowed(?string $newStatus): bool
     {
-        if (is_null($newStatus)) {
-            return false;
-        }
         return in_array($newStatus, self::statusMap($this->status));
     }
 

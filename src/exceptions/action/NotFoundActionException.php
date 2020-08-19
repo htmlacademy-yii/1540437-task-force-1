@@ -3,11 +3,12 @@
 namespace app\exceptions\action;
 
 use app\exceptions\base\ActionException;
+use app\exceptions\base\TaskActionException;
 
 /**
  * Если Действие не найдено
  */
-class NotFoundActionException extends ActionException
+class NotFoundTaskActionException extends TaskActionException
 {
     /**
      * Схема "Исключения"

@@ -28,10 +28,10 @@ $customer = 1;
 $performer = 2;
 $task = new Task($customer, $performer);
 
-assert($task->getNextStatus(Pending::internalName()) === Task::STATUS_INPROGRESS, 'action Pending');
-assert($task->getNextStatus(Refuse::internalName()) === Task::STATUS_FAIL, 'action Refuse');
-assert($task->getNextStatus(Cancel::internalName()) === Task::STATUS_CANCELED, 'action Cancel');
-assert($task->getNextStatus(Complete::internalName()) === Task::STATUS_COMPLETE, 'action Complete');
+assert($task->getNextStatus(new Pending) === Task::STATUS_INPROGRESS, 'action Pending');
+assert($task->getNextStatus(new Refuse) === Task::STATUS_FAIL, 'action Refuse');
+assert($task->getNextStatus(new Cancel) === Task::STATUS_CANCELED, 'action Cancel');
+assert($task->getNextStatus(new Complete) === Task::STATUS_COMPLETE, 'action Complete');
 
 $task = new Task($customer, $performer);
 assert($task->cancel($customer) === true, 'Customer Cancel');
@@ -45,9 +45,12 @@ assert($task->refuse($customer) === false, "Customer Refuse");
 $task = new Task($customer, $performer);
 assert($task->pending($customer) === false, 'Customer Pending');
 assert($task->pending($performer) === true, 'Performer Pending');
+
+assert($task->refuse($customer) === false, 'Customer refuse');
+assert($task->refuse($performer) === true, 'Performer refuse');
+
 assert($task->cancel($performer) === false, 'Performer Cancel');
 assert($task->cancel($customer) === false, 'Customer Cancel');
-assert($task->pending($performer) === false, 'Performer Pending');
 
 
 
