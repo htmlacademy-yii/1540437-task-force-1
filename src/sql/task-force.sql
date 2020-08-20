@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`users` (
   `first_name` VARCHAR(245) NOT NULL,
   `last_name` VARCHAR(245) NULL DEFAULT NULL,
   `email` VARCHAR(245) NOT NULL,
+  `address` TEXT NULL DEFAULT NULL,
   `birth_date` DATE NULL DEFAULT NULL,
   `password_hash` VARCHAR(256) NOT NULL,
   `token` VARCHAR(256) NULL DEFAULT NULL,

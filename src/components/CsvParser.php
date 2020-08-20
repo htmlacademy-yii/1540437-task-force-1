@@ -1,11 +1,12 @@
 <?php
+
 namespace app\components;
 
 use app\exceptions\file\FileSeedException;
 
 /**
  * @inheritDoc
- * @property array|null $_columns
+ * @property-read array|null $_columns
  * @property string $parserClass Класс парсера, по умолчанию \SplFileObject
  */
 class CsvParser extends AbstractFileParser
@@ -13,8 +14,8 @@ class CsvParser extends AbstractFileParser
     /** @var SplFileObject $spl  */
     protected $spl;
 
-    /** @var array|null */
-    private $rows;
+    /** @var array */
+    private $rows = [];
 
     /** {@inheritDoc} */
     protected function reset()
@@ -26,7 +27,7 @@ class CsvParser extends AbstractFileParser
     protected function end()
     {
         if (!$this->spl->fseek(0, SEEK_END)) {
-            throw new FileSeedException("Не удалось перейти в конеч строки");
+            throw new FileSeedException('Не удалось перейти в конец строки');
         }
     }
 
@@ -52,10 +53,12 @@ class CsvParser extends AbstractFileParser
 
     public function getRows()
     {
-        if (!isset($this->rows)) {
-            foreach ($this->getRow() as $row) {
-                if (is_array($row) && count($row)) {
-                    $this->rows[] = $row;
+        if (empty($this->rows)) {
+            foreach ($this->getNextLine() as $row) {
+                if (is_array($row) && count($row) > 1) {
+                    $data = array_combine($this->getColumns(), $row);
+                    array_push($this->rows, $data);
+                    // $this->rows[] = $row;
                 }
             }
         }
