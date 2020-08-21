@@ -1,9 +1,45 @@
 <?php
 
 use app\components\CsvParser;
+use app\faker\FakeCategories;
+use app\faker\FakeCities;
+use app\faker\FakeProfile;
+use app\faker\FakeTasks;
+use app\faker\FakeTasksResponses;
 use app\faker\FakeUser;
 
 require_once 'vendor/autoload.php';
+
+$model = FakeTasksResponses::import('data/replies.csv');
+// $model = FakeCategories::import('data/categories.csv');
+
+foreach ($model as $city) {
+    // print_r($city);
+    echo $city->toSql('taskforce') . PHP_EOL;
+    // return;
+}
+
+return;
+
+$userModels = FakeUser::import('data/users.csv');
+$userProfileModels = FakeProfile::import('data/profiles.csv');
+
+echo $userModels[1]->toSql('taskforce', 'users', 'truncate') . PHP_EOL;
+
+return;
+/** @var FakeUser $user */
+foreach ($userModels as $user) {
+    echo $user->toSql('taskforce', 'users', 'insert') . PHP_EOL;
+}
+
+/** @var FakeProfile $userProfile */
+foreach ($userProfileModels as $userProfile) {
+    echo $userProfile->toSql('taskforce', 'users', 'update') . PHP_EOL;
+}
+
+// print_r($userModels);
+
+return;
 
 $parseredUsers = new CsvParser('data/users.csv');
 $parseredProfile = new CsvParser('data/profiles.csv');
@@ -11,18 +47,15 @@ $parseredProfile = new CsvParser('data/profiles.csv');
 $usersRows = $parseredUsers->getRows();
 $profilesRows = $parseredProfile->getRows();
 
-$result = [];
-
 for ($i = 0; $i < count($usersRows); $i++) {
     $id = $i + 1;
     $user = new FakeUser($id, $usersRows[$i]);
     $user->setAttributes($profilesRows[$i]);
-    $result[$id] = $user;
+
+    echo "-- " . $user->toSql('taskforce', 'users') . PHP_EOL;
 }
 
-print_r($result);
 
-// print_r($parseredProfile->getRows());
 
 return;
 

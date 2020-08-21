@@ -56,7 +56,7 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `taskforce`.`tasks` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` INT(10) UNSIGNED NOT NULL,
+  `customer_user_id` INT(10) UNSIGNED NOT NULL,
   `performer_user_id` INT(10) UNSIGNED NULL DEFAULT NULL,
   `category_id` INT(10) UNSIGNED NOT NULL,
   `city_id` INT(10) UNSIGNED NOT NULL,
@@ -75,16 +75,16 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`tasks` (
   INDEX `idx_status` (`status` ASC),
   INDEX `idx_start_date` (`start_date` ASC),
   INDEX `fk_tasks_categories_idx` (`category_id` ASC),
-  INDEX `fk_tasks_users_idx` (`user_id` ASC),
   INDEX `fk_tasks_cities_idx` (`city_id` ASC),
+  INDEX `fk_tasks_users_idx` (`customer_user_id` ASC),
   INDEX `fk_tasks_performer_idx` (`performer_user_id` ASC),
   CONSTRAINT `fk_tasks_categories`
     FOREIGN KEY (`category_id`)
     REFERENCES `taskforce`.`categories` (`id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_tasks_users`
-    FOREIGN KEY (`user_id`)
+  CONSTRAINT `fk_tasks_user_costomer`
+    FOREIGN KEY (`customer_user_id`)
     REFERENCES `taskforce`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`task_responses` (
   `user_id` INT(10) UNSIGNED NOT NULL,
   `price` DECIMAL(12,4) NULL DEFAULT NULL,
   `comment` TEXT NULL DEFAULT NULL,
-  `evaluation` TINYINT(1) UNSIGNED NULL DEFAULT NULL,
+  `rate` TINYINT(1) UNSIGNED NULL DEFAULT NULL,
   `is_success` TINYINT(1) UNSIGNED NULL DEFAULT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,

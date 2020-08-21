@@ -17,6 +17,11 @@ class FakeUser extends AbstractFakeModel
     public $telegramm;
     public $created_at;
 
+    protected static function tableName(): string
+    {
+        return 'users';
+    }
+
     public function setName(string $name)
     {
         list($this->first_name, $this->last_name) = explode(' ', $name);

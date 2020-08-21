@@ -7,6 +7,12 @@ use app\actions\task\Complete;
 use app\actions\task\Pending;
 use app\actions\task\Refuse;
 use app\bizzlogic\Task;
+use app\faker\FakeCategories;
+use app\faker\FakeCities;
+use app\faker\FakeProfile;
+use app\faker\FakeTasks;
+use app\faker\FakeTasksResponses;
+use app\faker\FakeUser;
 
 function assertHandler($file, $line, $code, $desc = null)
 {
@@ -36,25 +42,35 @@ assert($task->getNextStatus(new Complete) === Task::STATUS_COMPLETE, 'action Com
 $task = new Task($customer, $performer);
 assert($task->cancel($customer) === true, 'Customer Cancel');
 assert($task->cancel($performer) === false, 'Performer Cancel');
+
 assert($task->pending($performer) === false, 'Performer Pending');
 assert($task->pending($customer) === false, 'Customer Pending');
+
 assert($task->refuse($performer) === false, "Performer Refuse");
 assert($task->refuse($customer) === false, "Customer Refuse");
 
-
 $task = new Task($customer, $performer);
-assert($task->pending($customer) === false, 'Customer Pending');
+// assert($task->pending($customer) === false, 'Customer Pending');
 assert($task->pending($performer) === true, 'Performer Pending');
 
-assert($task->refuse($customer) === false, 'Customer refuse');
+// assert($task->refuse($customer) === false, 'Customer refuse');
 assert($task->refuse($performer) === true, 'Performer refuse');
 
-assert($task->cancel($performer) === false, 'Performer Cancel');
-assert($task->cancel($customer) === false, 'Customer Cancel');
+// assert($task->cancel($performer) === false, 'Performer Cancel');
+// assert($task->cancel($customer) === false, 'Customer Cancel');
 
 
 
-
+try {
+    $cities = FakeCities::import('data/cities.csv');
+    $categories = FakeCategories::import('data/categories.csv');
+    $users = FakeUser::import('data/users.csv');
+    $userProfiles = FakeProfile::import('data/profiles.csv');
+    $tasks = FakeTasks::import('data/tasks.csv');
+    $taskResponses = FakeTasksResponses::import('data/replies.csv');
+} catch (Throwable $e) {
+    echo $e->getMessage() . PHP_EOL;
+}
 
 // $task = new Task($customer, $performer);
 // assert($task->actionPending($performer) === true, 'Performer Pending');
