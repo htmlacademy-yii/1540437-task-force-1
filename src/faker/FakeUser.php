@@ -5,6 +5,7 @@ namespace app\faker;
 class FakeUser extends AbstractFakeModel
 {
     public $id;
+    public $city_id;
     public $about;
     public $email;
     public $address;
@@ -14,7 +15,6 @@ class FakeUser extends AbstractFakeModel
     public $password_hash;
     public $phone;
     public $skype;
-    public $telegramm;
     public $created_at;
 
     protected static function tableName(): string
@@ -30,12 +30,5 @@ class FakeUser extends AbstractFakeModel
     public function setPassword(string $password)
     {
         $this->password_hash = hash('md5', $password);
-    }
-
-    public function setTmail(string $email)
-    {
-        $this->email = $email;
-        list($tag) = explode('@', $email, 2);
-        $this->telegramm = "@{$tag}";
     }
 }

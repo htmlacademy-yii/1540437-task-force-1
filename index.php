@@ -10,10 +10,10 @@ use app\faker\FakeUser;
 
 require_once 'vendor/autoload.php';
 
-$model = FakeTasksResponses::import('data/replies.csv');
-// $model = FakeCategories::import('data/categories.csv');
+$models = FakeTasksResponses::import('data/replies.csv');
 
-foreach ($model as $city) {
+
+foreach ($models as $city) {
     // print_r($city);
     echo $city->toSql('taskforce') . PHP_EOL;
     // return;

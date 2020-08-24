@@ -13,14 +13,18 @@ abstract class AbstractFileParser
     protected $spl;
 
     /**
-     * Конструктор класса
+     * Undocumented function
      *
-     * @param string $fileName Полный путь до файла
+     * @param string $fileName
+     * @param string $fileMod
+     * @param boolean $parseColumns
      */
-    public function __construct(string $fileName)
+    public function __construct(string $fileName, string $fileMod = 'r', bool $parseColumns = true)
     {
-        $this->spl = new $this->parserClass($fileName);
-        $this->_columns = $this->getHeader();
+        $this->spl = new $this->parserClass($fileName, $fileMod);
+        if ($parseColumns) {
+            $this->_columns = $this->getHeader();
+        }
     }
 
     /**

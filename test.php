@@ -7,12 +7,14 @@ use app\actions\task\Complete;
 use app\actions\task\Pending;
 use app\actions\task\Refuse;
 use app\bizzlogic\Task;
+use app\components\FakeRelations;
 use app\faker\FakeCategories;
 use app\faker\FakeCities;
 use app\faker\FakeProfile;
 use app\faker\FakeTasks;
 use app\faker\FakeTasksResponses;
 use app\faker\FakeUser;
+use app\faker\FakeUserApinions;
 
 function assertHandler($file, $line, $code, $desc = null)
 {
@@ -62,14 +64,37 @@ assert($task->refuse($performer) === true, 'Performer refuse');
 
 
 try {
-    $cities = FakeCities::import('data/cities.csv');
-    $categories = FakeCategories::import('data/categories.csv');
-    $users = FakeUser::import('data/users.csv');
-    $userProfiles = FakeProfile::import('data/profiles.csv');
-    $tasks = FakeTasks::import('data/tasks.csv');
-    $taskResponses = FakeTasksResponses::import('data/replies.csv');
+    $fakeRelations = new FakeRelations();
+
+    $cities = FakeCities::importFromFile('data/cities.csv');
+    $categories = FakeCategories::importFromFile('data/categories.csv');
+
+    $users = FakeUser::importFromFile('data/users.csv');
+    $userProfiles = FakeProfile::importFromFile('data/profiles.csv');
+    $tasks = FakeTasks::importFromFile('data/tasks.csv');
+    $taskResponses = FakeTasksResponses::importFromFile('data/replies.csv');
+    $userOpinions = FakeUserApinions::importFromFile('data/opinions.csv');
+
+    $users = $fakeRelations->mergeWith($users, $userProfiles);
+    $users = $fakeRelations->setRelation($users, $cities, [ 'city_id' => 'id' ]);
+    
+    $tasks = $fakeRelations->setRelation($tasks, $users, [ 'customer_user_id' => 'id' ]);
+    $tasks = $fakeRelations->setRelation($tasks, $cities, [ 'city_id' => 'id' ]);
+
+    $userOpinions = $fakeRelations->setRelation($userOpinions, $users, ['user_id' => 'id']);
+    $userOpinions = $fakeRelations->setRelation($userOpinions, $tasks, ['refer_task_id' => 'id']);
+
+    $taskResponses = $fakeRelations->setRelation($taskResponses, $users, [ 'user_id' => 'id' ]);
+    $taskResponses = $fakeRelations->setRelation($taskResponses, $tasks, [ 'task_id' => 'id' ]);
+
+    /** @var app\faker\AbstractFakeModel $model */
+    foreach ($cities as $model) {
+        $model->exportToFile('src/sql/cities.sql', 'taskforce', 'insert');
+    }
+
+    // print_r($tasks);
 } catch (Throwable $e) {
-    echo $e->getMessage() . PHP_EOL;
+    echo $e . PHP_EOL;
 }
 
 // $task = new Task($customer, $performer);

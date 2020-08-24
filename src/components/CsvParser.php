@@ -38,7 +38,7 @@ class CsvParser extends AbstractFileParser
         while (!$this->spl->eof()) {
             yield $this->spl->fgetcsv();
         }
-        return null;
+        return $result;
     }
 
     /**
@@ -58,7 +58,6 @@ class CsvParser extends AbstractFileParser
                 if (is_array($row) && count($row) > 1) {
                     $data = array_combine($this->getColumns(), $row);
                     array_push($this->rows, $data);
-                    // $this->rows[] = $row;
                 }
             }
         }
@@ -83,13 +82,5 @@ class CsvParser extends AbstractFileParser
             yield $this->spl->fgetcsv();
         }
         return $result;
-    }
-
-    private function import()
-    {
-    }
-
-    private function getResult()
-    {
     }
 }

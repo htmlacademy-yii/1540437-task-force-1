@@ -10,6 +10,7 @@ abstract class AbstractFakeModel
     protected $_insertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUE ({row});';
     protected $_updateTemplate = 'UPDATE `{db}`.`{table}` SET {data} WHERE id = {id}';
     protected $_truncateTemplate = 'TRUNCATE TABLE `{db}`.`{table}`';
+    protected $_relations;
 
 
     /**
@@ -42,6 +43,11 @@ abstract class AbstractFakeModel
         } else {
             throw new \Exception("Свойство `{$property}` не определено или не Публичное в классе " . static::class);
         }
+    }
+
+    public function addRelation(string $relationName, Object $model)
+    {
+        $this->_relations[$relationName][] = $model;
     }
 
     /**
@@ -82,12 +88,12 @@ abstract class AbstractFakeModel
     }
 
     /**
-     * Undocumented function
+     * Испорт данных из файла в Модели
      *
-     * @param string $filename
+     * @param string|array $filename
      * @return array
      */
-    public static function import(string $filename): array
+    public static function importFromFile(string $filename): array
     {
         $parser = new CsvParser($filename);
         $rows = $parser->getRows();
@@ -97,7 +103,7 @@ abstract class AbstractFakeModel
         for ($i = 0; $i < count($rows); $i++) {
             $id = $i + 1;
             $class = static::className();
-            $models[$id] = new $class($id, $rows[$i]);
+            $models[] = new $class($id, $rows[$i]);
         }
 
         return $models;
@@ -148,6 +154,12 @@ abstract class AbstractFakeModel
         }
 
         return $result;
+    }
+
+    public function exportToFile(string $fileName, string $dbName, string $scenario)
+    {
+        $parser = new CsvParser($fileName, 'w+');
+        $data = $this->getAttributes(true);
     }
 
     /** @return string Имя класса */
