@@ -1,10 +1,13 @@
 -- MySQL Workbench
--- Version: 1.4
+-- Version: 1.5
 -- Author: Alexey Pozhidaev
 
+-- Удаляем старую базу, создаем новую
 DROP DATABASE `taskforce`;
-CREATE SCHEMA `taskforce`;
+-- Ссоздаем новую базу
+CREATE SCHEMA taskforce DEFAULT CHARACTER SET utf8;
 
+-- Города
 CREATE TABLE IF NOT EXISTS `taskforce`.`cities` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(256) NULL DEFAULT NULL,
@@ -13,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`cities` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Категории заданий
 CREATE TABLE IF NOT EXISTS `taskforce`.`categories` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(256) NOT NULL,
@@ -21,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`categories` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Таблица пользователей
 CREATE TABLE IF NOT EXISTS `taskforce`.`users` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `city_id` INT(10) UNSIGNED NOT NULL,
@@ -54,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`users` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Задания
 CREATE TABLE IF NOT EXISTS `taskforce`.`tasks` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `customer_user_id` INT(10) UNSIGNED NOT NULL,
@@ -101,25 +107,26 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`tasks` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Отлкики на задания
 CREATE TABLE IF NOT EXISTS `taskforce`.`task_responses` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `task_id` INT(10) UNSIGNED NOT NULL,
   `user_id` INT(10) UNSIGNED NOT NULL,
   `price` DECIMAL(12,4) NULL DEFAULT NULL,
-  `comment` TEXT NULL DEFAULT NULL,
   `rate` TINYINT(1) UNSIGNED NULL DEFAULT NULL,
+  `comment` TEXT NULL DEFAULT NULL,
   `is_success` TINYINT(1) UNSIGNED NULL DEFAULT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`, `task_id`, `user_id`),
-  INDEX `fk_task_requests_task_idx` (`task_id` ASC),
-  INDEX `fk_task_requests_user_idx` (`user_id` ASC),
-  CONSTRAINT `fk_task_requests_tasks`
+  INDEX `fk_task_responses_task_idx` (`task_id` ASC),
+  INDEX `fk_task_responses_user_idx` (`user_id` ASC),
+  CONSTRAINT `fk_task_responses_tasks`
     FOREIGN KEY (`task_id`)
     REFERENCES `taskforce`.`tasks` (`id`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_task_requests_users`
+  CONSTRAINT `fk_task_responses_users`
     FOREIGN KEY (`user_id`)
     REFERENCES `taskforce`.`users` (`id`)
     ON DELETE NO ACTION
@@ -127,7 +134,8 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`task_responses` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `taskforce`.`task_messages` (
+-- Чат внутри Задачи между Заказчиком и Исполнителем
+CREATE TABLE IF NOT EXISTS `taskforce`.`task_chats` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `task_id` INT UNSIGNED NOT NULL,
   `user_id` INT UNSIGNED NOT NULL,
@@ -150,6 +158,32 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`task_messages` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Оценки Исполнителям
+CREATE TABLE IF NOT EXISTS `taskforce`.`user_opinions` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` INT(10) UNSIGNED NOT NULL,
+  `refer_task_id` INT(10) UNSIGNED NOT NULL,
+  `rate` TINYINT(1) UNSIGNED NULL DEFAULT NULL,
+  `comment` TEXT NULL DEFAULT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `fk_user_opinions_user_idx` (`user_id` ASC),
+  INDEX `fk_user_opinions_task_idx` (`refer_task_id` ASC),
+  CONSTRAINT `fk_user_opinions_users`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `taskforce`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_user_opinions_tasks`
+    FOREIGN KEY (`refer_task_id`)
+    REFERENCES `taskforce`.`tasks` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE
+  )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+-- Связь пользователей к Категориям
 CREATE TABLE IF NOT EXISTS `taskforce`.`user_categories` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT(10) UNSIGNED NOT NULL,
@@ -170,6 +204,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`user_categories` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Избранные Исполнители для Заказчиков
 CREATE TABLE IF NOT EXISTS `taskforce`.`user_favorites` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT(10) UNSIGNED NOT NULL,
@@ -190,6 +225,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`user_favorites` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Уведомления пользователей
 CREATE TABLE IF NOT EXISTS `taskforce`.`user_notifications` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT(10) UNSIGNED NOT NULL,
@@ -206,6 +242,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`user_notifications` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Пользовательские файлы
 CREATE TABLE IF NOT EXISTS `taskforce`.`user_attachments` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` INT(10) UNSIGNED NOT NULL,
