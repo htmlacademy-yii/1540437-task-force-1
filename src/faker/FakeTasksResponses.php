@@ -1,4 +1,5 @@
 <?php
+
 namespace app\faker;
 
 class FakeTasksResponses extends AbstractFakeModel
@@ -13,7 +14,7 @@ class FakeTasksResponses extends AbstractFakeModel
     public $created_at;
     public $updated_at;
 
-    protected static function tableName(): string
+    public static function tableName(): string
     {
         return 'task_responses';
     }
@@ -25,6 +26,6 @@ class FakeTasksResponses extends AbstractFakeModel
 
     public function setDescription($value)
     {
-        $this->comment = $value;
+        $this->comment = str_replace("\n", '\n', $value);
     }
 }

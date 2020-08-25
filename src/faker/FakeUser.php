@@ -17,7 +17,7 @@ class FakeUser extends AbstractFakeModel
     public $skype;
     public $created_at;
 
-    protected static function tableName(): string
+    public static function tableName(): string
     {
         return 'users';
     }

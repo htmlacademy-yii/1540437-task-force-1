@@ -8,6 +8,7 @@ use app\actions\task\Pending;
 use app\actions\task\Refuse;
 use app\bizzlogic\Task;
 use app\components\FakeRelations;
+use app\components\SqlGenerator;
 use app\faker\FakeCategories;
 use app\faker\FakeCities;
 use app\faker\FakeProfile;
@@ -48,8 +49,8 @@ assert($task->cancel($performer) === false, 'Performer Cancel');
 assert($task->pending($performer) === false, 'Performer Pending');
 assert($task->pending($customer) === false, 'Customer Pending');
 
-assert($task->refuse($performer) === false, "Performer Refuse");
-assert($task->refuse($customer) === false, "Customer Refuse");
+assert($task->refuse($performer) === false, 'Performer Refuse');
+assert($task->refuse($customer) === false, 'Customer Refuse');
 
 $task = new Task($customer, $performer);
 // assert($task->pending($customer) === false, 'Customer Pending');
@@ -61,10 +62,9 @@ assert($task->refuse($performer) === true, 'Performer refuse');
 // assert($task->cancel($performer) === false, 'Performer Cancel');
 // assert($task->cancel($customer) === false, 'Customer Cancel');
 
-
-
 try {
     $fakeRelations = new FakeRelations();
+    $sqlGenerator = new SqlGenerator('taskforce');
 
     $cities = FakeCities::importFromFile('data/cities.csv');
     $categories = FakeCategories::importFromFile('data/categories.csv');
@@ -76,23 +76,27 @@ try {
     $userOpinions = FakeUserApinions::importFromFile('data/opinions.csv');
 
     $users = $fakeRelations->mergeWith($users, $userProfiles);
-    $users = $fakeRelations->setRelation($users, $cities, [ 'city_id' => 'id' ]);
-    
-    $tasks = $fakeRelations->setRelation($tasks, $users, [ 'customer_user_id' => 'id' ]);
-    $tasks = $fakeRelations->setRelation($tasks, $cities, [ 'city_id' => 'id' ]);
+    $users = $fakeRelations->setRelation($users, $cities, ['city_id' => 'id']);
+
+    $tasks = $fakeRelations->setRelation($tasks, $users, ['customer_user_id' => 'id']);
+    $tasks = $fakeRelations->setRelation($tasks, $cities, ['city_id' => 'id']);
 
     $userOpinions = $fakeRelations->setRelation($userOpinions, $users, ['user_id' => 'id']);
     $userOpinions = $fakeRelations->setRelation($userOpinions, $tasks, ['refer_task_id' => 'id']);
 
-    $taskResponses = $fakeRelations->setRelation($taskResponses, $users, [ 'user_id' => 'id' ]);
-    $taskResponses = $fakeRelations->setRelation($taskResponses, $tasks, [ 'task_id' => 'id' ]);
+    $taskResponses = $fakeRelations->setRelation($taskResponses, $users, ['user_id' => 'id']);
+    $taskResponses = $fakeRelations->setRelation($taskResponses, $tasks, ['task_id' => 'id']);
 
-    /** @var app\faker\AbstractFakeModel $model */
-    foreach ($cities as $model) {
-        $model->exportToFile('src/sql/cities.sql', 'taskforce', 'insert');
-    }
+    $data = $sqlGenerator->withModels($categories)->generateSqlData();
+    $data .= $sqlGenerator->withModels($cities)->generateSqlData();
+    $data .= $sqlGenerator->withModels($users)->generateSqlData();
+    $data .= $sqlGenerator->withModels($tasks)->generateSqlData();
+    $data .= $sqlGenerator->withModels($userOpinions)->generateSqlData();
+    $data .= $sqlGenerator->withModels($taskResponses)->generateSqlData();
 
-    // print_r($tasks);
+    $file = new \SplFileObject('src/sql/export.sql', 'w');
+    $file->ftruncate(0);
+    $file->fwrite($data);
 } catch (Throwable $e) {
     echo $e . PHP_EOL;
 }

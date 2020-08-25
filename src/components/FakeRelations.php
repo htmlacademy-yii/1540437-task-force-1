@@ -1,4 +1,5 @@
 <?php
+
 namespace app\components;
 
 use app\exceptions\base\NotFoundPropertyExceptions;
@@ -6,7 +7,6 @@ use app\faker\AbstractFakeModel;
 
 class FakeRelations
 {
-
     /**
      * Заполняет $mainModels связанными данными.
      *
@@ -40,10 +40,18 @@ class FakeRelations
         return $mainModels;
     }
 
+    /**
+     * Обогощает $mainModels данными из $relatedModels.
+     *
+     * Кол-во данных в обоих моделях должно быть одинаковым
+     *
+     * @param array $mainModels Массив Моделей
+     * @param array $relatedModels Массив Моделей
+     * @return array $mainModels
+     */
     public function mergeWith(array $mainModels, array $relatedModels): array
     {
-        // /** @var AbstractFakeModel $mainModels */
-        for ($i=0; $i<count($mainModels); $i++) {
+        for ($i = 0; $i < count($mainModels); $i++) {
             $mainModels[$i]->setAttributes($relatedModels[$i]->getAttributes());
         }
 

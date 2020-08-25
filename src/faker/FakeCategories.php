@@ -1,4 +1,5 @@
 <?php
+
 namespace app\faker;
 
 class FakeCategories extends AbstractFakeModel
@@ -7,7 +8,7 @@ class FakeCategories extends AbstractFakeModel
     public $name;
     public $icon;
 
-    protected static function tableName(): string
+    public static function tableName(): string
     {
         return 'categories';
     }

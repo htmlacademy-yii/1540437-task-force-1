@@ -1,4 +1,5 @@
 <?php
+
 namespace app\faker;
 
 class FakeProfile extends AbstractFakeModel
@@ -9,7 +10,7 @@ class FakeProfile extends AbstractFakeModel
     public $phone;
     public $skype;
 
-    protected static function tableName(): string
+    public static function tableName(): string
     {
         return 'users';
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace app\exceptions\file;
 
 class FileSeedException extends \Exception

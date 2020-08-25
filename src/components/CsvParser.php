@@ -18,17 +18,29 @@ class CsvParser extends AbstractFileParser
     private $rows = [];
 
     /** {@inheritDoc} */
-    protected function reset()
+    public function reset()
     {
         $this->spl->rewind();
     }
 
     /** {@inheritDoc} */
-    protected function end()
+    public function end()
     {
-        if (!$this->spl->fseek(0, SEEK_END)) {
-            throw new FileSeedException('Не удалось перейти в конец строки');
-        }
+        $bytes = $this->spl->getSize();
+        echo "\n-- Files Size {$bytes} : Current Key {$this->spl->key()}";
+        // echo '-- Current: ' . $this->spl->current() . ": Bytes: {$bytes}" . PHP_EOL;
+        $this->spl->seek($bytes);
+        echo "\n-- Files Size {$bytes} : Current Key {$this->spl->key()}";
+
+        // return $this->spl->key();
+    }
+
+    public function write(string $data)
+    {
+        $bytes = $this->end();
+        // print_r($this->spl->getSize());
+        echo 'Lines: ' . $bytes . '';
+        return $this->spl->fwrite($data);
     }
 
     /** {@inheritDoc} */
@@ -51,6 +63,25 @@ class CsvParser extends AbstractFileParser
         return parent::getColumnCount();
     }
 
+    /**
+     * Чтение новой строки
+     *
+     * @return iterable|null
+     */
+    public function getRow(): ?iterable
+    {
+        $result = null;
+        while (!$this->spl->eof()) {
+            yield $this->spl->fgetcsv();
+        }
+        return $result;
+    }
+
+    /**
+     * Все колонки модели
+     *
+     * @return void
+     */
     public function getRows()
     {
         if (empty($this->rows)) {
@@ -68,19 +99,5 @@ class CsvParser extends AbstractFileParser
     {
         $this->reset();
         return $this->spl->fgetcsv();
-    }
-
-    /**
-     * Новая строка
-     *
-     * @return iterable|null
-     */
-    public function getRow(): ?iterable
-    {
-        $result = null;
-        while (!$this->spl->eof()) {
-            yield $this->spl->fgetcsv();
-        }
-        return $result;
     }
 }

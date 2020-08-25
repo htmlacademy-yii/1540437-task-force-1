@@ -1,4 +1,5 @@
 <?php
+
 namespace app\components;
 
 /**
@@ -13,7 +14,7 @@ abstract class AbstractFileParser
     protected $spl;
 
     /**
-     * Undocumented function
+     * AbstractFileParser function
      *
      * @param string $fileName
      * @param string $fileMod
@@ -49,11 +50,13 @@ abstract class AbstractFileParser
 
     /** Установить курсор в начало строки */
     abstract protected function reset();
+
     /** Установить курсор в конец строки  */
     abstract protected function end();
+
     /** Считать первую строку */
-    abstract protected function getHeader(): array;
-    
+    abstract protected function getHeader(): ?array;
+
     /**
      * Чтение файла, до конца строки
      *

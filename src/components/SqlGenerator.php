@@ -1,62 +1,112 @@
 <?php
+
 namespace app\components;
 
-use app\components\CsvParser;
+use app\faker\AbstractFakeModel;
 
 class SqlGenerator
 {
-    private $dataBaseName;
-    private $tableName;
-    private $columns;
-    private $rows;
-    /** @var string */
-    private $insertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUE ({row});';
+    private $dbName;
+    private $models;
+    protected $_insertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUE ({row});';
+    protected $_updateTemplate = 'UPDATE `{db}`.`{table}` SET {data} WHERE id = {id}';
+    protected $_truncateTemplate = 'TRUNCATE TABLE `{db}`.`{table}`;';
 
     /**
      * SqlGenerator класс
      *
-     * @param string $tableName
-     * @param CsvParser $parser
+     * @param string $dbName
      */
-    public function __construct(string $tableName, CsvParser $parser)
+    public function __construct(string $dbName)
     {
-        list($this->dataBaseName, $this->tableName) = explode(".", $tableName, 2);
-        $this->columns = $parser->getColumns();
-    }
-
-    public function truncate()
-    {
-        $name = implode('.', [$this->dataBaseName,$this->tableName]);
-        return "TRUNCATE TABLE {$name};";
+        $this->dbName = $dbName;
     }
 
     /**
-     * Шаблон для генерации SQL строки
+     * Устанавливает Модель с данными для выполнения операций
      *
-     * @param string $tmpl
-     * @return void
+     * @param array $models
+     * @return self
      */
-    public function setTemplate(string $tmpl): void
+    public function withModels(array $models): self
     {
-        $this->template = $tmpl;
-    }
-    
-    public function getTableName(): string
-    {
-        return $this->tableName;
+        $this->models = $models;
+        return $this;
     }
 
-    public function getColumns(): ?array
+    /**
+     * Генерирует SQL строки по всем Моделям
+     *
+     * @param boolean $truncateTable
+     * @param string $scenario
+     * @return string
+     */
+    public function generateSqlData(bool $truncateTable = true, string $scenario = 'insert'): string
     {
-        return $this->columns;
+        $result = '';
+        $i = 0;
+        foreach ($this->models as $model) {
+            if ($i == 0 && $truncateTable) {
+                $result .= $this->generateSql($model, 'truncate') . PHP_EOL;
+            }
+            $i++;
+            $result .= $this->generateSql($model, $scenario) . PHP_EOL;
+        }
+        $this->models = null;
+        return $result;
     }
 
-    public function getRows(): ?array
+    /**
+     * Генерация SQL синтаксиса на основе Модели данных AbstractFakeModel
+     *
+     * @param AbstractFakeModel $model
+     * @param string $scenario
+     * @return string|null
+     */
+    private function generateSql(AbstractFakeModel $model, string $scenario): ?string
     {
-        return $this->rows;
-    }
+        $result = null;
 
-    public function generateSql()
-    {
+        switch (strtolower($scenario)) {
+            case 'insert':
+                $attributes = $model->getAttributes(true);
+                foreach ($attributes as $column => $row) {
+                    $columns[] = "'{$column}'";
+                    $data[] = is_numeric($row) ? $row : "\"{$row}\"";
+                }
+                $result = strtr($this->_insertTemplate, [
+                    '{db}' => $this->dbName,
+                    '{table}' => $model::tableName(),
+                    '{columns}' => implode(',', $columns),
+                    '{row}' => implode(',', $data)
+                ]);
+                break;
+            case 'update':
+                $attributes = $model->getAttributes(true);
+                $data = [];
+                foreach ($attributes as $attribute => $value) {
+                    if (isset($this->$attribute) && $attribute !== 'id') {
+                        $data[] = "`{$attribute}`='{$value}'";
+                    }
+                }
+
+                $result = strtr($this->_updateTemplate, [
+                    '{db}' => $this->dbName,
+                    '{id}' => $model->id,
+                    '{table}' => $model::tableName(),
+                    '{data}' => implode(', ', $data)
+                ]);
+                break;
+            case 'truncate':
+                $result = strtr($this->_truncateTemplate, [
+                    '{db}' => $this->dbName,
+                    '{table}' => $model::tableName()
+                ]);
+                break;
+            default:
+                throw new \Exception("Не известный сценарий: `{$scenario}`");
+        }
+
+        return $result;
     }
 }

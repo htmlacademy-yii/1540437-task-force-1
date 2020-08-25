@@ -1,4 +1,5 @@
 <?php
+
 namespace app\faker;
 
 class FakeTasks extends AbstractFakeModel
@@ -18,7 +19,7 @@ class FakeTasks extends AbstractFakeModel
     public $lattitude;
     public $longtitude;
 
-    protected static function tableName(): string
+    public static function tableName(): string
     {
         return 'tasks';
     }
@@ -41,5 +42,10 @@ class FakeTasks extends AbstractFakeModel
     public function setExpire($value)
     {
         $this->start_date = date('Y-m-d H:i:s', strtotime($value));
+    }
+
+    public function setDesc(string $value)
+    {
+        $this->description = str_replace("\n", '\n', $value);
     }
 }

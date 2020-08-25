@@ -1,4 +1,5 @@
 <?php
+
 namespace app\faker;
 
 class FakeUserApinions extends AbstractFakeModel
@@ -10,7 +11,7 @@ class FakeUserApinions extends AbstractFakeModel
     public $rate;
     public $created_at;
 
-    protected static function tableName(): string
+    public static function tableName(): string
     {
         return 'user_opinions';
     }

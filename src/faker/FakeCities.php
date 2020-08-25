@@ -1,4 +1,5 @@
 <?php
+
 namespace app\faker;
 
 class FakeCities extends AbstractFakeModel
@@ -8,7 +9,7 @@ class FakeCities extends AbstractFakeModel
     public $lat;
     public $long;
 
-    protected static function tableName(): string
+    public static function tableName(): string
     {
         return 'cities';
     }
