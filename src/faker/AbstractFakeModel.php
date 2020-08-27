@@ -7,9 +7,6 @@ use app\components\CsvParser;
 abstract class AbstractFakeModel
 {
     public $id;
-    // protected $_insertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUE ({row});';
-    // protected $_updateTemplate = 'UPDATE `{db}`.`{table}` SET {data} WHERE id = {id}';
-    // protected $_truncateTemplate = 'TRUNCATE TABLE `{db}`.`{table}`';
     protected $_relations;
 
     /**

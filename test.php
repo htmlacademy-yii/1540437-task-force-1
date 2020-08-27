@@ -69,8 +69,13 @@ try {
     $cities = FakeCities::importFromFile('data/cities.csv');
     $categories = FakeCategories::importFromFile('data/categories.csv');
 
+    print_r($sqlGenerator->batchInsert($categories));
+
+    return;
+
     $users = FakeUser::importFromFile('data/users.csv');
     $userProfiles = FakeProfile::importFromFile('data/profiles.csv');
+
     $tasks = FakeTasks::importFromFile('data/tasks.csv');
     $taskResponses = FakeTasksResponses::importFromFile('data/replies.csv');
     $userOpinions = FakeUserApinions::importFromFile('data/opinions.csv');
@@ -87,12 +92,21 @@ try {
     $taskResponses = $fakeRelations->setRelation($taskResponses, $users, ['user_id' => 'id']);
     $taskResponses = $fakeRelations->setRelation($taskResponses, $tasks, ['task_id' => 'id']);
 
-    $data = $sqlGenerator->withModels($categories)->generateSqlData();
-    $data .= $sqlGenerator->withModels($cities)->generateSqlData();
-    $data .= $sqlGenerator->withModels($users)->generateSqlData();
-    $data .= $sqlGenerator->withModels($tasks)->generateSqlData();
-    $data .= $sqlGenerator->withModels($userOpinions)->generateSqlData();
-    $data .= $sqlGenerator->withModels($taskResponses)->generateSqlData();
+    $data  = $sqlGenerator->disbaleForeignKeyCheks();
+    $data .= $sqlGenerator->truncateByModel($tasks);
+    $data .= $sqlGenerator->truncateByModel($users);
+    $data .= $sqlGenerator->truncateByModel($cities);
+    $data .= $sqlGenerator->truncateByModel($categories);
+    $data .= $sqlGenerator->truncateByModel($userOpinions);
+    $data .= $sqlGenerator->truncateByModel($taskResponses);
+    $data .= $sqlGenerator->enableForeignKeyCheks();
+
+    $data .= $sqlGenerator->batchInsert($categories);
+    $data .= $sqlGenerator->batchInsert($cities);
+    $data .= $sqlGenerator->batchInsert($users);
+    $data .= $sqlGenerator->batchInsert($tasks);
+    $data .= $sqlGenerator->batchInsert($userOpinions);
+    $data .= $sqlGenerator->batchInsert($taskResponses);
 
     $file = new \SplFileObject('src/sql/export.sql', 'w');
     $file->ftruncate(0);

@@ -15,6 +15,7 @@ class FakeUser extends AbstractFakeModel
     public $password_hash;
     public $phone;
     public $skype;
+    public $telegramm;
     public $created_at;
 
     public static function tableName(): string
@@ -30,5 +31,11 @@ class FakeUser extends AbstractFakeModel
     public function setPassword(string $password)
     {
         $this->password_hash = hash('md5', $password);
+    }
+
+    public function setEmail(string $value)
+    {
+        $this->email = $value;
+        $this->telegramm = "@" . mb_substr($value, 0, strripos($value, "@"));
     }
 }

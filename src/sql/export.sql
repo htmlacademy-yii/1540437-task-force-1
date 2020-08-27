@@ -1,1182 +1,1190 @@
-TRUNCATE TABLE `taskforce`.`categories`;
-INSERT INTO `taskforce`.`categories` ('id','name','icon') VALUE (1,"Переводы","translation");
-INSERT INTO `taskforce`.`categories` ('id','name','icon') VALUE (2,"Уборка","clean");
-INSERT INTO `taskforce`.`categories` ('id','name','icon') VALUE (3,"Переезды","cargo");
-INSERT INTO `taskforce`.`categories` ('id','name','icon') VALUE (4,"Компьютерная помощь","neo");
-INSERT INTO `taskforce`.`categories` ('id','name','icon') VALUE (5,"Ремонт квартирный","flat");
-INSERT INTO `taskforce`.`categories` ('id','name','icon') VALUE (6,"Ремонт техники","repair");
-INSERT INTO `taskforce`.`categories` ('id','name','icon') VALUE (7,"Красота","beauty");
-INSERT INTO `taskforce`.`categories` ('id','name','icon') VALUE (8,"Фото","photo");
-TRUNCATE TABLE `taskforce`.`cities`;
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1,"Абаза",52.6517296,90.0885929);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (2,"Абакан",53.7223661,91.4437792);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (3,"Абдулино",53.6778096,53.6473115);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (4,"Абинск",44.8679931,38.1618437);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (5,"Агидель",55.89976,53.9221149);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (6,"Агрыз",56.5232645,52.994257);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (7,"Адыгейск",44.8783715,39.190172);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (8,"Азнакаево",54.8599054,53.0745505);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (9,"Азов",47.1120631,39.4232597);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (10,"Ак-Довурак",51.1785658,90.5984511);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (11,"Аксай",47.2676075,39.8755485);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (12,"Алагир",43.0416151,44.2198622);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (13,"Алапаевск",57.8475542,61.6693934);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (14,"Алатырь",54.8398179,46.5721423);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (15,"Алдан",58.6094885,125.3816689);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (16,"Алейск",52.4920914,82.7794145);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (17,"Александров",56.3919652,38.711035);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (18,"Александровск",59.1613773,57.5764851);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (19,"Александровск-Сахалинский",50.8973664,142.1579322);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (20,"Алексеевка",50.6299932,38.6881776);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (21,"Алексин",54.5083788,37.047891);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (22,"Алзамай",55.5550493,98.6644106);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (23,"Алушта",44.6764419,34.4100387);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (24,"Альметьевск",54.9013662,52.2970654);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (25,"Амурск",50.2345017,136.8791135);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (26,"Анадырь",64.7314347,177.5015752);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (27,"Анапа",44.8950777,37.3163142);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (28,"Ангарск",52.5448102,103.8885385);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (29,"Андреаполь",56.6507072,32.2621196);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (30,"Анжеро-Судженск",56.0787179,86.0202207);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (31,"Анива",46.7132526,142.5265052);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (32,"Апатиты",67.5678295,33.4067218);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (33,"Апрелевка",55.5276336,37.0651105);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (34,"Апшеронск",44.4585239,39.7300092);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (35,"Арамиль",56.6945341,60.8343825);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (36,"Аргун",43.2918071,45.8724383);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (37,"Ардатов",54.8465693,46.2412736);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (38,"Ардон",43.1756719,44.2955701);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (39,"Арзамас",55.3947544,43.8407855);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (40,"Аркадак",51.9387813,43.4997558);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (41,"Армавир",45.0010338,41.132392);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (42,"Армянск",46.1059247,33.6910325);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (43,"Арсеньев",44.16208,133.269622);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (44,"Арск",56.0913636,49.8770441);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (45,"Артем",43.350053,132.1596594);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (46,"Артемовск",54.3472901,93.4356543);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (47,"Артемовский",57.3384162,61.8946599);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (48,"Архангельск",64.5392985,40.5170083);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (49,"Асбест",57.0052428,61.4581071);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (50,"Асино",56.9908444,86.1765724);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (51,"Астрахань",46.3655808,48.0559979);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (52,"Аткарск",51.8736331,45.0003199);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (53,"Ахтубинск",48.2753078,46.1906741);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (54,"Ачинск",56.2538662,90.47949);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (55,"Аша",54.9907105,57.2783704);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (56,"Бабаево",59.389309,35.9378318);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (57,"Бабушкин",51.7113066,105.8673633);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (58,"Бавлы",54.4063588,53.2457946);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (59,"Багратионовск",54.3866976,20.6418545);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (60,"Байкальск",51.5231282,104.1485752);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (61,"Баймак",52.5912632,58.3111995);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (62,"Бакал",54.9406759,58.8051085);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (63,"Баксан",43.6820621,43.5345627);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (64,"Балабаново",55.1773652,36.6567255);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (65,"Балаково",52.0222694,47.7828146);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (66,"Балахна",56.4949932,43.5758953);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (67,"Балашиха",55.7963352,37.9381413);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (68,"Балашов",51.5389502,43.1839828);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (69,"Балей",51.5822063,116.6380088);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (70,"Балтийск",54.6514128,19.9141911);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (71,"Барабинск",55.3515917,78.3465012);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (72,"Барнаул",53.3481145,83.7798362);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (73,"Барыш",53.6534563,47.1180805);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (74,"Батайск",47.138321,39.7508382);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (75,"Бахчисарай",44.751388,33.8750341);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (76,"Бежецк",57.7861144,36.6903445);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (77,"Белая Калитва",48.176948,40.8033169);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (78,"Белая Холуница",58.8415212,50.8461002);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (79,"Белгород",50.5977351,36.5858236);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (80,"Белебей",54.1033832,54.1111878);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (81,"Белев",53.8113348,36.1383153);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (82,"Белинский",52.9641169,43.4185003);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (83,"Белово",54.4221442,86.3036438);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (84,"Белогорск",50.9212235,128.4738742);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (85,"Белогорск",45.0571581,34.5998775);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (86,"Белозерск",60.0307914,37.7891123);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (87,"Белокуриха",51.9960534,84.9840343);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (88,"Беломорск",64.5378468,34.7799717);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (89,"Белорецк",53.9675927,58.4099562);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (90,"Белореченск",44.7652733,39.8780457);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (91,"Белоусово",55.0957679,36.6777239);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (92,"Белоярский",63.712181,66.6772357);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (93,"Белый",55.8337663,32.9388976);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (94,"Бердск",54.7582375,83.1072212);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (95,"Березники",59.4079898,56.8040725);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (96,"Березовский",55.6692853,86.2744636);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (97,"Березовский",56.9096284,60.8180256);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (98,"Беслан",43.1937634,44.5338746);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (99,"Бийск",52.5393683,85.2138852);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (100,"Бикин",46.8186244,134.2551046);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (101,"Билибино",68.0585533,166.4388451);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (102,"Биробиджан",48.7945975,132.9217594);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (103,"Бирск",55.4157107,55.5582335);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (104,"Бирюсинск",55.9608611,97.8203624);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (105,"Бирюч",50.6483899,38.4006203);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (106,"Благовещенск",50.2905935,127.5272186);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (107,"Благовещенск",55.0499592,55.955309);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (108,"Благодарный",45.0990834,43.4307042);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (109,"Бобров",51.0902048,40.0320014);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (110,"Богданович",56.7764419,62.0463692);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (111,"Богородицк",53.7700516,38.1225308);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (112,"Богородск",56.1019905,43.513678);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (113,"Боготол",56.209881,89.5300182);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (114,"Богучар",49.9352997,40.5592467);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (115,"Бодайбо",57.8468822,114.1867148);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (116,"Бокситогорск",59.4735032,33.8456521);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (117,"Болгар",54.9748862,49.0302977);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (118,"Бологое",57.885655,34.0536895);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (119,"Болотное",55.6693773,84.3906599);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (120,"Болохово",54.0820644,37.826844);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (121,"Болхов",53.4440204,36.0076969);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (122,"Большой Камень",43.1112737,132.3480354);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (123,"Бор",56.3565179,44.0644851);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (124,"Борзя",50.3875437,116.5235682);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (125,"Борисоглебск",51.3654619,42.100947);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (126,"Боровичи",58.3839866,33.9176761);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (127,"Боровск",55.2130965,36.4927446);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (128,"Бородино",55.9054308,94.9021138);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (129,"Братск",56.1513951,101.6339892);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (130,"Бронницы",55.4255534,38.2640794);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (131,"Брянск",53.2420071,34.3652716);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (132,"Бугульма",54.5363428,52.7895286);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (133,"Бугуруслан",53.6522636,52.4326166);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (134,"Буденновск",44.7814437,44.1650859);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (135,"Бузулук",52.7881434,52.2623757);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (136,"Буинск",54.9641106,48.2900576);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (137,"Буй",58.473445,41.5306746);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (138,"Буйнакск",42.8213799,47.1164452);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (139,"Бутурлиновка",50.8313227,40.5977541);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (140,"Валдай",57.9822906,33.2369492);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (141,"Валуйки",50.2112799,38.0998765);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (142,"Велиж",55.6058845,31.1857376);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (143,"Великие Луки",56.3321847,30.550757);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (144,"Великий Новгород",58.5214003,31.2755051);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (145,"Великий Устюг",60.7603243,46.3053893);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (146,"Вельск",61.0660057,42.1032858);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (147,"Венев",54.3542431,38.2642325);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (148,"Верещагино",58.0797908,54.6580948);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (149,"Верея",55.3674668,36.1563083);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (150,"Верхнеуральск",53.8760587,59.2169071);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (151,"Верхний Тагил",57.3762768,59.9516521);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (152,"Верхний Уфалей",56.0487252,60.231963);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (153,"Верхняя Пышма",56.9757833,60.564885);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (154,"Верхняя Салда",58.0466039,60.5560397);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (155,"Верхняя Тура",58.3643839,59.8266854);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (156,"Верхотурье",58.8621145,60.8104543);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (157,"Верхоянск",67.5500865,133.3907829);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (158,"Весьегонск",58.6584004,37.2568605);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (159,"Ветлуга",57.8558395,45.7762692);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (160,"Видное",55.5518323,37.7062062);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (161,"Вилюйск",63.7517314,121.6272754);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (162,"Вилючинск",52.930428,158.4057276);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (163,"Вихоревка",56.1207708,101.170332);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (164,"Вичуга",57.2044545,41.9131192);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (165,"Владивосток",43.1163807,131.882348);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (166,"Владикавказ",43.0205039,44.6819383);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (167,"Владимир",56.1281561,40.4082995);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (168,"Волгоград",48.7072005,44.5170207);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (169,"Волгодонск",47.5165181,42.1984531);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (170,"Волгореченск",57.4423712,41.1593076);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (171,"Волжск",55.8622987,48.371553);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (172,"Волжский",48.7978483,44.7462417);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (173,"Вологда",59.2484186,39.8356461);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (174,"Володарск",56.2168974,43.1597623);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (175,"Волоколамск",56.0358121,35.9585027);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (176,"Волосово",59.4445107,29.492277);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (177,"Волхов",59.9006057,32.35212);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (178,"Волчанск",59.9350515,60.0797964);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (179,"Вольск",52.0459932,47.3873504);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (180,"Воркута",67.4973484,64.0611045);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (181,"Воронеж",51.6592378,39.1968284);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (182,"Ворсма",55.9900425,43.2719879);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (183,"Воскресенск",55.3071305,38.7026949);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (184,"Воткинск",57.0517641,53.9874635);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (185,"Всеволожск",60.0190094,30.6455834);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (186,"Вуктыл",63.8615209,57.3165207);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (187,"Выборг",60.7130748,28.7328813);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (188,"Выкса",55.3207103,42.1679169);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (189,"Высоковск",56.336141,36.5251316);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (190,"Высоцк",60.6296511,28.5709914);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (191,"Вытегра",61.0064157,36.4495835);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (192,"Вышний Волочек",57.5683326,34.5402931);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (193,"Вяземский",47.5354416,134.7553701);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (194,"Вязники",56.2976528,42.2687311);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (195,"Вязьма",55.2115563,34.2951196);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (196,"Вятские Поляны",56.2286058,51.0614666);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (197,"Гаврилов Посад",56.5585967,40.1228288);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (198,"Гаврилов-Ям",57.3091552,39.8545157);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (199,"Гагарин",55.5526532,34.9949049);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (200,"Гаджиево",69.2490009,33.3152445);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (201,"Гай",51.4649138,58.4436189);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (202,"Галич",58.3826861,42.3654563);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (203,"Гатчина",59.5650861,30.1281859);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (204,"Гвардейск",54.6588981,21.0500584);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (205,"Гдов",58.7432585,27.8263328);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (206,"Геленджик",44.5631053,38.0790184);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (207,"Георгиевск",44.1486421,43.4739718);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (208,"Глазов",58.1359111,52.6634998);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (209,"Голицыно",55.6189762,36.9855559);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (210,"Горбатов",56.1307901,43.0626829);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (211,"Горно-Алтайск",51.9582681,85.9602957);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (212,"Горнозаводск",58.3743406,58.3230329);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (213,"Горняк",50.9979032,81.4643059);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (214,"Городец",56.6447459,43.4722975);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (215,"Городище",53.2727888,45.702731);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (216,"Городовиковск",46.0875351,41.9354039);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (217,"Гороховец",56.2021059,42.692517);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (218,"Горячий Ключ",44.6343251,39.1356421);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (219,"Грайворон",50.4862699,35.6662957);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (220,"Гремячинск",58.5625603,57.8520073);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (221,"Грозный",43.3179243,45.6981102);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (222,"Грязи",52.4873931,39.9331785);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (223,"Грязовец",58.8757657,40.248477);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (224,"Губаха",58.837024,57.5544441);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (225,"Губкин",51.2836362,37.5347608);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (226,"Губкинский",64.4456575,76.4714559);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (227,"Гудермес",43.3519164,46.1036052);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (228,"Гуково",48.0449422,39.9484635);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (229,"Гулькевичи",45.3605769,40.6918484);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (230,"Гурьевск",54.7705368,20.6039109);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (231,"Гурьевск",54.2860005,85.947723);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (232,"Гусев",54.5915477,22.1944114);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (233,"Гусиноозерск",51.2865751,106.5230732);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (234,"Гусь-Хрустальный",55.6198065,40.6578769);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (235,"Давлеканово",54.2227617,55.0313419);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (236,"Дагестанские Огни",42.1151021,48.1939983);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (237,"Далматово",56.2621393,62.9387378);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (238,"Дальнегорск",44.5539909,135.5662536);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (239,"Дальнереченск",45.9307882,133.7316542);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (240,"Данилов",58.1859542,40.1796765);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (241,"Данков",53.25769,39.1457625);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (242,"Дегтярск",56.7048199,60.0792227);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (243,"Дедовск",55.8704718,37.1244724);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (244,"Демидов",55.2682611,31.5062078);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (245,"Дербент",42.058935,48.2908653);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (246,"Десногорск",54.1465117,33.2834063);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (247,"Джанкой",45.7092436,34.388332);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (248,"Дзержинск",56.2376438,43.4599363);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (249,"Дзержинский",55.6241079,37.8440691);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (250,"Дивногорск",55.9577868,92.380085);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (251,"Дигора",43.1567386,44.1551132);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (252,"Димитровград",54.2168446,49.6261645);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (253,"Дмитриев",52.1269291,35.0739504);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (254,"Дмитров",56.3477176,37.5267184);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (255,"Дмитровск",52.5053481,35.141535);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (256,"Дно",57.8269802,29.9629569);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (257,"Добрянка",58.4696353,56.4131294);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (258,"Долгопрудный",55.9384901,37.5100527);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (259,"Долинск",47.3255903,142.7945985);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (260,"Домодедово",55.4363901,37.7666263);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (261,"Донецк",48.3350928,39.9460654);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (262,"Донской",53.9679582,38.3372104);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (263,"Дорогобуж",54.9137794,33.3024596);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (264,"Дрезна",55.7442991,38.8499228);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (265,"Дубна",56.7417949,37.1757163);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (266,"Дубовка",49.0555342,44.8270813);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (267,"Дудинка",69.4031339,86.1908135);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (268,"Духовщина",55.1950509,32.4012351);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (269,"Дюртюли",55.4848047,54.8524875);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (270,"Дятьково",53.5958283,34.355092);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (271,"Евпатория",45.1904322,33.3667685);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (272,"Егорьевск",55.3831326,39.0358236);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (273,"Ейск",46.7114611,38.2764915);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (274,"Екатеринбург",56.8386326,60.6054887);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (275,"Елабуга",55.7566727,52.0544438);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (276,"Елец",52.6151738,38.5289121);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (277,"Елизово",53.1829573,158.3882833);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (278,"Ельня",54.5836832,33.1749566);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (279,"Еманжелинск",54.7554084,61.3243985);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (280,"Емва",62.5965314,50.8731889);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (281,"Енисейск",58.4485234,92.165237);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (282,"Ермолино",55.1972714,36.5951966);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (283,"Ершов",51.3508407,48.2763313);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (284,"Ессентуки",44.044461,42.8589078);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (285,"Ефремов",53.1465725,38.0922412);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (286,"Железноводск",44.1320689,43.0306475);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (287,"Железногорск",56.2529346,93.532167);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (288,"Железногорск",52.3378753,35.3516834);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (289,"Железногорск-Илимский",56.5847382,104.1141747);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (290,"Жердевка",51.8421783,41.4617407);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (291,"Жигулевск",53.4011545,49.494529);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (292,"Жиздра",53.7522384,34.7386719);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (293,"Жирновск",50.9767561,44.7857694);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (294,"Жуков",55.0301386,36.7393279);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (295,"Жуковка",53.5341219,33.7302166);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (296,"Жуковский",55.5998408,38.1224185);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (297,"Завитинск",50.1064678,129.4392897);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (298,"Заводоуковск",56.5012193,66.5505094);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (299,"Заволжск",57.4916546,42.1374455);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (300,"Заволжье",56.6404237,43.3871565);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (301,"Задонск",52.4004611,38.9205772);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (302,"Заинск",55.2988854,52.0063634);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (303,"Закаменск",50.3726774,103.2867452);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (304,"Заозерный",55.9617268,94.7091037);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (305,"Заозерск",69.4003895,32.4502225);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (306,"Западная Двина",56.2568002,32.0805972);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (307,"Заполярный",69.413232,30.7985332);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (308,"Зарайск",54.7625993,38.8851485);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (309,"Заречный",53.1961009,45.1691502);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (310,"Заречный",56.8103345,61.3380592);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (311,"Заринск",53.7063495,84.9314703);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (312,"Звенигово",55.9739374,48.0170276);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (313,"Звенигород",55.7296168,36.8552843);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (314,"Зверево",48.043451,40.1264948);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (315,"Зеленогорск",56.1133001,94.5888736);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (316,"Зеленоградск",54.9600226,20.4753274);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (317,"Зеленодольск",55.8466751,48.5010882);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (318,"Зеленокумск",44.403359,43.8841326);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (319,"Зерноград",46.8494991,40.312765);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (320,"Зея",53.7339151,127.2658079);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (321,"Зима",53.9206865,102.0492066);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (322,"Златоуст",55.1715695,59.6726264);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (323,"Злынка",52.4265906,31.7360386);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (324,"Змеиногорск",51.1580235,82.1872476);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (325,"Знаменск",48.5865618,45.7367908);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (326,"Зубцов",56.1760709,34.5825504);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (327,"Зуевка",58.4031674,51.1330787);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (328,"Ивангород",59.3765845,28.2230504);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (329,"Иваново",56.9994677,40.9728231);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (330,"Ивантеевка",55.9742303,37.9208755);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (331,"Ивдель",60.6944353,60.4244661);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (332,"Игарка",67.4667947,86.5814287);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (333,"Ижевск",56.8527444,53.2113961);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (334,"Избербаш",42.565098,47.871002);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (335,"Изобильный",45.3684342,41.7086448);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (336,"Иланский",56.2374163,96.0672656);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (337,"Инза",53.8550467,46.3532786);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (338,"Инкерман",44.6135153,33.6100739);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (339,"Иннополис",55.7521544,48.7446161);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (340,"Инсар",53.8770384,44.3696866);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (341,"Инта",66.0368196,60.1154612);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (342,"Ипатово",45.7181897,42.8969695);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (343,"Ирбит",57.6838406,63.0576639);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (344,"Иркутск",52.2863513,104.280655);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (345,"Исилькуль",54.9096156,71.2816107);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (346,"Искитим",54.6266869,83.2951444);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (347,"Истра",55.9061087,36.8600854);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (348,"Ишим",56.0952037,69.4643292);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (349,"Ишимбай",53.4546314,56.043874);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (350,"Йошкар-Ола",56.6343763,47.8998445);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (351,"Кадников",59.5037947,40.3440473);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (352,"Казань",55.7943877,49.1115312);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (353,"Калач",50.4241213,41.0162858);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (354,"Калачинск",55.0598547,74.5655075);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (355,"Калач-на-Дону",48.6887569,43.5306866);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (356,"Калининград",54.7073218,20.5072458);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (357,"Калининск",51.4992917,44.4710177);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (358,"Калтан",53.5210461,87.2772143);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (359,"Калуга",54.5060439,36.2515933);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (360,"Калязин",57.2579471,37.7821253);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (361,"Камбарка",56.2659745,54.1934153);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (362,"Каменка",53.1855474,44.0468501);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (363,"Каменногорск",60.9508768,29.1308061);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (364,"Каменск-Уральский",56.4149095,61.9189837);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (365,"Каменск-Шахтинский",48.3204412,40.268874);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (366,"Камень-на-Оби",53.7915454,81.3545173);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (367,"Камешково",56.3488712,40.9955682);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (368,"Камызяк",46.1105429,48.0732724);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (369,"Камышин",50.0651261,45.3843816);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (370,"Камышлов",56.8465469,62.7120432);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (371,"Канаш",55.5069543,47.4917734);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (372,"Кандалакша",67.1567298,32.4142303);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (373,"Канск",56.2049776,95.7051246);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (374,"Карабаново",56.3133447,38.7034267);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (375,"Карабаш",55.4852076,60.2358959);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (376,"Карабулак",43.3054762,44.9094521);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (377,"Карасук",53.7343772,78.042457);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (378,"Карачаевск",43.773197,41.9143726);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (379,"Карачев",53.1297194,34.9887859);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (380,"Каргат",55.1943829,80.2831324);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (381,"Каргополь",61.5008762,38.9636415);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (382,"Карпинск",59.7664444,60.0011798);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (383,"Карталы",53.0536101,60.647712);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (384,"Касимов",54.9373788,41.3912912);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (385,"Касли",55.8868045,60.7422529);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (386,"Каспийск",42.8916599,47.6366674);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (387,"Катав-Ивановск",54.7520187,58.1983706);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (388,"Катайск",56.2908118,62.5800669);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (389,"Качканар",58.7051759,59.4840198);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (390,"Кашин",57.3600486,37.6118674);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (391,"Кашира",54.8534263,38.1903818);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (392,"Кедровый",57.5618465,79.5678914);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (393,"Кемерово",55.3909721,86.0467864);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (394,"Кемь",64.9543657,34.5948547);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (395,"Керчь",45.3561128,36.4674285);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (396,"Кизел",59.0511764,57.6471214);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (397,"Кизилюрт",43.2039094,46.8729311);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (398,"Кизляр",43.8483915,46.7232828);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (399,"Кимовск",53.9698378,38.5380267);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (400,"Кимры",56.873359,37.3557064);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (401,"Кингисепп",59.3739407,28.6112981);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (402,"Кинель",53.2209985,50.6343039);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (403,"Кинешма",57.4425441,42.1690039);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (404,"Киреевск",53.9321173,37.9220791);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (405,"Киренск",57.7757126,108.1107766);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (406,"Киржач",56.1485263,38.8635035);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (407,"Кириллов",59.8590353,38.3749854);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (408,"Кириши",59.4742626,32.0625536);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (409,"Киров",54.0790823,34.3077508);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (410,"Киров",58.6035313,49.6679219);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (411,"Кировград",57.4298451,60.0623588);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (412,"Кирово-Чепецк",58.5559921,50.0317608);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (413,"Кировск",59.875371,30.9815205);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (414,"Кировск",67.6150979,33.6637196);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (415,"Кирс",59.3400586,52.2415895);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (416,"Кирсанов",52.650594,42.7284872);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (417,"Киселевск",54.0060382,86.6367387);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (418,"Кисловодск",43.905235,42.7167187);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (419,"Клин",56.3424886,36.7240912);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (420,"Клинцы",52.7529052,32.2339161);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (421,"Княгинино",55.8205157,45.0322947);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (422,"Ковдор",67.5661466,30.4742082);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (423,"Ковров",56.3553895,41.3169568);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (424,"Ковылкино",54.0391464,43.9191229);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (425,"Когалым",62.2638914,74.4828687);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (426,"Кодинск",58.6033961,99.1797563);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (427,"Козельск",54.0348417,35.7807136);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (428,"Козловка",55.8406526,48.2579372);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (429,"Козьмодемьянск",56.333346,46.5466282);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (430,"Кола",68.8785079,33.0262014);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (431,"Кологрив",58.826988,44.3185323);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (432,"Коломна",55.1027797,38.7531734);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (433,"Колпашево",58.3114716,82.9027528);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (434,"Кольчугино",56.3327616,39.391201);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (435,"Коммунар",59.6215929,30.393466);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (436,"Комсомольск",57.0273907,40.3775952);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (437,"Комсомольск-на-Амуре",50.550011,137.0079286);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (438,"Конаково",56.7275533,36.8011699);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (439,"Кондопога",62.2059866,34.2681778);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (440,"Кондрово",54.796051,35.9276099);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (441,"Константиновск",47.5773456,41.0967362);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (442,"Копейск",55.1167545,61.6180809);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (443,"Кораблино",53.9245422,40.0227867);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (444,"Кореновск",45.4640868,39.4590178);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (445,"Коркино",54.8903023,61.4034541);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (446,"Королев",55.9162558,37.8545224);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (447,"Короча",50.8130123,37.1896543);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (448,"Корсаков",46.6323995,142.7994094);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (449,"Коряжма",61.2885993,47.1002315);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (450,"Костерево",55.9336424,39.624822);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (451,"Костомукша",64.5889946,30.6015567);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (452,"Кострома",57.8029445,40.9907282);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (453,"Котельники",55.659898,37.8632865);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (454,"Котельниково",47.6310808,43.1331198);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (455,"Котельнич",58.3035238,48.3474288);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (456,"Котлас",61.2529842,46.6331915);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (457,"Котово",50.3205433,44.8031864);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (458,"Котовск",52.592393,41.5102486);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (459,"Кохма",56.9325151,41.0933071);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (460,"Красавино",60.9613991,46.481465);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (461,"Красноармейск",51.0268595,45.7011086);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (462,"Красноармейск",51.0236026,45.695141);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (463,"Красновишерск",60.3902242,57.0537244);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (464,"Красногорск",55.8318475,37.32942);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (465,"Краснодар",45.040235,38.9760801);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (466,"Краснозаводск",56.4408723,38.2320671);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (467,"Краснознаменск",54.9452612,22.4928511);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (468,"Краснознаменск",55.5978962,37.0395137);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (469,"Краснокаменск",50.092858,118.0323407);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (470,"Краснокамск",58.0820946,55.7479797);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (471,"Красноперекопск",45.9537956,33.7921523);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (472,"Краснослободск",48.7068777,44.5631799);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (473,"Краснослободск",54.4248634,43.7845096);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (474,"Краснотурьинск",59.7636934,60.1934451);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (475,"Красноуральск",58.3486334,60.0409011);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (476,"Красноуфимск",56.6122864,57.7636958);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (477,"Красноярск",56.009466,92.8524162);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (478,"Красный Кут",50.9596867,46.9712472);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (479,"Красный Сулин",47.8830826,40.0781385);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (480,"Красный Холм",58.0570193,37.1125975);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (481,"Кременки",54.8863306,37.116878);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (482,"Кропоткин",45.4332464,40.5727852);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (483,"Крымск",44.9344108,37.9855314);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (484,"Кстово",56.1433353,44.1665081);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (485,"Кубинка",55.5755679,36.6952487);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (486,"Кувандык",51.4784845,57.3612029);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (487,"Кувшиново",57.0263733,34.1676435);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (488,"Кудымкар",59.0168605,54.6573459);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (489,"Кузнецк",53.1131686,46.6052497);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (490,"Куйбышев",55.4684104,78.3241042);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (491,"Кулебаки",55.429716,42.512483);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (492,"Кумертау",52.7565537,55.7969915);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (493,"Кунгур",57.4283217,56.9437787);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (494,"Купино",54.3660317,77.2972969);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (495,"Курган",55.4443448,65.3161339);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (496,"Курганинск",44.8876442,40.5913858);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (497,"Курильск",45.2271915,147.8796713);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (498,"Курлово",55.4525994,40.6124362);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (499,"Куровское",55.5791491,38.9208543);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (500,"Курск",51.7303391,36.1926448);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (501,"Куртамыш",54.9368491,64.4203009);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (502,"Курчатов",51.6605475,35.6571711);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (503,"Куса",55.3385156,59.4386474);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (504,"Кушва",58.2825406,59.7646113);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (505,"Кызыл",51.7191542,94.4377234);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (506,"Кыштым",55.7060048,60.5563271);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (507,"Кяхта",50.3466291,106.4534938);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (508,"Лабинск",44.6353153,40.724385);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (509,"Лабытнанги",66.6592376,66.3882628);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (510,"Лагань",45.3929617,47.3432943);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (511,"Ладушкин",54.5693538,20.1691909);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (512,"Лаишево",55.4042646,49.5498201);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (513,"Лакинск",56.0180614,39.9564706);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (514,"Лангепас",61.2536667,75.1807905);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (515,"Лахденпохья",61.5189466,30.199592);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (516,"Лебедянь",53.0156678,39.143498);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (517,"Лениногорск",54.5966917,52.4432118);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (518,"Ленинск",48.6936234,45.1992835);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (519,"Ленинск-Кузнецкий",54.6674092,86.1796724);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (520,"Ленск",60.7276036,114.9549103);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (521,"Лермонтов",44.1052526,42.9731433);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (522,"Лесной",58.634981,59.7980528);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (523,"Лесозаводск",45.4780192,133.4185501);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (524,"Лесосибирск",58.2218201,92.5036986);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (525,"Ливны",52.4285122,37.603944);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (526,"Ликино-Дулево",55.7078531,38.9577103);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (527,"Липецк",52.6103027,39.5946266);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (528,"Липки",53.9418109,37.7019452);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (529,"Лиски",50.9944734,39.518302);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (530,"Лихославль",57.122256,35.4667886);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (531,"Лобня",56.0328745,37.4614671);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (532,"Лодейное Поле",60.7320564,33.5522225);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (533,"Лосино-Петровский",55.8714441,38.2005377);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (534,"Луга",58.7373818,29.8466657);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (535,"Луза",60.6290781,47.2612069);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (536,"Лукоянов",55.0327349,44.4933829);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (537,"Луховицы",54.9651617,39.0261346);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (538,"Лысково",56.0262298,45.0356702);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (539,"Лысьва",58.0995987,57.8085728);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (540,"Лыткарино",55.5778065,37.9034952);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (541,"Льгов",51.6596935,35.2611592);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (542,"Любань",59.3492573,31.2485276);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (543,"Люберцы",55.700416,37.9606496);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (544,"Любим",58.3619868,40.6869581);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (545,"Людиново",53.8701406,34.4385498);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (546,"Лянтор",61.6391639,72.1793828);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (547,"Магадан",59.5681763,150.8085289);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (548,"Магас",43.1686967,44.8130849);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (549,"Магнитогорск",53.4071891,58.9791432);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (550,"Майкоп",44.6098268,40.1006527);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (551,"Майский",43.6281779,44.0516663);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (552,"Макаров",48.6236287,142.7803508);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (553,"Макарьев",57.8808916,43.8014428);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (554,"Макушино",55.2154025,67.2452558);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (555,"Малая Вишера",58.8458076,32.2247984);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (556,"Малгобек",43.5097009,44.5901517);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (557,"Малмыж",56.5243722,50.6782757);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (558,"Малоархангельск",52.4001151,36.5037931);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (559,"Малоярославец",55.0176756,36.4632122);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (560,"Мамадыш",55.7149876,51.4128614);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (561,"Мамоново",54.4645591,19.9454114);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (562,"Мантурово",58.3264667,44.7575036);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (563,"Мариинск",56.2127836,87.7454392);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (564,"Мариинский Посад",56.111968,47.7142676);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (565,"Маркс",51.7133973,46.7400684);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (566,"Махачкала",42.9848572,47.5046303);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (567,"Мглин",53.0600644,32.8467217);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (568,"Мегион",61.0318946,76.1024772);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (569,"Медвежьегорск",62.9127678,34.4567614);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (570,"Медногорск",51.4039421,57.5832185);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (571,"Медынь",54.9690755,35.887313);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (572,"Межгорье",54.239683,57.96146);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (573,"Междуреченск",53.6865695,88.0703888);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (574,"Мезень",65.8398386,44.2531865);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (575,"Меленки",55.3387017,41.634124);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (576,"Мелеуз",52.9590637,55.9283483);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (577,"Менделеевск",55.8950646,52.3144177);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (578,"Мензелинск",55.7270908,53.1005321);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (579,"Мещовск",54.3191127,35.2816065);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (580,"Миасс",55.0455774,60.1077757);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (581,"Микунь",62.3580188,50.0719738);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (582,"Миллерово",48.925821,40.3983302);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (583,"Минеральные Воды",44.2088942,43.1383482);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (584,"Минусинск",53.7105509,91.6871866);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (585,"Миньяр",55.0709601,57.5484435);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (586,"Мирный",62.7644267,40.3359976);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (587,"Мирный",62.5362511,113.9668146);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (588,"Михайлов",54.2296493,39.0090857);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (589,"Михайловка",50.0708749,43.2400847);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (590,"Михайловск",56.4369736,59.113865);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (591,"Михайловск",45.1296297,42.028787);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (592,"Мичуринск",52.891294,40.510475);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (593,"Могоча",53.7362465,119.7661232);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (594,"Можайск",55.5069819,36.0240724);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (595,"Можга",56.4427219,52.2138882);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (596,"Моздок",43.7471209,44.6571456);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (597,"Мончегорск",67.9385206,32.9358886);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (598,"Морозовск",48.3511724,41.8308006);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (599,"Моршанск",53.4436469,41.8115687);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (600,"Мосальск",54.4825589,34.987206);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (601,"Муравленко",63.794188,74.494913);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (602,"Мураши",59.3956347,48.9637651);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (603,"Мурманск",69.0076958,33.0686019);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (604,"Муром",55.5632276,42.023006);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (605,"Мценск",53.2790021,36.574992);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (606,"Мыски",53.7125516,87.8056657);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (607,"Мытищи",55.9104647,37.7363702);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (608,"Мышкин",57.7881664,38.4542816);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (609,"Набережные Челны",55.7436475,52.3958739);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (610,"Навашино",55.5439105,42.1887734);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (611,"Наволоки",57.4678426,41.9607371);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (612,"Надым",65.5377514,72.5182746);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (613,"Назарово",56.0113176,90.4167947);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (614,"Назрань",43.2257977,44.764685);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (615,"Называевск",55.5688811,71.3502572);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (616,"Нальчик",43.4846312,43.6070316);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (617,"Нариманов",46.6916597,47.8501624);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (618,"Наро-Фоминск",55.3802749,36.7608038);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (619,"Нарткала",43.5577208,43.8576411);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (620,"Нарьян-Мар",67.6381525,53.0069336);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (621,"Находка",42.8240404,132.8927812);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (622,"Невель",56.0201544,29.9240505);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (623,"Невельск",46.6527314,141.8631741);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (624,"Невинномысск",44.6227404,41.9476147);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (625,"Невьянск",57.491233,60.2181839);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (626,"Нелидово",56.2232417,32.7766656);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (627,"Неман",55.0315543,22.0323961);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (628,"Нерехта",57.4543706,40.5725438);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (629,"Нерчинск",51.9595512,116.5854018);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (630,"Нерюнгри",56.6600322,124.72031);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (631,"Нестеров",54.6314454,22.5713658);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (632,"Нефтегорск",52.797259,51.1637126);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (633,"Нефтекамск",56.0883075,54.2483391);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (634,"Нефтекумск",44.7544866,44.9865041);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (635,"Нефтеюганск",61.0882837,72.6164185);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (636,"Нея",58.2944499,43.8780965);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (637,"Нижневартовск",60.9397379,76.5696206);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (638,"Нижнекамск",55.6311963,51.814407);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (639,"Нижнеудинск",54.8969105,99.0313481);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (640,"Нижние Серги",56.6544606,59.2952291);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (641,"Нижний Ломов",53.5301274,43.6729216);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (642,"Нижний Новгород",56.3242093,44.0053948);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (643,"Нижний Тагил",57.9101038,59.9813242);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (644,"Нижняя Салда",58.0749243,60.7026555);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (645,"Нижняя Тура",58.6310942,59.8521265);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (646,"Николаевск",50.0166952,45.4733204);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (647,"Николаевск-на-Амуре",53.1461943,140.7109642);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (648,"Никольск",59.5350162,45.4575468);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (649,"Никольск",53.7138397,46.079962);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (650,"Никольское",59.7042633,30.7874879);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (651,"Новая Ладога",60.1100013,32.3141446);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (652,"Новая Ляля",59.053961,60.5945405);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (653,"Новоалександровск",45.4933561,41.2154482);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (654,"Новоалтайск",53.4120811,83.9311249);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (655,"Новоаннинский",50.5296873,42.6666038);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (656,"Нововоронеж",51.3092463,39.2162865);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (657,"Новодвинск",64.4136023,40.8208003);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (658,"Новозыбков",52.5371426,31.9356826);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (659,"Новокубанск",45.1038782,41.0473679);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (660,"Новокузнецк",53.7942757,87.2144046);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (661,"Новокуйбышевск",53.0995303,49.9477662);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (662,"Новомичуринск",54.0377979,39.7467023);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (663,"Новомосковск",54.0109754,38.2915652);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (664,"Новопавловск",43.9617565,43.6342855);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (665,"Новоржев",57.0298332,29.343333);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (666,"Новороссийск",44.7234264,37.7687218);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (667,"Новосибирск",55.0281016,82.9210575);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (668,"Новосиль",52.9747225,37.0438402);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (669,"Новосокольники",56.3407627,30.1527712);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (670,"Новотроицк",51.1965071,58.3017455);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (671,"Новоузенск",50.4551744,48.1412622);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (672,"Новоульяновск",54.1447691,48.3911701);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (673,"Новоуральск",57.2471507,60.095701);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (674,"Новохоперск",51.0953461,41.6173714);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (675,"Новочебоксарск",56.109486,47.4791429);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (676,"Новочеркасск",47.4119248,40.1042066);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (677,"Новошахтинск",47.7576522,39.9364709);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (678,"Новый Оскол",50.7635162,37.8774026);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (679,"Новый Уренгой",66.0840036,76.6810032);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (680,"Ногинск",55.8686239,38.4621635);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (681,"Нолинск",57.5596946,49.9357867);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (682,"Норильск",69.3490828,88.2009965);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (683,"Ноябрьск",63.201846,75.4509665);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (684,"Нурлат",54.4281578,50.8050431);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (685,"Нытва",57.9337429,55.3357261);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (686,"Нюрба",63.2828775,118.324325);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (687,"Нягань",62.1454839,65.3944361);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (688,"Нязепетровск",56.0537199,59.6096791);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (689,"Няндома",61.6653735,40.2061699);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (690,"Облучье",49.0188344,131.0539984);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (691,"Обнинск",55.0943892,36.6121785);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (692,"Обоянь",51.212012,36.275425);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (693,"Обь",54.9945882,82.6937925);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (694,"Одинцово",55.6789292,37.2636389);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (695,"Озерск",54.4084804,22.013508);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (696,"Озерск",55.7631922,60.7076337);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (697,"Озеры",54.8539944,38.55987);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (698,"Октябрьск",53.1640886,48.6707463);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (699,"Октябрьский",54.4815344,53.4656611);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (700,"Окуловка",58.3908717,33.2902474);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (701,"Олекминск",60.3758203,120.406013);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (702,"Оленегорск",68.1422068,33.2670094);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (703,"Олонец",60.9793604,32.9726031);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (704,"Омск",54.9848136,73.3674638);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (705,"Омутнинск",58.6697684,52.1893554);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (706,"Онега",63.9163966,38.0805749);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (707,"Опочка",56.7107956,28.6717455);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (708,"Орёл",52.9672573,36.0696479);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (709,"Оренбург",51.7875191,55.1017379);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (710,"Орехово-Зуево",55.8151729,38.9870711);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (711,"Орлов",58.5389402,48.8929268);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (712,"Орск",51.2293069,58.4751889);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (713,"Оса",57.2889992,55.4688982);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (714,"Осинники",53.5987397,87.3369948);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (715,"Осташков",57.1457205,33.1116707);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (716,"Остров",57.3452408,28.3437107);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (717,"Островной",68.0509133,39.5076034);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (718,"Острогожск",50.8678083,39.0406398);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (719,"Отрадное",59.772596,30.7988403);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (720,"Отрадный",53.3800609,51.3438695);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (721,"Оха",53.5868238,142.941221);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (722,"Оханск",57.7178946,55.387153);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (723,"Очер",57.8851991,54.7161756);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (724,"Павлово",55.9797995,43.0996232);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (725,"Павловск",50.4533684,40.1369087);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (726,"Павловский Посад",55.7806718,38.6596047);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (727,"Палласовка",50.0501422,46.8803355);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (728,"Партизанск",43.1279833,133.1264754);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (729,"Певек",69.7018051,170.2999194);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (730,"Пенза",53.1753884,45.0347408);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (731,"Первомайск",54.8676182,43.8012829);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (732,"Первоуральск",56.9081665,59.9429205);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (733,"Перевоз",55.596904,44.5450268);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (734,"Пересвет",56.4158828,38.1733567);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (735,"Переславль-Залесский",56.7360435,38.8543064);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (736,"Пермь",58.0103211,56.2341778);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (737,"Пестово",58.5973944,35.8144523);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (738,"Петров Вал",50.1380355,45.2091455);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (739,"Петровск",52.3093782,45.3851649);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (740,"Петровск-Забайкальский",51.2748381,108.8467139);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (741,"Петрозаводск",61.78909,34.3596263);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (742,"Петропавловск-Камчатский",53.0370213,158.6559142);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (743,"Петухово",55.0649932,67.8874369);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (744,"Петушки",55.9297657,39.4507913);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (745,"Печора",65.1485717,57.22388);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (746,"Печоры",57.8146689,27.6222823);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (747,"Пикалево",59.5130655,34.1773982);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (748,"Пионерский",54.9516927,20.227697);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (749,"Питкяранта",61.5756886,31.4641309);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (750,"Плавск",53.7095993,37.2863144);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (751,"Пласт",54.3691832,60.8152305);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (752,"Плес",57.4605304,41.512301);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (753,"Поворино",51.1953446,42.2472432);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (754,"Подольск",55.4389588,37.57027);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (755,"Подпорожье",60.9127463,34.1567832);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (756,"Покачи",61.7421977,75.5942069);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (757,"Покров",55.9167118,39.1733641);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (758,"Покровск",61.4843538,129.1482195);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (759,"Полевской",56.4958085,60.2366314);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (760,"Полесск",54.8626321,21.0998148);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (761,"Полысаево",54.6053968,86.2808803);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (762,"Полярные Зори",67.3730192,32.497541);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (763,"Полярный",69.1988373,33.4509985);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (764,"Поронайск",49.2387983,143.1007104);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (765,"Порхов",57.7764223,29.5436424);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (766,"Похвистнево",53.6498197,52.1235517);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (767,"Почеп",52.9154724,33.4744608);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (768,"Починок",54.4063031,32.4397914);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (769,"Пошехонье",58.506328,39.1210034);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (770,"Правдинск",54.4430604,21.0083638);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (771,"Приволжск",57.3807249,41.2809239);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (772,"Приморск",54.7311185,19.9983108);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (773,"Приморск",60.3660787,28.6135962);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (774,"Приморско-Ахтарск",46.0515,38.1704654);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (775,"Приозерск",61.03313,30.15876);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (776,"Прокопьевск",53.8604562,86.7183428);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (777,"Пролетарск",46.7038968,41.7274533);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (778,"Протвино",54.8706614,37.2183307);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (779,"Прохладный",43.7589521,44.0101936);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (780,"Псков",57.819284,28.3318188);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (781,"Пугачев",52.0158464,48.7972652);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (782,"Пудож",61.8059147,36.5330088);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (783,"Пустошка",56.3375131,29.3668243);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (784,"Пучеж",56.982075,43.1683878);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (785,"Пушкино",56.0104548,37.8471438);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (786,"Пущино",54.832521,37.6210428);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (787,"Пыталово",57.0637109,27.9234759);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (788,"Пыть-Ях",60.7585769,72.8366445);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (789,"Пятигорск",44.0411669,43.0661091);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (790,"Радужный",55.9961034,40.3323247);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (791,"Радужный",62.1343067,77.4584346);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (792,"Райчихинск",49.7941882,129.4112149);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (793,"Раменское",55.549529,38.273015);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (794,"Рассказово",52.6537517,41.8743779);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (795,"Ревда",56.79869,59.9071464);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (796,"Реж",57.3717914,61.3833223);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (797,"Реутов",55.758236,37.8619443);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (798,"Ржев",56.2629393,34.3291178);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (799,"Родники",57.1024137,41.7298908);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (800,"Рославль",53.9449601,32.8479617);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (801,"Россошь",50.170089,39.6225534);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (802,"Ростов",57.2050177,39.4378357);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (803,"Ростов-на-Дону",47.2224364,39.7187866);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (804,"Рошаль",55.6632504,39.8655434);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (805,"Ртищево",52.2616298,43.7842399);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (806,"Рубцовск",51.5013075,81.2077729);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (807,"Рудня",54.9441357,31.0794758);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (808,"Руза",55.7015302,36.1960043);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (809,"Рузаевка",54.0583238,44.949116);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (810,"Рыбинск",58.0483802,38.858338);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (811,"Рыбное",54.7255937,39.513438);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (812,"Рыльск",51.568165,34.6802178);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (813,"Ряжск",53.7067718,40.0521358);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (814,"Рязань",54.625457,39.7359992);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (815,"Саки",45.1342889,33.6032508);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (816,"Салават",53.3616311,55.9245559);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (817,"Салаир",54.2351588,85.8029215);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (818,"Салехард",66.5493568,66.6083994);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (819,"Сальск",46.4751689,41.5412229);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (820,"Самара",53.1951657,50.1067691);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (821,"Саранск",54.1807601,45.1862263);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (822,"Сарапул",56.4616117,53.8036967);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (823,"Саратов",51.530376,45.9530257);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (824,"Саров",54.9227002,43.3447792);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (825,"Сасово",54.350807,41.9117458);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (826,"Сатка",55.0404497,59.0288153);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (827,"Сафоново",55.1199868,33.233799);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (828,"Саяногорск",53.1008226,91.4121643);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (829,"Саянск",54.1107787,102.1802563);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (830,"Светлогорск",54.9439566,20.1514789);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (831,"Светлоград",45.3284769,42.8566923);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (832,"Светлый",54.6774051,20.1356625);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (833,"Светогорск",61.1112679,28.8726666);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (834,"Свирск",53.0842576,103.3364192);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (835,"Свободный",51.361264,128.1218995);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (836,"Себеж",56.2907663,28.4725735);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (837,"Северобайкальск",55.6357165,109.3362606);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (838,"Северодвинск",64.56253,39.8182715);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (839,"Северо-Курильск",50.6731056,156.1280722);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (840,"Североморск",69.0765029,33.4178354);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (841,"Североуральск",60.1533333,59.9525274);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (842,"Северск",56.6031143,84.8809687);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (843,"Севск",52.1484215,34.4918198);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (844,"Сегежа",63.7437211,34.3126755);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (845,"Сельцо",53.3738801,34.1059226);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (846,"Семенов",56.788935,44.4903571);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (847,"Семикаракорск",47.5177981,40.811585);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (848,"Семилуки",51.6951846,39.0189797);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (849,"Сенгилей",53.9590553,48.7767869);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (850,"Серафимович",49.566286,42.7360013);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (851,"Сергач",55.5200364,45.4813193);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (852,"Сергиев Посад",56.3063411,38.1502568);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (853,"Сердобск",52.4697532,44.2122688);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (854,"Серов",59.6048651,60.5752136);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (855,"Серпухов",54.9225396,37.4032682);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (856,"Сертолово",60.14458,30.2094595);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (857,"Сибай",52.7205811,58.6663303);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (858,"Сим",54.9906584,57.6899045);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (859,"Симферополь",44.9482645,34.100117);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (860,"Сковородино",53.9871004,123.943729);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (861,"Скопин",53.8236028,39.5493286);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (862,"Славгород",52.9993053,78.6459674);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (863,"Славск",55.0451054,21.6742294);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (864,"Славянск-на-Кубани",45.2605079,38.1260725);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (865,"Сланцы",59.1178693,28.088106);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (866,"Слободской",58.7311934,50.1670091);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (867,"Слюдянка",51.6562679,103.7186877);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (868,"Смоленск",54.7867168,31.8153366);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (869,"Снежинск",56.085232,60.7324989);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (870,"Снежногорск",69.1921469,33.2382821);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (871,"Собинка",55.993798,40.0180034);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (872,"Советск",55.0810474,21.8886272);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (873,"Советск",57.5841434,48.9589228);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (874,"Советск",53.9337099,37.6315517);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (875,"Советская Гавань",48.9664554,140.2852223);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (876,"Советский",61.3706695,63.566863);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (877,"Сокол",59.4759156,40.1114414);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (878,"Солигалич",59.0786729,42.2877245);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (879,"Соликамск",59.6483518,56.7710358);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (880,"Солнечногорск",56.2148655,37.0967653);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (881,"Сольвычегодск",61.3318091,46.920351);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (882,"Соль-Илецк",51.1634976,54.9895391);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (883,"Сольцы",58.1201693,30.309285);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (884,"Сорочинск",52.4265081,53.1542123);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (885,"Сорск",54.0001451,90.2595674);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (886,"Сортавала",61.7032216,30.6917021);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (887,"Сосенский",54.056525,35.9621458);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (888,"Сосновка",56.2533149,51.2833412);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (889,"Сосновоборск",56.1202088,93.3353411);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (890,"Сосновый Бор",59.8772921,29.1290866);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (891,"Сосногорск",63.5990137,53.8762792);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (892,"Сочи",43.5855829,39.7231419);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (893,"Спас-Деменск",54.4099201,34.0190263);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (894,"Спас-Клепики",55.1291472,40.1745036);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (895,"Спасск",53.927163,43.1860475);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (896,"Спасск-Дальний",44.5900929,132.8157564);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (897,"Спасск-Рязанский",54.4071497,40.3764367);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (898,"Среднеколымск",67.4581664,153.7069511);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (899,"Среднеуральск",56.991883,60.4771953);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (900,"Сретенск",52.2462356,117.7116971);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (901,"Ставрополь",45.0445439,41.9690168);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (902,"Старая Купавна",55.8038411,38.1426144);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (903,"Старая Русса",57.9906873,31.3555076);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (904,"Старица",56.514955,34.9335145);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (905,"Стародуб",52.5851881,32.7603628);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (906,"Старый Крым",45.0290659,35.0900885);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (907,"Старый Оскол",51.2965991,37.8349849);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (908,"Стерлитамак",53.6302498,55.9315707);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (909,"Стрежевой",60.7328199,77.6040323);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (910,"Строитель",50.7845571,36.4886619);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (911,"Струнино",56.3750001,38.583938);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (912,"Ступино",54.9238403,38.1186976);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (913,"Суворов",54.1345367,36.4806933);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (914,"Судак",44.8505913,34.9761591);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (915,"Суджа",51.1919711,35.2719619);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (916,"Судогда",55.949897,40.8563392);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (917,"Суздаль",56.4273814,40.4525581);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (918,"Суоярви",62.0787769,32.3499029);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (919,"Сураж",53.0171239,32.3938351);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (920,"Сургут",61.2539773,73.3961726);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (921,"Суровикино",48.6189756,42.8541308);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (922,"Сурск",53.0760597,45.6911897);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (923,"Сусуман",62.7804628,148.154033);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (924,"Сухиничи",54.0973787,35.3443077);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (925,"Сухой Лог",56.9075938,62.0358708);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (926,"Сызрань",53.1557213,48.4745419);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (927,"Сыктывкар",61.668789,50.8356491);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (928,"Сысерть",56.50052,60.8190708);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (929,"Сычевка",55.8307397,34.277868);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (930,"Сясьстрой",60.1402454,32.5602015);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (931,"Тавда",58.0434196,65.2743232);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (932,"Таганрог",47.2094907,38.935154);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (933,"Тайга",56.0622767,85.6207907);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (934,"Тайшет",55.9405397,98.0030649);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (935,"Талдом",56.7308993,37.5276414);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (936,"Талица",57.0123359,63.7322467);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (937,"Тамбов",52.7213021,41.452258);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (938,"Тара",56.9159171,74.3649643);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (939,"Тарко-Сале",64.9117649,77.7610204);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (940,"Таруса",54.7236791,37.1670866);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (941,"Татарск",55.2145894,75.9740805);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (942,"Таштагол",52.7594505,87.8477272);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (943,"Тверь",56.8585396,35.9117898);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (944,"Теберда",43.4438408,41.7414924);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (945,"Тейково",56.8542712,40.5355289);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (946,"Темников",54.6309086,43.2161785);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (947,"Темрюк",45.2611082,37.445519);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (948,"Терек",43.4838439,44.1402524);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (949,"Тетюши",54.936575,48.8314915);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (950,"Тимашевск",45.6159358,38.9350513);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (951,"Тихвин",59.6273809,33.5072307);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (952,"Тихорецк",45.8546953,40.1258702);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (953,"Тобольск",58.2016828,68.2538392);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (954,"Тогучин",55.2250038,84.4103867);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (955,"Тольятти",53.5206438,49.389461);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (956,"Томари",47.7619957,142.061508);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (957,"Томмот",58.9586939,126.2875375);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (958,"Томск",56.4847036,84.9481737);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (959,"Топки",55.2766036,85.6153223);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (960,"Торжок",57.0412804,34.9600691);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (961,"Торопец",56.5011791,31.6354366);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (962,"Тосно",59.5406697,30.8777872);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (963,"Тотьма",59.9735051,42.7589701);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (964,"Трехгорный",54.8178174,58.4465039);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (965,"Троицк",54.0844132,61.5585503);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (966,"Трубчевск",52.5791314,33.7660013);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (967,"Туапсе",44.1103707,39.082645);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (968,"Туймазы",54.5999889,53.6949081);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (969,"Тула",54.192017,37.6153885);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (970,"Тулун",54.5571409,100.5779402);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (971,"Туран",52.144932,93.9172495);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (972,"Туринск",58.0394258,63.698142);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (973,"Тутаев",57.8674237,39.5368234);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (974,"Тында",55.1546401,124.7468634);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (975,"Тырныауз",43.3981939,42.9215127);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (976,"Тюкалинск",55.8705121,72.1956156);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (977,"Тюмень",57.1530824,65.5343118);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (978,"Уварово",51.9768835,42.2529568);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (979,"Углегорск",49.0816311,142.0693033);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (980,"Углич",57.5223866,38.3019793);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (981,"Удачный",66.4072367,112.3061653);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (982,"Удомля",57.8787885,35.016716);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (983,"Ужур",55.3141977,89.8333827);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (984,"Узловая",53.9731407,38.1763104);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (985,"Улан-Удэ",51.8334378,107.5841511);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (986,"Ульяновск",54.3080674,48.3748717);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (987,"Унеча",52.8460665,32.6757071);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (988,"Урай",60.1295842,64.8040117);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (989,"Урень",57.4612547,45.783394);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (990,"Уржум",57.1097612,50.0056278);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (991,"Урюпинск",50.7904767,42.0288589);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (992,"Усинск",65.9941116,57.5570054);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (993,"Усмань",52.0444165,39.7264516);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (994,"Усолье",59.4279356,56.6837783);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (995,"Усолье-Сибирское",52.7567192,103.6387694);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (996,"Уссурийск",43.79726,131.9517262);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (997,"Усть-Джегута",44.083852,41.971128);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (998,"Усть-Илимск",57.9431325,102.7414683);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (999,"Усть-Катав",54.9261323,58.1528067);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1000,"Усть-Кут",56.7928049,105.7756883);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1001,"Усть-Лабинск",45.222676,39.6930239);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1002,"Устюжна",58.8383671,36.4425046);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1003,"Уфа",54.734853,55.9578647);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1004,"Ухта",63.5564779,53.7014202);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1005,"Учалы",54.3066965,59.4126559);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1006,"Уяр",55.8131698,94.3282148);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1007,"Фатеж",52.0918591,35.8538912);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1008,"Феодосия",45.031878,35.3824772);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1009,"Фокино",53.4554552,34.4158537);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1010,"Фокино",42.9707163,132.4110209);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1011,"Фролово",49.7647809,43.6648936);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1012,"Фрязино",55.9590154,38.0409171);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1013,"Фурманов",57.2538043,41.1053808);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1014,"Хабаровск",48.4647991,135.0598811);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1015,"Хадыженск",44.412303,39.5319151);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1016,"Ханты-Мансийск",61.0024344,69.0183322);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1017,"Харабали",47.4089187,47.2524467);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1018,"Харовск",59.9477728,40.2000794);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1019,"Хасавюрт",43.2505191,46.5852276);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1020,"Хвалынск",52.4950057,48.1045147);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1021,"Хилок",51.3635236,110.458989);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1022,"Химки",55.8886705,37.4304154);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1023,"Холм",57.1451036,31.1787812);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1024,"Холмск",47.0408637,142.0416619);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1025,"Хотьково",56.2515725,37.9395225);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1026,"Цивильск",55.8650132,47.472967);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1027,"Цимлянск",47.6477668,42.093022);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1028,"Циолковский",51.7624346,128.121972);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1029,"Чадан",51.2844482,91.5789135);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1030,"Чайковский",56.7780203,54.1478482);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1031,"Чапаевск",52.9289662,49.8674222);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1032,"Чаплыгин",53.2404794,39.9671563);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1033,"Чебаркуль",54.9819329,60.3773305);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1034,"Чебоксары",56.1439378,47.2488718);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1035,"Чегем",43.5672039,43.5865338);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1036,"Чекалин",54.0985105,36.2474377);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1037,"Челябинск",55.1603659,61.4007858);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1038,"Чердынь",60.4011184,56.4801391);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1039,"Черемхово",53.1369385,103.090119);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1040,"Черепаново",54.2206974,83.3724392);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1041,"Череповец",59.1269214,37.9092243);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1042,"Черкесск",44.2268637,42.0467829);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1043,"Чермоз",58.7842527,56.1507562);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1044,"Черноголовка",56.0100909,38.3792328);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1045,"Черногорск",53.8258425,91.3259669);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1046,"Чернушка",56.5161079,56.0763919);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1047,"Черняховск",54.6243928,21.7969179);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1048,"Чехов",55.1507175,37.4532591);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1049,"Чистополь",55.3699372,50.628495);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1050,"Чита",52.0340128,113.4994884);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1051,"Чкаловск",56.7651549,43.2420193);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1052,"Чудово",59.1247477,31.6865406);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1053,"Чулым",55.0906205,80.9592152);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1054,"Чусовой",58.2974725,57.8193122);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1055,"Чухлома",58.7534246,42.6883783);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1056,"Шагонар",51.5347357,92.9199618);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1057,"Шадринск",56.0870152,63.6298234);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1058,"Шали",43.148776,45.9009577);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1059,"Шарыпово",55.5389684,89.1801557);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1060,"Шарья",58.3761832,45.4060762);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1061,"Шатура",55.5777942,39.5443781);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1062,"Шахты",47.7084247,40.2159154);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1063,"Шахунья",57.6764773,46.6129673);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1064,"Шацк",54.0288845,41.7182108);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1065,"Шебекино",50.4005506,36.8877988);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1066,"Шелехов",52.2102462,104.0973531);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1067,"Шенкурск",62.1057423,42.89959);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1068,"Шилка",51.8495302,116.033575);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1069,"Шимановск",52.0052856,127.7006559);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1070,"Шиханы",52.1148241,47.2022928);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1071,"Шлиссельбург",59.9443923,31.0334136);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1072,"Шумерля",55.4961795,46.4183534);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1073,"Шумиха",55.2281833,63.2902391);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1074,"Шуя",56.8560743,41.3802455);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1075,"Щекино",54.0020749,37.517686);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1076,"Щелкино",45.4289847,35.8251329);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1077,"Щелково",55.9234303,37.9784419);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1078,"Щигры",51.8787808,36.8910674);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1079,"Щучье",55.20883,62.7478475);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1080,"Электрогорск",55.8778573,38.7805239);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1081,"Электросталь",55.7847718,38.4446531);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1082,"Электроугли",55.7170329,38.2194049);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1083,"Элиста",46.3082947,44.2701417);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1084,"Энгельс",51.4854893,46.1267479);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1085,"Эртиль",51.831024,40.8074054);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1086,"Югорск",61.3124504,63.3364787);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1087,"Южа",56.5926458,42.0457159);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1088,"Южно-Сахалинск",46.959133,142.7381252);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1089,"Южно-Сухокумск",44.6600972,45.6499304);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1090,"Южноуральск",54.4490124,61.2581869);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1091,"Юрга",55.7202689,84.8885516);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1092,"Юрьевец",57.3178701,43.1110553);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1093,"Юрьев-Польский",56.4938067,39.6679311);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1094,"Юрюзань",54.8546372,58.4227116);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1095,"Юхнов",54.7445873,35.2424857);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1096,"Ядрин",55.9406826,46.2020765);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1097,"Якутск",62.0280273,129.7325717);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1098,"Ялта",44.416366,34.04455);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1099,"Ялта",44.4951948,34.166386);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1100,"Ялуторовск",56.649167,66.297034);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1101,"Янаул",56.2650336,54.9298314);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1102,"Яранск",57.304195,47.8479185);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1103,"Яровое",52.9251728,78.5729898);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1104,"Ярославль",57.6216145,39.897878);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1105,"Ярцево",55.0564933,32.6902457);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1106,"Ясногорск",54.4795178,37.689669);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1107,"Ясный",51.0369499,59.8743256);
-INSERT INTO `taskforce`.`cities` ('id','name','lat','long') VALUE (1108,"Яхрома",56.2889858,37.4831016);
-TRUNCATE TABLE `taskforce`.`users`;
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (1,561,"In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.","kbuttress0@1und1.de","38737 Moose Avenue","Karrie","Buttress","1989-11-11","f6a2eecf450b9179ba0f9f8266049caf",64574473047,"high-level","2019-08-10");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (2,476,"Pellentesque ultrices mattis odio.","baymer1@hp.com","738 Hagan Lane","Bob","Aymer","1989-03-05","40f642ebd812e43e3496347ad06aad9e",75531015353,"mobile","2018-12-21");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (3,847,"Morbi a ipsum. Integer a nibh. In quis justo.","zboulding2@macromedia.com","758 Old Shore Parkway","Zilvia","Boulding","1989-12-30","06a5043c9591d2e4a4c10b5514137651",16371407508,"Re-engineered","2019-07-25");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (4,822,"Suspendisse potenti.","emollon3@bloglovin.com","11 Dovetail Junction","Emalee","Mollon","0629-03-03","0e545538f39a434b19bfe888ff767457",21468788926,"Grass-roots","2018-11-13");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (5,194,"Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo.","mmulberry4@cmu.edu","050 Bowman Alley","Maria","Mulberry","1989-04-08","4e2fe9c669afce66d027546127135894",62931646367,"fault-tolerant","2019-07-20");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (6,650,"Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.","lby5@mozilla.com","5 Iowa Avenue","Levey","By","1989-04-18","d781290a7d93f7e6d974ad17dc0f6610",63271348718,"Team-oriented","2019-02-12");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (7,132,"Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.","beates6@last.fm","87119 Northland Hill","Baron","Eates","1989-03-20","883b32db19fc0401600c1c7257c1782f",41056175169,"portal","2019-05-03");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (8,271,"Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.","tvink7@fotki.com","6823 Lillian Point","Trip","Vink","1989-12-13","fd5d4714c54059f1ea31cd953427e531",72882384431,"intermediate","2019-01-13");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (9,759,"Morbi ut odio.","bterbeck8@about.me","43 Marquette Plaza","Boonie","Terbeck","1989-01-14","437cd2770db6e5798ed42b3b7914111a",69043821394,"local area network","2019-09-15");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (10,431,"Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.","atraviss9@auda.org.au","5303 Village Green Hill","Alonzo","Traviss","1989-02-03","dbefdec7396eabd2e0375788df415f4d",28396220507,"upward-trending","2018-12-19");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (11,713,"Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.","nwitteringa@google.com.br","67399 Reindahl Place","Natassia","Wittering","1989-05-23","75d526d3311ec77c9ef2ec4fd9a54566",83344513307,"grid-enabled","2019-03-24");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (12,65,"Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc.","fbrookeb@nba.com","45 Twin Pines Hill","Felice","Brooke","1989-07-06","ea56bb021a7864d9f490ebfb99953aad",64890419671,"background","2019-09-27");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (13,413,"Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst.","cviccaryc@amazon.co.uk","46 Sheridan Place","Carlen","Viccary","1903-04-16","813310e0c8c4ab5b5dff32bf1dc206cc",23005580487,"challenge","2018-12-06");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (14,536,"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.","hgethingsd@sogou.com","73 Kedzie Terrace","Hendrik","Gethings","1989-11-07","a86f5ad103a2ab81287ac2d2ae0cec5a",27052074771,"coherent","2018-11-18");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (15,861,"Cras pellentesque volutpat dui.","dgirodiase@stanford.edu","85509 Ludington Drive","Dunc","Girodias","1989-02-13","885c6f8f16057037bac81827bcaa3c1c",14800371520,"neutral","2018-10-14");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (16,362,"Aliquam erat volutpat. In congue.","btanmanf@smh.com.au","67 Northwestern Center","Bibbie","Tanman","1989-07-07","f95f5e2dd3f06abdd7ff3749d843b1f5",75569924500,"Programmable","2019-05-03");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (17,613,"Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc.","bbartolettig@simplemachines.org","725 Eagle Crest Hill","Barnabas","Bartoletti","1989-09-29","7f45eb167ebe4e2944c7874a1ff81780",37349256497,"encompassing","2018-12-25");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (18,374,"Suspendisse potenti.","nculliph@fc2.com","507 Graceland Junction","Nixie","Cullip","1989-03-19","793b220105e522aedff80a7e145b03f2",12403580562,"knowledge base","2019-04-07");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (19,517,"Phasellus sit amet erat.","mpimblotti@xing.com","92 Gina Park","Matilde","Pimblott","1989-09-29","3eb6d0e980ab8b92291e38e2389648d6",40139478003,"dynamic","2019-07-18");
-INSERT INTO `taskforce`.`users` ('id','city_id','about','email','address','first_name','last_name','birth_date','password_hash','phone','skype','created_at') VALUE (20,151,"Cras pellentesque volutpat dui.","askurrayj@un.org","8 Ridgeview Trail","Al","Skurray","1989-12-21","1b7416ad6e8ecbc1d79a535de2fc11e8",76657531985,"solution","2018-11-25");
+SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE `taskforce`.`tasks`;
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (1,5,2,938,"enable impactful technologies","Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.","1 Eagan Crossing",6587,"2019-03-09 00:00:00","2019-11-15 00:00:00",6.9641667,158.2083333);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (2,16,3,122,"exploit revolutionary portals","Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.","24043 Paget Alley",2904,"2019-07-03 00:00:00","2019-12-07 00:00:00",5.623505,10.2544044);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (3,6,2,909,"matrix next-generation e-commerce","Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\n\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.","2867 Dryden Pass",1170,"2019-06-27 00:00:00","2019-11-23 00:00:00",63.593219,53.9068532);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (4,6,1,372,"benchmark plug-and-play infomediaries","Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.","80 Cambridge Street",838,"2019-01-01 00:00:00","2019-11-10 00:00:00",20.5800358,-75.2435307);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (5,16,3,963,"integrate cross-platform e-business","Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.","1 Stone Corner Junction",7484,"2019-09-07 00:00:00","2019-12-15 00:00:00",14.9326574,-91.6941845);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (6,18,7,833,"enable dot-com niches","Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.","12 Stephen Terrace",5725,"2018-11-01 00:00:00","2019-11-24 00:00:00",40.163127,116.638868);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (7,1,5,991,"transform web-enabled relationships","Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.","6213 Lake View Drive",4414,"2019-09-13 00:00:00","2019-11-19 00:00:00",44.3794871,20.2638941);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (8,14,8,945,"strategize frictionless solutions","Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.","994 Corry Park",3454,"2019-04-01 00:00:00","2019-11-14 00:00:00",-7.3251485,108.3607464);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (9,18,4,609,"innovate seamless metrics","Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","2 Bluestem Park",3101,"2019-03-28 00:00:00","2019-12-12 00:00:00",43,-87.97);
-INSERT INTO `taskforce`.`tasks` ('id','customer_user_id','category_id','city_id','title','description','address','budget','created_at','start_date','lattitude','longtitude') VALUE (10,3,4,814,"integrate wireless infomediaries","Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.","1 Dexter Hill",6562,"2019-05-01 00:00:00","2019-12-19 00:00:00",41.3410168,-8.3169303);
+TRUNCATE TABLE `taskforce`.`users`;
+TRUNCATE TABLE `taskforce`.`cities`;
+TRUNCATE TABLE `taskforce`.`categories`;
 TRUNCATE TABLE `taskforce`.`user_opinions`;
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (1,18,2,"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.",3,"2019-08-19 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (2,1,8,"Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.\n\nPellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",2,"2019-02-22 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (3,16,9,"Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",2,"2019-07-11 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (4,12,6,"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",2,"2018-10-07 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (5,14,10,"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",1,"2018-12-01 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (6,10,7,"In congue. Etiam justo. Etiam pretium iaculis justo.",3,"2018-11-09 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (7,10,1,"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.",5,"2018-12-10 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (8,16,7,"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",2,"2018-10-20 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (9,1,2,"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",2,"2018-10-27 00:00:00");
-INSERT INTO `taskforce`.`user_opinions` ('id','user_id','refer_task_id','comment','rate','created_at') VALUE (10,14,1,"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",4,"2019-06-14 00:00:00");
 TRUNCATE TABLE `taskforce`.`task_responses`;
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (1,4,9,"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",1,"2019-05-09 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (2,3,8,"Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",4,"2018-10-27 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (3,4,16,"Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",5,"2018-11-02 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (4,6,20,"Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.",3,"2019-06-04 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (5,2,15,"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",3,"2018-10-09 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (6,5,9,"Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",4,"2019-07-16 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (7,7,10,"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",5,"2019-01-22 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (8,8,20,"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",4,"2019-06-11 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (9,8,1,"Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",3,"2019-02-16 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (10,8,9,"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",5,"2019-07-16 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (11,9,3,"In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",4,"2018-11-11 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (12,2,19,"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",5,"2018-11-01 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (13,2,6,"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",1,"2018-10-05 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (14,5,16,"Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",3,"2019-02-28 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (15,3,18,"Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.\n\nQuisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",3,"2019-07-04 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (16,9,16,"Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",3,"2019-07-30 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (17,2,2,"Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",4,"2019-07-10 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (18,5,1,"Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",2,"2019-09-15 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (19,1,4,"Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",3,"2018-10-16 00:00:00");
-INSERT INTO `taskforce`.`task_responses` ('id','task_id','user_id','comment','rate','created_at') VALUE (20,8,13,"Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",4,"2019-02-13 00:00:00");
+SET FOREIGN_KEY_CHECKS = 1;
+INSERT INTO `taskforce`.`categories` (`id`,`name`,`icon`) VALUES
+    (1,"Переводы","translation"),
+    (2,"Уборка","clean"),
+    (3,"Переезды","cargo"),
+    (4,"Компьютерная помощь","neo"),
+    (5,"Ремонт квартирный","flat"),
+    (6,"Ремонт техники","repair"),
+    (7,"Красота","beauty"),
+    (8,"Фото","photo");
+INSERT INTO `taskforce`.`cities` (`id`,`name`,`lattitude`,`longtitude`) VALUES
+    (1,"Абаза",52.6517296,90.0885929),
+    (2,"Абакан",53.7223661,91.4437792),
+    (3,"Абдулино",53.6778096,53.6473115),
+    (4,"Абинск",44.8679931,38.1618437),
+    (5,"Агидель",55.89976,53.9221149),
+    (6,"Агрыз",56.5232645,52.994257),
+    (7,"Адыгейск",44.8783715,39.190172),
+    (8,"Азнакаево",54.8599054,53.0745505),
+    (9,"Азов",47.1120631,39.4232597),
+    (10,"Ак-Довурак",51.1785658,90.5984511),
+    (11,"Аксай",47.2676075,39.8755485),
+    (12,"Алагир",43.0416151,44.2198622),
+    (13,"Алапаевск",57.8475542,61.6693934),
+    (14,"Алатырь",54.8398179,46.5721423),
+    (15,"Алдан",58.6094885,125.3816689),
+    (16,"Алейск",52.4920914,82.7794145),
+    (17,"Александров",56.3919652,38.711035),
+    (18,"Александровск",59.1613773,57.5764851),
+    (19,"Александровск-Сахалинский",50.8973664,142.1579322),
+    (20,"Алексеевка",50.6299932,38.6881776),
+    (21,"Алексин",54.5083788,37.047891),
+    (22,"Алзамай",55.5550493,98.6644106),
+    (23,"Алушта",44.6764419,34.4100387),
+    (24,"Альметьевск",54.9013662,52.2970654),
+    (25,"Амурск",50.2345017,136.8791135),
+    (26,"Анадырь",64.7314347,177.5015752),
+    (27,"Анапа",44.8950777,37.3163142),
+    (28,"Ангарск",52.5448102,103.8885385),
+    (29,"Андреаполь",56.6507072,32.2621196),
+    (30,"Анжеро-Судженск",56.0787179,86.0202207),
+    (31,"Анива",46.7132526,142.5265052),
+    (32,"Апатиты",67.5678295,33.4067218),
+    (33,"Апрелевка",55.5276336,37.0651105),
+    (34,"Апшеронск",44.4585239,39.7300092),
+    (35,"Арамиль",56.6945341,60.8343825),
+    (36,"Аргун",43.2918071,45.8724383),
+    (37,"Ардатов",54.8465693,46.2412736),
+    (38,"Ардон",43.1756719,44.2955701),
+    (39,"Арзамас",55.3947544,43.8407855),
+    (40,"Аркадак",51.9387813,43.4997558),
+    (41,"Армавир",45.0010338,41.132392),
+    (42,"Армянск",46.1059247,33.6910325),
+    (43,"Арсеньев",44.16208,133.269622),
+    (44,"Арск",56.0913636,49.8770441),
+    (45,"Артем",43.350053,132.1596594),
+    (46,"Артемовск",54.3472901,93.4356543),
+    (47,"Артемовский",57.3384162,61.8946599),
+    (48,"Архангельск",64.5392985,40.5170083),
+    (49,"Асбест",57.0052428,61.4581071),
+    (50,"Асино",56.9908444,86.1765724),
+    (51,"Астрахань",46.3655808,48.0559979),
+    (52,"Аткарск",51.8736331,45.0003199),
+    (53,"Ахтубинск",48.2753078,46.1906741),
+    (54,"Ачинск",56.2538662,90.47949),
+    (55,"Аша",54.9907105,57.2783704),
+    (56,"Бабаево",59.389309,35.9378318),
+    (57,"Бабушкин",51.7113066,105.8673633),
+    (58,"Бавлы",54.4063588,53.2457946),
+    (59,"Багратионовск",54.3866976,20.6418545),
+    (60,"Байкальск",51.5231282,104.1485752),
+    (61,"Баймак",52.5912632,58.3111995),
+    (62,"Бакал",54.9406759,58.8051085),
+    (63,"Баксан",43.6820621,43.5345627),
+    (64,"Балабаново",55.1773652,36.6567255),
+    (65,"Балаково",52.0222694,47.7828146),
+    (66,"Балахна",56.4949932,43.5758953),
+    (67,"Балашиха",55.7963352,37.9381413),
+    (68,"Балашов",51.5389502,43.1839828),
+    (69,"Балей",51.5822063,116.6380088),
+    (70,"Балтийск",54.6514128,19.9141911),
+    (71,"Барабинск",55.3515917,78.3465012),
+    (72,"Барнаул",53.3481145,83.7798362),
+    (73,"Барыш",53.6534563,47.1180805),
+    (74,"Батайск",47.138321,39.7508382),
+    (75,"Бахчисарай",44.751388,33.8750341),
+    (76,"Бежецк",57.7861144,36.6903445),
+    (77,"Белая Калитва",48.176948,40.8033169),
+    (78,"Белая Холуница",58.8415212,50.8461002),
+    (79,"Белгород",50.5977351,36.5858236),
+    (80,"Белебей",54.1033832,54.1111878),
+    (81,"Белев",53.8113348,36.1383153),
+    (82,"Белинский",52.9641169,43.4185003),
+    (83,"Белово",54.4221442,86.3036438),
+    (84,"Белогорск",50.9212235,128.4738742),
+    (85,"Белогорск",45.0571581,34.5998775),
+    (86,"Белозерск",60.0307914,37.7891123),
+    (87,"Белокуриха",51.9960534,84.9840343),
+    (88,"Беломорск",64.5378468,34.7799717),
+    (89,"Белорецк",53.9675927,58.4099562),
+    (90,"Белореченск",44.7652733,39.8780457),
+    (91,"Белоусово",55.0957679,36.6777239),
+    (92,"Белоярский",63.712181,66.6772357),
+    (93,"Белый",55.8337663,32.9388976),
+    (94,"Бердск",54.7582375,83.1072212),
+    (95,"Березники",59.4079898,56.8040725),
+    (96,"Березовский",55.6692853,86.2744636),
+    (97,"Березовский",56.9096284,60.8180256),
+    (98,"Беслан",43.1937634,44.5338746),
+    (99,"Бийск",52.5393683,85.2138852),
+    (100,"Бикин",46.8186244,134.2551046),
+    (101,"Билибино",68.0585533,166.4388451),
+    (102,"Биробиджан",48.7945975,132.9217594),
+    (103,"Бирск",55.4157107,55.5582335),
+    (104,"Бирюсинск",55.9608611,97.8203624),
+    (105,"Бирюч",50.6483899,38.4006203),
+    (106,"Благовещенск",50.2905935,127.5272186),
+    (107,"Благовещенск",55.0499592,55.955309),
+    (108,"Благодарный",45.0990834,43.4307042),
+    (109,"Бобров",51.0902048,40.0320014),
+    (110,"Богданович",56.7764419,62.0463692),
+    (111,"Богородицк",53.7700516,38.1225308),
+    (112,"Богородск",56.1019905,43.513678),
+    (113,"Боготол",56.209881,89.5300182),
+    (114,"Богучар",49.9352997,40.5592467),
+    (115,"Бодайбо",57.8468822,114.1867148),
+    (116,"Бокситогорск",59.4735032,33.8456521),
+    (117,"Болгар",54.9748862,49.0302977),
+    (118,"Бологое",57.885655,34.0536895),
+    (119,"Болотное",55.6693773,84.3906599),
+    (120,"Болохово",54.0820644,37.826844),
+    (121,"Болхов",53.4440204,36.0076969),
+    (122,"Большой Камень",43.1112737,132.3480354),
+    (123,"Бор",56.3565179,44.0644851),
+    (124,"Борзя",50.3875437,116.5235682),
+    (125,"Борисоглебск",51.3654619,42.100947),
+    (126,"Боровичи",58.3839866,33.9176761),
+    (127,"Боровск",55.2130965,36.4927446),
+    (128,"Бородино",55.9054308,94.9021138),
+    (129,"Братск",56.1513951,101.6339892),
+    (130,"Бронницы",55.4255534,38.2640794),
+    (131,"Брянск",53.2420071,34.3652716),
+    (132,"Бугульма",54.5363428,52.7895286),
+    (133,"Бугуруслан",53.6522636,52.4326166),
+    (134,"Буденновск",44.7814437,44.1650859),
+    (135,"Бузулук",52.7881434,52.2623757),
+    (136,"Буинск",54.9641106,48.2900576),
+    (137,"Буй",58.473445,41.5306746),
+    (138,"Буйнакск",42.8213799,47.1164452),
+    (139,"Бутурлиновка",50.8313227,40.5977541),
+    (140,"Валдай",57.9822906,33.2369492),
+    (141,"Валуйки",50.2112799,38.0998765),
+    (142,"Велиж",55.6058845,31.1857376),
+    (143,"Великие Луки",56.3321847,30.550757),
+    (144,"Великий Новгород",58.5214003,31.2755051),
+    (145,"Великий Устюг",60.7603243,46.3053893),
+    (146,"Вельск",61.0660057,42.1032858),
+    (147,"Венев",54.3542431,38.2642325),
+    (148,"Верещагино",58.0797908,54.6580948),
+    (149,"Верея",55.3674668,36.1563083),
+    (150,"Верхнеуральск",53.8760587,59.2169071),
+    (151,"Верхний Тагил",57.3762768,59.9516521),
+    (152,"Верхний Уфалей",56.0487252,60.231963),
+    (153,"Верхняя Пышма",56.9757833,60.564885),
+    (154,"Верхняя Салда",58.0466039,60.5560397),
+    (155,"Верхняя Тура",58.3643839,59.8266854),
+    (156,"Верхотурье",58.8621145,60.8104543),
+    (157,"Верхоянск",67.5500865,133.3907829),
+    (158,"Весьегонск",58.6584004,37.2568605),
+    (159,"Ветлуга",57.8558395,45.7762692),
+    (160,"Видное",55.5518323,37.7062062),
+    (161,"Вилюйск",63.7517314,121.6272754),
+    (162,"Вилючинск",52.930428,158.4057276),
+    (163,"Вихоревка",56.1207708,101.170332),
+    (164,"Вичуга",57.2044545,41.9131192),
+    (165,"Владивосток",43.1163807,131.882348),
+    (166,"Владикавказ",43.0205039,44.6819383),
+    (167,"Владимир",56.1281561,40.4082995),
+    (168,"Волгоград",48.7072005,44.5170207),
+    (169,"Волгодонск",47.5165181,42.1984531),
+    (170,"Волгореченск",57.4423712,41.1593076),
+    (171,"Волжск",55.8622987,48.371553),
+    (172,"Волжский",48.7978483,44.7462417),
+    (173,"Вологда",59.2484186,39.8356461),
+    (174,"Володарск",56.2168974,43.1597623),
+    (175,"Волоколамск",56.0358121,35.9585027),
+    (176,"Волосово",59.4445107,29.492277),
+    (177,"Волхов",59.9006057,32.35212),
+    (178,"Волчанск",59.9350515,60.0797964),
+    (179,"Вольск",52.0459932,47.3873504),
+    (180,"Воркута",67.4973484,64.0611045),
+    (181,"Воронеж",51.6592378,39.1968284),
+    (182,"Ворсма",55.9900425,43.2719879),
+    (183,"Воскресенск",55.3071305,38.7026949),
+    (184,"Воткинск",57.0517641,53.9874635),
+    (185,"Всеволожск",60.0190094,30.6455834),
+    (186,"Вуктыл",63.8615209,57.3165207),
+    (187,"Выборг",60.7130748,28.7328813),
+    (188,"Выкса",55.3207103,42.1679169),
+    (189,"Высоковск",56.336141,36.5251316),
+    (190,"Высоцк",60.6296511,28.5709914),
+    (191,"Вытегра",61.0064157,36.4495835),
+    (192,"Вышний Волочек",57.5683326,34.5402931),
+    (193,"Вяземский",47.5354416,134.7553701),
+    (194,"Вязники",56.2976528,42.2687311),
+    (195,"Вязьма",55.2115563,34.2951196),
+    (196,"Вятские Поляны",56.2286058,51.0614666),
+    (197,"Гаврилов Посад",56.5585967,40.1228288),
+    (198,"Гаврилов-Ям",57.3091552,39.8545157),
+    (199,"Гагарин",55.5526532,34.9949049),
+    (200,"Гаджиево",69.2490009,33.3152445),
+    (201,"Гай",51.4649138,58.4436189),
+    (202,"Галич",58.3826861,42.3654563),
+    (203,"Гатчина",59.5650861,30.1281859),
+    (204,"Гвардейск",54.6588981,21.0500584),
+    (205,"Гдов",58.7432585,27.8263328),
+    (206,"Геленджик",44.5631053,38.0790184),
+    (207,"Георгиевск",44.1486421,43.4739718),
+    (208,"Глазов",58.1359111,52.6634998),
+    (209,"Голицыно",55.6189762,36.9855559),
+    (210,"Горбатов",56.1307901,43.0626829),
+    (211,"Горно-Алтайск",51.9582681,85.9602957),
+    (212,"Горнозаводск",58.3743406,58.3230329),
+    (213,"Горняк",50.9979032,81.4643059),
+    (214,"Городец",56.6447459,43.4722975),
+    (215,"Городище",53.2727888,45.702731),
+    (216,"Городовиковск",46.0875351,41.9354039),
+    (217,"Гороховец",56.2021059,42.692517),
+    (218,"Горячий Ключ",44.6343251,39.1356421),
+    (219,"Грайворон",50.4862699,35.6662957),
+    (220,"Гремячинск",58.5625603,57.8520073),
+    (221,"Грозный",43.3179243,45.6981102),
+    (222,"Грязи",52.4873931,39.9331785),
+    (223,"Грязовец",58.8757657,40.248477),
+    (224,"Губаха",58.837024,57.5544441),
+    (225,"Губкин",51.2836362,37.5347608),
+    (226,"Губкинский",64.4456575,76.4714559),
+    (227,"Гудермес",43.3519164,46.1036052),
+    (228,"Гуково",48.0449422,39.9484635),
+    (229,"Гулькевичи",45.3605769,40.6918484),
+    (230,"Гурьевск",54.7705368,20.6039109),
+    (231,"Гурьевск",54.2860005,85.947723),
+    (232,"Гусев",54.5915477,22.1944114),
+    (233,"Гусиноозерск",51.2865751,106.5230732),
+    (234,"Гусь-Хрустальный",55.6198065,40.6578769),
+    (235,"Давлеканово",54.2227617,55.0313419),
+    (236,"Дагестанские Огни",42.1151021,48.1939983),
+    (237,"Далматово",56.2621393,62.9387378),
+    (238,"Дальнегорск",44.5539909,135.5662536),
+    (239,"Дальнереченск",45.9307882,133.7316542),
+    (240,"Данилов",58.1859542,40.1796765),
+    (241,"Данков",53.25769,39.1457625),
+    (242,"Дегтярск",56.7048199,60.0792227),
+    (243,"Дедовск",55.8704718,37.1244724),
+    (244,"Демидов",55.2682611,31.5062078),
+    (245,"Дербент",42.058935,48.2908653),
+    (246,"Десногорск",54.1465117,33.2834063),
+    (247,"Джанкой",45.7092436,34.388332),
+    (248,"Дзержинск",56.2376438,43.4599363),
+    (249,"Дзержинский",55.6241079,37.8440691),
+    (250,"Дивногорск",55.9577868,92.380085),
+    (251,"Дигора",43.1567386,44.1551132),
+    (252,"Димитровград",54.2168446,49.6261645),
+    (253,"Дмитриев",52.1269291,35.0739504),
+    (254,"Дмитров",56.3477176,37.5267184),
+    (255,"Дмитровск",52.5053481,35.141535),
+    (256,"Дно",57.8269802,29.9629569),
+    (257,"Добрянка",58.4696353,56.4131294),
+    (258,"Долгопрудный",55.9384901,37.5100527),
+    (259,"Долинск",47.3255903,142.7945985),
+    (260,"Домодедово",55.4363901,37.7666263),
+    (261,"Донецк",48.3350928,39.9460654),
+    (262,"Донской",53.9679582,38.3372104),
+    (263,"Дорогобуж",54.9137794,33.3024596),
+    (264,"Дрезна",55.7442991,38.8499228),
+    (265,"Дубна",56.7417949,37.1757163),
+    (266,"Дубовка",49.0555342,44.8270813),
+    (267,"Дудинка",69.4031339,86.1908135),
+    (268,"Духовщина",55.1950509,32.4012351),
+    (269,"Дюртюли",55.4848047,54.8524875),
+    (270,"Дятьково",53.5958283,34.355092),
+    (271,"Евпатория",45.1904322,33.3667685),
+    (272,"Егорьевск",55.3831326,39.0358236),
+    (273,"Ейск",46.7114611,38.2764915),
+    (274,"Екатеринбург",56.8386326,60.6054887),
+    (275,"Елабуга",55.7566727,52.0544438),
+    (276,"Елец",52.6151738,38.5289121),
+    (277,"Елизово",53.1829573,158.3882833),
+    (278,"Ельня",54.5836832,33.1749566),
+    (279,"Еманжелинск",54.7554084,61.3243985),
+    (280,"Емва",62.5965314,50.8731889),
+    (281,"Енисейск",58.4485234,92.165237),
+    (282,"Ермолино",55.1972714,36.5951966),
+    (283,"Ершов",51.3508407,48.2763313),
+    (284,"Ессентуки",44.044461,42.8589078),
+    (285,"Ефремов",53.1465725,38.0922412),
+    (286,"Железноводск",44.1320689,43.0306475),
+    (287,"Железногорск",56.2529346,93.532167),
+    (288,"Железногорск",52.3378753,35.3516834),
+    (289,"Железногорск-Илимский",56.5847382,104.1141747),
+    (290,"Жердевка",51.8421783,41.4617407),
+    (291,"Жигулевск",53.4011545,49.494529),
+    (292,"Жиздра",53.7522384,34.7386719),
+    (293,"Жирновск",50.9767561,44.7857694),
+    (294,"Жуков",55.0301386,36.7393279),
+    (295,"Жуковка",53.5341219,33.7302166),
+    (296,"Жуковский",55.5998408,38.1224185),
+    (297,"Завитинск",50.1064678,129.4392897),
+    (298,"Заводоуковск",56.5012193,66.5505094),
+    (299,"Заволжск",57.4916546,42.1374455),
+    (300,"Заволжье",56.6404237,43.3871565),
+    (301,"Задонск",52.4004611,38.9205772),
+    (302,"Заинск",55.2988854,52.0063634),
+    (303,"Закаменск",50.3726774,103.2867452),
+    (304,"Заозерный",55.9617268,94.7091037),
+    (305,"Заозерск",69.4003895,32.4502225),
+    (306,"Западная Двина",56.2568002,32.0805972),
+    (307,"Заполярный",69.413232,30.7985332),
+    (308,"Зарайск",54.7625993,38.8851485),
+    (309,"Заречный",53.1961009,45.1691502),
+    (310,"Заречный",56.8103345,61.3380592),
+    (311,"Заринск",53.7063495,84.9314703),
+    (312,"Звенигово",55.9739374,48.0170276),
+    (313,"Звенигород",55.7296168,36.8552843),
+    (314,"Зверево",48.043451,40.1264948),
+    (315,"Зеленогорск",56.1133001,94.5888736),
+    (316,"Зеленоградск",54.9600226,20.4753274),
+    (317,"Зеленодольск",55.8466751,48.5010882),
+    (318,"Зеленокумск",44.403359,43.8841326),
+    (319,"Зерноград",46.8494991,40.312765),
+    (320,"Зея",53.7339151,127.2658079),
+    (321,"Зима",53.9206865,102.0492066),
+    (322,"Златоуст",55.1715695,59.6726264),
+    (323,"Злынка",52.4265906,31.7360386),
+    (324,"Змеиногорск",51.1580235,82.1872476),
+    (325,"Знаменск",48.5865618,45.7367908),
+    (326,"Зубцов",56.1760709,34.5825504),
+    (327,"Зуевка",58.4031674,51.1330787),
+    (328,"Ивангород",59.3765845,28.2230504),
+    (329,"Иваново",56.9994677,40.9728231),
+    (330,"Ивантеевка",55.9742303,37.9208755),
+    (331,"Ивдель",60.6944353,60.4244661),
+    (332,"Игарка",67.4667947,86.5814287),
+    (333,"Ижевск",56.8527444,53.2113961),
+    (334,"Избербаш",42.565098,47.871002),
+    (335,"Изобильный",45.3684342,41.7086448),
+    (336,"Иланский",56.2374163,96.0672656),
+    (337,"Инза",53.8550467,46.3532786),
+    (338,"Инкерман",44.6135153,33.6100739),
+    (339,"Иннополис",55.7521544,48.7446161),
+    (340,"Инсар",53.8770384,44.3696866),
+    (341,"Инта",66.0368196,60.1154612),
+    (342,"Ипатово",45.7181897,42.8969695),
+    (343,"Ирбит",57.6838406,63.0576639),
+    (344,"Иркутск",52.2863513,104.280655),
+    (345,"Исилькуль",54.9096156,71.2816107),
+    (346,"Искитим",54.6266869,83.2951444),
+    (347,"Истра",55.9061087,36.8600854),
+    (348,"Ишим",56.0952037,69.4643292),
+    (349,"Ишимбай",53.4546314,56.043874),
+    (350,"Йошкар-Ола",56.6343763,47.8998445),
+    (351,"Кадников",59.5037947,40.3440473),
+    (352,"Казань",55.7943877,49.1115312),
+    (353,"Калач",50.4241213,41.0162858),
+    (354,"Калачинск",55.0598547,74.5655075),
+    (355,"Калач-на-Дону",48.6887569,43.5306866),
+    (356,"Калининград",54.7073218,20.5072458),
+    (357,"Калининск",51.4992917,44.4710177),
+    (358,"Калтан",53.5210461,87.2772143),
+    (359,"Калуга",54.5060439,36.2515933),
+    (360,"Калязин",57.2579471,37.7821253),
+    (361,"Камбарка",56.2659745,54.1934153),
+    (362,"Каменка",53.1855474,44.0468501),
+    (363,"Каменногорск",60.9508768,29.1308061),
+    (364,"Каменск-Уральский",56.4149095,61.9189837),
+    (365,"Каменск-Шахтинский",48.3204412,40.268874),
+    (366,"Камень-на-Оби",53.7915454,81.3545173),
+    (367,"Камешково",56.3488712,40.9955682),
+    (368,"Камызяк",46.1105429,48.0732724),
+    (369,"Камышин",50.0651261,45.3843816),
+    (370,"Камышлов",56.8465469,62.7120432),
+    (371,"Канаш",55.5069543,47.4917734),
+    (372,"Кандалакша",67.1567298,32.4142303),
+    (373,"Канск",56.2049776,95.7051246),
+    (374,"Карабаново",56.3133447,38.7034267),
+    (375,"Карабаш",55.4852076,60.2358959),
+    (376,"Карабулак",43.3054762,44.9094521),
+    (377,"Карасук",53.7343772,78.042457),
+    (378,"Карачаевск",43.773197,41.9143726),
+    (379,"Карачев",53.1297194,34.9887859),
+    (380,"Каргат",55.1943829,80.2831324),
+    (381,"Каргополь",61.5008762,38.9636415),
+    (382,"Карпинск",59.7664444,60.0011798),
+    (383,"Карталы",53.0536101,60.647712),
+    (384,"Касимов",54.9373788,41.3912912),
+    (385,"Касли",55.8868045,60.7422529),
+    (386,"Каспийск",42.8916599,47.6366674),
+    (387,"Катав-Ивановск",54.7520187,58.1983706),
+    (388,"Катайск",56.2908118,62.5800669),
+    (389,"Качканар",58.7051759,59.4840198),
+    (390,"Кашин",57.3600486,37.6118674),
+    (391,"Кашира",54.8534263,38.1903818),
+    (392,"Кедровый",57.5618465,79.5678914),
+    (393,"Кемерово",55.3909721,86.0467864),
+    (394,"Кемь",64.9543657,34.5948547),
+    (395,"Керчь",45.3561128,36.4674285),
+    (396,"Кизел",59.0511764,57.6471214),
+    (397,"Кизилюрт",43.2039094,46.8729311),
+    (398,"Кизляр",43.8483915,46.7232828),
+    (399,"Кимовск",53.9698378,38.5380267),
+    (400,"Кимры",56.873359,37.3557064),
+    (401,"Кингисепп",59.3739407,28.6112981),
+    (402,"Кинель",53.2209985,50.6343039),
+    (403,"Кинешма",57.4425441,42.1690039),
+    (404,"Киреевск",53.9321173,37.9220791),
+    (405,"Киренск",57.7757126,108.1107766),
+    (406,"Киржач",56.1485263,38.8635035),
+    (407,"Кириллов",59.8590353,38.3749854),
+    (408,"Кириши",59.4742626,32.0625536),
+    (409,"Киров",54.0790823,34.3077508),
+    (410,"Киров",58.6035313,49.6679219),
+    (411,"Кировград",57.4298451,60.0623588),
+    (412,"Кирово-Чепецк",58.5559921,50.0317608),
+    (413,"Кировск",59.875371,30.9815205),
+    (414,"Кировск",67.6150979,33.6637196),
+    (415,"Кирс",59.3400586,52.2415895),
+    (416,"Кирсанов",52.650594,42.7284872),
+    (417,"Киселевск",54.0060382,86.6367387),
+    (418,"Кисловодск",43.905235,42.7167187),
+    (419,"Клин",56.3424886,36.7240912),
+    (420,"Клинцы",52.7529052,32.2339161),
+    (421,"Княгинино",55.8205157,45.0322947),
+    (422,"Ковдор",67.5661466,30.4742082),
+    (423,"Ковров",56.3553895,41.3169568),
+    (424,"Ковылкино",54.0391464,43.9191229),
+    (425,"Когалым",62.2638914,74.4828687),
+    (426,"Кодинск",58.6033961,99.1797563),
+    (427,"Козельск",54.0348417,35.7807136),
+    (428,"Козловка",55.8406526,48.2579372),
+    (429,"Козьмодемьянск",56.333346,46.5466282),
+    (430,"Кола",68.8785079,33.0262014),
+    (431,"Кологрив",58.826988,44.3185323),
+    (432,"Коломна",55.1027797,38.7531734),
+    (433,"Колпашево",58.3114716,82.9027528),
+    (434,"Кольчугино",56.3327616,39.391201),
+    (435,"Коммунар",59.6215929,30.393466),
+    (436,"Комсомольск",57.0273907,40.3775952),
+    (437,"Комсомольск-на-Амуре",50.550011,137.0079286),
+    (438,"Конаково",56.7275533,36.8011699),
+    (439,"Кондопога",62.2059866,34.2681778),
+    (440,"Кондрово",54.796051,35.9276099),
+    (441,"Константиновск",47.5773456,41.0967362),
+    (442,"Копейск",55.1167545,61.6180809),
+    (443,"Кораблино",53.9245422,40.0227867),
+    (444,"Кореновск",45.4640868,39.4590178),
+    (445,"Коркино",54.8903023,61.4034541),
+    (446,"Королев",55.9162558,37.8545224),
+    (447,"Короча",50.8130123,37.1896543),
+    (448,"Корсаков",46.6323995,142.7994094),
+    (449,"Коряжма",61.2885993,47.1002315),
+    (450,"Костерево",55.9336424,39.624822),
+    (451,"Костомукша",64.5889946,30.6015567),
+    (452,"Кострома",57.8029445,40.9907282),
+    (453,"Котельники",55.659898,37.8632865),
+    (454,"Котельниково",47.6310808,43.1331198),
+    (455,"Котельнич",58.3035238,48.3474288),
+    (456,"Котлас",61.2529842,46.6331915),
+    (457,"Котово",50.3205433,44.8031864),
+    (458,"Котовск",52.592393,41.5102486),
+    (459,"Кохма",56.9325151,41.0933071),
+    (460,"Красавино",60.9613991,46.481465),
+    (461,"Красноармейск",51.0268595,45.7011086),
+    (462,"Красноармейск",51.0236026,45.695141),
+    (463,"Красновишерск",60.3902242,57.0537244),
+    (464,"Красногорск",55.8318475,37.32942),
+    (465,"Краснодар",45.040235,38.9760801),
+    (466,"Краснозаводск",56.4408723,38.2320671),
+    (467,"Краснознаменск",54.9452612,22.4928511),
+    (468,"Краснознаменск",55.5978962,37.0395137),
+    (469,"Краснокаменск",50.092858,118.0323407),
+    (470,"Краснокамск",58.0820946,55.7479797),
+    (471,"Красноперекопск",45.9537956,33.7921523),
+    (472,"Краснослободск",48.7068777,44.5631799),
+    (473,"Краснослободск",54.4248634,43.7845096),
+    (474,"Краснотурьинск",59.7636934,60.1934451),
+    (475,"Красноуральск",58.3486334,60.0409011),
+    (476,"Красноуфимск",56.6122864,57.7636958),
+    (477,"Красноярск",56.009466,92.8524162),
+    (478,"Красный Кут",50.9596867,46.9712472),
+    (479,"Красный Сулин",47.8830826,40.0781385),
+    (480,"Красный Холм",58.0570193,37.1125975),
+    (481,"Кременки",54.8863306,37.116878),
+    (482,"Кропоткин",45.4332464,40.5727852),
+    (483,"Крымск",44.9344108,37.9855314),
+    (484,"Кстово",56.1433353,44.1665081),
+    (485,"Кубинка",55.5755679,36.6952487),
+    (486,"Кувандык",51.4784845,57.3612029),
+    (487,"Кувшиново",57.0263733,34.1676435),
+    (488,"Кудымкар",59.0168605,54.6573459),
+    (489,"Кузнецк",53.1131686,46.6052497),
+    (490,"Куйбышев",55.4684104,78.3241042),
+    (491,"Кулебаки",55.429716,42.512483),
+    (492,"Кумертау",52.7565537,55.7969915),
+    (493,"Кунгур",57.4283217,56.9437787),
+    (494,"Купино",54.3660317,77.2972969),
+    (495,"Курган",55.4443448,65.3161339),
+    (496,"Курганинск",44.8876442,40.5913858),
+    (497,"Курильск",45.2271915,147.8796713),
+    (498,"Курлово",55.4525994,40.6124362),
+    (499,"Куровское",55.5791491,38.9208543),
+    (500,"Курск",51.7303391,36.1926448),
+    (501,"Куртамыш",54.9368491,64.4203009),
+    (502,"Курчатов",51.6605475,35.6571711),
+    (503,"Куса",55.3385156,59.4386474),
+    (504,"Кушва",58.2825406,59.7646113),
+    (505,"Кызыл",51.7191542,94.4377234),
+    (506,"Кыштым",55.7060048,60.5563271),
+    (507,"Кяхта",50.3466291,106.4534938),
+    (508,"Лабинск",44.6353153,40.724385),
+    (509,"Лабытнанги",66.6592376,66.3882628),
+    (510,"Лагань",45.3929617,47.3432943),
+    (511,"Ладушкин",54.5693538,20.1691909),
+    (512,"Лаишево",55.4042646,49.5498201),
+    (513,"Лакинск",56.0180614,39.9564706),
+    (514,"Лангепас",61.2536667,75.1807905),
+    (515,"Лахденпохья",61.5189466,30.199592),
+    (516,"Лебедянь",53.0156678,39.143498),
+    (517,"Лениногорск",54.5966917,52.4432118),
+    (518,"Ленинск",48.6936234,45.1992835),
+    (519,"Ленинск-Кузнецкий",54.6674092,86.1796724),
+    (520,"Ленск",60.7276036,114.9549103),
+    (521,"Лермонтов",44.1052526,42.9731433),
+    (522,"Лесной",58.634981,59.7980528),
+    (523,"Лесозаводск",45.4780192,133.4185501),
+    (524,"Лесосибирск",58.2218201,92.5036986),
+    (525,"Ливны",52.4285122,37.603944),
+    (526,"Ликино-Дулево",55.7078531,38.9577103),
+    (527,"Липецк",52.6103027,39.5946266),
+    (528,"Липки",53.9418109,37.7019452),
+    (529,"Лиски",50.9944734,39.518302),
+    (530,"Лихославль",57.122256,35.4667886),
+    (531,"Лобня",56.0328745,37.4614671),
+    (532,"Лодейное Поле",60.7320564,33.5522225),
+    (533,"Лосино-Петровский",55.8714441,38.2005377),
+    (534,"Луга",58.7373818,29.8466657),
+    (535,"Луза",60.6290781,47.2612069),
+    (536,"Лукоянов",55.0327349,44.4933829),
+    (537,"Луховицы",54.9651617,39.0261346),
+    (538,"Лысково",56.0262298,45.0356702),
+    (539,"Лысьва",58.0995987,57.8085728),
+    (540,"Лыткарино",55.5778065,37.9034952),
+    (541,"Льгов",51.6596935,35.2611592),
+    (542,"Любань",59.3492573,31.2485276),
+    (543,"Люберцы",55.700416,37.9606496),
+    (544,"Любим",58.3619868,40.6869581),
+    (545,"Людиново",53.8701406,34.4385498),
+    (546,"Лянтор",61.6391639,72.1793828),
+    (547,"Магадан",59.5681763,150.8085289),
+    (548,"Магас",43.1686967,44.8130849),
+    (549,"Магнитогорск",53.4071891,58.9791432),
+    (550,"Майкоп",44.6098268,40.1006527),
+    (551,"Майский",43.6281779,44.0516663),
+    (552,"Макаров",48.6236287,142.7803508),
+    (553,"Макарьев",57.8808916,43.8014428),
+    (554,"Макушино",55.2154025,67.2452558),
+    (555,"Малая Вишера",58.8458076,32.2247984),
+    (556,"Малгобек",43.5097009,44.5901517),
+    (557,"Малмыж",56.5243722,50.6782757),
+    (558,"Малоархангельск",52.4001151,36.5037931),
+    (559,"Малоярославец",55.0176756,36.4632122),
+    (560,"Мамадыш",55.7149876,51.4128614),
+    (561,"Мамоново",54.4645591,19.9454114),
+    (562,"Мантурово",58.3264667,44.7575036),
+    (563,"Мариинск",56.2127836,87.7454392),
+    (564,"Мариинский Посад",56.111968,47.7142676),
+    (565,"Маркс",51.7133973,46.7400684),
+    (566,"Махачкала",42.9848572,47.5046303),
+    (567,"Мглин",53.0600644,32.8467217),
+    (568,"Мегион",61.0318946,76.1024772),
+    (569,"Медвежьегорск",62.9127678,34.4567614),
+    (570,"Медногорск",51.4039421,57.5832185),
+    (571,"Медынь",54.9690755,35.887313),
+    (572,"Межгорье",54.239683,57.96146),
+    (573,"Междуреченск",53.6865695,88.0703888),
+    (574,"Мезень",65.8398386,44.2531865),
+    (575,"Меленки",55.3387017,41.634124),
+    (576,"Мелеуз",52.9590637,55.9283483),
+    (577,"Менделеевск",55.8950646,52.3144177),
+    (578,"Мензелинск",55.7270908,53.1005321),
+    (579,"Мещовск",54.3191127,35.2816065),
+    (580,"Миасс",55.0455774,60.1077757),
+    (581,"Микунь",62.3580188,50.0719738),
+    (582,"Миллерово",48.925821,40.3983302),
+    (583,"Минеральные Воды",44.2088942,43.1383482),
+    (584,"Минусинск",53.7105509,91.6871866),
+    (585,"Миньяр",55.0709601,57.5484435),
+    (586,"Мирный",62.7644267,40.3359976),
+    (587,"Мирный",62.5362511,113.9668146),
+    (588,"Михайлов",54.2296493,39.0090857),
+    (589,"Михайловка",50.0708749,43.2400847),
+    (590,"Михайловск",56.4369736,59.113865),
+    (591,"Михайловск",45.1296297,42.028787),
+    (592,"Мичуринск",52.891294,40.510475),
+    (593,"Могоча",53.7362465,119.7661232),
+    (594,"Можайск",55.5069819,36.0240724),
+    (595,"Можга",56.4427219,52.2138882),
+    (596,"Моздок",43.7471209,44.6571456),
+    (597,"Мончегорск",67.9385206,32.9358886),
+    (598,"Морозовск",48.3511724,41.8308006),
+    (599,"Моршанск",53.4436469,41.8115687),
+    (600,"Мосальск",54.4825589,34.987206),
+    (601,"Муравленко",63.794188,74.494913),
+    (602,"Мураши",59.3956347,48.9637651),
+    (603,"Мурманск",69.0076958,33.0686019),
+    (604,"Муром",55.5632276,42.023006),
+    (605,"Мценск",53.2790021,36.574992),
+    (606,"Мыски",53.7125516,87.8056657),
+    (607,"Мытищи",55.9104647,37.7363702),
+    (608,"Мышкин",57.7881664,38.4542816),
+    (609,"Набережные Челны",55.7436475,52.3958739),
+    (610,"Навашино",55.5439105,42.1887734),
+    (611,"Наволоки",57.4678426,41.9607371),
+    (612,"Надым",65.5377514,72.5182746),
+    (613,"Назарово",56.0113176,90.4167947),
+    (614,"Назрань",43.2257977,44.764685),
+    (615,"Называевск",55.5688811,71.3502572),
+    (616,"Нальчик",43.4846312,43.6070316),
+    (617,"Нариманов",46.6916597,47.8501624),
+    (618,"Наро-Фоминск",55.3802749,36.7608038),
+    (619,"Нарткала",43.5577208,43.8576411),
+    (620,"Нарьян-Мар",67.6381525,53.0069336),
+    (621,"Находка",42.8240404,132.8927812),
+    (622,"Невель",56.0201544,29.9240505),
+    (623,"Невельск",46.6527314,141.8631741),
+    (624,"Невинномысск",44.6227404,41.9476147),
+    (625,"Невьянск",57.491233,60.2181839),
+    (626,"Нелидово",56.2232417,32.7766656),
+    (627,"Неман",55.0315543,22.0323961),
+    (628,"Нерехта",57.4543706,40.5725438),
+    (629,"Нерчинск",51.9595512,116.5854018),
+    (630,"Нерюнгри",56.6600322,124.72031),
+    (631,"Нестеров",54.6314454,22.5713658),
+    (632,"Нефтегорск",52.797259,51.1637126),
+    (633,"Нефтекамск",56.0883075,54.2483391),
+    (634,"Нефтекумск",44.7544866,44.9865041),
+    (635,"Нефтеюганск",61.0882837,72.6164185),
+    (636,"Нея",58.2944499,43.8780965),
+    (637,"Нижневартовск",60.9397379,76.5696206),
+    (638,"Нижнекамск",55.6311963,51.814407),
+    (639,"Нижнеудинск",54.8969105,99.0313481),
+    (640,"Нижние Серги",56.6544606,59.2952291),
+    (641,"Нижний Ломов",53.5301274,43.6729216),
+    (642,"Нижний Новгород",56.3242093,44.0053948),
+    (643,"Нижний Тагил",57.9101038,59.9813242),
+    (644,"Нижняя Салда",58.0749243,60.7026555),
+    (645,"Нижняя Тура",58.6310942,59.8521265),
+    (646,"Николаевск",50.0166952,45.4733204),
+    (647,"Николаевск-на-Амуре",53.1461943,140.7109642),
+    (648,"Никольск",59.5350162,45.4575468),
+    (649,"Никольск",53.7138397,46.079962),
+    (650,"Никольское",59.7042633,30.7874879),
+    (651,"Новая Ладога",60.1100013,32.3141446),
+    (652,"Новая Ляля",59.053961,60.5945405),
+    (653,"Новоалександровск",45.4933561,41.2154482),
+    (654,"Новоалтайск",53.4120811,83.9311249),
+    (655,"Новоаннинский",50.5296873,42.6666038),
+    (656,"Нововоронеж",51.3092463,39.2162865),
+    (657,"Новодвинск",64.4136023,40.8208003),
+    (658,"Новозыбков",52.5371426,31.9356826),
+    (659,"Новокубанск",45.1038782,41.0473679),
+    (660,"Новокузнецк",53.7942757,87.2144046),
+    (661,"Новокуйбышевск",53.0995303,49.9477662),
+    (662,"Новомичуринск",54.0377979,39.7467023),
+    (663,"Новомосковск",54.0109754,38.2915652),
+    (664,"Новопавловск",43.9617565,43.6342855),
+    (665,"Новоржев",57.0298332,29.343333),
+    (666,"Новороссийск",44.7234264,37.7687218),
+    (667,"Новосибирск",55.0281016,82.9210575),
+    (668,"Новосиль",52.9747225,37.0438402),
+    (669,"Новосокольники",56.3407627,30.1527712),
+    (670,"Новотроицк",51.1965071,58.3017455),
+    (671,"Новоузенск",50.4551744,48.1412622),
+    (672,"Новоульяновск",54.1447691,48.3911701),
+    (673,"Новоуральск",57.2471507,60.095701),
+    (674,"Новохоперск",51.0953461,41.6173714),
+    (675,"Новочебоксарск",56.109486,47.4791429),
+    (676,"Новочеркасск",47.4119248,40.1042066),
+    (677,"Новошахтинск",47.7576522,39.9364709),
+    (678,"Новый Оскол",50.7635162,37.8774026),
+    (679,"Новый Уренгой",66.0840036,76.6810032),
+    (680,"Ногинск",55.8686239,38.4621635),
+    (681,"Нолинск",57.5596946,49.9357867),
+    (682,"Норильск",69.3490828,88.2009965),
+    (683,"Ноябрьск",63.201846,75.4509665),
+    (684,"Нурлат",54.4281578,50.8050431),
+    (685,"Нытва",57.9337429,55.3357261),
+    (686,"Нюрба",63.2828775,118.324325),
+    (687,"Нягань",62.1454839,65.3944361),
+    (688,"Нязепетровск",56.0537199,59.6096791),
+    (689,"Няндома",61.6653735,40.2061699),
+    (690,"Облучье",49.0188344,131.0539984),
+    (691,"Обнинск",55.0943892,36.6121785),
+    (692,"Обоянь",51.212012,36.275425),
+    (693,"Обь",54.9945882,82.6937925),
+    (694,"Одинцово",55.6789292,37.2636389),
+    (695,"Озерск",54.4084804,22.013508),
+    (696,"Озерск",55.7631922,60.7076337),
+    (697,"Озеры",54.8539944,38.55987),
+    (698,"Октябрьск",53.1640886,48.6707463),
+    (699,"Октябрьский",54.4815344,53.4656611),
+    (700,"Окуловка",58.3908717,33.2902474),
+    (701,"Олекминск",60.3758203,120.406013),
+    (702,"Оленегорск",68.1422068,33.2670094),
+    (703,"Олонец",60.9793604,32.9726031),
+    (704,"Омск",54.9848136,73.3674638),
+    (705,"Омутнинск",58.6697684,52.1893554),
+    (706,"Онега",63.9163966,38.0805749),
+    (707,"Опочка",56.7107956,28.6717455),
+    (708,"Орёл",52.9672573,36.0696479),
+    (709,"Оренбург",51.7875191,55.1017379),
+    (710,"Орехово-Зуево",55.8151729,38.9870711),
+    (711,"Орлов",58.5389402,48.8929268),
+    (712,"Орск",51.2293069,58.4751889),
+    (713,"Оса",57.2889992,55.4688982),
+    (714,"Осинники",53.5987397,87.3369948),
+    (715,"Осташков",57.1457205,33.1116707),
+    (716,"Остров",57.3452408,28.3437107),
+    (717,"Островной",68.0509133,39.5076034),
+    (718,"Острогожск",50.8678083,39.0406398),
+    (719,"Отрадное",59.772596,30.7988403),
+    (720,"Отрадный",53.3800609,51.3438695),
+    (721,"Оха",53.5868238,142.941221),
+    (722,"Оханск",57.7178946,55.387153),
+    (723,"Очер",57.8851991,54.7161756),
+    (724,"Павлово",55.9797995,43.0996232),
+    (725,"Павловск",50.4533684,40.1369087),
+    (726,"Павловский Посад",55.7806718,38.6596047),
+    (727,"Палласовка",50.0501422,46.8803355),
+    (728,"Партизанск",43.1279833,133.1264754),
+    (729,"Певек",69.7018051,170.2999194),
+    (730,"Пенза",53.1753884,45.0347408),
+    (731,"Первомайск",54.8676182,43.8012829),
+    (732,"Первоуральск",56.9081665,59.9429205),
+    (733,"Перевоз",55.596904,44.5450268),
+    (734,"Пересвет",56.4158828,38.1733567),
+    (735,"Переславль-Залесский",56.7360435,38.8543064),
+    (736,"Пермь",58.0103211,56.2341778),
+    (737,"Пестово",58.5973944,35.8144523),
+    (738,"Петров Вал",50.1380355,45.2091455),
+    (739,"Петровск",52.3093782,45.3851649),
+    (740,"Петровск-Забайкальский",51.2748381,108.8467139),
+    (741,"Петрозаводск",61.78909,34.3596263),
+    (742,"Петропавловск-Камчатский",53.0370213,158.6559142),
+    (743,"Петухово",55.0649932,67.8874369),
+    (744,"Петушки",55.9297657,39.4507913),
+    (745,"Печора",65.1485717,57.22388),
+    (746,"Печоры",57.8146689,27.6222823),
+    (747,"Пикалево",59.5130655,34.1773982),
+    (748,"Пионерский",54.9516927,20.227697),
+    (749,"Питкяранта",61.5756886,31.4641309),
+    (750,"Плавск",53.7095993,37.2863144),
+    (751,"Пласт",54.3691832,60.8152305),
+    (752,"Плес",57.4605304,41.512301),
+    (753,"Поворино",51.1953446,42.2472432),
+    (754,"Подольск",55.4389588,37.57027),
+    (755,"Подпорожье",60.9127463,34.1567832),
+    (756,"Покачи",61.7421977,75.5942069),
+    (757,"Покров",55.9167118,39.1733641),
+    (758,"Покровск",61.4843538,129.1482195),
+    (759,"Полевской",56.4958085,60.2366314),
+    (760,"Полесск",54.8626321,21.0998148),
+    (761,"Полысаево",54.6053968,86.2808803),
+    (762,"Полярные Зори",67.3730192,32.497541),
+    (763,"Полярный",69.1988373,33.4509985),
+    (764,"Поронайск",49.2387983,143.1007104),
+    (765,"Порхов",57.7764223,29.5436424),
+    (766,"Похвистнево",53.6498197,52.1235517),
+    (767,"Почеп",52.9154724,33.4744608),
+    (768,"Починок",54.4063031,32.4397914),
+    (769,"Пошехонье",58.506328,39.1210034),
+    (770,"Правдинск",54.4430604,21.0083638),
+    (771,"Приволжск",57.3807249,41.2809239),
+    (772,"Приморск",54.7311185,19.9983108),
+    (773,"Приморск",60.3660787,28.6135962),
+    (774,"Приморско-Ахтарск",46.0515,38.1704654),
+    (775,"Приозерск",61.03313,30.15876),
+    (776,"Прокопьевск",53.8604562,86.7183428),
+    (777,"Пролетарск",46.7038968,41.7274533),
+    (778,"Протвино",54.8706614,37.2183307),
+    (779,"Прохладный",43.7589521,44.0101936),
+    (780,"Псков",57.819284,28.3318188),
+    (781,"Пугачев",52.0158464,48.7972652),
+    (782,"Пудож",61.8059147,36.5330088),
+    (783,"Пустошка",56.3375131,29.3668243),
+    (784,"Пучеж",56.982075,43.1683878),
+    (785,"Пушкино",56.0104548,37.8471438),
+    (786,"Пущино",54.832521,37.6210428),
+    (787,"Пыталово",57.0637109,27.9234759),
+    (788,"Пыть-Ях",60.7585769,72.8366445),
+    (789,"Пятигорск",44.0411669,43.0661091),
+    (790,"Радужный",55.9961034,40.3323247),
+    (791,"Радужный",62.1343067,77.4584346),
+    (792,"Райчихинск",49.7941882,129.4112149),
+    (793,"Раменское",55.549529,38.273015),
+    (794,"Рассказово",52.6537517,41.8743779),
+    (795,"Ревда",56.79869,59.9071464),
+    (796,"Реж",57.3717914,61.3833223),
+    (797,"Реутов",55.758236,37.8619443),
+    (798,"Ржев",56.2629393,34.3291178),
+    (799,"Родники",57.1024137,41.7298908),
+    (800,"Рославль",53.9449601,32.8479617),
+    (801,"Россошь",50.170089,39.6225534),
+    (802,"Ростов",57.2050177,39.4378357),
+    (803,"Ростов-на-Дону",47.2224364,39.7187866),
+    (804,"Рошаль",55.6632504,39.8655434),
+    (805,"Ртищево",52.2616298,43.7842399),
+    (806,"Рубцовск",51.5013075,81.2077729),
+    (807,"Рудня",54.9441357,31.0794758),
+    (808,"Руза",55.7015302,36.1960043),
+    (809,"Рузаевка",54.0583238,44.949116),
+    (810,"Рыбинск",58.0483802,38.858338),
+    (811,"Рыбное",54.7255937,39.513438),
+    (812,"Рыльск",51.568165,34.6802178),
+    (813,"Ряжск",53.7067718,40.0521358),
+    (814,"Рязань",54.625457,39.7359992),
+    (815,"Саки",45.1342889,33.6032508),
+    (816,"Салават",53.3616311,55.9245559),
+    (817,"Салаир",54.2351588,85.8029215),
+    (818,"Салехард",66.5493568,66.6083994),
+    (819,"Сальск",46.4751689,41.5412229),
+    (820,"Самара",53.1951657,50.1067691),
+    (821,"Саранск",54.1807601,45.1862263),
+    (822,"Сарапул",56.4616117,53.8036967),
+    (823,"Саратов",51.530376,45.9530257),
+    (824,"Саров",54.9227002,43.3447792),
+    (825,"Сасово",54.350807,41.9117458),
+    (826,"Сатка",55.0404497,59.0288153),
+    (827,"Сафоново",55.1199868,33.233799),
+    (828,"Саяногорск",53.1008226,91.4121643),
+    (829,"Саянск",54.1107787,102.1802563),
+    (830,"Светлогорск",54.9439566,20.1514789),
+    (831,"Светлоград",45.3284769,42.8566923),
+    (832,"Светлый",54.6774051,20.1356625),
+    (833,"Светогорск",61.1112679,28.8726666),
+    (834,"Свирск",53.0842576,103.3364192),
+    (835,"Свободный",51.361264,128.1218995),
+    (836,"Себеж",56.2907663,28.4725735),
+    (837,"Северобайкальск",55.6357165,109.3362606),
+    (838,"Северодвинск",64.56253,39.8182715),
+    (839,"Северо-Курильск",50.6731056,156.1280722),
+    (840,"Североморск",69.0765029,33.4178354),
+    (841,"Североуральск",60.1533333,59.9525274),
+    (842,"Северск",56.6031143,84.8809687),
+    (843,"Севск",52.1484215,34.4918198),
+    (844,"Сегежа",63.7437211,34.3126755),
+    (845,"Сельцо",53.3738801,34.1059226),
+    (846,"Семенов",56.788935,44.4903571),
+    (847,"Семикаракорск",47.5177981,40.811585),
+    (848,"Семилуки",51.6951846,39.0189797),
+    (849,"Сенгилей",53.9590553,48.7767869),
+    (850,"Серафимович",49.566286,42.7360013),
+    (851,"Сергач",55.5200364,45.4813193),
+    (852,"Сергиев Посад",56.3063411,38.1502568),
+    (853,"Сердобск",52.4697532,44.2122688),
+    (854,"Серов",59.6048651,60.5752136),
+    (855,"Серпухов",54.9225396,37.4032682),
+    (856,"Сертолово",60.14458,30.2094595),
+    (857,"Сибай",52.7205811,58.6663303),
+    (858,"Сим",54.9906584,57.6899045),
+    (859,"Симферополь",44.9482645,34.100117),
+    (860,"Сковородино",53.9871004,123.943729),
+    (861,"Скопин",53.8236028,39.5493286),
+    (862,"Славгород",52.9993053,78.6459674),
+    (863,"Славск",55.0451054,21.6742294),
+    (864,"Славянск-на-Кубани",45.2605079,38.1260725),
+    (865,"Сланцы",59.1178693,28.088106),
+    (866,"Слободской",58.7311934,50.1670091),
+    (867,"Слюдянка",51.6562679,103.7186877),
+    (868,"Смоленск",54.7867168,31.8153366),
+    (869,"Снежинск",56.085232,60.7324989),
+    (870,"Снежногорск",69.1921469,33.2382821),
+    (871,"Собинка",55.993798,40.0180034),
+    (872,"Советск",55.0810474,21.8886272),
+    (873,"Советск",57.5841434,48.9589228),
+    (874,"Советск",53.9337099,37.6315517),
+    (875,"Советская Гавань",48.9664554,140.2852223),
+    (876,"Советский",61.3706695,63.566863),
+    (877,"Сокол",59.4759156,40.1114414),
+    (878,"Солигалич",59.0786729,42.2877245),
+    (879,"Соликамск",59.6483518,56.7710358),
+    (880,"Солнечногорск",56.2148655,37.0967653),
+    (881,"Сольвычегодск",61.3318091,46.920351),
+    (882,"Соль-Илецк",51.1634976,54.9895391),
+    (883,"Сольцы",58.1201693,30.309285),
+    (884,"Сорочинск",52.4265081,53.1542123),
+    (885,"Сорск",54.0001451,90.2595674),
+    (886,"Сортавала",61.7032216,30.6917021),
+    (887,"Сосенский",54.056525,35.9621458),
+    (888,"Сосновка",56.2533149,51.2833412),
+    (889,"Сосновоборск",56.1202088,93.3353411),
+    (890,"Сосновый Бор",59.8772921,29.1290866),
+    (891,"Сосногорск",63.5990137,53.8762792),
+    (892,"Сочи",43.5855829,39.7231419),
+    (893,"Спас-Деменск",54.4099201,34.0190263),
+    (894,"Спас-Клепики",55.1291472,40.1745036),
+    (895,"Спасск",53.927163,43.1860475),
+    (896,"Спасск-Дальний",44.5900929,132.8157564),
+    (897,"Спасск-Рязанский",54.4071497,40.3764367),
+    (898,"Среднеколымск",67.4581664,153.7069511),
+    (899,"Среднеуральск",56.991883,60.4771953),
+    (900,"Сретенск",52.2462356,117.7116971),
+    (901,"Ставрополь",45.0445439,41.9690168),
+    (902,"Старая Купавна",55.8038411,38.1426144),
+    (903,"Старая Русса",57.9906873,31.3555076),
+    (904,"Старица",56.514955,34.9335145),
+    (905,"Стародуб",52.5851881,32.7603628),
+    (906,"Старый Крым",45.0290659,35.0900885),
+    (907,"Старый Оскол",51.2965991,37.8349849),
+    (908,"Стерлитамак",53.6302498,55.9315707),
+    (909,"Стрежевой",60.7328199,77.6040323),
+    (910,"Строитель",50.7845571,36.4886619),
+    (911,"Струнино",56.3750001,38.583938),
+    (912,"Ступино",54.9238403,38.1186976),
+    (913,"Суворов",54.1345367,36.4806933),
+    (914,"Судак",44.8505913,34.9761591),
+    (915,"Суджа",51.1919711,35.2719619),
+    (916,"Судогда",55.949897,40.8563392),
+    (917,"Суздаль",56.4273814,40.4525581),
+    (918,"Суоярви",62.0787769,32.3499029),
+    (919,"Сураж",53.0171239,32.3938351),
+    (920,"Сургут",61.2539773,73.3961726),
+    (921,"Суровикино",48.6189756,42.8541308),
+    (922,"Сурск",53.0760597,45.6911897),
+    (923,"Сусуман",62.7804628,148.154033),
+    (924,"Сухиничи",54.0973787,35.3443077),
+    (925,"Сухой Лог",56.9075938,62.0358708),
+    (926,"Сызрань",53.1557213,48.4745419),
+    (927,"Сыктывкар",61.668789,50.8356491),
+    (928,"Сысерть",56.50052,60.8190708),
+    (929,"Сычевка",55.8307397,34.277868),
+    (930,"Сясьстрой",60.1402454,32.5602015),
+    (931,"Тавда",58.0434196,65.2743232),
+    (932,"Таганрог",47.2094907,38.935154),
+    (933,"Тайга",56.0622767,85.6207907),
+    (934,"Тайшет",55.9405397,98.0030649),
+    (935,"Талдом",56.7308993,37.5276414),
+    (936,"Талица",57.0123359,63.7322467),
+    (937,"Тамбов",52.7213021,41.452258),
+    (938,"Тара",56.9159171,74.3649643),
+    (939,"Тарко-Сале",64.9117649,77.7610204),
+    (940,"Таруса",54.7236791,37.1670866),
+    (941,"Татарск",55.2145894,75.9740805),
+    (942,"Таштагол",52.7594505,87.8477272),
+    (943,"Тверь",56.8585396,35.9117898),
+    (944,"Теберда",43.4438408,41.7414924),
+    (945,"Тейково",56.8542712,40.5355289),
+    (946,"Темников",54.6309086,43.2161785),
+    (947,"Темрюк",45.2611082,37.445519),
+    (948,"Терек",43.4838439,44.1402524),
+    (949,"Тетюши",54.936575,48.8314915),
+    (950,"Тимашевск",45.6159358,38.9350513),
+    (951,"Тихвин",59.6273809,33.5072307),
+    (952,"Тихорецк",45.8546953,40.1258702),
+    (953,"Тобольск",58.2016828,68.2538392),
+    (954,"Тогучин",55.2250038,84.4103867),
+    (955,"Тольятти",53.5206438,49.389461),
+    (956,"Томари",47.7619957,142.061508),
+    (957,"Томмот",58.9586939,126.2875375),
+    (958,"Томск",56.4847036,84.9481737),
+    (959,"Топки",55.2766036,85.6153223),
+    (960,"Торжок",57.0412804,34.9600691),
+    (961,"Торопец",56.5011791,31.6354366),
+    (962,"Тосно",59.5406697,30.8777872),
+    (963,"Тотьма",59.9735051,42.7589701),
+    (964,"Трехгорный",54.8178174,58.4465039),
+    (965,"Троицк",54.0844132,61.5585503),
+    (966,"Трубчевск",52.5791314,33.7660013),
+    (967,"Туапсе",44.1103707,39.082645),
+    (968,"Туймазы",54.5999889,53.6949081),
+    (969,"Тула",54.192017,37.6153885),
+    (970,"Тулун",54.5571409,100.5779402),
+    (971,"Туран",52.144932,93.9172495),
+    (972,"Туринск",58.0394258,63.698142),
+    (973,"Тутаев",57.8674237,39.5368234),
+    (974,"Тында",55.1546401,124.7468634),
+    (975,"Тырныауз",43.3981939,42.9215127),
+    (976,"Тюкалинск",55.8705121,72.1956156),
+    (977,"Тюмень",57.1530824,65.5343118),
+    (978,"Уварово",51.9768835,42.2529568),
+    (979,"Углегорск",49.0816311,142.0693033),
+    (980,"Углич",57.5223866,38.3019793),
+    (981,"Удачный",66.4072367,112.3061653),
+    (982,"Удомля",57.8787885,35.016716),
+    (983,"Ужур",55.3141977,89.8333827),
+    (984,"Узловая",53.9731407,38.1763104),
+    (985,"Улан-Удэ",51.8334378,107.5841511),
+    (986,"Ульяновск",54.3080674,48.3748717),
+    (987,"Унеча",52.8460665,32.6757071),
+    (988,"Урай",60.1295842,64.8040117),
+    (989,"Урень",57.4612547,45.783394),
+    (990,"Уржум",57.1097612,50.0056278),
+    (991,"Урюпинск",50.7904767,42.0288589),
+    (992,"Усинск",65.9941116,57.5570054),
+    (993,"Усмань",52.0444165,39.7264516),
+    (994,"Усолье",59.4279356,56.6837783),
+    (995,"Усолье-Сибирское",52.7567192,103.6387694),
+    (996,"Уссурийск",43.79726,131.9517262),
+    (997,"Усть-Джегута",44.083852,41.971128),
+    (998,"Усть-Илимск",57.9431325,102.7414683),
+    (999,"Усть-Катав",54.9261323,58.1528067),
+    (1000,"Усть-Кут",56.7928049,105.7756883),
+    (1001,"Усть-Лабинск",45.222676,39.6930239),
+    (1002,"Устюжна",58.8383671,36.4425046),
+    (1003,"Уфа",54.734853,55.9578647),
+    (1004,"Ухта",63.5564779,53.7014202),
+    (1005,"Учалы",54.3066965,59.4126559),
+    (1006,"Уяр",55.8131698,94.3282148),
+    (1007,"Фатеж",52.0918591,35.8538912),
+    (1008,"Феодосия",45.031878,35.3824772),
+    (1009,"Фокино",53.4554552,34.4158537),
+    (1010,"Фокино",42.9707163,132.4110209),
+    (1011,"Фролово",49.7647809,43.6648936),
+    (1012,"Фрязино",55.9590154,38.0409171),
+    (1013,"Фурманов",57.2538043,41.1053808),
+    (1014,"Хабаровск",48.4647991,135.0598811),
+    (1015,"Хадыженск",44.412303,39.5319151),
+    (1016,"Ханты-Мансийск",61.0024344,69.0183322),
+    (1017,"Харабали",47.4089187,47.2524467),
+    (1018,"Харовск",59.9477728,40.2000794),
+    (1019,"Хасавюрт",43.2505191,46.5852276),
+    (1020,"Хвалынск",52.4950057,48.1045147),
+    (1021,"Хилок",51.3635236,110.458989),
+    (1022,"Химки",55.8886705,37.4304154),
+    (1023,"Холм",57.1451036,31.1787812),
+    (1024,"Холмск",47.0408637,142.0416619),
+    (1025,"Хотьково",56.2515725,37.9395225),
+    (1026,"Цивильск",55.8650132,47.472967),
+    (1027,"Цимлянск",47.6477668,42.093022),
+    (1028,"Циолковский",51.7624346,128.121972),
+    (1029,"Чадан",51.2844482,91.5789135),
+    (1030,"Чайковский",56.7780203,54.1478482),
+    (1031,"Чапаевск",52.9289662,49.8674222),
+    (1032,"Чаплыгин",53.2404794,39.9671563),
+    (1033,"Чебаркуль",54.9819329,60.3773305),
+    (1034,"Чебоксары",56.1439378,47.2488718),
+    (1035,"Чегем",43.5672039,43.5865338),
+    (1036,"Чекалин",54.0985105,36.2474377),
+    (1037,"Челябинск",55.1603659,61.4007858),
+    (1038,"Чердынь",60.4011184,56.4801391),
+    (1039,"Черемхово",53.1369385,103.090119),
+    (1040,"Черепаново",54.2206974,83.3724392),
+    (1041,"Череповец",59.1269214,37.9092243),
+    (1042,"Черкесск",44.2268637,42.0467829),
+    (1043,"Чермоз",58.7842527,56.1507562),
+    (1044,"Черноголовка",56.0100909,38.3792328),
+    (1045,"Черногорск",53.8258425,91.3259669),
+    (1046,"Чернушка",56.5161079,56.0763919),
+    (1047,"Черняховск",54.6243928,21.7969179),
+    (1048,"Чехов",55.1507175,37.4532591),
+    (1049,"Чистополь",55.3699372,50.628495),
+    (1050,"Чита",52.0340128,113.4994884),
+    (1051,"Чкаловск",56.7651549,43.2420193),
+    (1052,"Чудово",59.1247477,31.6865406),
+    (1053,"Чулым",55.0906205,80.9592152),
+    (1054,"Чусовой",58.2974725,57.8193122),
+    (1055,"Чухлома",58.7534246,42.6883783),
+    (1056,"Шагонар",51.5347357,92.9199618),
+    (1057,"Шадринск",56.0870152,63.6298234),
+    (1058,"Шали",43.148776,45.9009577),
+    (1059,"Шарыпово",55.5389684,89.1801557),
+    (1060,"Шарья",58.3761832,45.4060762),
+    (1061,"Шатура",55.5777942,39.5443781),
+    (1062,"Шахты",47.7084247,40.2159154),
+    (1063,"Шахунья",57.6764773,46.6129673),
+    (1064,"Шацк",54.0288845,41.7182108),
+    (1065,"Шебекино",50.4005506,36.8877988),
+    (1066,"Шелехов",52.2102462,104.0973531),
+    (1067,"Шенкурск",62.1057423,42.89959),
+    (1068,"Шилка",51.8495302,116.033575),
+    (1069,"Шимановск",52.0052856,127.7006559),
+    (1070,"Шиханы",52.1148241,47.2022928),
+    (1071,"Шлиссельбург",59.9443923,31.0334136),
+    (1072,"Шумерля",55.4961795,46.4183534),
+    (1073,"Шумиха",55.2281833,63.2902391),
+    (1074,"Шуя",56.8560743,41.3802455),
+    (1075,"Щекино",54.0020749,37.517686),
+    (1076,"Щелкино",45.4289847,35.8251329),
+    (1077,"Щелково",55.9234303,37.9784419),
+    (1078,"Щигры",51.8787808,36.8910674),
+    (1079,"Щучье",55.20883,62.7478475),
+    (1080,"Электрогорск",55.8778573,38.7805239),
+    (1081,"Электросталь",55.7847718,38.4446531),
+    (1082,"Электроугли",55.7170329,38.2194049),
+    (1083,"Элиста",46.3082947,44.2701417),
+    (1084,"Энгельс",51.4854893,46.1267479),
+    (1085,"Эртиль",51.831024,40.8074054),
+    (1086,"Югорск",61.3124504,63.3364787),
+    (1087,"Южа",56.5926458,42.0457159),
+    (1088,"Южно-Сахалинск",46.959133,142.7381252),
+    (1089,"Южно-Сухокумск",44.6600972,45.6499304),
+    (1090,"Южноуральск",54.4490124,61.2581869),
+    (1091,"Юрга",55.7202689,84.8885516),
+    (1092,"Юрьевец",57.3178701,43.1110553),
+    (1093,"Юрьев-Польский",56.4938067,39.6679311),
+    (1094,"Юрюзань",54.8546372,58.4227116),
+    (1095,"Юхнов",54.7445873,35.2424857),
+    (1096,"Ядрин",55.9406826,46.2020765),
+    (1097,"Якутск",62.0280273,129.7325717),
+    (1098,"Ялта",44.416366,34.04455),
+    (1099,"Ялта",44.4951948,34.166386),
+    (1100,"Ялуторовск",56.649167,66.297034),
+    (1101,"Янаул",56.2650336,54.9298314),
+    (1102,"Яранск",57.304195,47.8479185),
+    (1103,"Яровое",52.9251728,78.5729898),
+    (1104,"Ярославль",57.6216145,39.897878),
+    (1105,"Ярцево",55.0564933,32.6902457),
+    (1106,"Ясногорск",54.4795178,37.689669),
+    (1107,"Ясный",51.0369499,59.8743256),
+    (1108,"Яхрома",56.2889858,37.4831016);
+INSERT INTO `taskforce`.`users` (`id`,`city_id`,`about`,`email`,`address`,`first_name`,`last_name`,`birth_date`,`password_hash`,`phone`,`skype`,`telegramm`,`created_at`) VALUES
+    (1,921,"In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.","kbuttress0@1und1.de","38737 Moose Avenue","Karrie","Buttress","1989-11-11","f6a2eecf450b9179ba0f9f8266049caf",64574473047,"high-level","@kbuttress0","2019-08-10"),
+    (2,48,"Pellentesque ultrices mattis odio.","baymer1@hp.com","738 Hagan Lane","Bob","Aymer","1989-03-05","40f642ebd812e43e3496347ad06aad9e",75531015353,"mobile","@baymer1","2018-12-21"),
+    (3,425,"Morbi a ipsum. Integer a nibh. In quis justo.","zboulding2@macromedia.com","758 Old Shore Parkway","Zilvia","Boulding","1989-12-30","06a5043c9591d2e4a4c10b5514137651",16371407508,"Re-engineered","@zboulding2","2019-07-25"),
+    (4,928,"Suspendisse potenti.","emollon3@bloglovin.com","11 Dovetail Junction","Emalee","Mollon","0629-03-03","0e545538f39a434b19bfe888ff767457",21468788926,"Grass-roots","@emollon3","2018-11-13"),
+    (5,756,"Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo.","mmulberry4@cmu.edu","050 Bowman Alley","Maria","Mulberry","1989-04-08","4e2fe9c669afce66d027546127135894",62931646367,"fault-tolerant","@mmulberry4","2019-07-20"),
+    (6,740,"Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.","lby5@mozilla.com","5 Iowa Avenue","Levey","By","1989-04-18","d781290a7d93f7e6d974ad17dc0f6610",63271348718,"Team-oriented","@lby5","2019-02-12"),
+    (7,1027,"Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.","beates6@last.fm","87119 Northland Hill","Baron","Eates","1989-03-20","883b32db19fc0401600c1c7257c1782f",41056175169,"portal","@beates6","2019-05-03"),
+    (8,906,"Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.","tvink7@fotki.com","6823 Lillian Point","Trip","Vink","1989-12-13","fd5d4714c54059f1ea31cd953427e531",72882384431,"intermediate","@tvink7","2019-01-13"),
+    (9,998,"Morbi ut odio.","bterbeck8@about.me","43 Marquette Plaza","Boonie","Terbeck","1989-01-14","437cd2770db6e5798ed42b3b7914111a",69043821394,"local area network","@bterbeck8","2019-09-15"),
+    (10,439,"Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.","atraviss9@auda.org.au","5303 Village Green Hill","Alonzo","Traviss","1989-02-03","dbefdec7396eabd2e0375788df415f4d",28396220507,"upward-trending","@atraviss9","2018-12-19"),
+    (11,202,"Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.","nwitteringa@google.com.br","67399 Reindahl Place","Natassia","Wittering","1989-05-23","75d526d3311ec77c9ef2ec4fd9a54566",83344513307,"grid-enabled","@nwitteringa","2019-03-24"),
+    (12,234,"Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc.","fbrookeb@nba.com","45 Twin Pines Hill","Felice","Brooke","1989-07-06","ea56bb021a7864d9f490ebfb99953aad",64890419671,"background","@fbrookeb","2019-09-27"),
+    (13,177,"Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst.","cviccaryc@amazon.co.uk","46 Sheridan Place","Carlen","Viccary","1903-04-16","813310e0c8c4ab5b5dff32bf1dc206cc",23005580487,"challenge","@cviccaryc","2018-12-06"),
+    (14,1066,"Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.","hgethingsd@sogou.com","73 Kedzie Terrace","Hendrik","Gethings","1989-11-07","a86f5ad103a2ab81287ac2d2ae0cec5a",27052074771,"coherent","@hgethingsd","2018-11-18"),
+    (15,484,"Cras pellentesque volutpat dui.","dgirodiase@stanford.edu","85509 Ludington Drive","Dunc","Girodias","1989-02-13","885c6f8f16057037bac81827bcaa3c1c",14800371520,"neutral","@dgirodiase","2018-10-14"),
+    (16,291,"Aliquam erat volutpat. In congue.","btanmanf@smh.com.au","67 Northwestern Center","Bibbie","Tanman","1989-07-07","f95f5e2dd3f06abdd7ff3749d843b1f5",75569924500,"Programmable","@btanmanf","2019-05-03"),
+    (17,379,"Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc.","bbartolettig@simplemachines.org","725 Eagle Crest Hill","Barnabas","Bartoletti","1989-09-29","7f45eb167ebe4e2944c7874a1ff81780",37349256497,"encompassing","@bbartolettig","2018-12-25"),
+    (18,254,"Suspendisse potenti.","nculliph@fc2.com","507 Graceland Junction","Nixie","Cullip","1989-03-19","793b220105e522aedff80a7e145b03f2",12403580562,"knowledge base","@nculliph","2019-04-07"),
+    (19,904,"Phasellus sit amet erat.","mpimblotti@xing.com","92 Gina Park","Matilde","Pimblott","1989-09-29","3eb6d0e980ab8b92291e38e2389648d6",40139478003,"dynamic","@mpimblotti","2019-07-18"),
+    (20,660,"Cras pellentesque volutpat dui.","askurrayj@un.org","8 Ridgeview Trail","Al","Skurray","1989-12-21","1b7416ad6e8ecbc1d79a535de2fc11e8",76657531985,"solution","@askurrayj","2018-11-25");
+INSERT INTO `taskforce`.`tasks` (`id`,`customer_user_id`,`category_id`,`city_id`,`title`,`description`,`address`,`budget`,`created_at`,`start_date`,`lattitude`,`longtitude`) VALUES
+    (1,15,2,558,"enable impactful technologies","Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.","1 Eagan Crossing",6587,"2019-03-09 00:00:00","2019-11-15 00:00:00",6.9641667,158.2083333),
+    (2,9,3,380,"exploit revolutionary portals","Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.","24043 Paget Alley",2904,"2019-07-03 00:00:00","2019-12-07 00:00:00",5.623505,10.2544044),
+    (3,19,2,74,"matrix next-generation e-commerce","Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\n\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.","2867 Dryden Pass",1170,"2019-06-27 00:00:00","2019-11-23 00:00:00",63.593219,53.9068532),
+    (4,6,1,833,"benchmark plug-and-play infomediaries","Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.","80 Cambridge Street",838,"2019-01-01 00:00:00","2019-11-10 00:00:00",20.5800358,-75.2435307),
+    (5,1,3,317,"integrate cross-platform e-business","Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.","1 Stone Corner Junction",7484,"2019-09-07 00:00:00","2019-12-15 00:00:00",14.9326574,-91.6941845),
+    (6,19,7,372,"enable dot-com niches","Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.","12 Stephen Terrace",5725,"2018-11-01 00:00:00","2019-11-24 00:00:00",40.163127,116.638868),
+    (7,2,5,569,"transform web-enabled relationships","Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.","6213 Lake View Drive",4414,"2019-09-13 00:00:00","2019-11-19 00:00:00",44.3794871,20.2638941),
+    (8,20,8,185,"strategize frictionless solutions","Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.","994 Corry Park",3454,"2019-04-01 00:00:00","2019-11-14 00:00:00",-7.3251485,108.3607464),
+    (9,1,4,796,"innovate seamless metrics","Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","2 Bluestem Park",3101,"2019-03-28 00:00:00","2019-12-12 00:00:00",43,-87.97),
+    (10,1,4,576,"integrate wireless infomediaries","Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.","1 Dexter Hill",6562,"2019-05-01 00:00:00","2019-12-19 00:00:00",41.3410168,-8.3169303);
+INSERT INTO `taskforce`.`user_opinions` (`id`,`user_id`,`refer_task_id`,`comment`,`rate`,`created_at`) VALUES
+    (1,19,1,"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.\n\nPhasellus in felis. Donec semper sapien a libero. Nam dui.",3,"2019-08-19 00:00:00"),
+    (2,8,2,"Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.\n\nPellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",2,"2019-02-22 00:00:00"),
+    (3,4,1,"Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",2,"2019-07-11 00:00:00"),
+    (4,10,7,"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",2,"2018-10-07 00:00:00"),
+    (5,5,5,"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",1,"2018-12-01 00:00:00"),
+    (6,1,7,"In congue. Etiam justo. Etiam pretium iaculis justo.",3,"2018-11-09 00:00:00"),
+    (7,19,2,"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.",5,"2018-12-10 00:00:00"),
+    (8,11,2,"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",2,"2018-10-20 00:00:00"),
+    (9,10,6,"Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",2,"2018-10-27 00:00:00"),
+    (10,7,9,"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",4,"2019-06-14 00:00:00");
+INSERT INTO `taskforce`.`task_responses` (`id`,`task_id`,`user_id`,`comment`,`rate`,`created_at`) VALUES
+    (1,2,20,"Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",1,"2019-05-09 00:00:00"),
+    (2,7,11,"Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",4,"2018-10-27 00:00:00"),
+    (3,6,4,"Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.\n\nIn hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",5,"2018-11-02 00:00:00"),
+    (4,10,11,"Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.",3,"2019-06-04 00:00:00"),
+    (5,10,14,"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",3,"2018-10-09 00:00:00"),
+    (6,8,3,"Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.\n\nMaecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",4,"2019-07-16 00:00:00"),
+    (7,10,3,"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",5,"2019-01-22 00:00:00"),
+    (8,2,17,"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",4,"2019-06-11 00:00:00"),
+    (9,6,13,"Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.\n\nDuis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.\n\nMauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",3,"2019-02-16 00:00:00"),
+    (10,5,20,"Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.\n\nCurabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",5,"2019-07-16 00:00:00"),
+    (11,4,9,"In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",4,"2018-11-11 00:00:00"),
+    (12,5,17,"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.\n\nDonec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",5,"2018-11-01 00:00:00"),
+    (13,10,4,"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.\n\nProin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",1,"2018-10-05 00:00:00"),
+    (14,9,1,"Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.\n\nCurabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",3,"2019-02-28 00:00:00"),
+    (15,7,14,"Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.\n\nQuisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.\n\nVestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",3,"2019-07-04 00:00:00"),
+    (16,9,14,"Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.\n\nPhasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",3,"2019-07-30 00:00:00"),
+    (17,7,13,"Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.\n\nMaecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",4,"2019-07-10 00:00:00"),
+    (18,4,4,"Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",2,"2019-09-15 00:00:00"),
+    (19,7,10,"Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.",3,"2018-10-16 00:00:00"),
+    (20,5,11,"Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.",4,"2019-02-13 00:00:00");

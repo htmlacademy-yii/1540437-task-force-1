@@ -50,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`users` (
   `last_logined_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uidx_email` (`email` ASC),
-  INDEX `idx_role` (`role` ASC),
   INDEX `fk_users_cities_idx` (`city_id` ASC),
   CONSTRAINT `fk_users_cities`
     FOREIGN KEY (`city_id`)
@@ -88,22 +87,22 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`tasks` (
   CONSTRAINT `fk_tasks_categories`
     FOREIGN KEY (`category_id`)
     REFERENCES `taskforce`.`categories` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_tasks_user_costomer`
     FOREIGN KEY (`customer_user_id`)
     REFERENCES `taskforce`.`users` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_tasks_cities`
     FOREIGN KEY (`city_id`)
     REFERENCES `taskforce`.`cities` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_tasks_user_performer`
     FOREIGN KEY (`performer_user_id`)
     REFERENCES `taskforce`.`users` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

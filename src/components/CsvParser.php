@@ -11,7 +11,7 @@ use app\exceptions\file\FileSeedException;
  */
 class CsvParser extends AbstractFileParser
 {
-    /** @var SplFileObject $spl  */
+    /** @var \SplFileObject $spl  */
     protected $spl;
 
     /** @var array */
@@ -26,20 +26,13 @@ class CsvParser extends AbstractFileParser
     /** {@inheritDoc} */
     public function end()
     {
-        $bytes = $this->spl->getSize();
-        echo "\n-- Files Size {$bytes} : Current Key {$this->spl->key()}";
-        // echo '-- Current: ' . $this->spl->current() . ": Bytes: {$bytes}" . PHP_EOL;
-        $this->spl->seek($bytes);
-        echo "\n-- Files Size {$bytes} : Current Key {$this->spl->key()}";
-
-        // return $this->spl->key();
+        $this->spl->seek(PHP_INT_MAX);
+        return $this->spl->key() + 1;
     }
 
     public function write(string $data)
     {
-        $bytes = $this->end();
-        // print_r($this->spl->getSize());
-        echo 'Lines: ' . $bytes . '';
+        $this->end();
         return $this->spl->fwrite($data);
     }
 
