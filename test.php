@@ -7,7 +7,6 @@ use app\actions\task\Complete;
 use app\actions\task\Pending;
 use app\actions\task\Refuse;
 use app\bizzlogic\Task;
-use app\components\CsvParser;
 use app\components\FakeRelations;
 use app\components\SqlGenerator;
 use app\faker\FakeCategories;
@@ -53,15 +52,21 @@ assert($task->pending($customer) === false, 'Customer Pending');
 assert($task->refuse($performer) === false, 'Performer Refuse');
 assert($task->refuse($customer) === false, 'Customer Refuse');
 
-$task = new Task($customer, $performer);
-// assert($task->pending($customer) === false, 'Customer Pending');
-assert($task->pending($performer) === true, 'Performer Pending');
+try {
+    $task = new Task($customer, $performer);
+    // assert($task->pending($customer) === false, 'Customer Pending');
+    assert($task->pending($performer) === false, 'Performer Pending');
+    assert($task->refuse($customer) === false, 'Customer refuse');
+    assert($task->refuse($performer) === true, 'Performer refuse');
+    assert($task->cancel($performer) === false, 'Performer Cancel');
+    assert($task->cancel($customer) === false, 'Customer Cancel');
+} catch (Throwable $e) {
+    // echo $e;
+}
 
-// assert($task->refuse($customer) === false, 'Customer refuse');
-assert($task->refuse($performer) === true, 'Performer refuse');
 
-// assert($task->cancel($performer) === false, 'Performer Cancel');
-// assert($task->cancel($customer) === false, 'Customer Cancel');
+
+
 
 try {
     $fakeRelations = new FakeRelations();
