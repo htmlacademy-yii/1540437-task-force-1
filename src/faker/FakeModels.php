@@ -11,7 +11,6 @@ class FakeModels
     private $attributes;
     private $tableName = 'categories';
     private $models;
-    
 
     public function attributes()
     {
@@ -22,11 +21,26 @@ class FakeModels
         ];
     }
 
+    /**
+     * Установка атрибутов
+     *
+     * @param array|null $attributes
+     * @return void
+     */
+    public function setAttributes(?array $attributes)
+    {
+        if (!is_null($attributes)) {
+            foreach ($attributes as $prop => $value) {
+                $this->$prop = $value;
+            }
+        }
+    }
+
     public function importFromFile(string $filename, array $attributes)
     {
         $file = new \SplFileObject($filename);
         while (!$file->eof()) {
-            $line = $file->fgetcsv();
+            $this->models[] = $file->fgetcsv();
         }
     }
 }

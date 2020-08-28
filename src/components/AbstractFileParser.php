@@ -3,15 +3,17 @@
 namespace app\components;
 
 /**
- * Undocumented class
- *
  * @method array|null getColumns()
  */
 abstract class AbstractFileParser
 {
-    private $_columns = null;
-    protected $parserClass = '\SplFileObject';
+    /** @var \SplFileObject */
     protected $spl;
+
+    /** @var array|null Колонки в файле */
+    private $_columns = null;
+    private $_curentCursor;
+    private $_cursor;
 
     /**
      * AbstractFileParser function
@@ -22,43 +24,55 @@ abstract class AbstractFileParser
      */
     public function __construct(string $fileName, string $fileMod = 'r', bool $parseColumns = true)
     {
-        $this->spl = new $this->parserClass($fileName, $fileMod);
+        $this->spl = new \SplFileObject($fileName, $fileMod);
         if ($parseColumns) {
-            $this->_columns = $this->getHeader();
+            $this->_columns = $this->getFirstLine(false);
         }
     }
 
-    /**
-     * Колонки
-     *
-     * @return array
-     */
-    public function getColumns(): ?array
+    /** @return \SplFileObject */
+    protected function getFile(): \SplFileObject
     {
-        return $this->_columns;
+        return $this->spl;
     }
 
-    /**
-     * Количество колонок в файле
-     *
-     * @return int
-     */
-    protected function getColumnCount(): int
+    public function getFileInfo()
     {
-        return is_null($this->_columns) ? 0 : count($this->_columns);
+        return $this->getFile()->getFileInfo();
     }
 
-    /** Установить курсор в начало строки */
-    abstract protected function reset();
+    /** Установить курсор в начало строки {@return void} */
+    protected function cursorReset(): void
+    {
+        $this->getFile()->rewind();
+    }
 
-    /** Установить курсор в конец строки  */
+    protected function cursorNext()
+    {
+        $this->getFile()->next();
+    }
+
+    /** Установить курсор в конец строки */
     abstract protected function end();
 
-    /** Считать первую строку */
-    abstract protected function getHeader(): ?array;
+    /** Сохранить текущий указатель строки */
+    abstract protected function current();
 
     /**
-     * Чтение файла, до конца строки
+     * Считать первую строку файла.
+     * Если сохраняем указатель, то после прочтения первой строки,
+     * возвращаем указатель на свое место, в противном случаи
+     * смещаемся на следующую строку.
+     *
+     * @param bool $backToCurrentCursor
+     * @return string|null  */
+    abstract public function getFirstLine(bool $backToCurrentCursor = true): ?string;
+
+    /** @return string|null Текущую строку */
+    abstract public function getCurrentLine(): ?string;
+
+    /**
+     * Читаем фаил до конца строки.
      *
      * @return iterable|null
      */

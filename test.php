@@ -69,10 +69,6 @@ try {
     $cities = FakeCities::importFromFile('data/cities.csv');
     $categories = FakeCategories::importFromFile('data/categories.csv');
 
-    print_r($sqlGenerator->batchInsert($categories));
-
-    return;
-
     $users = FakeUser::importFromFile('data/users.csv');
     $userProfiles = FakeProfile::importFromFile('data/profiles.csv');
 
@@ -92,7 +88,7 @@ try {
     $taskResponses = $fakeRelations->setRelation($taskResponses, $users, ['user_id' => 'id']);
     $taskResponses = $fakeRelations->setRelation($taskResponses, $tasks, ['task_id' => 'id']);
 
-    $data  = $sqlGenerator->disbaleForeignKeyCheks();
+    $data = $sqlGenerator->disbaleForeignKeyCheks();
     $data .= $sqlGenerator->truncateByModel($tasks);
     $data .= $sqlGenerator->truncateByModel($users);
     $data .= $sqlGenerator->truncateByModel($cities);

@@ -6,7 +6,6 @@ use app\exceptions\file\FileSeedException;
 
 /**
  * @inheritDoc
- * @property-read array|null $_columns
  * @property string $parserClass Класс парсера, по умолчанию \SplFileObject
  */
 class CsvParser extends AbstractFileParser
@@ -37,6 +36,12 @@ class CsvParser extends AbstractFileParser
     }
 
     /** {@inheritDoc} */
+    public function getFirstLine(bool $saveCursor = true): ?string
+    {
+        return '';
+    }
+
+    /** {@inheritDoc} */
     public function getNextLine(): ?iterable
     {
         $result = null;
@@ -44,16 +49,6 @@ class CsvParser extends AbstractFileParser
             yield $this->spl->fgetcsv();
         }
         return $result;
-    }
-
-    /**
-     * Количество колонок
-     *
-     * @return int
-     */
-    public function getColumnCount(): int
-    {
-        return parent::getColumnCount();
     }
 
     /**

@@ -3,13 +3,14 @@
 namespace app\components;
 
 use app\faker\AbstractFakeModel;
+use Exception;
 
 class SqlGenerator
 {
     private $dbName;
     protected $_batchInsertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUES{n}{rows};';
-    protected $_updateTemplate      = 'UPDATE `{db}`.`{table}` SET {data} WHERE id = {id}';
-    protected $_truncateTemplate    = 'TRUNCATE TABLE `{db}`.`{table}`;';
+    protected $_updateTemplate = 'UPDATE `{db}`.`{table}` SET {data} WHERE id = {id}';
+    protected $_truncateTemplate = 'TRUNCATE TABLE `{db}`.`{table}`;';
 
     /**
      * SqlGenerator класс
@@ -49,7 +50,15 @@ class SqlGenerator
      */
     public function truncateByModel(array $models): string
     {
-        return $this->generateSql($models[0], 'truncate') . PHP_EOL;
+        $model = isset($models[0]) ? $models[0] : false;
+        if (!($model instanceof AbstractFakeModel)) {
+            throw new Exception('Массив моделей должен состоянть из массива `AbstractFakeModel`');
+        }
+
+        return strtr($this->_truncateTemplate, [
+            '{db}' => $this->dbName,
+            '{table}' => $model::tableName()
+        ]) . PHP_EOL;
     }
 
     public function batchInsert(array $models): string
@@ -93,7 +102,7 @@ class SqlGenerator
         foreach ($attributes as $value) {
             $data[] = is_numeric($value) ? $value : "'{$value}'";
         }
-        return strtr($template, [ '{t}' => '  ','{rows}' => implode(",", $data) ]);
+        return strtr($template, ['{t}' => '  ', '{rows}' => implode(',', $data)]);
     }
 
     /**
