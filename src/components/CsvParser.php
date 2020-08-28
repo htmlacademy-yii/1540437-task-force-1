@@ -7,9 +7,8 @@ namespace app\components;
  *
  * {@inheritDoc}
  */
-class CsvParser extends AbstractFileParser
+class CsvParser extends AbstractFileWrapper
 {
-
     /** @var array Массив строк файла */
     private $rows = [];
 
@@ -41,11 +40,7 @@ class CsvParser extends AbstractFileParser
         return $this->getFile()->fgetcsv();
     }
 
-    /**
-     * Все строки модели
-     *
-     * @return array
-     */
+    /** @return array Все строки модели */
     public function getRows(): array
     {
         if (empty($this->rows)) {
@@ -57,10 +52,11 @@ class CsvParser extends AbstractFileParser
                 array_push($this->rows, array_combine($columns, $row));
             }
         }
-        
+
         return $this->rows;
     }
 
+    /** @return array Массив значений первой строки файла */
     protected function getColumns()
     {
         return array_values($this->getFirstLine(false));

@@ -2,16 +2,15 @@
 
 namespace app\components;
 
-abstract class AbstractFileParser
+abstract class AbstractFileWrapper
 {
-    /** @var \SplFileObject */
     private $_spl;
 
     /**
      * AbstractFileParser function
      *
      * @param string $fileName
-     * @param string $fileMod
+     * @param string $fileMod По умолчанию "r"
      */
     public function __construct(string $fileName, string $fileMod = 'r')
     {
@@ -19,9 +18,9 @@ abstract class AbstractFileParser
     }
 
     /**
-     * Обрезает файл до заданной длины
+     * Обрезает файл до заданной длины.
      *
-     * @param int $size
+     * @param int $size По умолчанию 0
      * @return bool
      */
     public function truncate(int $size = 0): bool
@@ -35,9 +34,16 @@ abstract class AbstractFileParser
         return $this->_spl;
     }
 
-    protected function getFileInfo()
+    /** @return \SplFileInfo */
+    protected function getFileInfo(): \SplFileInfo
     {
         return $this->getFile()->getFileInfo();
+    }
+
+    /** @return int Размер файла в Байтах */
+    protected function getFileSize(): int
+    {
+        return $this->getFileInfo()->getSize();
     }
 
     /** Установить курсор в начало строки */
@@ -47,7 +53,7 @@ abstract class AbstractFileParser
     }
 
     /** @return int Номер следующей строки */
-    protected function next() : int
+    protected function next(): int
     {
         $this->getFile()->next();
         return $this->current();
@@ -56,14 +62,14 @@ abstract class AbstractFileParser
     /** @return int Номер предыдущей строки */
     protected function prev(): int
     {
-        $currentLinePos = $this->current();
-        if ($currentLinePos > 0) {
-            $currentLinePos--;
+        $currentLine = $this->current();
+        if ($currentLine > 0) {
+            $currentLine--;
         }
-        return $currentLinePos;
+        return $currentLine;
     }
 
-    /** Текущий номер строки */
+    /** @return int Номер текущей строки */
     protected function current(): int
     {
         return $this->getFile()->key();
