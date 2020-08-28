@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`users` (
   `is_contact_public` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `last_logined_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_logined_at` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uidx_email` (`email` ASC),
   INDEX `fk_users_cities_idx` (`city_id` ASC),

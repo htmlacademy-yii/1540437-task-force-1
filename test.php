@@ -7,6 +7,7 @@ use app\actions\task\Complete;
 use app\actions\task\Pending;
 use app\actions\task\Refuse;
 use app\bizzlogic\Task;
+use app\components\CsvParser;
 use app\components\FakeRelations;
 use app\components\SqlGenerator;
 use app\faker\FakeCategories;
@@ -66,9 +67,9 @@ try {
     $fakeRelations = new FakeRelations();
     $sqlGenerator = new SqlGenerator('taskforce');
 
-    $cities = FakeCities::importFromFile('data/cities.csv');
     $categories = FakeCategories::importFromFile('data/categories.csv');
-
+    $cities = FakeCities::importFromFile('data/cities.csv');
+    
     $users = FakeUser::importFromFile('data/users.csv');
     $userProfiles = FakeProfile::importFromFile('data/profiles.csv');
 
@@ -104,7 +105,7 @@ try {
     $data .= $sqlGenerator->batchInsert($userOpinions);
     $data .= $sqlGenerator->batchInsert($taskResponses);
 
-    $file = new \SplFileObject('src/sql/export.sql', 'w');
+    $file = new \SplFileObject('src/sql/export.sql', 'w+');
     $file->ftruncate(0);
     $file->fwrite($data);
 } catch (Throwable $e) {

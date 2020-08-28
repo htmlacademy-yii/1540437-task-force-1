@@ -52,7 +52,7 @@ class SqlGenerator
     {
         $model = isset($models[0]) ? $models[0] : false;
         if (!($model instanceof AbstractFakeModel)) {
-            throw new Exception('Массив моделей должен состоянть из массива `AbstractFakeModel`');
+            throw new Exception('Массив моделей должен состоянть из `AbstractFakeModel` инстансов');
         }
 
         return strtr($this->_truncateTemplate, [

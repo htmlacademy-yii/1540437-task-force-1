@@ -2,61 +2,83 @@
 
 namespace app\components;
 
-/**
- * @method array|null getColumns()
- */
 abstract class AbstractFileParser
 {
     /** @var \SplFileObject */
-    protected $spl;
-
-    /** @var array|null Колонки в файле */
-    private $_columns = null;
-    private $_curentCursor;
-    private $_cursor;
+    private $_spl;
 
     /**
      * AbstractFileParser function
      *
      * @param string $fileName
      * @param string $fileMod
-     * @param boolean $parseColumns
      */
-    public function __construct(string $fileName, string $fileMod = 'r', bool $parseColumns = true)
+    public function __construct(string $fileName, string $fileMod = 'r')
     {
-        $this->spl = new \SplFileObject($fileName, $fileMod);
-        if ($parseColumns) {
-            $this->_columns = $this->getFirstLine(false);
-        }
+        $this->_spl = new \SplFileObject($fileName, $fileMod);
+    }
+
+    /**
+     * Обрезает файл до заданной длины
+     *
+     * @param int $size
+     * @return bool
+     */
+    public function truncate(int $size = 0): bool
+    {
+        return $this->getFile()->ftruncate($size);
     }
 
     /** @return \SplFileObject */
     protected function getFile(): \SplFileObject
     {
-        return $this->spl;
+        return $this->_spl;
     }
 
-    public function getFileInfo()
+    protected function getFileInfo()
     {
         return $this->getFile()->getFileInfo();
     }
 
-    /** Установить курсор в начало строки {@return void} */
-    protected function cursorReset(): void
+    /** Установить курсор в начало строки */
+    protected function reset(): void
     {
         $this->getFile()->rewind();
     }
 
-    protected function cursorNext()
+    /** @return int Номер следующей строки */
+    protected function next() : int
     {
         $this->getFile()->next();
+        return $this->current();
     }
 
-    /** Установить курсор в конец строки */
-    abstract protected function end();
+    /** @return int Номер предыдущей строки */
+    protected function prev(): int
+    {
+        $currentLinePos = $this->current();
+        if ($currentLinePos > 0) {
+            $currentLinePos--;
+        }
+        return $currentLinePos;
+    }
 
-    /** Сохранить текущий указатель строки */
-    abstract protected function current();
+    /** Текущий номер строки */
+    protected function current(): int
+    {
+        return $this->getFile()->key();
+    }
+
+    /**
+     * Перемещение к указанной строке
+     *
+     * @param int $line
+     * @return void
+     */
+    protected function moveTo(int $line): void
+    {
+        $this->getFile()->seek($line);
+    }
 
     /**
      * Считать первую строку файла.
@@ -65,16 +87,12 @@ abstract class AbstractFileParser
      * смещаемся на следующую строку.
      *
      * @param bool $backToCurrentCursor
-     * @return string|null  */
-    abstract public function getFirstLine(bool $backToCurrentCursor = true): ?string;
+     * @return string|array|null  */
+    abstract public function getFirstLine(bool $backToCurrentCursor = true);
 
-    /** @return string|null Текущую строку */
-    abstract public function getCurrentLine(): ?string;
+    /** @return string|array|null Читает текущую строку */
+    abstract public function getCurrentLine();
 
-    /**
-     * Читаем фаил до конца строки.
-     *
-     * @return iterable|null
-     */
+    /** @return iterable|null Чтение до завершения конца файла */
     abstract public function getNextLine(): ?iterable;
 }

@@ -2,90 +2,67 @@
 
 namespace app\components;
 
-use app\exceptions\file\FileSeedException;
-
 /**
- * @inheritDoc
- * @property string $parserClass Класс парсера, по умолчанию \SplFileObject
+ * Парсер файлов CSV
+ *
+ * {@inheritDoc}
  */
 class CsvParser extends AbstractFileParser
 {
-    /** @var \SplFileObject $spl  */
-    protected $spl;
 
-    /** @var array */
+    /** @var array Массив строк файла */
     private $rows = [];
 
     /** {@inheritDoc} */
-    public function reset()
+    public function getFirstLine(bool $saveCursor = true): ?array
     {
-        $this->spl->rewind();
-    }
+        $currentLine = $this->current();
+        $this->reset();
+        $result = $this->getCurrentLine();
 
-    /** {@inheritDoc} */
-    public function end()
-    {
-        $this->spl->seek(PHP_INT_MAX);
-        return $this->spl->key() + 1;
-    }
-
-    public function write(string $data)
-    {
-        $this->end();
-        return $this->spl->fwrite($data);
-    }
-
-    /** {@inheritDoc} */
-    public function getFirstLine(bool $saveCursor = true): ?string
-    {
-        return '';
-    }
-
-    /** {@inheritDoc} */
-    public function getNextLine(): ?iterable
-    {
-        $result = null;
-        while (!$this->spl->eof()) {
-            yield $this->spl->fgetcsv();
+        if ($saveCursor && is_numeric($currentLine)) {
+            $this->moveTo($currentLine);
         }
+
         return $result;
     }
 
-    /**
-     * Чтение новой строки
-     *
-     * @return iterable|null
-     */
-    public function getRow(): ?iterable
+    /** {@inheritDoc} */
+    public function getNextLine(): iterable
     {
-        $result = null;
-        while (!$this->spl->eof()) {
-            yield $this->spl->fgetcsv();
+        while (!$this->getFile()->eof()) {
+            yield $this->getFile()->fgetcsv();
         }
-        return $result;
+    }
+
+    /** {@inheritDoc} */
+    public function getCurrentLine(): array
+    {
+        return $this->getFile()->fgetcsv();
     }
 
     /**
-     * Все колонки модели
+     * Все строки модели
      *
-     * @return void
+     * @return array
      */
-    public function getRows()
+    public function getRows(): array
     {
         if (empty($this->rows)) {
+            $columns = $this->getColumns();
             foreach ($this->getNextLine() as $row) {
-                if (is_array($row) && count($row) > 1) {
-                    $data = array_combine($this->getColumns(), $row);
-                    array_push($this->rows, $data);
+                if ($row[0] === null) {
+                    continue;
                 }
+                array_push($this->rows, array_combine($columns, $row));
             }
         }
+        
         return $this->rows;
     }
 
-    protected function getHeader(): array
+    protected function getColumns()
     {
-        $this->reset();
-        return $this->spl->fgetcsv();
+        return array_values($this->getFirstLine(false));
     }
 }
