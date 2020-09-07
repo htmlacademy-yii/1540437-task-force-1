@@ -1,11 +1,26 @@
 <?php
+
 namespace app\components\Convertor\Readers;
 
+use app\components\Convertor\Interfaces\ReaderInterface;
+
 /** {@inheritDoc} */
-class CsvReader extends AbstractFileReader
+class CsvReader extends AbstractFileReader implements ReaderInterface
 {
     private $rows;
     private $columns;
+
+    /** {@inheritDoc} */
+    public function getSourceName(): string
+    {
+        return $this->getFileName(false);
+    }
+
+    /** {@inheritDoc} */
+    public function getData(): ?array
+    {
+        return $this->getRows();
+    }
 
     /** {@inheritDoc} */
     public function setFile(string $fileName, string $fileMod = 'r')
@@ -25,7 +40,6 @@ class CsvReader extends AbstractFileReader
         $prefix = $this->getFileInfo()->getExtension();
         return $withExtension ? $this->getFileInfo()->getBasename() : $this->getFileInfo()->getBasename(".{$prefix}");
     }
-
 
     /** {@inheritDoc} */
     public function getFileExtension(): string
@@ -79,7 +93,7 @@ class CsvReader extends AbstractFileReader
             $columns = $this->getColumns();
             $this->reset();
             $this->getCurrentLine();
-            
+
             /** @var array|null $line */
             foreach ($this->getNextLine() as $line) {
                 if (count($columns) !== count($line)) {
