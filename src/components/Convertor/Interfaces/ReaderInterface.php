@@ -2,14 +2,13 @@
 
 namespace app\components\Convertor\Interfaces;
 
+use app\components\Convertor\interfaces\DataTransferInterface;
+
 interface ReaderInterface
 {
-    /** @return string Имя источника данных */
+    /** @return string Имя источника */
     public function getSourceName(): string;
 
-    /** @return array Данные для строк */
-    public function getRows(): array;
-
-    /** @return array Данные для колонки */
-    public function getColumns(): array;
+    /** @return DataTransferInterface */
+    public function getData(): DataTransferInterface;
 }

@@ -25,16 +25,19 @@ abstract class AbstractFileReader
         return $this->spl;
     }
 
+    /** Сбросить указатель */
     protected function reset(): void
     {
         $this->getFile()->rewind();
     }
 
+    /** @return int|null Номер следующей строки или null если мы в конце файла */
     protected function next(): ?int
     {
         return $this->getFile()->eof() ? null : $this->current()+1;
     }
 
+    /** @return int Номер предыдущей строки. Ноль, если мы в начале */
     protected function prev(): int
     {
         $currentLine = $this->current();
@@ -44,6 +47,7 @@ abstract class AbstractFileReader
         return $currentLine;
     }
 
+    /** @return int Номер текущей строки */
     protected function current(): int
     {
         return $this->getFile()->key();

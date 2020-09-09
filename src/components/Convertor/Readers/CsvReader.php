@@ -2,6 +2,8 @@
 
 namespace app\components\Convertor\Readers;
 
+use app\components\Convertor\DbDataObject;
+use app\components\Convertor\interfaces\DataTransferInterface;
 use app\components\Convertor\Interfaces\ReaderInterface;
 
 /** {@inheritDoc} */
@@ -14,12 +16,6 @@ class CsvReader extends AbstractFileReader implements ReaderInterface
     public function getSourceName(): string
     {
         return $this->getFileName(false);
-    }
-
-    /** {@inheritDoc} */
-    public function getData(): ?array
-    {
-        return $this->getRows();
     }
 
     /** {@inheritDoc} */
@@ -103,5 +99,16 @@ class CsvReader extends AbstractFileReader implements ReaderInterface
             }
         }
         return $this->rows;
+    }
+
+    /** @return DataTransferInterface */
+    public function getData(): DataTransferInterface
+    {
+        $dto = new DbDataObject();
+        $dto->setName($this->getFileName(false));
+        $dto->setColumns($this->getColumns());
+        $dto->setRows($this->getRows());
+
+        return $dto;
     }
 }

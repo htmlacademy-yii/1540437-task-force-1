@@ -2,38 +2,33 @@
 
 namespace app\components\Convertor\Writers;
 
+use app\components\Convertor\interfaces\DataTransferInterface;
 use app\components\Convertor\Interfaces\WriterInterface;
-use app\components\Convertor\Writers\AbstractFileWriter;
 
-class SqlWriter extends AbstractFileWriter implements WriterInterface
+class SqlWriter implements WriterInterface
 {
     /** @var string Путь до каталога */
     private $path;
+
+    /** @var string Название базы данных */
     private $dbName = 'taskforce';
+
+    /** @var DataTransferInterface $dataObject */
+    private $dataObject;
+
+    /** @var string $_batchInsertTemplate Шаблон для преобразования */
     protected $_batchInsertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUES{n}{rows};';
 
+    /** {@inheritDoc} */
+    public function setData(DataTransferInterface $dataObject): void
+    {
+        $this->dataObject = $dataObject;
+    }
+
+    /** @return string Имя файла с расширением .sql */
     public function getFileName(): string
     {
-        return '';
-    }
-
-    public function getDataRows():array
-    {
-        return [];
-    }
-
-    public function getDataColumns(): array
-    {
-        return [];
-    }
-
-    /**
-     * @param AbstractFileReader $reader
-     * @return string
-     */
-    public function generateFileName(string $name): string
-    {
-        return "{$name}.sql";
+        return $this->dataObject->getName() . '.sql';
     }
 
     /** @return string Путь до коталога */
@@ -48,25 +43,25 @@ class SqlWriter extends AbstractFileWriter implements WriterInterface
     }
 
     /** {@inheritDoc} */
-    public function generate(array $dataRows): string
+    public function generate(): string
     {
-        foreach ($dataRows as $row) {
-            $rows[] = self::rows($row);
+        foreach ($this->dataObject->getRows() as $row) {
+            $rows[] = self::templatedRows($row);
         }
 
         return strtr($this->_batchInsertTemplate, [
             '{db}' => $this->dbName,
             '{n}' => "\n",
-            '{table}' => $this->getFileName(),
-            '{columns}' => self::columns($this->getDataColumns()),
+            '{table}' => $this->dataObject->getName(),
+            '{columns}' => self::templatedColumns($this->dataObject->getColumns()),
             '{rows}' => implode(",\n", $rows)
         ]) . PHP_EOL;
     }
 
     /** {@inheritDoc} */
-    public function saveAsFile(string $filename, string $data): int
+    public function saveAsFile(string $data): int
     {
-        $filename = "{$this->getPath()}/{$filename}";
+        $filename = "{$this->getPath()}/{$this->getFileName()}";
         $file = new \SplFileObject($filename, 'w+');
         $file->ftruncate(0);
         return $file->fwrite($data);
@@ -75,13 +70,13 @@ class SqlWriter extends AbstractFileWriter implements WriterInterface
     /**
      * Получение строки по заданному шаблону.
      *
-     * Шаблон пол умолчанию `{t}({rows})`
+     * Шаблон пол умолчанию `{spaces}({rows})`
      *
      * @param array $rows
      * @param string $template Шаблон для перобразования в строку
      * @return string
      */
-    private static function rows(array $rows, $template = '{t}({rows})'): string
+    private static function templatedRows(array $rows, $template = '{spaces}({rows})'): string
     {
         $data = [];
         foreach ($rows as $value) {
@@ -89,7 +84,7 @@ class SqlWriter extends AbstractFileWriter implements WriterInterface
             $_data = str_replace("\n", '\n', $_data);
             $data[] = $_data;
         }
-        return strtr($template, ['{t}' => '  ', '{rows}' => implode(',', $data)]);
+        return strtr($template, ['{spaces}' => '  ', '{rows}' => implode(',', $data)]);
     }
 
     /**
@@ -98,12 +93,13 @@ class SqlWriter extends AbstractFileWriter implements WriterInterface
     * @param array $attributes
     * @return string
     */
-    private static function columns(array $columns): string
+    private static function templatedColumns(array $columns): string
     {
         $data = [];
         foreach ($columns as $column) {
             $data[] = "`{$column}`";
         }
+        
         return implode(',', $data);
     }
 }
