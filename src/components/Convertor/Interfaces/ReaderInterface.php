@@ -7,6 +7,9 @@ interface ReaderInterface
     /** @return string Имя источника данных */
     public function getSourceName(): string;
 
-    /** @return array|null Данные */
-    public function getData(): ?array;
+    /** @return array Данные для строк */
+    public function getRows(): array;
+
+    /** @return array Данные для колонки */
+    public function getColumns(): array;
 }

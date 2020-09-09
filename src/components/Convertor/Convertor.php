@@ -4,17 +4,21 @@ namespace app\components\Convertor;
 
 use app\components\Convertor\Interfaces\ReaderInterface;
 use app\components\Convertor\Interfaces\WriterInterface;
-use app\components\Convertor\ConverterDataObject;
+use app\components\Convertor\interfaces\DataTransferInterface;
+use DataTransferInterfaceException;
 
 class Convertor
 {
+    public $dtoClass = 'app\components\Convertor\DbDataObject';
+
     /** @var ReaderInterface */
     private $_reader;
+
     /** @var WriterInterface */
     private $_writer;
 
-    /** @var ConverterDataObject */
-    private $_data;
+    /** @var DataTransferInterface  */
+    private $_dto;
 
     /**
      * Convertor конструктор класса
@@ -26,26 +30,46 @@ class Convertor
     {
         $this->_reader = $reader;
         $this->_writer = $writer;
-        $this->_data = new ConverterDataObject($reader);
+        $this->initDto();
     }
 
     /** Конвертация данных */
     public function convert(): void
     {
-        $fileName = $this->getSrcName();
-        $this->writer->generateFileName($fileName);
-        $this->writer->generate($this->reader);
+        $dto = $this->getDto();
+        $dto->setName($this->_reader->getSourceName());
 
-        $this->writer->saveAsFile($fileName, $data);
+        // $this->getDto()->addColumn();
+        // $fileName = $this->getSrcName();
+        // $this->writer->generateFileName($fileName);
+        // $this->writer->generate($this->reader);
+
+        // $this->writer->saveAsFile($fileName, $data);
     }
 
-    private function getSrcName()
+    /** @return DataTransferInterface */
+    private function getDto(): DataTransferInterface
     {
-        return $this->_reader->getFileName();
+        return $this->_dto;
     }
 
-    private function getDestName()
+    /**
+     * Инициализация `ДТО Объекта`
+     *
+     * @return void
+     * @throws DataTransferInterfaceException Если класс не является наследником
+     */
+    private function initDto(): void
     {
-        return $this->writer->
+        $dto = new $this->dtoClass;
+
+        if (!$dto instanceof DataTransferInterface) {
+            throw new DataTransferInterfaceException($dto, 'DataTransferInterface');
+        }
+
+        /** @var DataTransferInterface $dto */
+        $dto->setColumns($this->_reader->getColumns());
+        $dto->setRows($this->_reader->getRows());
+        $this->_dto = $dto;
     }
 }

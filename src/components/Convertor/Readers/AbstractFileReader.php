@@ -95,14 +95,4 @@ abstract class AbstractFileReader
 
     /** @return string Расширение файла */
     abstract public function getFileExtension(): string;
-
-    /** @return array Колонки файла */
-    abstract public function getColumns(): array;
-
-    /**
-     * Массив строк файла
-     *
-     * @return array Массив строк в файле
-     */
-    abstract public function getRows(): array;
 }
