@@ -13,29 +13,16 @@ class DbDataObject implements DataTransferInterface
     /** @var array */
     private $_rows = [];
 
-
-    /** @return string $name */
+    /** {@inheritDoc} */
     public function getName(): string
     {
         return $this->_name;
     }
 
-    public function setName(string $name)
-    {
-        $this->_name = $name;
-    }
-
-    public function addRow(string $row)
-    {
-        $this->_rows[] = $row;
-    }
-
     /** {@inheritDoc} */
-    public function addColumn(string $columnName)
+    public function getColumns(): array
     {
-        if (!in_array($columnName, $this->_columns)) {
-            $this->_columns[] = $columnName;
-        }
+        return $this->_columns;
     }
 
     /** {@inheritDoc} */
@@ -45,9 +32,9 @@ class DbDataObject implements DataTransferInterface
     }
 
     /** {@inheritDoc} */
-    public function getColumns(): array
+    public function setName(string $name)
     {
-        return $this->_columns;
+        $this->_name = $name;
     }
 
     /** {@inheritDoc} */
