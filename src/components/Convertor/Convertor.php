@@ -28,23 +28,9 @@ class Convertor
     /** Конвертация данных */
     public function convert(): void
     {
-<<<<<<< HEAD
         $dto = $this->reader->getData();
         $this->writer->setData($dto);
         $data = $this->writer->generate();
         $this->writer->saveAsFile($data);
-=======
-        $dto = $this->reader->getDto();
-        $this->writer->setData($dto);
-        $data = $this->writer->generate();
-        $this->writer->saveAsFile($data);
-
-        // $this->getDto()->addColumn();
-        // $fileName = $this->getSrcName();
-        // $this->writer->generateFileName($fileName);
-        // $this->writer->generate($this->reader);
-
-        // $this->writer->saveAsFile($fileName, $data);
->>>>>>> 37da8738c7d731e74af13a60327ab798e30b20a8
     }
 }
