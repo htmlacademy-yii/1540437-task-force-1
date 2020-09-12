@@ -12,6 +12,10 @@ interface WriterInterface
     /**
      * Сохранить данные в фаиле
      *
+<<<<<<< HEAD
+=======
+     * @param string $filename
+>>>>>>> 37da8738c7d731e74af13a60327ab798e30b20a8
      * @param string $data
      * @return int Колво записанных байт
      */

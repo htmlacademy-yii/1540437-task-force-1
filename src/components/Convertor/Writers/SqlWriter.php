@@ -76,7 +76,11 @@ class SqlWriter implements WriterInterface
      * @param string $template Шаблон для перобразования в строку
      * @return string
      */
+<<<<<<< HEAD
     private static function templatedRows(array $rows, $template = '{spaces}({rows})'): string
+=======
+    private static function templatedRows(array $rows, $template = '{t}({rows})'): string
+>>>>>>> 37da8738c7d731e74af13a60327ab798e30b20a8
     {
         $data = [];
         foreach ($rows as $value) {
