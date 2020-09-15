@@ -2,15 +2,16 @@
 
 namespace app\components\Convertor\Readers;
 
+use app\components\Convertor\DataTransferObject;
 use app\components\Convertor\DbDataObject;
 use app\components\Convertor\interfaces\DataTransferInterface;
 use app\components\Convertor\Interfaces\ReaderInterface;
 
 /** {@inheritDoc} */
-class CsvReader extends AbstractFileReader implements ReaderInterface
+class CsvReader implements ReaderInterface
 {
-    private $rows;
-    private $columns;
+    /** @var \SplFileObject $spl */
+    private $spl;
 
     /** {@inheritDoc} */
     public function getSourceName(): string
@@ -18,97 +19,60 @@ class CsvReader extends AbstractFileReader implements ReaderInterface
         return $this->getFileName(false);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Установить Объект класса чтения файлов \SplFileObject
+     *
+     * @param string $fileName
+     * @param string|null $fileMod
+     * @return void
+     */
     public function setFile(string $fileName, string $fileMod = 'r')
     {
         $this->spl = new \SplFileObject($fileName, $fileMod);
+        $this->updateFileFlags();
     }
 
-    /** @return \SplFileInfo */
-    public function getFileInfo(): \SplFileInfo
+    /** Обновлнеие Параметров чтения файла */
+    private function updateFileFlags()
     {
-        return $this->getFile()->getFileInfo();
-    }
-
-    /** {@inheritDoc} */
-    public function getFileName(bool $withExtension = true): string
-    {
-        $prefix = $this->getFileInfo()->getExtension();
-        return $withExtension ? $this->getFileInfo()->getBasename() : $this->getFileInfo()->getBasename(".{$prefix}");
+        $this->spl->setFlags(\SplFileObject::SKIP_EMPTY);
     }
 
     /** {@inheritDoc} */
-    public function getFileExtension(): string
+    private function getFileName(bool $withExtension = true): string
     {
-        return $this->getFile()->getFileInfo()->getExtension();
-    }
-
-    /** {@inheritDoc} */
-    public function getCurrentLine(): array
-    {
-        return $this->getFile()->fgetcsv();
-    }
-
-    /** {@inheritDoc} */
-    public function getFirstLine(bool $saveCursor = true): ?array
-    {
-        $currentLine = $this->current();
-        $this->reset();
-        $result = $this->getCurrentLine();
-
-        if ($saveCursor && is_numeric($currentLine)) {
-            $this->moveTo($currentLine);
+        $suffix = null;
+        if ($withExtension) {
+            $suffix = ".{$this->spl->getExtension()}";
         }
 
-        return $result;
+        return $this->spl->getBasename($suffix);
     }
 
-    /** {@inheritDoc} */
-    public function getNextLine(): iterable
+    /** @return iterable Построчное чтение файла до конца файла */
+    private function read(): iterable
     {
-        while (!$this->getFile()->eof()) {
-            $line = $this->getCurrentLine();
-            yield $line;
+        while (!$this->spl->eof()) {
+            yield $this->spl->fgetcsv();
         }
     }
 
-    /** {@inheritDoc} */
-    public function getColumns(): array
-    {
-        if (!isset($this->columns)) {
-            $this->columns = $this->getFirstLine();
-        }
-
-        return $this->columns;
-    }
-
-    /** {@inheritDoc}  */
-    public function getRows(): array
-    {
-        if (!isset($this->rows)) {
-            $columns = $this->getColumns();
-            $this->reset();
-            $this->getCurrentLine();
-
-            /** @var array|null $line */
-            foreach ($this->getNextLine() as $line) {
-                if (count($columns) !== count($line)) {
-                    continue;
-                }
-                $this->rows[] = $line;
-            }
-        }
-        return $this->rows;
-    }
-
-    /** @return DataTransferInterface */
     public function getData(): DataTransferInterface
     {
-        $dto = new DbDataObject();
-        $dto->setName($this->getFileName(false));
-        $dto->setColumns($this->getColumns());
-        $dto->setRows($this->getRows());
-
+        $dto = new DataTransferObject();
+        $data = [];
+        foreach($this->read() as $line)
+        {
+            if ($line === null) {
+                continue;
+            }
+            
+            $data[] = $line;
+            
+        }
+        // $dto->setHeads($data[0]);
+        // unset($data[0]);
+        $dto->setData($data);
         return $dto;
     }
 }

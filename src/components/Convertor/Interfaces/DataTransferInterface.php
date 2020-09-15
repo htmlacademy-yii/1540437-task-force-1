@@ -4,21 +4,21 @@ namespace app\components\Convertor\interfaces;
 
 interface DataTransferInterface
 {
-    /** @return string Имя */
+    /** @return string Имя объекта данных */
     public function getName(): string;
 
-    /** @return array Строки */
-    public function getRows(): array;
+    /** @return array|null Заголовки данных */
+    public function getHeads(): ?array;
 
     /** @return array Колонки */
-    public function getColumns(): array;
+    public function getData(): array;
 
-    /** @param string $name */
+    /** @param string $name Имя объекта данных */
     public function setName(string $name);
 
-    /** @param array $rows */
-    public function setRows(array $rows);
+    /** @param array $heads Задать заголовки данных */
+    public function setHeads(array $heads);
 
-    /** @param array $columns */
-    public function setColumns(array $columns);
+    /** @param int|null Кол-во строк */
+    public function setData(array $data): ?int;
 }

@@ -24,9 +24,14 @@ foreach ($files as $file) {
     $reader = new CsvReader();
     $reader->setFile("{$csvPath}/{$file}");
 
-    $writer = new SqlWriter();
-    $writer->setPath($sqlPath);
+    var_dump($reader->getData());
 
-    $convertor = new Convertor($reader, $writer);
-    $convertor->convert();
+break;
+    
+
+    // $writer = new SqlWriter();
+    // $writer->setPath($sqlPath);
+
+    // $convertor = new Convertor($reader, $writer);
+    // $convertor->convert();
 }
