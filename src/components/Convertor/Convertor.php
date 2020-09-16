@@ -29,8 +29,6 @@ class Convertor
     public function convert(): void
     {
         $dto = $this->reader->getData();
-        $this->writer->withData($dto)
-            ->toString()
-            ->save();
+        $this->writer->withData($dto)->save();
     }
 }

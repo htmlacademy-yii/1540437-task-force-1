@@ -46,10 +46,10 @@ class SqlWriter implements WriterInterface
         $this->path = $path;
     }
 
-    /** Преобразованиме Данных в SQL формат */
-    public function toString(): self
+    /** Преобразованиме Данных в строку SQL формата */
+    private function toString(): string
     {
-        $this->sqlString = strtr($this->_batchInsertTemplate, [
+        return strtr($this->_batchInsertTemplate, [
             '{db}' => $this->dbName,
             '{n}' => "\n",
             '{table}' => $this->dataObject->getName(),
@@ -60,15 +60,13 @@ class SqlWriter implements WriterInterface
         return $this;
     }
 
+    /** {@inheritDoc} */
     public function save(): int
     {
-        if (!$this->sqlString) {
-            throw new \Exception("Необходимо вызывать метод toString()");
-        }
         $filename = "{$this->getPath()}/{$this->getFileName()}";
         $file = new \SplFileObject($filename, 'w+');
         $file->ftruncate(0);
-        return $file->fwrite($this->sqlString);
+        return $file->fwrite($this->toString());
     }
 
     /**

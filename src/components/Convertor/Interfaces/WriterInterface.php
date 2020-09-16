@@ -15,7 +15,4 @@ interface WriterInterface
      * @return int Кол-во записанных байт
      */
     public function save(): int;
-
-    /** @return string */
-    public function toString(): self;
 }
