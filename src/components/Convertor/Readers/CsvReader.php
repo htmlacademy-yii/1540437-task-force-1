@@ -3,7 +3,6 @@
 namespace app\components\Convertor\Readers;
 
 use app\components\Convertor\DataTransferObject;
-use app\components\Convertor\DbDataObject;
 use app\components\Convertor\interfaces\DataTransferInterface;
 use app\components\Convertor\Interfaces\ReaderInterface;
 
@@ -35,14 +34,14 @@ class CsvReader implements ReaderInterface
     /** Обновлнеие Параметров чтения файла */
     private function updateFileFlags()
     {
-        $this->spl->setFlags(\SplFileObject::SKIP_EMPTY);
+        $this->spl->setFlags(\SplFileObject::SKIP_EMPTY | \SplFileObject::READ_CSV);
     }
 
     /** {@inheritDoc} */
     private function getFileName(bool $withExtension = true): string
     {
         $suffix = null;
-        if ($withExtension) {
+        if (!$withExtension) {
             $suffix = ".{$this->spl->getExtension()}";
         }
 
@@ -57,21 +56,24 @@ class CsvReader implements ReaderInterface
         }
     }
 
+    /** {@inheritDoc} @return DataTransferInterface Объект данных */
     public function getData(): DataTransferInterface
     {
         $dto = new DataTransferObject();
+        $dto->setName($this->getFileName(false));
         $data = [];
+
+        $this->spl->rewind();
+        $dto->setHeads($this->spl->current());
+
         foreach($this->read() as $line)
         {
             if ($line === null) {
                 continue;
-            }
-            
-            $data[] = $line;
-            
+            }            
+            $data[] = $line;            
         }
-        // $dto->setHeads($data[0]);
-        // unset($data[0]);
+
         $dto->setData($data);
         return $dto;
     }

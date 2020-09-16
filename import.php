@@ -23,15 +23,10 @@ $sqlPath = './data/sql';
 foreach ($files as $file) {
     $reader = new CsvReader();
     $reader->setFile("{$csvPath}/{$file}");
-
-    var_dump($reader->getData());
-
-break;
     
+    $writer = new SqlWriter();
+    $writer->setPath($sqlPath);
 
-    // $writer = new SqlWriter();
-    // $writer->setPath($sqlPath);
-
-    // $convertor = new Convertor($reader, $writer);
-    // $convertor->convert();
+    $convertor = new Convertor($reader, $writer);
+    $convertor->convert();
 }

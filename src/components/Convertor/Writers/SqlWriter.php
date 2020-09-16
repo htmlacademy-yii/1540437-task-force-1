@@ -7,32 +7,36 @@ use app\components\Convertor\Interfaces\WriterInterface;
 
 class SqlWriter implements WriterInterface
 {
+    /** @var string Название базы данных */
+    public $dbName = 'taskforce';
+
     /** @var string Путь до каталога */
     private $path;
-
-    /** @var string Название базы данных */
-    private $dbName = 'taskforce';
 
     /** @var DataTransferInterface $dataObject */
     private $dataObject;
 
     /** @var string $_batchInsertTemplate Шаблон для преобразования */
-    protected $_batchInsertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUES{n}{rows};';
+    private $_batchInsertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUES{n}{rows};';
+
+    /** @var string SQL стролки */
+    private $sqlString;
 
     /** {@inheritDoc} */
-    public function setData(DataTransferInterface $dataObject): void
+    public function withData(DataTransferInterface $dataObject): self
     {
         $this->dataObject = $dataObject;
+        return $this;
     }
 
     /** @return string Имя файла с расширением .sql */
-    public function getFileName(): string
+    private function getFileName(): string
     {
         return $this->dataObject->getName() . '.sql';
     }
 
     /** @return string Путь до коталога */
-    public function getPath(): string
+    private function getPath(): string
     {
         return $this->path;
     }
@@ -42,29 +46,29 @@ class SqlWriter implements WriterInterface
         $this->path = $path;
     }
 
-    /** {@inheritDoc} */
-    public function generate(): string
+    /** Преобразованиме Данных в SQL формат */
+    public function toString(): self
     {
-        foreach ($this->dataObject->getRows() as $row) {
-            $rows[] = self::templatedRows($row);
-        }
-
-        return strtr($this->_batchInsertTemplate, [
+        $this->sqlString = strtr($this->_batchInsertTemplate, [
             '{db}' => $this->dbName,
             '{n}' => "\n",
             '{table}' => $this->dataObject->getName(),
-            '{columns}' => self::templatedColumns($this->dataObject->getColumns()),
-            '{rows}' => implode(",\n", $rows)
+            '{columns}' => self::templatedColumns($this->dataObject->getHeads()),
+            '{rows}' => self::templatedRows($this->dataObject->getData())
         ]) . PHP_EOL;
+
+        return $this;
     }
 
-    /** {@inheritDoc} */
-    public function saveAsFile(string $data): int
+    public function save(): int
     {
+        if (!$this->sqlString) {
+            throw new \Exception("Необходимо вызывать метод toString()");
+        }
         $filename = "{$this->getPath()}/{$this->getFileName()}";
         $file = new \SplFileObject($filename, 'w+');
         $file->ftruncate(0);
-        return $file->fwrite($data);
+        return $file->fwrite($this->sqlString);
     }
 
     /**
@@ -78,28 +82,47 @@ class SqlWriter implements WriterInterface
      */
     private static function templatedRows(array $rows, $template = '{spaces}({rows})'): string
     {
-        $data = [];
-        foreach ($rows as $value) {
-            $_data = is_numeric($value) ? $value : "'{$value}'";
-            $_data = str_replace("\n", '\n', $_data);
-            $data[] = $_data;
+        $result = [];
+
+        foreach($rows as $row) {
+            $result[] = strtr($template, [
+                '{spaces}' => '  ',
+                '{rows}' => self::rowValues($row)
+            ]);
         }
-        return strtr($template, ['{spaces}' => '  ', '{rows}' => implode(',', $data)]);
+
+        return implode(",\n", $result);
+    }
+
+    /**
+     * Значения строк данных
+     * 
+     * @param array $row
+     * @return string
+     */
+    private static function rowValues(array $row): string
+    {
+        $values = [];
+        foreach($row as $value) {
+            $_data = is_numeric($value) ? $value : "'{$value}'";
+            $values[] = str_replace("\n", '\n', $_data);
+        }
+
+        return implode(',', $values);
     }
 
     /**
     * Наименование Колонок
     *
-    * @param array $attributes
+    * @param array $headers
     * @return string
     */
-    private static function templatedColumns(array $columns): string
+    private static function templatedColumns(array $headers, $template = '`{header}`'): string
     {
         $data = [];
-        foreach ($columns as $column) {
-            $data[] = "`{$column}`";
+        foreach ($headers as $header) {
+            $data[] = strtr($template, [ '{header}' => $header ]);
         }
-        
         return implode(',', $data);
     }
 }

@@ -7,16 +7,15 @@ use app\components\Convertor\interfaces\DataTransferInterface;
 interface WriterInterface
 {
     /** @param DataTransferInterface $dataObject Объект данных */
-    public function setData(DataTransferInterface $dataObject);
+    public function withData(DataTransferInterface $dataObject): self;
 
     /**
      * Сохранить данные в фаиле
      *
-     * @param string $data
-     * @return int Колво записанных байт
+     * @return int Кол-во записанных байт
      */
-    public function saveAsFile(string $data): int;
+    public function save(): int;
 
     /** @return string */
-    public function generate(): string;
+    public function toString(): self;
 }
