@@ -5,12 +5,16 @@ namespace app\components\Convertor\Readers;
 use app\components\Convertor\DataTransferObject;
 use app\components\Convertor\interfaces\DataTransferInterface;
 use app\components\Convertor\Interfaces\ReaderInterface;
+use SplFileObject;
 
 /** {@inheritDoc} */
 class CsvReader implements ReaderInterface
 {
     /** @var \SplFileObject $spl */
     private $spl;
+
+    /** @var string Фаил для чтения */
+    private $file;
 
     /** {@inheritDoc} */
     public function getSourceName(): string
@@ -25,35 +29,41 @@ class CsvReader implements ReaderInterface
      * @param string|null $fileMod
      * @return void
      */
-    public function setFile(string $fileName, string $fileMod = 'r')
+    public function setFile(string $fileName)
     {
-        $this->spl = new \SplFileObject($fileName, $fileMod);
-        $this->updateFileFlags();
+        $this->file = $fileName;
     }
 
-    /** Обновлнеие Параметров чтения файла */
-    private function updateFileFlags()
-    {
-        $this->spl->setFlags(\SplFileObject::SKIP_EMPTY | \SplFileObject::READ_CSV);
-    }
-
-    /** {@inheritDoc} */
+    /**
+     * Имя файла, с расширением или без
+     *
+     * @param boolean $withExtension По умолчанию `true`
+     * @return string
+     */
     private function getFileName(bool $withExtension = true): string
     {
         $suffix = null;
         if (!$withExtension) {
-            $suffix = ".{$this->spl->getExtension()}";
+            $suffix = ".{$this->getSpl()->getExtension()}";
         }
 
-        return $this->spl->getBasename($suffix);
+        return $this->getSpl()->getBasename($suffix);
     }
 
-    /** @return iterable Построчное чтение файла до конца файла */
-    private function read(): iterable
+    /** @return SplFileObject $spl */
+    private function getSpl(): SplFileObject
     {
-        while (!$this->spl->eof()) {
-            yield $this->spl->fgetcsv();
+        if (!isset($this->spl) && isset($this->file)) {
+            $this->spl = new SplFileObject($this->file);
+            $this->spl->setFlags(
+                SplFileObject::READ_CSV |
+                SplFileObject::SKIP_EMPTY |
+                SplFileObject::READ_AHEAD |
+                SplFileObject::DROP_NEW_LINE
+            );
         }
+
+        return $this->spl;
     }
 
     /** {@inheritDoc} @return DataTransferInterface Объект данных */
@@ -61,17 +71,14 @@ class CsvReader implements ReaderInterface
     {
         $dto = new DataTransferObject();
         $dto->setName($this->getFileName(false));
+        $dto->setHeads($this->getSpl()->current());
+
         $data = [];
 
-        $this->spl->rewind();
-        $dto->setHeads($this->spl->current());
-
-        foreach($this->read() as $line)
-        {
-            if ($line === null) {
-                continue;
-            }            
-            $data[] = $line;            
+        while (!$this->getSpl()->eof()) {
+            if ($csvData = $this->getSpl()->fgetcsv()) {
+                $data[] = $csvData;
+            }
         }
 
         $dto->setData($data);

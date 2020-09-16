@@ -19,9 +19,6 @@ class SqlWriter implements WriterInterface
     /** @var string $_batchInsertTemplate Шаблон для преобразования */
     private $_batchInsertTemplate = 'INSERT INTO `{db}`.`{table}` ({columns}) VALUES{n}{rows};';
 
-    /** @var string SQL стролки */
-    private $sqlString;
-
     /** {@inheritDoc} */
     public function withData(DataTransferInterface $dataObject): self
     {
@@ -41,6 +38,7 @@ class SqlWriter implements WriterInterface
         return $this->path;
     }
 
+    /** @param string $path Путь до каталога с файлами */
     public function setPath(string $path): void
     {
         $this->path = $path;
@@ -82,7 +80,7 @@ class SqlWriter implements WriterInterface
     {
         $result = [];
 
-        foreach($rows as $row) {
+        foreach ($rows as $row) {
             $result[] = strtr($template, [
                 '{spaces}' => '  ',
                 '{rows}' => self::rowValues($row)
@@ -94,14 +92,14 @@ class SqlWriter implements WriterInterface
 
     /**
      * Значения строк данных
-     * 
+     *
      * @param array $row
      * @return string
      */
     private static function rowValues(array $row): string
     {
         $values = [];
-        foreach($row as $value) {
+        foreach ($row as $value) {
             $_data = is_numeric($value) ? $value : "'{$value}'";
             $values[] = str_replace("\n", '\n', $_data);
         }
@@ -119,7 +117,7 @@ class SqlWriter implements WriterInterface
     {
         $data = [];
         foreach ($headers as $header) {
-            $data[] = strtr($template, [ '{header}' => $header ]);
+            $data[] = strtr($template, ['{header}' => $header]);
         }
         return implode(',', $data);
     }

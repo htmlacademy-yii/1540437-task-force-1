@@ -2,12 +2,13 @@
 
 namespace app\components\Convertor\Interfaces;
 
-use app\components\Convertor\interfaces\DataTransferInterface;
-
 interface WriterInterface
 {
-    /** @param DataTransferInterface $dataObject Объект данных */
-    public function withData(DataTransferInterface $dataObject): self;
+    /**
+     * @param DataTransferInterface $dataObject Объект данных
+     * @return self
+     */
+    public function withData(DataTransferInterface $dataObject);
 
     /**
      * Сохранить данные в фаиле

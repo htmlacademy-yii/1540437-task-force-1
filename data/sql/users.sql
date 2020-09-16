@@ -1,4 +1,4 @@
-INSERT INTO `taskforce`.`users` (`e_mail`,`name`,`password`,`created_at`) VALUES
+INSERT INTO `taskforce`.`users` (`email`,`name`,`password`,`created_at`) VALUES
   ('kbuttress0@1und1.de','Karrie Buttress','JcfoKBYAB4k','2019-08-10'),
   ('baymer1@hp.com','Bob Aymer','ZEE54kg','2018-12-21'),
   ('zboulding2@macromedia.com','Zilvia Boulding','VJyMV1Zat','2019-07-25'),
