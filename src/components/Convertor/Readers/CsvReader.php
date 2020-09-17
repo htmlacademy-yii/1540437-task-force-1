@@ -57,11 +57,11 @@ class CsvReader implements ReaderInterface
      */
     private function getSpl(): SplFileObject
     {
-        if (!isset($this->file)) {
-            throw new ConverterReaderException('Перед использование метода необходимо указать фаил для чтения.');
-        }
-
         if (!isset($this->spl)) {
+            if (!isset($this->file)) {
+                throw new ConverterReaderException('Перед использование метода необходимо указать фаил для чтения.');
+            }
+
             $this->spl = new SplFileObject($this->file);
             $this->spl->setFlags(
                 SplFileObject::READ_CSV |
