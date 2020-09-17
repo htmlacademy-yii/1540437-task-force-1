@@ -5,6 +5,7 @@ namespace app\components\Convertor\Readers;
 use app\components\Convertor\DataTransferObject;
 use app\components\Convertor\interfaces\DataTransferInterface;
 use app\components\Convertor\Interfaces\ReaderInterface;
+use app\exceptions\converter\ConverterReaderException;
 use SplFileObject;
 
 /** {@inheritDoc} */
@@ -50,10 +51,17 @@ class CsvReader implements ReaderInterface
         return $this->getSpl()->getBasename($suffix);
     }
 
-    /** @return SplFileObject $spl */
+    /**
+     * @return SplFileObject $spl
+     * @throws ConverterReaderException Если перед вызовом метода не установили фаил для чтения.
+     */
     private function getSpl(): SplFileObject
     {
-        if (!isset($this->spl) && isset($this->file)) {
+        if (!isset($this->file)) {
+            throw new ConverterReaderException('Перед использование метода необходимо указать фаил для чтения.');
+        }
+
+        if (!isset($this->spl)) {
             $this->spl = new SplFileObject($this->file);
             $this->spl->setFlags(
                 SplFileObject::READ_CSV |
@@ -66,17 +74,18 @@ class CsvReader implements ReaderInterface
         return $this->spl;
     }
 
-    /** {@inheritDoc} @return DataTransferInterface Объект данных */
+    /** {@inheritDoc} */
     public function getData(): DataTransferInterface
     {
+        $spl = $this->getSpl();
         $dto = new DataTransferObject();
         $dto->setName($this->getFileName(false));
-        $dto->setHeads($this->getSpl()->current());
+        $dto->setHeads($spl->current());
 
         $data = [];
 
-        while (!$this->getSpl()->eof()) {
-            if ($csvData = $this->getSpl()->fgetcsv()) {
+        while (!$spl->eof()) {
+            if ($csvData = $spl->fgetcsv()) {
                 $data[] = $csvData;
             }
         }
