@@ -36,45 +36,21 @@ assert($task->getNextStatus(new Complete) === Task::STATUS_COMPLETE, 'action Com
 $task = new Task($customer, $performer);
 assert($task->cancel($customer) === true, 'Customer Cancel');
 assert($task->cancel($performer) === false, 'Performer Cancel');
+
 assert($task->pending($performer) === false, 'Performer Pending');
 assert($task->pending($customer) === false, 'Customer Pending');
-assert($task->refuse($performer) === false, "Performer Refuse");
-assert($task->refuse($customer) === false, "Customer Refuse");
 
+assert($task->refuse($performer) === false, 'Performer Refuse');
+assert($task->refuse($customer) === false, 'Customer Refuse');
 
-$task = new Task($customer, $performer);
-assert($task->pending($customer) === false, 'Customer Pending');
-assert($task->pending($performer) === true, 'Performer Pending');
-
-assert($task->refuse($customer) === false, 'Customer refuse');
-assert($task->refuse($performer) === true, 'Performer refuse');
-
-assert($task->cancel($performer) === false, 'Performer Cancel');
-assert($task->cancel($customer) === false, 'Customer Cancel');
-
-
-
-
-
-// $task = new Task($customer, $performer);
-// assert($task->actionPending($performer) === true, 'Performer Pending');
-// assert($task->actionComplete($customer) === true, 'Customer Complete');
-
-// $task = new Task($customer, $performer);
-// assert($task->actionPending($performer) === true, 'Performer Pending');
-// assert($task->actionRefuse($performer) === true, 'Performer Fail');
-
-// $task = new Task($customer, $performer);
-// try {
-//     $task->actionPending($performer);
-//     $task->actionComplete($performer);
-//     echo "Исполнитель не должен иметь прав на Закрытие задания.\n";
-// } catch (\Exception $e) {
-// }
-
-// $task = new Task($customer, $performer);
-// try {
-//     $task->actionComplete($performer);
-//     echo "Только Заказчик может Закрыть задачу.\n";
-// } catch (\Exception $e) {
-// }
+try {
+    $task = new Task($customer, $performer);
+    // assert($task->pending($customer) === false, 'Customer Pending');
+    assert($task->pending($performer) === true, 'Performer Pending');
+    // assert($task->refuse($customer) === false, 'Customer refuse');
+    assert($task->refuse($performer) === true, 'Performer refuse');
+    // assert($task->cancel($performer) === false, 'Performer Cancel');
+    // assert($task->cancel($customer) === false, 'Customer Cancel');
+} catch (Throwable $e) {
+    echo $e;
+}
