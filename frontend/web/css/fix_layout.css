@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    
+}
+main.page-main {
+    flex: 1 auto;
+    height: auto;
+}
+header, footer {
+    min-height: 1px;
+    height: auto;
+}
