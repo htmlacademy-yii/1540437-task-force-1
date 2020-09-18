@@ -4,6 +4,7 @@
 /** @var string $content */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -13,9 +14,9 @@ use yii\helpers\Html;
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/fix_layout.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/fix_layout.css">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -26,7 +27,7 @@ use yii\helpers\Html;
     <header class="page-header">
         <div class="main-container page-header__container">
             <div class="page-header__logo">
-                <a href="index.html">
+                <a href="/">
                     <svg class="page-header__logo-image" id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1634 646.35">
                         <title>taskforce_logo2-01</title>
                         <g>
@@ -55,17 +56,17 @@ use yii\helpers\Html;
             </div>
             <div class="header__nav">
                 <ul class="header-nav__list site-list">
-                    <li class="site-list__item">
-                        <a href="#">Задания</a>
+                    <li class="site-list__item <?= Yii::$app->controller->id === 'tasks' ? 'site-list__item--active' : '' ?>">
+                        <a href="<?= Url::to(['/tasks/index']) ?>">Задания</a>
                     </li>
-                    <li class="site-list__item">
-                        <a href="#">Исполнители</a>
+                    <li class="site-list__item <?= Yii::$app->controller->id === 'users' ? 'site-list__item--active' : '' ?>">
+                        <a href="<?= Url::to(['/users/index']) ?>">Исполнители</a>
                     </li>
                     <li class="site-list__item">
                         <a href="#">Создать задание</a>
                     </li>
                     <li class="site-list__item">
-                        <a>Мой профиль</a>
+                        <a href="#">Создать задание</a>
                     </li>
                 </ul>
             </div>
@@ -96,7 +97,7 @@ use yii\helpers\Html;
             </div>
             <div class="header__account">
                 <a class="header__account-photo">
-                    <img src="./img/user-photo.png" width="43" height="44" alt="Аватар пользователя">
+                    <img src="/img/user-photo.png" width="43" height="44" alt="Аватар пользователя">
                 </a>
                 <span class="header__account-name">
                     Василий
@@ -160,7 +161,7 @@ use yii\helpers\Html;
             </div>
             <div class="page-footer__copyright">
                 <a>
-                    <img class="copyright-logo" src="./img/academy-logo.png" width="185" height="63" alt="Логотип HTML Academy">
+                    <img class="copyright-logo" src="/img/academy-logo.png" width="185" height="63" alt="Логотип HTML Academy">
                 </a>
             </div>
         </div>
