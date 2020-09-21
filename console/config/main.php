@@ -23,6 +23,9 @@ return [
             'fixtureDataPath' => '@common/fixtures/data',
             'language' => 'ru_RU',
             'namespace' => 'common\fixtures',
+            'providers' => [
+                \common\fixtures\providers\TaskUsers::class
+            ]
         ],
     ],
     'components' => [

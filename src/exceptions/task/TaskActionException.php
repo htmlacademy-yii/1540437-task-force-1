@@ -1,6 +1,8 @@
 <?php
 
-namespace app\exceptions\base;
+namespace app\exceptions\task;
+
+use app\exceptions\base\TaskException;
 
 /**
  * Базовое исключение "Состояний" в "Заданиях"

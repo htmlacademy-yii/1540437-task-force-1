@@ -2,12 +2,10 @@
 
 namespace app\exceptions\task;
 
-use app\exceptions\base\TaskActionException;
-
 /**
  * Если "Действие" задания не найдено
  */
-class NotFoundActionExceptions extends TaskActionException
+class NotFoundActionException extends TaskActionException
 {
     /**
      * Схема "Исключения"
