@@ -7,7 +7,11 @@ class TasksController extends FrontendController
 {
     public function actionIndex()
     {
-        $models = \frontend\models\Tasks::find()->new()->with(['category'])->limit(5)->all();
+        $models = \frontend\models\Tasks::find()
+            ->with(['category', 'city'])
+            ->avaiable()
+            ->orderBy("created_at DESC")
+            ->all();
 
         return $this->render('index', [
             'models' => $models

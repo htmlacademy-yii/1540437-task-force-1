@@ -11,5 +11,27 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'formatter' => [
+            // 'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            // 'currencyCode' => 'RUR',
+            'numberFormatterOptions' => [
+                \NumberFormatter::MIN_FRACTION_DIGITS => 0,
+                \NumberFormatter::MAX_FRACTION_DIGITS => 2,                
+            ],
+            'numberFormatterSymbols' => [
+                \NumberFormatter::CURRENCY_SYMBOL => '<b>₽</b>',
+            ]
+            
+       ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'en-US',
+                ],
+            ],
+        ],
     ],
 ];

@@ -9,11 +9,9 @@ namespace frontend\models\query;
  */
 class TasksQuery extends \yii\db\ActiveQuery
 {
-
-    public function new()
+    public function avaiable()
     {
         return $this->andWhere(['status' => \app\bizzlogic\Task::STATUS_NEW]);
-        // return $this->andWhere('[[status]]=' . \app\bizzlogic\Task::STATUS_NEW);
     }
 
     /**

@@ -123,7 +123,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(Cities::className(), ['id' => 'city_id']);
+        return $this->hasOne(Cities::class, ['id' => 'city_id']);
     }
 
     /**
