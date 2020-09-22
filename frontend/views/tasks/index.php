@@ -9,6 +9,9 @@ $this->title = 'Задания';
 <section class="new-task">
     <div class="new-task__wrapper">
         <h1>Новые задания</h1>
+        <?php foreach($models as $model): ?>
+            <?= $this->render('_taskCard', ['model' => $model]); ?>
+        <?php endforeach; ?>
         <div class="new-task__card">
             <div class="new-task__title">
                 <a href="#" class="link-regular">

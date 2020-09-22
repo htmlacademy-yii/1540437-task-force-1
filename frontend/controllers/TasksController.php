@@ -1,13 +1,13 @@
 <?php
 namespace frontend\controllers;
 
-use common\models\Tasks;
+use Tasks;
 
 class TasksController extends FrontendController
 {
     public function actionIndex()
     {
-        $models = Tasks::find()->all();
+        $models = \frontend\models\Tasks::find()->new()->with(['category'])->limit(5)->all();
 
         return $this->render('index', [
             'models' => $models
