@@ -2,16 +2,17 @@
 
 namespace frontend\models\query;
 
+use app\bizzlogic\User;
+
 class UsersQuery extends \yii\db\ActiveQuery
 {
-    public function customers()
+    public function asRole(string $role)
     {
-        return $this->andWhere('[[role]]=' . \app\bizzlogic\User::ROLE_CUSTOMER);
-    }
+        if (in_array($role, array_keys(User::roleMap()))) {
+            return $this->andWhere(['role' => $role]);
+        }
 
-    public function performer()
-    {
-        return $this->andWhere('[[role]]=' . \app\bizzlogic\User::ROLE_PERFORMER);
+        return $this;
     }
 
     /**

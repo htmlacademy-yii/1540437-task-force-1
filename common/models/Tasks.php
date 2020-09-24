@@ -54,10 +54,10 @@ class Tasks extends \yii\db\ActiveRecord
             [['budget', 'lattitude', 'longtitude'], 'number'],
             [['created_at', 'updated_at', 'start_date'], 'safe'],
             [['title'], 'string', 'max' => 256],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city_id' => 'id']],
-            [['performer_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['performer_user_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['city_id' => 'id']],
+            [['performer_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['performer_user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -93,7 +93,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getTaskMessages()
     {
-        return $this->hasMany(TaskMessages::className(), ['task_id' => 'id']);
+        return $this->hasMany(TaskMessages::class, ['task_id' => 'id']);
     }
 
     /**
@@ -103,7 +103,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getTaskResponses()
     {
-        return $this->hasMany(TaskResponses::className(), ['task_id' => 'id']);
+        return $this->hasMany(TaskResponses::class, ['task_id' => 'id']);
     }
 
     /**
@@ -133,7 +133,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getPerformerUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'performer_user_id']);
+        return $this->hasOne(Users::class, ['id' => 'performer_user_id']);
     }
 
     /**
@@ -141,9 +141,9 @@ class Tasks extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|\common\models\aq\UsersQuery
      */
-    public function getUser()
+    public function getCustomerUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 
     /**
@@ -153,7 +153,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getUserAttachments()
     {
-        return $this->hasMany(UserAttachments::className(), ['task_id' => 'id']);
+        return $this->hasMany(UserAttachments::class, ['task_id' => 'id']);
     }
 
     /**
