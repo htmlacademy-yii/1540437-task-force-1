@@ -6,13 +6,16 @@ use app\bizzlogic\User;
 
 class UsersQuery extends \yii\db\ActiveQuery
 {
-    public function asRole(string $role)
+    /** Заказчики */
+    public function customers()
     {
-        if (in_array($role, array_keys(User::roleMap()))) {
-            return $this->andWhere(['role' => $role]);
-        }
+        return $this->andWhere(['role' => User::ROLE_CUSTOMER]);
+    }
 
-        return $this;
+    /** Исполнители */
+    public function performers()
+    {
+        return $this->andWhere(['role' => User::ROLE_PERFORMER]);
     }
 
     /**

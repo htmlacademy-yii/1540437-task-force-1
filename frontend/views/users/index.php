@@ -20,6 +20,11 @@ $this->title = 'Исполнители';
             </li>
         </ul>
     </div>
+    <?php
+    foreach ($models as $model) {
+        echo $this->render('_userCard', ['model' => $model]);
+    }
+    ?>
     <div class="content-view__feedback-card user__search-wrapper">
         <div class="feedback-card__top">
             <div class="user__search-icon">

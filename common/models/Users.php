@@ -30,11 +30,9 @@ use Yii;
  * @property TaskMessages[] $taskMessages
  * @property TaskResponses[] $taskResponses
  * @property Tasks[] $tasks
- * @property Tasks[] $tasks0
  * @property UserAttachments[] $userAttachments
  * @property UserCategories[] $userCategories
  * @property UserFavorites[] $userFavorites
- * @property UserFavorites[] $userFavorites0
  * @property UserNotifications[] $userNotifications
  * @property Cities $city
  */
@@ -119,7 +117,7 @@ class Users extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|\common\models\aq\TasksQuery
      */
-    public function getTasks()
+    public function getPerformerTasks()
     {
         return $this->hasMany(Tasks::class, ['performer_user_id' => 'id']);
     }
@@ -129,9 +127,9 @@ class Users extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|\common\models\aq\TasksQuery
      */
-    public function getTasks0()
+    public function getCustomerTasks()
     {
-        return $this->hasMany(Tasks::class, ['user_id' => 'id']);
+        return $this->hasMany(Tasks::class, ['customer_user_id' => 'id']);
     }
 
     /**

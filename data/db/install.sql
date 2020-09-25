@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `taskforce`.`users` (
   `role` TINYINT(3) UNSIGNED NOT NULL,
   `first_name` VARCHAR(245) NOT NULL,
   `last_name` VARCHAR(245) NULL DEFAULT NULL,
+  `gender` ENUM('male', 'female') NULL DEFAULT NULL,
   `email` VARCHAR(245) NOT NULL,
   `birth_date` DATE NULL DEFAULT NULL,
   `password_hash` VARCHAR(256) NOT NULL,
