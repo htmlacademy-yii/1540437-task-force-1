@@ -12,7 +12,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'formatter' => [
-            'decimalSeparator' => ',',
+            'decimalSeparator' => '.',
             'thousandSeparator' => ' ',
             'currencyDecimalSeparator' => ',',
             'numberFormatterOptions' => [

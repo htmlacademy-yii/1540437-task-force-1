@@ -11,8 +11,7 @@ class TasksController extends FrontendController
         $models = Tasks::find()
             ->with(['category', 'city'])
             ->avaiable()
-            ->orderBy("created_at DESC")
-            ->limit(30)
+            ->orderBy(['created_at' => SORT_DESC])
             ->all();
 
         return $this->render('index', [

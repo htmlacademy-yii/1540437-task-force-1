@@ -19,13 +19,13 @@ return [
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\faker\FixtureController',
+            'language' => 'ru_RU',
             'templatePath' => '@common/fixtures/templates',
             'fixtureDataPath' => '@common/fixtures/data',
-            'language' => 'ru_RU',
             'namespace' => 'common\fixtures',
             'providers' => [
-                \common\fixtures\providers\TaskUsers::class,
-                \common\fixtures\providers\Tasks::class
+                \common\fixtures\providers\TasksRandomiser::class,
+                \common\fixtures\providers\UsersRandomiser::class
             ]
         ],
     ],

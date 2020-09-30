@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\TaskResponses;
 use common\models\Users as ModelsUsers;
 use frontend\models\query\UsersQuery as Query;
 
@@ -17,10 +18,6 @@ class Users extends ModelsUsers
     /** @return string|null Наименование иконки */
     public function getIconByGender(): ?string
     {
-        if (!$this->gender) {
-            return null;
-        }
-
         switch ($this->gender) {
             case 'male':
                 return 'man';
@@ -47,25 +44,45 @@ class Users extends ModelsUsers
         $created = new \DateTime($this->last_logined_at);
         $diff = $now->diff($created);
 
-        $gender = '{gender, select, male{Был} female{Была} other{Было}} на сайте';
+        $gender = \Yii::t('app', '{gender, select, male{Был} female{Была} other{Было}} на сайте', [
+            'gender' => $this->gender
+        ]);
 
         if ($diff->d > 0) {
-            $old = '{n, plural, =0{# дней} =1{# день} one{# день} few{# дня} other{# дней}} назад';
-            return \Yii::t('app', "{$gender} {$old}", ['n' => (int) $diff->d, 'gender' => $this->gender]);
+            $old = \Yii::t('app', '{n, plural, one{# day} two{# days} other{# days}} ago', ['n' => $diff->d]);
+            return "{$gender} {$old}";
         } elseif ($diff->h > 0) {
-            $old = '{n, plural, =1{# час} one{# час} few{# часа} many{# часов} other{# часов}} назад';
-            return \Yii::t('app', "{$gender} {$old}", ['n' => (int) $diff->h, 'gender' => $this->gender]);
+            $old = \Yii::t('app', '{n, plural, one{# hour} two{# hours} other{# hours}} left', ['n' => $diff->h]);
+            return "{$gender} {$old}";
         } elseif ($diff->i > 0) {
-            $old = '{n, plural, =1{# минуту} one{# минуту} few{# минуты} many{# минут} other{# минут}} назад';
-            return \Yii::t('app', "{$gender} {$old}", ['n' => (int) $diff->i, 'gender' => $this->gender]);
+            $old = \Yii::t('app', '{n, plural, one{# minut} two{# minuts} other{# minuts}} left', ['n' => (int) $diff->i]);
+            return "{$gender} {$old}";
         }
     }
 
+    public function getAvgEvaluation()
+    {
+        return \Yii::$app->formatter->asDecimal($this->taskResponsesAggregation[0]['avg'], 2);
+    }
+
+    public function getCountResponses()
+    {
+        return $this->taskResponsesAggregation[0]['count'];
+    }
+
+    public function getTaskResponsesAggregation()
+    {
+        return $this->getTaskResponses()
+            ->select(['user_id',  'avg' => 'avg(evaluation)', 'count' => 'count(*)'])
+            ->groupBy(['user_id'])
+            ->asArray(true);
+    }
+
     /**
-      * Gets query for [[Categories]].
-      *
-      * @return \frontend\models\query\CategoriesQuery[]
-      */
+     * Gets query for [[Categories]].
+     *
+     * @return \frontend\models\query\CategoriesQuery[]
+     */
     public function getCategories(): \frontend\models\query\CategoriesQuery
     {
         return $this->hasMany(Categories::class, ['id' => 'category_id'])

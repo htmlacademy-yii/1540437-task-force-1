@@ -24,10 +24,12 @@ class Tasks extends ModelsTasks
         $created = new \DateTime($this->created_at);
         $diff = $now->diff($created);
 
-        if ($diff->d > 1) {
-            return \Yii::t('app', '{n, plural, one{# days} few{# day} many{# days} other{# day}} ago', ['n' => $diff->d]);
+        if ($diff->d > 0) {
+            return \Yii::t('app', '{n, plural, one{# day} two{# days} other{# days}} ago', ['n' => $diff->d]);
+        } else if ($diff->h > 0) {
+            return \Yii::t('app', '{n, plural, one{# hour} two{# hours} other{# hours}} left', ['n' => $diff->h]);
         } else {
-            return \Yii::t('app', '{n, plural, one{# hours} few{# hour} left', ['n' => $diff->h]);
+            return \Yii::t('app', '{n, plural, one{# minut} two{# minuts} other{# minuts}} left', ['n' => $diff->i]);
         }
     }
 }

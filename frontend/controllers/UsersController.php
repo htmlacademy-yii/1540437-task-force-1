@@ -10,8 +10,7 @@ class UsersController extends FrontendController
     {
         $models = Users::find()
             ->performers()
-            ->with('categories', 'performerTasks', 'customerTasks', 'taskResponses')
-            ->orderBy('created_at ASC')
+            ->with(['categories', 'performerTasks', 'taskResponsesAggregation'])
             ->all();
 
         return $this->render('index', [

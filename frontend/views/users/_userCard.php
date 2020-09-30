@@ -12,14 +12,15 @@ use yii\helpers\Html;
         <div class="user__search-icon">
             <?= Html::a("<img src=\"/img/{$model->iconByGender}-glasses.jpg\" width=\"65\" height=\"65\">", "#{$model->id}"); ?>
             <?= Html::tag('span', count($model->performerTasks) . ' заданий'); ?>
-            <?= Html::tag('span', count($model->taskResponses) . '  отзывов'); ?>
+            <?= Html::tag('span', $model->countResponses . '  отзывов'); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">
-                <?= Html::a("ID: {$model->id} {$model->getFullName()}", "#{$model->id}", ['class' => 'link-regular']);?>
+                <?= Html::a($model->fullName, "#{$model->id}", ['class' => 'link-regular']); ?>
             </p>
-            <span></span><span></span><span></span><span></span><span class="star-disabled"></span>
-            <b>4.25</b>
+            <?= str_repeat('<span></span>', floor($model->avgEvaluation)) ?>
+            <?= ($fmax = 5 - floor($model->avgEvaluation)) > 0 ? str_repeat('<span class="star-disabled"></span>', $fmax) : ''; ?>
+            <?= Html::tag('b', $model->avgEvaluation) ?>
             <p class="user__search-content">
                 <?= $model->about ?>
             </p>
@@ -30,16 +31,16 @@ use yii\helpers\Html;
     </div>
     <?php if ($model->categories) : ?>
         <div class="link-specialization user__search-link--bottom">
-            <?php foreach ($model->categories as $category) : ?>  
+            <?php foreach ($model->categories as $category) : ?>
                 <?= Html::a($category->name, null, ['class' => 'link-regular']) ?>
             <?php endforeach; ?>
         </div>
-    <?php else: ?>
+    <?php else : ?>
         <div class="link-specialization user__search-link--bottom">
             <a href="#" class="link-regular">Ремонт</a>
             <a href="#" class="link-regular">Курьер</a>
             <a href="#" class="link-regular">Оператор ПК</a>
         </div>
     <?php endif; ?>
-    
+
 </div>
