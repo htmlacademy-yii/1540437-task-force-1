@@ -24,7 +24,8 @@ return [
             'language' => 'ru_RU',
             'namespace' => 'common\fixtures',
             'providers' => [
-                \common\fixtures\providers\TaskUsers::class
+                \common\fixtures\providers\TaskUsers::class,
+                \common\fixtures\providers\Tasks::class
             ]
         ],
     ],
