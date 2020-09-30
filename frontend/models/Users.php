@@ -2,7 +2,6 @@
 
 namespace frontend\models;
 
-use common\models\TaskResponses;
 use common\models\Users as ModelsUsers;
 use frontend\models\query\UsersQuery as Query;
 
@@ -12,6 +11,9 @@ use frontend\models\query\UsersQuery as Query;
  * @property \frontend\models\query\CategoriesQuery[] $categories
  * @property \frontend\models\query\TasksQuery[] $performerTasks
  * @property \frontend\models\query\TasksQuery[] $customersTasks
+ * @property \common\models\aq\TaskResponsesQuery[] $taskResponsesAggregation
+ * @property float $avgEvaluation
+ * @property int $countResponses
  */
 class Users extends ModelsUsers
 {
@@ -60,17 +62,24 @@ class Users extends ModelsUsers
         }
     }
 
-    public function getAvgEvaluation()
+    /** @return float `(float) Yii::$app->formatter->asDecimal()` */
+    public function getAvgEvaluation(): float
     {
-        return \Yii::$app->formatter->asDecimal($this->taskResponsesAggregation[0]['avg'], 2);
+        return (float) \Yii::$app->formatter->asDecimal($this->taskResponsesAggregation[0]['avg'], 2);
     }
 
-    public function getCountResponses()
+    /** @return int Кол-во откликов */
+    public function getCountResponses(): int
     {
-        return $this->taskResponsesAggregation[0]['count'];
+        return (int) $this->taskResponsesAggregation[0]['count'];
     }
 
-    public function getTaskResponsesAggregation()
+    /**
+     * Undocumented function
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTaskResponsesAggregation(): \yii\db\ActiveQuery
     {
         return $this->getTaskResponses()
             ->select(['user_id',  'avg' => 'avg(evaluation)', 'count' => 'count(*)'])
