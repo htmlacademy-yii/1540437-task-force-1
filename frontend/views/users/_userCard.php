@@ -4,15 +4,15 @@ use yii\helpers\Html;
 
 /** @var \yii\base\View $this */
 /** @var \frontend\models\Users $model */
-
 ?>
+
 
 <div class="content-view__feedback-card user__search-wrapper">
     <div class="feedback-card__top">
         <div class="user__search-icon">
             <?= Html::a("<img src=\"/img/{$model->iconByGender}-glasses.jpg\" width=\"65\" height=\"65\">", "#{$model->id}"); ?>
-            <?= Html::tag('span', count($model->performerTasks) . ' заданий'); ?>
-            <?= Html::tag('span', $model->countResponses . '  отзывов'); ?>
+            <?= Html::tag('span', Yii::t('plural', 'tasks.count', ['n' => $model->countPerformerTasks])); ?>
+            <?= Html::tag('span', Yii::t('plural', 'responses.count', ['n' => $model->countResponses])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">

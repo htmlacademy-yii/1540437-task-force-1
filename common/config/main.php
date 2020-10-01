@@ -27,7 +27,7 @@ return [
             'translations' => [
                 '*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
-                    'sourceLanguage' => 'ru_RU',
+                    'sourceLanguage' => 'en_US',
                 ],
             ],
         ],

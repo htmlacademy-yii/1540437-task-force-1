@@ -16,6 +16,20 @@ class User
     /** @var int Исполнитель */
     const ROLE_PERFORMER = 2;
 
+    /** @var string Мужской */
+    const GENDER_MALE = 'male';
+    /** @var string Женский */
+    const GENDER_FEMALE = 'female';
+
+    /** @return array Список доступных гендерных признаков */
+    public static function genderMap(?string $gender = null): array
+    {
+        return [
+            self::GENDER_MALE => 'man',
+            self::GENDER_FEMALE => 'woman'
+        ];
+    }
+
     /** @return Array Список доступных ролей */
     public static function roleMap(): array
     {

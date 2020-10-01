@@ -17,22 +17,4 @@ class UsersQuery extends \yii\db\ActiveQuery
     {
         return $this->andWhere(['role' => User::ROLE_PERFORMER]);
     }
-
-    /**
-     * {@inheritdoc}
-     * @return \frontend\models\Users[]|array
-     */
-    public function all($db = null)
-    {
-        return parent::all($db);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \frontend\models\Users|array|null
-     */
-    public function one($db = null)
-    {
-        return parent::one($db);
-    }
 }

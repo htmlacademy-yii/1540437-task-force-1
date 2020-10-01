@@ -5,6 +5,10 @@
 $this->title = 'Исполнители';
 ?>
 
+
+
+
+
 <section class="user__search">
     <div class="user__search-link">
         <p>Сортировать по:</p>
@@ -20,6 +24,14 @@ $this->title = 'Исполнители';
             </li>
         </ul>
     </div>
+
+<?php
+
+for ($i = 0; $i < 101; $i++) {
+    echo \Yii::t('plural', 'responses.count', ['n' => $i]) . "<br>";
+}
+?>
+
     <?php foreach ($models as $model) : ?>
         <?= $this->render('_userCard', ['model' => $model]); ?>
     <?php endforeach; ?>

@@ -9,21 +9,4 @@ namespace frontend\models\query;
  */
 class CategoriesQuery extends \yii\db\ActiveQuery
 {
-    /**
-     * {@inheritdoc}
-     * @return \frontend\models\Categories[]|array|null
-     */
-    public function all($db = null)
-    {
-        return parent::all($db);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \frontend\models\Categories|array|null
-     */
-    public function one($db = null)
-    {
-        return parent::one($db);
-    }
 }

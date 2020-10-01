@@ -12,8 +12,11 @@ use frontend\models\query\UsersQuery as Query;
  * @property \frontend\models\query\TasksQuery[] $performerTasks
  * @property \frontend\models\query\TasksQuery[] $customersTasks
  * @property \common\models\aq\TaskResponsesQuery[] $taskResponsesAggregation
+ * @property string|null $iconByGender
  * @property float $avgEvaluation
  * @property int $countResponses
+ * @property int $countPerformerTasks
+ * @property int $countCustomerTasks
  */
 class Users extends ModelsUsers
 {
@@ -21,10 +24,10 @@ class Users extends ModelsUsers
     public function getIconByGender(): ?string
     {
         switch ($this->gender) {
-            case 'male':
+            case \app\bizzlogic\User::GENDER_MALE:
                 return 'man';
                 break;
-            case 'female':
+            case \app\bizzlogic\User::GENDER_FEMALE:
                 return 'woman';
                 break;
             default:
@@ -65,17 +68,20 @@ class Users extends ModelsUsers
     /** @return float `(float) Yii::$app->formatter->asDecimal()` */
     public function getAvgEvaluation(): float
     {
-        return (float) \Yii::$app->formatter->asDecimal($this->taskResponsesAggregation[0]['avg'], 2);
+        return (float) $this->taskResponsesAggregation ? \Yii::$app->formatter->asDecimal($this->taskResponsesAggregation[0]['avg'], 2) : 0;
     }
 
     /** @return int Кол-во откликов */
     public function getCountResponses(): int
     {
-        return (int) $this->taskResponsesAggregation[0]['count'];
+        return (int) $this->taskResponsesAggregation ? $this->taskResponsesAggregation[0]['count'] : 0;
     }
 
     /**
-     * Undocumented function
+     * Аггрегация данных TaskResponses.
+     *
+     * `avg` Средняя оценка пользователя,
+     * `count` Кол-во Задач текущего пользвателя.
      *
      * @return \yii\db\ActiveQuery
      */
@@ -90,7 +96,7 @@ class Users extends ModelsUsers
     /**
      * Gets query for [[Categories]].
      *
-     * @return \frontend\models\query\CategoriesQuery[]
+     * @return \frontend\models\query\CategoriesQuery
      */
     public function getCategories(): \frontend\models\query\CategoriesQuery
     {
@@ -119,13 +125,13 @@ class Users extends ModelsUsers
     }
 
     /** @return int Кол-во Заданий Исполнителя */
-    public function getPerformerTasksCount(): int
+    public function getCountPerformerTasks(): int
     {
         return (int) count($this->performerTasks);
     }
 
     /** @return int|string Кол-во Заданий заказчика */
-    public function getCustomerTasksCount(): int
+    public function getCountCustomerTasks(): int
     {
         return (int) count($this->customerTasks);
     }

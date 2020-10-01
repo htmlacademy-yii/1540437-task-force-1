@@ -18,8 +18,7 @@ return [
     'birth_date' => $faker->dateTimeInInterval('-30 years', '+5 years')->format('Y-m-d H:i:s'),
     'last_logined_at' => $faker->dateTimeInInterval('-3 days')->format('Y-m-d H:i:s'),
     'role' => $faker->numberBetween(1, 2),
-    'password_hash' => md5('password_' . $index),
-    // 'password_hash' => \Yii::$app->security->generatePasswordHash('password_' . $index),
+    'password_hash' => \Yii::$app->security->generatePasswordHash("password_{$index}", 10),
     'phone' => $faker->phoneNumber,
     'skype' => $faker->text(5)
 ];
