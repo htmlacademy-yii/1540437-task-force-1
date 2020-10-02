@@ -1,5 +1,6 @@
 <?php
 
+use common\widgets\Stars;
 use yii\helpers\Html;
 
 /** @var \yii\base\View $this */
@@ -18,10 +19,7 @@ use yii\helpers\Html;
             <p class="link-name">
                 <?= Html::a($model->fullName, "#{$model->id}", ['class' => 'link-regular']); ?>
             </p>
-            <?= str_repeat('<span></span>', floor($model->avgEvaluation)) ?>
-            <?= ($fmax = 5 - floor($model->avgEvaluation)) > 0 ? str_repeat('<span class="star-disabled"></span>', $fmax) : ''; ?>
-            <?= Html::tag('b', $model->avgEvaluation); ?>
-            <?= Html::tag('p', $model->about, ['class' => 'user__search-content']); ?>
+            <?= Stars::widget(['rating' => $model->avgEvaluation ]); ?>
         </div>
         <span class="new-task__time">
         <?php
