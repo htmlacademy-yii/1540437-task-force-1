@@ -12,6 +12,7 @@ use frontend\models\query\UsersQuery as Query;
  * @property \frontend\models\query\TasksQuery[] $performerTasks
  * @property \frontend\models\query\TasksQuery[] $customersTasks
  * @property \common\models\aq\TaskResponsesQuery[] $taskResponsesAggregation
+ * @property string $fullName
  * @property string|null $iconByGender
  * @property float $avgEvaluation
  * @property int $countResponses
@@ -42,27 +43,14 @@ class Users extends ModelsUsers
         return "{$this->last_name} {$this->first_name}";
     }
 
-    /** @return string Последний логин, в виде строки */
-    public function getLastLogin(): string
+    /** @return array DateInterval values */
+    public function getLastLogin(): array
     {
         $now = new \DateTime();
         $created = new \DateTime($this->last_logined_at);
-        $diff = $now->diff($created);
+        $interval = $now->diff($created);
 
-        $gender = \Yii::t('app', '{gender, select, male{Был} female{Была} other{Было}} на сайте', [
-            'gender' => $this->gender
-        ]);
-
-        if ($diff->d > 0) {
-            $old = \Yii::t('app', '{n, plural, one{# day} two{# days} other{# days}} ago', ['n' => $diff->d]);
-            return "{$gender} {$old}";
-        } elseif ($diff->h > 0) {
-            $old = \Yii::t('app', '{n, plural, one{# hour} two{# hours} other{# hours}} left', ['n' => $diff->h]);
-            return "{$gender} {$old}";
-        } elseif ($diff->i > 0) {
-            $old = \Yii::t('app', '{n, plural, one{# minut} two{# minuts} other{# minuts}} left', ['n' => (int) $diff->i]);
-            return "{$gender} {$old}";
-        }
+        return (array) $interval;
     }
 
     /** @return float `(float) Yii::$app->formatter->asDecimal()` */

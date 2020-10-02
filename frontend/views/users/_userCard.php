@@ -11,8 +11,8 @@ use yii\helpers\Html;
     <div class="feedback-card__top">
         <div class="user__search-icon">
             <?= Html::a("<img src=\"/img/{$model->iconByGender}-glasses.jpg\" width=\"65\" height=\"65\">", "#{$model->id}"); ?>
-            <?= Html::tag('span', Yii::t('plural', 'tasks.count', ['n' => $model->countPerformerTasks])); ?>
-            <?= Html::tag('span', Yii::t('plural', 'responses.count', ['n' => $model->countResponses])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->countPerformerTasks])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => $model->countResponses])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">
@@ -20,13 +20,18 @@ use yii\helpers\Html;
             </p>
             <?= str_repeat('<span></span>', floor($model->avgEvaluation)) ?>
             <?= ($fmax = 5 - floor($model->avgEvaluation)) > 0 ? str_repeat('<span class="star-disabled"></span>', $fmax) : ''; ?>
-            <?= Html::tag('b', $model->avgEvaluation) ?>
-            <p class="user__search-content">
-                <?= $model->about ?>
-            </p>
+            <?= Html::tag('b', $model->avgEvaluation); ?>
+            <?= Html::tag('p', $model->about, ['class' => 'user__search-content']); ?>
         </div>
         <span class="new-task__time">
-            <?= $model->lastLogin ?>
+        <?php
+        if ($model->lastLogin['d'] > 0) {
+            echo Yii::t('intl', 'users.lastlogin.d', ['gender' => $model->gender, 'n' => $model->lastLogin['d']]);
+        } elseif ($model->lastLogin['h'] > 0) {
+            echo Yii::t('intl', 'users.lastlogin.h', ['gender' => $model->gender, 'n' => $model->lastLogin['h']]);
+        } elseif ($model->lastLogin['i'] >= 0) {
+            echo Yii::t('intl', 'users.lastlogin.i', ['gender' => $model->gender, 'n' => $model->lastLogin['i']]);
+        }?>
         </span>
     </div>
     <?php if ($model->categories) : ?>

@@ -25,13 +25,6 @@ $this->title = 'Исполнители';
         </ul>
     </div>
 
-<?php
-
-for ($i = 0; $i < 101; $i++) {
-    echo \Yii::t('plural', 'responses.count', ['n' => $i]) . "<br>";
-}
-?>
-
     <?php foreach ($models as $model) : ?>
         <?= $this->render('_userCard', ['model' => $model]); ?>
     <?php endforeach; ?>
