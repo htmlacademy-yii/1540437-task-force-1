@@ -52,29 +52,20 @@ class UserFavorites extends \yii\db\ActiveRecord
     /**
      * Gets query for [[FavoriteUser]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\UsersQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getFavoriteUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'favorite_user_id']);
+        return $this->hasOne(Users::className(), ['id' => 'favorite_user_id'])->inverseOf('userFavorites');
     }
 
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\UsersQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \common\models\aq\UserFavoritesQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \common\models\aq\UserFavoritesQuery(get_called_class());
+        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('userFavorites0');
     }
 }

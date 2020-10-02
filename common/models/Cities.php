@@ -9,7 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string|null $name
- * @property string|null $region
+ * @property float|null $lattitude
+ * @property float|null $longtitude
  *
  * @property Tasks[] $tasks
  * @property Users[] $users
@@ -30,7 +31,8 @@ class Cities extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'region'], 'string', 'max' => 256],
+            [['lattitude', 'longtitude'], 'number'],
+            [['name'], 'string', 'max' => 256],
         ];
     }
 
@@ -42,36 +44,28 @@ class Cities extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'region' => Yii::t('app', 'Region'),
+            'lattitude' => Yii::t('app', 'Lattitude'),
+            'longtitude' => Yii::t('app', 'Longtitude'),
         ];
     }
 
     /**
      * Gets query for [[Tasks]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\TasksQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTasks()
     {
-        return $this->hasMany(Tasks::class, ['city_id' => 'id']);
+        return $this->hasMany(Tasks::className(), ['city_id' => 'id'])->inverseOf('city');
     }
 
     /**
      * Gets query for [[Users]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\UsersQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUsers()
     {
-        return $this->hasMany(Users::class, ['city_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \common\models\aq\CitiesQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \common\models\aq\CitiesQuery(get_called_class());
+        return $this->hasMany(Users::className(), ['city_id' => 'id'])->inverseOf('city');
     }
 }

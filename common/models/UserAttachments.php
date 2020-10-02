@@ -64,29 +64,20 @@ class UserAttachments extends \yii\db\ActiveRecord
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\UsersQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('userAttachments');
     }
 
     /**
      * Gets query for [[Task]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\TasksQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \common\models\aq\UserAttachmentsQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \common\models\aq\UserAttachmentsQuery(get_called_class());
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('userAttachments');
     }
 }

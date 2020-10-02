@@ -51,29 +51,20 @@ class Categories extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Tasks]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\TasksQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTasks()
     {
-        return $this->hasMany(Tasks::class, ['category_id' => 'id']);
+        return $this->hasMany(Tasks::class, ['category_id' => 'id'])->inverseOf('category');
     }
 
     /**
      * Gets query for [[UserCategories]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\UserCategoriesQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUserCategories()
     {
-        return $this->hasMany(UserCategories::class, ['category_id' => 'id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \common\models\aq\CategoriesQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \common\models\aq\CategoriesQuery(get_called_class());
+        return $this->hasMany(UserCategories::class, ['category_id' => 'id'])->inverseOf('category');
     }
 }

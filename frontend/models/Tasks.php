@@ -5,9 +5,53 @@ namespace frontend\models;
 use common\models\Tasks as ModelsTasks;
 use frontend\models\query\TasksQuery as Query;
 
-/** {@inheritDoc} */
+/**
+ * {@inheritDoc}
+ * @property TaskResponses[] $taskResponse
+ * @property Categories $category
+ * @property Cities $city
+ */
 class Tasks extends ModelsTasks
 {
+
+    /**
+     * Query класс [[Categories]]
+     *
+     * @return \frontend\models\query\CategoriesQuery
+     */
+    public function getCategory(): \frontend\models\query\CategoriesQuery
+    {
+        return $this->hasOne(Categories::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * Query класс [[Cities]]
+     *
+     * @return \frontend\models\query\CitiesQuery
+     */
+    public function getCity(): \frontend\models\query\CitiesQuery
+    {
+        return $this->hasOne(Cities::class, ['id' => 'city_id']);
+    }
+
+    /**
+     * Query класс [[TaskResponses]].
+     *
+     * @return \frontend\models\query\TaskResponsesQuery
+     */
+    public function getTaskResponses(): \frontend\models\query\TaskResponsesQuery
+    {
+        return $this->hasMany(TaskResponses::class, ['id' => 'task_id'])->inverseOf('task');
+    }
+
+    /** @return array */
+    public function getInterval(): array
+    {
+        $now = new \DateTime();
+        $created = new \DateTime($this->created_at);
+        return (array) $now->diff($created);
+    }
+
     /**
      * {@inheritdoc}
      * @return Query the active query used by this AR class.
@@ -15,21 +59,5 @@ class Tasks extends ModelsTasks
     public static function find(): Query
     {
         return new Query(get_called_class());
-    }
-
-    /** @return string Plural string, days|hours left */
-    public function interval()
-    {
-        $now = new \DateTime();
-        $created = new \DateTime($this->created_at);
-        $diff = $now->diff($created);
-
-        if ($diff->d > 0) {
-            return \Yii::t('app', '{n, plural, one{# day} two{# days} other{# days}} ago', ['n' => $diff->d]);
-        } else if ($diff->h > 0) {
-            return \Yii::t('app', '{n, plural, one{# hour} two{# hours} other{# hours}} left', ['n' => $diff->h]);
-        } else {
-            return \Yii::t('app', '{n, plural, one{# minut} two{# minuts} other{# minuts}} left', ['n' => $diff->i]);
-        }
     }
 }

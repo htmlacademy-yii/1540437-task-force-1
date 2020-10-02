@@ -12,6 +12,7 @@ class TasksController extends FrontendController
             ->with(['category', 'city'])
             ->avaiable()
             ->orderBy(['created_at' => SORT_DESC])
+            ->limit(\Yii::$app->params['pagination.perPage'])
             ->all();
 
         return $this->render('index', [

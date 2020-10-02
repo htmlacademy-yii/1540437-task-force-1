@@ -52,29 +52,20 @@ class UserCategories extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Category]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\CategoriesQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
+        return $this->hasOne(Categories::className(), ['id' => 'category_id'])->inverseOf('userCategories');
     }
 
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\UsersQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \common\models\aq\UserCategoriesQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \common\models\aq\UserCategoriesQuery(get_called_class());
+        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('userCategories');
     }
 }

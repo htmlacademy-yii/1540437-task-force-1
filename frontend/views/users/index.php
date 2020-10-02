@@ -5,10 +5,6 @@
 $this->title = 'Исполнители';
 ?>
 
-
-
-
-
 <section class="user__search">
     <div class="user__search-link">
         <p>Сортировать по:</p>

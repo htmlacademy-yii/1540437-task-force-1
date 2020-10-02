@@ -28,5 +28,15 @@ use yii\helpers\Html;
     }
     ?>
 
-    <?= Html::tag('span', $model->interval(), ['class' => 'new-task__time']); ?>
+    <span class="new-task__time">
+    <?php
+        if ($model->interval['d'] >= 1) {
+            echo Yii::t('intl', 'interval.d', ['n' => $model->interval['d']]);
+        } elseif ($model->interval['h'] > 0) {
+            echo Yii::t('intl', 'interval.h', ['n' => $model->interval['h']]);
+        } elseif ($model->interval['i'] >= 0) {
+            echo Yii::t('intl', 'interval.i', ['n' => $model->interval['i']]);
+        }
+    ?>
+    </span>
 </div>

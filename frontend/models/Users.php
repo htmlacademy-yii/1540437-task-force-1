@@ -7,11 +7,10 @@ use frontend\models\query\UsersQuery as Query;
 
 /**
  * {@inheritDoc}
- *
  * @property \frontend\models\query\CategoriesQuery[] $categories
  * @property \frontend\models\query\TasksQuery[] $performerTasks
  * @property \frontend\models\query\TasksQuery[] $customersTasks
- * @property \common\models\aq\TaskResponsesQuery[] $taskResponsesAggregation
+ * @property \frontend\models\query\TaskResponsesQuery[] $taskResponses
  * @property string $fullName
  * @property string|null $iconByGender
  * @property float $avgEvaluation
@@ -21,6 +20,12 @@ use frontend\models\query\UsersQuery as Query;
  */
 class Users extends ModelsUsers
 {
+
+    /** @var float Виртуальное поле, усредненный рейтинг */
+    public $avgRating;
+    /** @var int Виртуапльное поле, кол-во Задач */
+    public $countResponses;
+
     /** @return string|null Наименование иконки */
     public function getIconByGender(): ?string
     {
@@ -48,37 +53,7 @@ class Users extends ModelsUsers
     {
         $now = new \DateTime();
         $created = new \DateTime($this->last_logined_at);
-        $interval = $now->diff($created);
-
-        return (array) $interval;
-    }
-
-    /** @return float `(float) Yii::$app->formatter->asDecimal()` */
-    public function getAvgEvaluation(): float
-    {
-        return (float) $this->taskResponsesAggregation ? \Yii::$app->formatter->asDecimal($this->taskResponsesAggregation[0]['avg'], 2) : 0;
-    }
-
-    /** @return int Кол-во откликов */
-    public function getCountResponses(): int
-    {
-        return (int) $this->taskResponsesAggregation ? $this->taskResponsesAggregation[0]['count'] : 0;
-    }
-
-    /**
-     * Аггрегация данных TaskResponses.
-     *
-     * `avg` Средняя оценка пользователя,
-     * `count` Кол-во Задач текущего пользвателя.
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTaskResponsesAggregation(): \yii\db\ActiveQuery
-    {
-        return $this->getTaskResponses()
-            ->select(['user_id',  'avg' => 'avg(evaluation)', 'count' => 'count(*)'])
-            ->groupBy(['user_id'])
-            ->asArray(true);
+        return (array) $now->diff($created);
     }
 
     /**
@@ -89,7 +64,17 @@ class Users extends ModelsUsers
     public function getCategories(): \frontend\models\query\CategoriesQuery
     {
         return $this->hasMany(Categories::class, ['id' => 'category_id'])
-            ->via('userCategories');
+            ->viaTable('user_categories', ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[TaskResponses]].
+     *
+     * @return \frontend\models\query\TaskResponsesQuery
+     */
+    public function getTaskResponses(): \frontend\models\query\TaskResponsesQuery
+    {
+        return $this->hasMany(TaskResponses::class, ['user_id' => 'id']);
     }
 
     /**

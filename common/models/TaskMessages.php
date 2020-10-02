@@ -60,29 +60,20 @@ class TaskMessages extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Task]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\TasksQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('taskMessages');
     }
 
     /**
      * Gets query for [[User]].
      *
-     * @return \yii\db\ActiveQuery|\common\models\aq\UsersQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \common\models\aq\TaskMessagesQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \common\models\aq\TaskMessagesQuery(get_called_class());
+        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('taskMessages');
     }
 }

@@ -32,7 +32,7 @@ class Stars extends Widget
         }
 
         if ($this->showRating) {
-            $html .= $this->rating;
+            $html .= \Yii::$app->formatter->asDecimal($this->rating, 2);
         }
 
         return $html;
