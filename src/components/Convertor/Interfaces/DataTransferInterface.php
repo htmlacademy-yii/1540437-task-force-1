@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\Convertor\interfaces;
+namespace app\components\Convertor\Interfaces;
 
 interface DataTransferInterface
 {

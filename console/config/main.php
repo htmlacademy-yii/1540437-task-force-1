@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-console',
+    'language' => 'ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'console\controllers',
@@ -17,9 +18,16 @@ return [
     ],
     'controllerMap' => [
         'fixture' => [
-            'class' => 'yii\console\controllers\FixtureController',
+            'class' => 'yii\faker\FixtureController',
+            'language' => 'ru_RU',
+            'templatePath' => '@common/fixtures/templates',
+            'fixtureDataPath' => '@common/fixtures/data',
             'namespace' => 'common\fixtures',
-          ],
+            'providers' => [
+                \common\fixtures\providers\TasksRandomiser::class,
+                \common\fixtures\providers\UsersRandomiser::class
+            ]
+        ],
     ],
     'components' => [
         'log' => [

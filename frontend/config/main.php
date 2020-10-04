@@ -40,6 +40,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '//' => '/',
+                '/<controller>' => '<controller>/index'
             ],
         ],
     ],

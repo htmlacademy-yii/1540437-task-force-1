@@ -16,8 +16,6 @@ use Yii;
  * @property string|null $file_meta
  * @property string|null $thumb_path
  *
- * @property Users $user
- * @property Tasks $task
  */
 class UserAttachments extends \yii\db\ActiveRecord
 {
@@ -59,34 +57,5 @@ class UserAttachments extends \yii\db\ActiveRecord
             'file_meta' => Yii::t('app', 'File Meta'),
             'thumb_path' => Yii::t('app', 'Thumb Path'),
         ];
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery|\common\models\aq\UsersQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery|\common\models\aq\TasksQuery
-     */
-    public function getTask()
-    {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return \common\models\aq\UserAttachmentsQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \common\models\aq\UserAttachmentsQuery(get_called_class());
     }
 }
