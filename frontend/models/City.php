@@ -2,11 +2,11 @@
 
 namespace frontend\models;
 
-use common\models\Categories as Models;
-use frontend\models\query\CategoriesQuery as Query;
+use common\models\Cities as BaseModel;
+use frontend\models\query\CityQuery as Query;
 
 /** {@inheritDoc} */
-class Categories extends Models
+class City extends BaseModel
 {
     /**
      * {@inheritdoc}

@@ -24,13 +24,6 @@ use Yii;
  * @property float|null $lattitude
  * @property float|null $longtitude
  *
- * @property TaskMessages[] $taskMessages
- * @property TaskResponses[] $taskResponses
- * @property Categories $category
- * @property Cities $city
- * @property Users $customerUser
- * @property Users $performerUser
- * @property UserAttachments[] $userAttachments
  */
 class Tasks extends \yii\db\ActiveRecord
 {
@@ -85,74 +78,4 @@ class Tasks extends \yii\db\ActiveRecord
             'longtitude' => Yii::t('app', 'Longtitude'),
         ];
     }
-
-    // /**
-    //  * Gets query for [[TaskMessages]].
-    //  *
-    //  * @return \yii\db\ActiveQuery
-    //  */
-    // public function getTaskMessages()
-    // {
-    //     return $this->hasMany(TaskMessages::className(), ['task_id' => 'id'])->inverseOf('task');
-    // }
-
-    // /**
-    //  * Gets query for [[TaskResponses]].
-    //  *
-    //  * @return \yii\db\ActiveQuery
-    //  */
-    // public function getTaskResponses()
-    // {
-    //     return $this->hasMany(TaskResponses::className(), ['task_id' => 'id'])->inverseOf('task');
-    // }
-
-    // /**
-    //  * Gets query for [[Category]].
-    //  *
-    //  * @return \yii\db\ActiveQuery
-    //  */
-    // public function getCategory()
-    // {
-    //     return $this->hasOne(Categories::className(), ['id' => 'category_id'])->inverseOf('tasks');
-    // }
-
-    // /**
-    //  * Gets query for [[City]].
-    //  *
-    //  * @return \yii\db\ActiveQuery
-    //  */
-    // public function getCity()
-    // {
-    //     return $this->hasOne(Cities::className(), ['id' => 'city_id'])->inverseOf('tasks');
-    // }
-
-    // /**
-    //  * Gets query for [[CustomerUser]].
-    //  *
-    //  * @return \yii\db\ActiveQuery
-    //  */
-    // public function getCustomerUser()
-    // {
-    //     return $this->hasOne(Users::className(), ['id' => 'customer_user_id'])->inverseOf('tasks');
-    // }
-
-    // /**
-    //  * Gets query for [[PerformerUser]].
-    //  *
-    //  * @return \yii\db\ActiveQuery
-    //  */
-    // public function getPerformerUser()
-    // {
-    //     return $this->hasOne(Users::className(), ['id' => 'performer_user_id'])->inverseOf('tasks0');
-    // }
-
-    // /**
-    //  * Gets query for [[UserAttachments]].
-    //  *
-    //  * @return \yii\db\ActiveQuery
-    //  */
-    // public function getUserAttachments()
-    // {
-    //     return $this->hasMany(UserAttachments::className(), ['task_id' => 'id'])->inverseOf('task');
-    // }
 }

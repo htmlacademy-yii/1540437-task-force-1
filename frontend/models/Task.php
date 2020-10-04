@@ -2,16 +2,15 @@
 
 namespace frontend\models;
 
-use common\models\Tasks as ModelsTasks;
-use frontend\models\query\TasksQuery as Query;
+use common\models\Tasks as BaseTask;
+use frontend\models\query\TaskQuery as Query;
 
 /**
  * {@inheritDoc}
  * @property TaskResponses[] $taskResponse
  * @property Categories $category
- * @property Cities $city
  */
-class Tasks extends ModelsTasks
+class Task extends BaseTask
 {
 
     /**
@@ -19,9 +18,9 @@ class Tasks extends ModelsTasks
      *
      * @return \frontend\models\query\CategoriesQuery
      */
-    public function getCategory(): \frontend\models\query\CategoriesQuery
+    public function getCategory(): \frontend\models\query\CategoryQuery
     {
-        return $this->hasOne(Categories::class, ['id' => 'category_id']);
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
     /**
@@ -29,9 +28,9 @@ class Tasks extends ModelsTasks
      *
      * @return \frontend\models\query\CitiesQuery
      */
-    public function getCity(): \frontend\models\query\CitiesQuery
+    public function getCity(): \frontend\models\query\CityQuery
     {
-        return $this->hasOne(Cities::class, ['id' => 'city_id']);
+        return $this->hasOne(City::class, ['id' => 'city_id']);
     }
 
     /**
@@ -44,7 +43,7 @@ class Tasks extends ModelsTasks
         return $this->hasMany(TaskResponses::class, ['id' => 'task_id'])->inverseOf('task');
     }
 
-    /** @return array */
+    /** @return array \DateTime array values */
     public function getInterval(): array
     {
         $now = new \DateTime();

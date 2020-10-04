@@ -2,51 +2,25 @@
 
 namespace frontend\models;
 
-use common\models\Users as ModelsUsers;
-use frontend\models\query\UsersQuery as Query;
+use common\models\Users as BaseUser;
+use frontend\models\query\UserQuery as Query;
 
 /**
  * {@inheritDoc}
- * @property \frontend\models\query\CategoriesQuery[] $categories
- * @property \frontend\models\query\TasksQuery[] $performerTasks
- * @property \frontend\models\query\TasksQuery[] $customersTasks
+ * @property \frontend\models\query\CategoryQuery[] $categories
+ * @property \frontend\models\query\TaskQuery[] $performerTasks
+ * @property \frontend\models\query\TaskQuery[] $customersTasks
  * @property \frontend\models\query\TaskResponsesQuery[] $taskResponses
- * @property string $fullName
- * @property string|null $iconByGender
- * @property float $avgEvaluation
- * @property int $countResponses
  * @property int $countPerformerTasks
  * @property int $countCustomerTasks
  */
-class Users extends ModelsUsers
+class User extends BaseUser
 {
 
     /** @var float Виртуальное поле, усредненный рейтинг */
     public $avgRating;
     /** @var int Виртуапльное поле, кол-во Задач */
     public $countResponses;
-
-    /** @return string|null Наименование иконки */
-    public function getIconByGender(): ?string
-    {
-        switch ($this->gender) {
-            case \app\bizzlogic\User::GENDER_MALE:
-                return 'man';
-                break;
-            case \app\bizzlogic\User::GENDER_FEMALE:
-                return 'woman';
-                break;
-            default:
-                return null;
-                break;
-        }
-    }
-
-    /** @return string Concat lastname & firstname */
-    public function getFullName(): string
-    {
-        return "{$this->last_name} {$this->first_name}";
-    }
 
     /** @return array DateInterval values */
     public function getLastLogin(): array
@@ -57,13 +31,13 @@ class Users extends ModelsUsers
     }
 
     /**
-     * Gets query for [[Categories]].
+     * Gets query for [[Category]].
      *
-     * @return \frontend\models\query\CategoriesQuery
+     * @return \frontend\models\query\CategoryQuery
      */
-    public function getCategories(): \frontend\models\query\CategoriesQuery
+    public function getCategories(): \frontend\models\query\CategoryQuery
     {
-        return $this->hasMany(Categories::class, ['id' => 'category_id'])
+        return $this->hasMany(Category::class, ['id' => 'category_id'])
             ->viaTable('user_categories', ['user_id' => 'id']);
     }
 
@@ -80,21 +54,21 @@ class Users extends ModelsUsers
     /**
      * Gets query for [[Tasks]].
      *
-     * @return \frontend\models\query\TasksQuery
+     * @return \frontend\models\query\TaskQuery
      */
-    public function getPerformerTasks(): \frontend\models\query\TasksQuery
+    public function getPerformerTasks(): \frontend\models\query\TaskQuery
     {
-        return $this->hasMany(Tasks::class, ['performer_user_id' => 'id']);
+        return $this->hasMany(Task::class, ['performer_user_id' => 'id']);
     }
 
     /**
      * Gets query for [[Tasks]].
      *
-     * @return \frontend\models\query\TasksQuery
+     * @return \frontend\models\query\TaskQuery
      */
-    public function getCustomerTasks(): \frontend\models\query\TasksQuery
+    public function getCustomerTasks(): \frontend\models\query\TaskQuery
     {
-        return $this->hasMany(Tasks::class, ['customer_user_id' => 'id']);
+        return $this->hasMany(Task::class, ['customer_user_id' => 'id']);
     }
 
     /** @return int Кол-во Заданий Исполнителя */

@@ -1,23 +1,24 @@
 <?php
 
 use common\widgets\Stars;
+use frontend\widgets\GenderIcon;
 use yii\helpers\Html;
 
 /** @var \yii\base\View $this */
-/** @var \frontend\models\Users $model */
+/** @var \frontend\models\User $model */
 ?>
 
 
 <div class="content-view__feedback-card user__search-wrapper">
     <div class="feedback-card__top">
         <div class="user__search-icon">
-            <?= Html::a("<img src=\"/img/{$model->iconByGender}-glasses.jpg\" width=\"65\" height=\"65\">", "#{$model->id}"); ?>
+            <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), "#{$model->id}"); ?>
             <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->countPerformerTasks])); ?>
             <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => $model->countResponses])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">
-                <?= Html::a($model->fullName, "#{$model->id}", ['class' => 'link-regular']); ?>
+                <?= Html::a("{$model->last_name} {$model->first_name}", "#{$model->id}", ['class' => 'link-regular']); ?>
             </p>
             <?= Stars::widget(['rating' => $model->avgRating ]); ?>
         </div>

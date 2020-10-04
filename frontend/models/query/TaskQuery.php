@@ -3,7 +3,7 @@
 namespace frontend\models\query;
 
 /** {@inheritDoc} */
-class TasksQuery extends \yii\db\ActiveQuery
+class TaskQuery extends \yii\db\ActiveQuery
 {
     public function avaiable()
     {
