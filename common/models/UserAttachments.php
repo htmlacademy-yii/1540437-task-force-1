@@ -16,8 +16,6 @@ use Yii;
  * @property string|null $file_meta
  * @property string|null $thumb_path
  *
- * @property Users $user
- * @property Tasks $task
  */
 class UserAttachments extends \yii\db\ActiveRecord
 {
@@ -60,6 +58,7 @@ class UserAttachments extends \yii\db\ActiveRecord
             'thumb_path' => Yii::t('app', 'Thumb Path'),
         ];
     }
+<<<<<<< HEAD
 
     /**
      * Gets query for [[User]].
@@ -80,4 +79,6 @@ class UserAttachments extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('userAttachments');
     }
+=======
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

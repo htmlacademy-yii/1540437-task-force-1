@@ -10,9 +10,6 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string|null $icon
- *
- * @property Tasks[] $tasks
- * @property UserCategories[] $userCategories
  */
 class Categories extends \yii\db\ActiveRecord
 {
@@ -47,6 +44,7 @@ class Categories extends \yii\db\ActiveRecord
             'icon' => Yii::t('app', 'Icon'),
         ];
     }
+<<<<<<< HEAD
 
     /**
      * Gets query for [[Tasks]].
@@ -67,4 +65,6 @@ class Categories extends \yii\db\ActiveRecord
     {
         return $this->hasMany(UserCategories::class, ['category_id' => 'id'])->inverseOf('category');
     }
+=======
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

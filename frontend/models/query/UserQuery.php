@@ -5,7 +5,7 @@ namespace frontend\models\query;
 use app\bizzlogic\User;
 
 /** {@inheritDoc} */
-class UsersQuery extends \yii\db\ActiveQuery
+class UserQuery extends \yii\db\ActiveQuery
 {
     /** Заказчики */
     public function customers()

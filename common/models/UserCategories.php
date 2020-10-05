@@ -10,9 +10,6 @@ use Yii;
  * @property int $id
  * @property int $user_id
  * @property int $category_id
- *
- * @property Categories $category
- * @property Users $user
  */
 class UserCategories extends \yii\db\ActiveRecord
 {
@@ -48,6 +45,7 @@ class UserCategories extends \yii\db\ActiveRecord
             'category_id' => Yii::t('app', 'Category ID'),
         ];
     }
+<<<<<<< HEAD
 
     /**
      * Gets query for [[Category]].
@@ -68,4 +66,6 @@ class UserCategories extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('userCategories');
     }
+=======
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

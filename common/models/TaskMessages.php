@@ -13,9 +13,6 @@ use Yii;
  * @property string $created_at
  * @property string|null $updated_at
  * @property string|null $message
- *
- * @property Tasks $task
- * @property Users $user
  */
 class TaskMessages extends \yii\db\ActiveRecord
 {
@@ -37,8 +34,8 @@ class TaskMessages extends \yii\db\ActiveRecord
             [['task_id', 'user_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['message'], 'string'],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -56,6 +53,7 @@ class TaskMessages extends \yii\db\ActiveRecord
             'message' => Yii::t('app', 'Message'),
         ];
     }
+<<<<<<< HEAD
 
     /**
      * Gets query for [[Task]].
@@ -76,4 +74,6 @@ class TaskMessages extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('taskMessages');
     }
+=======
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

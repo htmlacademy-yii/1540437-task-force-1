@@ -16,9 +16,6 @@ use Yii;
  * @property int|null $is_success
  * @property string $created_at
  * @property string|null $updated_at
- *
- * @property Tasks $task
- * @property Users $user
  */
 class TaskResponses extends \yii\db\ActiveRecord
 {
@@ -63,6 +60,7 @@ class TaskResponses extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
+<<<<<<< HEAD
 
     /**
      * Gets query for [[Task]].
@@ -83,4 +81,6 @@ class TaskResponses extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('taskResponses');
     }
+=======
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

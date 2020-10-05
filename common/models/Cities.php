@@ -11,9 +11,12 @@ use Yii;
  * @property string|null $name
  * @property float|null $lattitude
  * @property float|null $longtitude
+<<<<<<< HEAD
  *
  * @property Tasks[] $tasks
  * @property Users[] $users
+=======
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
  */
 class Cities extends \yii\db\ActiveRecord
 {
@@ -48,6 +51,7 @@ class Cities extends \yii\db\ActiveRecord
             'longtitude' => Yii::t('app', 'Longtitude'),
         ];
     }
+<<<<<<< HEAD
 
     /**
      * Gets query for [[Tasks]].
@@ -68,4 +72,6 @@ class Cities extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Users::className(), ['city_id' => 'id'])->inverseOf('city');
     }
+=======
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

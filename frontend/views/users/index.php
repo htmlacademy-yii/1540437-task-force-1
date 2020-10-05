@@ -1,6 +1,16 @@
 <?php
 
+<<<<<<< HEAD
 /* @var $this yii\web\View */
+=======
+
+
+use yii\helpers\Html;
+
+/** @var yii\web\View $this */
+/** @var yii\data\Pagination $pager */
+/** @var frontend\models\forms\CategoryFilterForm $categoryFilterForm */
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 
 $this->title = 'Исполнители';
 ?>
@@ -26,6 +36,7 @@ $this->title = 'Исполнители';
     <?php endforeach; ?>
 </section>
 <section class="search-task">
+<<<<<<< HEAD
     <div class="search-task__wrapper">
         <form class="search-task__form" name="users" method="post" action="#">
             <fieldset class="search-task__categories">
@@ -57,4 +68,9 @@ $this->title = 'Исполнители';
             <button class="button" type="submit">Искать</button>
         </form>
     </div>
+=======
+    <?= $this->render('_seachFilters', [
+        'filterForm' => $categoryFilterForm
+    ]); ?>
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 </section>

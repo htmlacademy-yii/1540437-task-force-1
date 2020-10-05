@@ -3,6 +3,6 @@
 namespace frontend\models\query;
 
 /** {@inheritDoc} */
-class CategoriesQuery extends \yii\db\ActiveQuery
+class CategoryQuery extends \yii\db\ActiveQuery
 {
 }
