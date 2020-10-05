@@ -53,27 +53,4 @@ class TaskMessages extends \yii\db\ActiveRecord
             'message' => Yii::t('app', 'Message'),
         ];
     }
-<<<<<<< HEAD
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('taskMessages');
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('taskMessages');
-    }
-=======
->>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

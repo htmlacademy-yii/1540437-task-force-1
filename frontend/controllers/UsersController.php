@@ -2,52 +2,50 @@
 
 namespace frontend\controllers;
 
-use frontend\models\forms\CategoryFilterForm;
-use frontend\models\User;
+use frontend\models\search\UserSearch;
 use Yii;
-use yii\data\Pagination;
+use yii\data\Sort;
 
 class UsersController extends FrontendController
 {
     /** @var int Ограничения на колво записей */
     const PAGE_LIMIT = 5;
 
-    public function actionIndex()
+    public function actionIndex($params = null)
     {
-        $categoryForm = new CategoryFilterForm();
+        $session = Yii::$app->getSession();
 
-        if (Yii::$app->request->isPost) {
-            $categoryForm->load(Yii::$app->request->post());
-        }
-
-        $query = User::find()
-            ->select([
-                'users.*',
-                'avgRating' => 'avg(tr.evaluation)',
-                'countResponses' => 'count(`tr`.`id`)'
-            ])
-            ->with(['categories', 'performerTasks'])
-            ->joinWith(['taskResponses tr'])
-            ->groupBy(['users' => 'id', 'tr' => 'user_id'])
-            ->orderBy(['avgRating' => SORT_DESC])
-<<<<<<< HEAD
-            ->performers()->limit(\Yii::$app->params['pagination.perPage'])->all();
+        $sort = new Sort();
+ 
+        $searchModel  = new UserSearch();
+        $dataProvider = $searchModel->search(Yii::$app->getRequest()->post());
 
         return $this->render('index', [
-            'models' => $models
-=======
-            ->performers();
-
-        $countQuery = clone $query;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => self::PAGE_LIMIT]);
-        $query->offset($pages->offset)->limit($pages->limit);
-
-
-        return $this->render('index', [
-            'models' => $query->all(),
-            'pages' => $pages,
-            'categoryFilterForm' => $categoryForm
->>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'sort' => $sort
         ]);
+
+        // $query = User::find()
+        //     ->select([
+        //         'users.*',
+        //         'avgRating' => 'avg(tr.evaluation)',
+        //         'countResponses' => 'count(`tr`.`id`)'
+        //     ])
+        //     ->with(['categories', 'performerTasks'])
+        //     ->joinWith(['taskResponses tr'])
+        //     ->groupBy(['users' => 'id', 'tr' => 'user_id'])
+        //     ->orderBy(['avgRating' => SORT_DESC])
+        //     ->performers();
+
+        // $countQuery = clone $query;
+        // $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => self::PAGE_LIMIT]);
+        // $query->offset($pages->offset)->limit($pages->limit);
+
+        // return $this->render('index', [
+        //     'models' => $query->all(),
+        //     'pages' => $pages,
+        //     'categoryFilterForm' => $categoryForm
+        // ]);
     }
 }

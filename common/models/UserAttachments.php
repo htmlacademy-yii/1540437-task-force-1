@@ -58,27 +58,4 @@ class UserAttachments extends \yii\db\ActiveRecord
             'thumb_path' => Yii::t('app', 'Thumb Path'),
         ];
     }
-<<<<<<< HEAD
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('userAttachments');
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasOne(Tasks::className(), ['id' => 'task_id'])->inverseOf('userAttachments');
-    }
-=======
->>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

@@ -51,27 +51,4 @@ class Cities extends \yii\db\ActiveRecord
             'longtitude' => Yii::t('app', 'Longtitude'),
         ];
     }
-<<<<<<< HEAD
-
-    /**
-     * Gets query for [[Tasks]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTasks()
-    {
-        return $this->hasMany(Tasks::className(), ['city_id' => 'id'])->inverseOf('city');
-    }
-
-    /**
-     * Gets query for [[Users]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(Users::className(), ['city_id' => 'id'])->inverseOf('city');
-    }
-=======
->>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }

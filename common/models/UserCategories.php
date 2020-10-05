@@ -45,27 +45,4 @@ class UserCategories extends \yii\db\ActiveRecord
             'category_id' => Yii::t('app', 'Category ID'),
         ];
     }
-<<<<<<< HEAD
-
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasOne(Categories::className(), ['id' => 'category_id'])->inverseOf('userCategories');
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('userCategories');
-    }
-=======
->>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
 }
