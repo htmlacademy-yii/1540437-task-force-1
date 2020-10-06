@@ -24,16 +24,6 @@ use Yii;
  * @property float|null $lattitude
  * @property float|null $longtitude
  *
-<<<<<<< HEAD
- * @property TaskMessages[] $taskMessages
- * @property TaskResponses[] $taskResponses
- * @property Categories $category
- * @property Cities $city
- * @property Users $customerUser
- * @property Users $performerUser
- * @property UserAttachments[] $userAttachments
-=======
->>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
  */
 class Tasks extends \yii\db\ActiveRecord
 {
@@ -57,10 +47,10 @@ class Tasks extends \yii\db\ActiveRecord
             [['budget', 'lattitude', 'longtitude'], 'number'],
             [['created_at', 'updated_at', 'start_date'], 'safe'],
             [['title'], 'string', 'max' => 256],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city_id' => 'id']],
-            [['customer_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['customer_user_id' => 'id']],
-            [['performer_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['performer_user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['city_id' => 'id']],
+            [['customer_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['customer_user_id' => 'id']],
+            [['performer_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['performer_user_id' => 'id']],
         ];
     }
 

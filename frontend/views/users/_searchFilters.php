@@ -10,23 +10,21 @@ use yii\widgets\ActiveForm;
 
 $categoryList = ArrayHelper::map(\frontend\models\Category::find()->all(), 'id', 'name');
 
-
 $form = ActiveForm::begin([
     'method' => 'post',
-    'enableClientValidation' => false,
-    'enableAjaxValidation' => false,
     'fieldConfig' => [
-        'options' => [ 'tag' => false ]
+        'options' => [ 'tag' => false ],
+        'template' => "{input}\n{label}",
+        'inputOptions' => [ 'class' => 'visually-hidden checkbox__input'],
+        'labelOptions' => [ 'class' => true ]
     ],
     'options' => [
+        'tag' => false,
         'class' => 'search-task__form'
     ],
 ]);
 
 ?>
-
-<div class="search-task__wrapper">
-
     <fieldset class="search-task__categories">
         <?= Html::tag('legend', Yii::t('app', 'Категории')); ?>
         <?= $form->field($model, 'categoryIds')->checkboxList($categoryList, [            
@@ -42,44 +40,33 @@ $form = ActiveForm::begin([
         ])->label(false); ?>
     </fieldset>
 
-    <fieldset class="search-task__advanced">
+    <fieldset class="search-task__categories">
         <?= Html::tag('legend', Yii::t('app', 'Дополнительно')); ?>
+        <?= $form->field($model, 'canStart')->checkbox([
+            'class' => 'visually-hidden checkbox__input',
+        ], false); ?>
+
+        <?= $form->field($model, 'isOnline')->checkbox([
+            'class' => 'visually-hidden checkbox__input',
+        ], false); ?>
+
+        <?= $form->field($model, 'isHasResponses')->checkbox([
+            'class' => 'visually-hidden checkbox__input',
+        ], false); ?>
+
+        <?= $form->field($model, 'isFavorite')->checkbox([
+            'class' => 'visually-hidden checkbox__input',
+        ], false); ?>
     </fieldset>
 
-    <?= $form->field($model, 'q', [
+    <?= $form->field($model, 'qname', [
         'template' => "{label}\n{input}",
-        'inputOptions' => [ 'class' => 'input-middle input'],
         'labelOptions' => [ 'class' => 'search-task__name' ]
-    ])->input('search', ['placeholder']); ?>
+    ])->input('search', [
+        'placeholder' => false,
+        'class' => 'input-middle input'
+    ]); ?>
 
     <?= Html::submitButton(Yii::t('app', 'Искать'), [ 'class' => 'button' ]) ?>
 
-    <?php ActiveForm::end();?>
-
-</div>
-
-<?php
-
-/** 
-<div class="search-task__wrapper">
-    <form class="search-task__form" name="users" method="post" action="#">
-        <?php foreach ($filterForm->fieldsets() as $legend => $attributes) : ?>
-            <fieldset class="search-task__categories">
-                <?= Html::tag('legend', $legend); ?>
-                <?php foreach ($attributes as $attr) : ?>
-                    <?= Html::activeCheckbox($filterForm, $attr, [
-                        'label' => false,
-                        'class' => 'visually-hidden checkbox__input'
-                    ]) ?>
-                    <?= Html::activeLabel($filterForm, $attr); ?>
-                <?php endforeach; ?>
-            </fieldset>
-        <?php endforeach ?>
-        <label class="search-task__name" for="110">Поиск по имени</label>
-        <input class="input-middle input" id="110" type="search" name="q" placeholder="">
-        <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken(); ?>" />
-        <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->getCsrfToken()) ?>
-
-        <button class="button" type="submit">Искать</button>
-    </form>
-</div>
+<?php ActiveForm::end();?>

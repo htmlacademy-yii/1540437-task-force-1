@@ -8,8 +8,7 @@ use yii\data\Sort;
 
 class UserSearch extends User
 {
-    /**  */
-    public $q;
+    public $qname;
 
     public $avgRating;
     public $countTasks;
@@ -19,16 +18,25 @@ class UserSearch extends User
 
     /** @var array ID категорий для поиска */
     public $categoryIds;
+    /** @var bool Сейчас свбоден */
+    public $canStart;
+    /** @var bool Сейчас онлайн */
+    public $isOnline;
+    /** @var bool Есть отзывы */
+    public $isHasResponses;
+    /** @var bool В избранном */
+    public $isFavorite;
 
-    public $free;
-    public $online;
-    public $withResponses;
-    public $favorites;
 
+    /** {@inheritDoc} */    
     public function attributeLabels()
     {
         $parent = parent::attributeLabels();
-        $parent['q'] = \Yii::t('app', 'Поиск по имени');
+        $parent['qname'] = \Yii::t('app', 'Поиск по имени');
+        $parent['canStart'] = \Yii::t('app', 'Сейчас свободен');
+        $parent['isOnline'] = \Yii::t('app', 'Сейчас онлайн');
+        $parent['isHasResponses'] = \Yii::t('app', 'Есть отзывы');
+        $parent['isFavorite'] = \Yii::t('app', 'В избранном');
         return $parent;
     }
 
@@ -36,7 +44,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['q'], 'safe'],
+            [['qname', 'canStart', 'isOnline', 'isHasResponses', 'isFavorite'], 'safe'],
             [['categoryIds'], 'safe'],
             [['avgRating', 'countResponses', 'fullName'], 'safe'],
             // [['courier', 'cargo', 'translation', 'construction', 'walking'], 'safe'],
@@ -53,8 +61,7 @@ class UserSearch extends User
     public function search(array $params): ActiveDataProvider
     {
         $query = User::find();
-        $query
-            ->alias('u')
+        $query->alias('u')
             ->select('u.*')
             ->joinWith(['categories c', 'taskResponses tr', 'performerTasks pt'])
             // ->with(['performerTasks'])
@@ -113,8 +120,27 @@ class UserSearch extends User
             $query->andFilterWhere(['c.id' => $this->categoryIds]);
         }
 
-        if ($this->q) {
-            $query->andFilterWhere(['like', 'u.first_name', $this->q]);
+        if ($this->qname) {
+            $query->andFilterWhere([ 'or', 
+                [ 'like', 'u.last_name', $this->qname ],
+                [ 'like', 'u.first_name', $this->qname ],
+            ]);
+        }
+
+        if ($this->canStart) {
+
+        }
+        
+        if ($this->isOnline) {
+
+        }
+
+        if ($this->isHasResponses) {
+
+        }
+
+        if ($this->isFavorite) {
+
         }
 
         return $dataProvider;

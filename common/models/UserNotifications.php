@@ -12,8 +12,6 @@ use Yii;
  * @property int $new_message
  * @property int $new_respond
  * @property int $task_actions
- *
- * @property Users $user
  */
 class UserNotifications extends \yii\db\ActiveRecord
 {
@@ -33,7 +31,7 @@ class UserNotifications extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'required'],
             [['user_id', 'new_message', 'new_respond', 'task_actions'], 'integer'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -49,15 +47,5 @@ class UserNotifications extends \yii\db\ActiveRecord
             'new_respond' => Yii::t('app', 'New Respond'),
             'task_actions' => Yii::t('app', 'Task Actions'),
         ];
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('userNotifications');
     }
 }

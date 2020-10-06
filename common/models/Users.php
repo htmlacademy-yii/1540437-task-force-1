@@ -29,16 +29,6 @@ use Yii;
  * @property string|null $updated_at
  * @property string $last_logined_at
  *
- * @property TaskMessages[] $taskMessages
- * @property TaskResponses[] $taskResponses
- * @property Tasks[] $tasks
- * @property Tasks[] $tasks0
- * @property UserAttachments[] $userAttachments
- * @property UserCategories[] $userCategories
- * @property UserFavorites[] $userFavorites
- * @property UserFavorites[] $userFavorites0
- * @property UserNotifications[] $userNotifications
- * @property Cities $city
  */
 class Users extends \yii\db\ActiveRecord
 {

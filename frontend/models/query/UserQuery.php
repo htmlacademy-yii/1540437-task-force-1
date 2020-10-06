@@ -20,4 +20,10 @@ class UserQuery extends \yii\db\ActiveQuery
         list($b, $a) = $this->getTableNameAndAlias();
         return $this->andWhere(["{$a}.role" => User::ROLE_PERFORMER]);
     }
+
+    /** Если пользователь Онлайн */
+    public function online()
+    {
+        return true;
+    }
 }
