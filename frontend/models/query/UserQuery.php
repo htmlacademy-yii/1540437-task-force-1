@@ -30,7 +30,7 @@ class UserQuery extends \yii\db\ActiveQuery
     public function online(int $minutes = 30): self
     {
         list($b, $a) = $this->getTableNameAndAlias();
-        $expression = "NOW() - INTERVAL {$minutes} MINUTE";
-        return $this->andWhere(['>=', "{$a}.last_logined_at", new \yii\db\Expression($expression)]);
+        $expression = new \yii\db\Expression("NOW() - INTERVAL {$minutes} MINUTE");
+        return $this->andWhere(['>=', "{$a}.last_logined_at", $expression]);
     }
 }

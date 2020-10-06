@@ -29,7 +29,7 @@ class UserSearch extends User
     public $isFavorite;
 
 
-    /** {@inheritDoc} */    
+    /** {@inheritDoc} */
     public function attributeLabels()
     {
         $parent = parent::attributeLabels();
@@ -102,7 +102,7 @@ class UserSearch extends User
             'query' => $query,
             'sort' => $sort,
             'pagination' => [
-                'pageSize' => \frontend\controllers\UsersController::PAGE_LIMIT
+                'pageSize' => \frontend\controllers\UsersController::PAGE_SIZE
             ]
         ]);
 
@@ -117,7 +117,8 @@ class UserSearch extends User
         }
 
         if ($this->qname) {
-            $query->filterWhere(['or',
+            $query->filterWhere([
+                'or',
                 ['like', 'u.last_name', $this->qname],
                 ['like', 'u.first_name', $this->qname]
             ]);
@@ -129,7 +130,6 @@ class UserSearch extends User
         }
 
         if ($this->isFreeNow) {
-
         }
 
         if ($this->isOnline) {
@@ -137,14 +137,12 @@ class UserSearch extends User
         }
 
         if ($this->isHasResponses) {
-
         }
 
         if ($this->isFavorite) {
-
         }
 
-        
+
 
         return $dataProvider;
     }

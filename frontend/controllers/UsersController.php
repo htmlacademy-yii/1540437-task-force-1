@@ -8,7 +8,7 @@ use Yii;
 class UsersController extends FrontendController
 {
     /** @var int Ограничения на колво записей */
-    const PAGE_LIMIT = 5;
+    const PAGE_SIZE = 5;
 
     public function actionIndex()
     {
