@@ -31,6 +31,7 @@ use yii\helpers\Html;
         } elseif ($model->lastLogin['i'] >= 0) {
             echo Yii::t('intl', 'users.lastlogin.i', ['gender' => $model->gender, 'n' => $model->lastLogin['i']]);
         }?>
+        <?= $model->last_logined_at ?>
         </span>
     </div>
     <?php if ($model->categories) : ?>

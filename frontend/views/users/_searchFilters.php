@@ -42,7 +42,8 @@ $form = ActiveForm::begin([
 
     <fieldset class="search-task__categories">
         <?= Html::tag('legend', Yii::t('app', 'Дополнительно')); ?>
-        <?= $form->field($model, 'canStart')->checkbox([
+        
+        <?= $form->field($model, 'isFreeNow')->checkbox([
             'class' => 'visually-hidden checkbox__input',
         ], false); ?>
 

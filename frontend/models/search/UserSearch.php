@@ -5,6 +5,7 @@ namespace frontend\models\search;
 use frontend\models\User;
 use yii\data\ActiveDataProvider;
 use yii\data\Sort;
+use yii\db\Expression;
 
 class UserSearch extends User
 {
@@ -19,7 +20,7 @@ class UserSearch extends User
     /** @var array ID категорий для поиска */
     public $categoryIds;
     /** @var bool Сейчас свбоден */
-    public $canStart;
+    public $isFreeNow;
     /** @var bool Сейчас онлайн */
     public $isOnline;
     /** @var bool Есть отзывы */
@@ -33,7 +34,7 @@ class UserSearch extends User
     {
         $parent = parent::attributeLabels();
         $parent['qname'] = \Yii::t('app', 'Поиск по имени');
-        $parent['canStart'] = \Yii::t('app', 'Сейчас свободен');
+        $parent['isFreeNow'] = \Yii::t('app', 'Сейчас свободен');
         $parent['isOnline'] = \Yii::t('app', 'Сейчас онлайн');
         $parent['isHasResponses'] = \Yii::t('app', 'Есть отзывы');
         $parent['isFavorite'] = \Yii::t('app', 'В избранном');
@@ -44,7 +45,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['qname', 'canStart', 'isOnline', 'isHasResponses', 'isFavorite'], 'safe'],
+            [['qname', 'isFreeNow', 'isOnline', 'isHasResponses', 'isFavorite'], 'safe'],
             [['categoryIds'], 'safe'],
             [['avgRating', 'countResponses', 'fullName'], 'safe'],
             // [['courier', 'cargo', 'translation', 'construction', 'walking'], 'safe'],
@@ -64,7 +65,6 @@ class UserSearch extends User
         $query->alias('u')
             ->select('u.*')
             ->joinWith(['categories c', 'taskResponses tr', 'performerTasks pt'])
-            // ->with(['performerTasks'])
             ->performers();
 
         $query->addSelect([
@@ -116,23 +116,24 @@ class UserSearch extends User
             return $dataProvider;
         }
 
+        if ($this->qname) {
+            $query->filterWhere(['or',
+                ['like', 'u.last_name', $this->qname],
+                ['like', 'u.first_name', $this->qname]
+            ]);
+            return $dataProvider;
+        }
+
         if (!empty($this->categoryIds)) {
             $query->andFilterWhere(['c.id' => $this->categoryIds]);
         }
 
-        if ($this->qname) {
-            $query->andFilterWhere([ 'or', 
-                [ 'like', 'u.last_name', $this->qname ],
-                [ 'like', 'u.first_name', $this->qname ],
-            ]);
-        }
-
-        if ($this->canStart) {
+        if ($this->isFreeNow) {
 
         }
-        
+
         if ($this->isOnline) {
-
+            $query->online();
         }
 
         if ($this->isHasResponses) {
@@ -142,6 +143,8 @@ class UserSearch extends User
         if ($this->isFavorite) {
 
         }
+
+        
 
         return $dataProvider;
     }
