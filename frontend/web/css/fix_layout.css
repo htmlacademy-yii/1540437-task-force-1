@@ -3,11 +3,15 @@ body {
     flex-direction: column;
     
 }
-main.page-main {
+main {
     flex: 1 auto;
     height: auto;
 }
 header, footer {
-    min-height: 1px;
+    /* min-height: 1px; */
+    height: auto;
+}
+
+main.page-main {
     height: auto;
 }

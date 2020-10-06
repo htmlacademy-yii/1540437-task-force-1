@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@ use yii\helpers\Url;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/fix_layout.css">
+    <link rel="stylesheet" href="/css/fix_layout.css?v=1.0.3">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>

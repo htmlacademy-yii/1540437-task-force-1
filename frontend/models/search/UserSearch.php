@@ -12,7 +12,9 @@ class UserSearch extends User
     public $q;
 
     public $avgRating;
+    public $countTasks;
     public $countResponses;
+
     public $fullName;
 
     /** @var array ID категорий для поиска */
@@ -51,15 +53,17 @@ class UserSearch extends User
     public function search(array $params): ActiveDataProvider
     {
         $query = User::find();
-        $query->alias('u')
+        $query
+            ->alias('u')
             ->select('u.*')
-            ->joinWith(['categories c', 'taskResponses tr'])
-            ->with(['performerTasks'])
+            ->joinWith(['categories c', 'taskResponses tr', 'performerTasks pt'])
+            // ->with(['performerTasks'])
             ->performers();
 
         $query->addSelect([
             'avgRating' => 'AVG(tr.`evaluation`)',
-            'countResponses' => 'COUNT(`tr`.`id`)'
+            'countResponses' => 'COUNT(tr.id)',
+            'countTasks' => 'COUNT(pt.id)'
         ]);
 
         $query->addGroupBy(['u.id', 'tr.user_id']);
@@ -67,30 +71,32 @@ class UserSearch extends User
         $sort = new Sort([
             'attributes' => [
                 'rtg' => [
-                    'asc'  => [ 'avgRating' => SORT_ASC ],
-                    'desc' => [ 'avgRating' => SORT_DESC ],
+                    'asc' => ['avgRating' => SORT_ASC],
+                    'desc' => ['avgRating' => SORT_DESC],
+                    'default' => SORT_DESC,
                     'label' => \Yii::t('app', 'Рейтингу')
                 ],
                 'tsc' => [
-                    'asc' => [ 'countResponses' => SORT_ASC ],
-                    'desc' => [ 'countResponses' => SORT_DESC ],
+                    'asc' => ['countTasks' => SORT_ASC],
+                    'desc' => ['countTasks' => SORT_DESC],
+                    'default' => SORT_DESC,
                     'label' => \Yii::t('app', 'Числу заказов')
                 ],
-                // 'pop' => [
-                //     'label' => 'Популярности'
-                // ],
+                'pop' => [
+                    'asc' => ['countResponses' => SORT_ASC],
+                    'desc' => ['countResponses' => SORT_DESC],
+                    'default' => SORT_DESC,
+                    'label' => 'Популярности'
+                ],
             ]
         ]);
 
-
-        // $sort->defaultOrder = [
-        //     'avgRating' => SORT_ASC
-        // ];
-
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => $sort
+            'sort' => $sort,
+            'pagination' => [
+                'pageSize' => \frontend\controllers\UsersController::PAGE_LIMIT
+            ]
         ]);
 
         $dataProvider->sort->defaultOrder = [
@@ -113,5 +119,4 @@ class UserSearch extends User
 
         return $dataProvider;
     }
-
 }

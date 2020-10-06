@@ -34,7 +34,7 @@ class UsersRandomiser extends Base
     private function getCustomers(): ?array
     {
         if (!$this->customers) {
-            $this->customers = \frontend\models\Users::find()
+            $this->customers = \frontend\models\User::find()
                 ->select('id')
                 ->customers()
                 ->asArray()
@@ -48,7 +48,7 @@ class UsersRandomiser extends Base
     private function getPerformers(): ?array
     {
         if (!$this->repformers) {
-            $this->repformers = \frontend\models\Users::find()
+            $this->repformers = \frontend\models\User::find()
                 ->select('id')
                 ->performers()
                 ->asArray()

@@ -23,22 +23,12 @@ class TasksRandomiser extends Base
     private function getData(): ?array
     {
         if (!$this->_data) {
-            $this->_data = \frontend\models\Tasks::find()
+            $this->_data = \frontend\models\Task::find()
                 ->select(['id', 'budget'])
                 ->asArray()
                 ->all();
         }
 
         return $this->_data;
-    }
-
-    /**
-     * Command with $this->command
-     *
-     * @return \yii\db\Command
-     */
-    private function getCreateCommand(): \yii\db\Command
-    {
-        return \Yii::$app->db->createCommand($this->command);
     }
 }

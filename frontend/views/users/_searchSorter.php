@@ -1,10 +1,8 @@
 <?php
 
-/** @var yii\web\View $this */
-
-use Codeception\Lib\Actor\Shared\Retry;
 use yii\helpers\Html;
 
+/** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 /** @var yii\data\Sort $sorter */
 

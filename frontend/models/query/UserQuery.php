@@ -10,12 +10,14 @@ class UserQuery extends \yii\db\ActiveQuery
     /** Заказчики */
     public function customers()
     {
-        return $this->andWhere(['role' => User::ROLE_CUSTOMER]);
+        list($b, $a) = $this->getTableNameAndAlias();
+        return $this->andWhere(["{$a}.role" => User::ROLE_CUSTOMER]);
     }
 
     /** Исполнители */
     public function performers()
     {
-        return $this->andWhere(['role' => User::ROLE_PERFORMER]);
+        list($b, $a) = $this->getTableNameAndAlias();
+        return $this->andWhere(["{$a}.role" => User::ROLE_PERFORMER]);
     }
 }
