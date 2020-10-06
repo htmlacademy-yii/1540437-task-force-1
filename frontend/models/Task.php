@@ -12,7 +12,6 @@ use frontend\models\query\TaskQuery as Query;
  */
 class Task extends BaseTask
 {
-
     /**
      * Query класс [[Categories]]
      *

@@ -24,6 +24,16 @@ use Yii;
  * @property float|null $lattitude
  * @property float|null $longtitude
  *
+<<<<<<< HEAD
+ * @property TaskMessages[] $taskMessages
+ * @property TaskResponses[] $taskResponses
+ * @property Categories $category
+ * @property Cities $city
+ * @property Users $customerUser
+ * @property Users $performerUser
+ * @property UserAttachments[] $userAttachments
+=======
+>>>>>>> 3bd84bf7b0f177b8b24981b055b0376d4831b0b3
  */
 class Tasks extends \yii\db\ActiveRecord
 {

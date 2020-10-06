@@ -20,7 +20,7 @@ use yii\helpers\Html;
             <p class="link-name">
                 <?= Html::a("{$model->last_name} {$model->first_name}", "#{$model->id}", ['class' => 'link-regular']); ?>
             </p>
-            <?= Stars::widget(['rating' => $model->avgRating ]); ?>
+            <?= Stars::widget(['rating' => $model->avgRating]); ?>
         </div>
         <span class="new-task__time">
         <?php
