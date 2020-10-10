@@ -3,7 +3,6 @@
 namespace frontend\models;
 
 use common\models\Tasks as BaseTask;
-use common\models\Users;
 use frontend\models\query\TaskQuery as Query;
 
 /**

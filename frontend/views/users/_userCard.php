@@ -13,7 +13,7 @@ use yii\helpers\Html;
     <div class="feedback-card__top">
         <div class="user__search-icon">
             <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), "#{$model->id}"); ?>
-            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->countPerformerTasks])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->countTasks])); ?>
             <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => $model->countResponses])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
@@ -23,15 +23,15 @@ use yii\helpers\Html;
             <?= Stars::widget(['rating' => $model->avgRating]); ?>
         </div>
         <span class="new-task__time">
-        <?php
-        if ($model->lastLogin['d'] > 0) {
-            echo Yii::t('intl', 'users.lastlogin.d', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['d']]);
-        } elseif ($model->lastLogin['h'] > 0) {
-            echo Yii::t('intl', 'users.lastlogin.h', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['h']]);
-        } elseif ($model->lastLogin['i'] >= 0) {
-            echo Yii::t('intl', 'users.lastlogin.i', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['i']]);
-        }?>
-        <?= $model->last_logined_at ?>
+            <?php
+            if ($model->lastLogin['d'] > 0) {
+                echo Yii::t('intl', 'users.lastlogin.d', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['d']]);
+            } elseif ($model->lastLogin['h'] > 0) {
+                echo Yii::t('intl', 'users.lastlogin.h', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['h']]);
+            } elseif ($model->lastLogin['i'] >= 0) {
+                echo Yii::t('intl', 'users.lastlogin.i', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['i']]);
+            } ?>
+            <?= $model->last_logined_at ?>
         </span>
     </div>
     <?php if ($model->categories) : ?>

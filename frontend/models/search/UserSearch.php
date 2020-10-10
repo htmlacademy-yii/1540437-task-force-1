@@ -66,15 +66,15 @@ class UserSearch extends User
             ->joinWith([
                 'profile p',
                 'userCategories uc',
+                'tasks t',
                 'taskResponses tr',
-                'tasks t'
             ])
             ->having(['>', 'countUserCategory', 0]);
 
         $query->addSelect([
-            'avgRating' => 'AVG(`tr`.`evaluation`)',
-            'countUserCategory' => 'COUNT(uc.id)',
-            'countResponses' => 'COUNT(DISTINCT `tr`.`id`)',
+            'avgRating' => 'AVG(`evaluation`)',
+            'countResponses' => 'COUNT(DISTINCT tr.id)',
+            'countUserCategory' => 'COUNT(DISTINCT uc.id)',
             'countTasks' => 'COUNT(DISTINCT `t`.`id`)'
         ]);
 
@@ -134,6 +134,11 @@ class UserSearch extends User
             $query->andFilterWhere(['uc.category_id' => $this->categoryIds]);
         }
 
+        if ($this->isFreeNow) {
+            $busyUsersQuery = \frontend\models\Task::find()->select('user_id')->free();
+            $query->andFilterWhere(['u.id' => $busyUsersQuery]);
+        }
+
         if ($this->isOnline) {
             $query->online();
         }
@@ -143,6 +148,8 @@ class UserSearch extends User
         }
 
         if ($this->isFavorite) {
+            $query->joinWith(['userFavorites uf']);
+            $query->andFilterWhere(['uf.user_id' => \Yii::$app->user->id]);
         }
 
         return $dataProvider;

@@ -14,23 +14,17 @@ class TaskQuery extends \yii\db\ActiveQuery
         return $this->andWhere([$status => \app\bizzlogic\Task::STATUS_NEW]);
     }
 
-    public function active()
+    public function busy()
     {
         $status = $this->_field('status');
-
-        return $this->andWhere(['in', $status, [
-            Task::STATUS_NEW,
-            Task::STATUS_INPROGRESS
-        ]]);
+        return $this->andWhere([$status => Task::STATUS_INPROGRESS]);
     }
 
-    public function notActive()
+    public function free()
     {
         $status = $this->_field('status');
-        return $this->andWhere(['not in', $status, [
-            Task::STATUS_NEW,
-            Task::STATUS_INPROGRESS
-        ]]);
+
+        return $this->andWhere(['!=', $status, Task::STATUS_INPROGRESS]);
     }
 
     /** Завершенные задания */

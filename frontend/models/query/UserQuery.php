@@ -7,21 +7,6 @@ use app\bizzlogic\User;
 /** {@inheritDoc} */
 class UserQuery extends \yii\db\ActiveQuery
 {
-    /** Заказчики */
-    public function customers()
-    {
-        $field = $this->_field('role');
-        return $this->andWhere([$field => User::ROLE_CUSTOMER]);
-    }
-
-    /** Исполнители */
-    public function performers()
-    {
-        $field = $this->_field('role');
-
-        return $this->andWhere([$field => User::ROLE_PERFORMER]);
-    }
-
     /**
      * {@inheritDoc}
      *

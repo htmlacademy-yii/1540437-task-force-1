@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use common\models\Users;
 use frontend\models\query\UserQuery as Query;
+use Yii;
 
 /**
  * {@inheritDoc}
@@ -36,6 +37,11 @@ class User extends Users
     {
         return $this->hasMany(Category::class, ['id' => 'category_id'])
             ->via('userCategories');
+    }
+
+    public function getCountTasks()
+    {
+        return count($this->tasks);
     }
 
     /**
