@@ -22,9 +22,8 @@ class User extends Users
     /** @return array DateInterval values */
     public function getLastLogin(): array
     {
-        $timeZone = new \DateTimeZone('Europe/Moscow');
-        $now = new \DateTime('now', $timeZone);
-        $created = new \DateTime($this->last_logined_at, $timeZone);
+        $now = new \DateTime('now');
+        $created = new \DateTime($this->last_logined_at);
         return (array) $now->diff($created);
     }
 
@@ -36,7 +35,7 @@ class User extends Users
     public function getCategories(): \frontend\models\query\CategoryQuery
     {
         return $this->hasMany(Category::class, ['id' => 'category_id'])
-            ->viaTable('user_categories', ['user_id' => 'id']);
+            ->via('userCategories');
     }
 
     /**
@@ -47,16 +46,6 @@ class User extends Users
     public function getPerformerTasks()
     {
         return $this->hasMany(Task::class, ['user_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Tasks]].
-     *
-     * @return \frontend\models\query\TaskQuery
-     */
-    public function getCustomerTasks(): \frontend\models\query\TaskQuery
-    {
-        return $this->hasMany(Task::class, ['customer_user_id' => 'id']);
     }
 
     /** @return int Кол-во Заданий Исполнителя */

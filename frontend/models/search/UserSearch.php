@@ -62,20 +62,20 @@ class UserSearch extends User
         $query = User::find();
         $query->alias('u')
             ->select('u.*')
-            ->with(['categories', 'profile'])
+            ->with(['categories'])
             ->joinWith([
+                'profile p',
                 'userCategories uc',
                 'taskResponses tr',
-                'performerTasks pt'
+                'tasks t'
             ])
-            //->filterHaving(['not', 'uc.id' => null]);
             ->having(['>', 'countUserCategory', 0]);
 
         $query->addSelect([
             'avgRating' => 'AVG(`tr`.`evaluation`)',
             'countUserCategory' => 'COUNT(uc.id)',
             'countResponses' => 'COUNT(DISTINCT `tr`.`id`)',
-            'countTasks' => 'COUNT(DISTINCT `pt`.`id`)'
+            'countTasks' => 'COUNT(DISTINCT `t`.`id`)'
         ]);
 
         $query->addGroupBy(['u.id']);
@@ -122,9 +122,10 @@ class UserSearch extends User
         }
 
         if ($this->qname) {
-            $query->andfilterWhere(['or',
-                ['like', 'u.last_name', $this->qname],
-                ['like', 'u.first_name', $this->qname]
+            $query->andfilterWhere([
+                'or',
+                ['like', 'p.last_name', $this->qname],
+                ['like', 'p.first_name', $this->qname]
             ]);
             return $dataProvider;
         }
