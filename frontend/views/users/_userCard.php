@@ -18,18 +18,18 @@ use yii\helpers\Html;
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">
-                <?= Html::a("{$model->last_name} {$model->first_name}", "#{$model->id}", ['class' => 'link-regular']); ?>
+                <?= Html::a("{$model->lastName} {$model->firstName}", "#{$model->id}", ['class' => 'link-regular']); ?>
             </p>
             <?= Stars::widget(['rating' => $model->avgRating]); ?>
         </div>
         <span class="new-task__time">
         <?php
         if ($model->lastLogin['d'] > 0) {
-            echo Yii::t('intl', 'users.lastlogin.d', ['gender' => $model->gender, 'n' => $model->lastLogin['d']]);
+            echo Yii::t('intl', 'users.lastlogin.d', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['d']]);
         } elseif ($model->lastLogin['h'] > 0) {
-            echo Yii::t('intl', 'users.lastlogin.h', ['gender' => $model->gender, 'n' => $model->lastLogin['h']]);
+            echo Yii::t('intl', 'users.lastlogin.h', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['h']]);
         } elseif ($model->lastLogin['i'] >= 0) {
-            echo Yii::t('intl', 'users.lastlogin.i', ['gender' => $model->gender, 'n' => $model->lastLogin['i']]);
+            echo Yii::t('intl', 'users.lastlogin.i', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['i']]);
         }?>
         <?= $model->last_logined_at ?>
         </span>
@@ -39,12 +39,6 @@ use yii\helpers\Html;
             <?php foreach ($model->categories as $category) : ?>
                 <?= Html::a($category->name, null, ['class' => 'link-regular']) ?>
             <?php endforeach; ?>
-        </div>
-    <?php else : ?>
-        <div class="link-specialization user__search-link--bottom">
-            <a href="#" class="link-regular">Ремонт</a>
-            <a href="#" class="link-regular">Курьер</a>
-            <a href="#" class="link-regular">Оператор ПК</a>
         </div>
     <?php endif; ?>
 

@@ -17,9 +17,9 @@ class User
     const ROLE_PERFORMER = 2;
 
     /** @var string Мужской */
-    const GENDER_MALE = 'male';
+    const GENDER_MALE = 'MALE';
     /** @var string Женский */
-    const GENDER_FEMALE = 'female';
+    const GENDER_FEMALE = 'FEMALE';
 
     /** @return array Список доступных гендерных признаков */
     public static function genderMap(?string $gender = null): array

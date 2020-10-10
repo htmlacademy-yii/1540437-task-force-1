@@ -35,12 +35,12 @@ class GenderIcon extends \yii\base\Widget
                 $iconName = 'woman';
                 break;
             default:
-                return null;
+                $iconName = null;
                 break;
         }
 
         if (is_null($iconName)) {
-            return null;
+            return '';
         }
 
         return "img/{$iconName}-glasses.jpg";

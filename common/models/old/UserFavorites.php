@@ -10,8 +10,6 @@ use Yii;
  * @property int $id
  * @property int $user_id
  * @property int $favorite_user_id
- *
- * @property Users $favoriteUser
  */
 class UserFavorites extends \yii\db\ActiveRecord
 {
@@ -32,6 +30,7 @@ class UserFavorites extends \yii\db\ActiveRecord
             [['user_id', 'favorite_user_id'], 'required'],
             [['user_id', 'favorite_user_id'], 'integer'],
             [['favorite_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['favorite_user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -45,15 +44,5 @@ class UserFavorites extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'favorite_user_id' => Yii::t('app', 'Favorite User ID'),
         ];
-    }
-
-    /**
-     * Gets query for [[FavoriteUser]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFavoriteUser()
-    {
-        return $this->hasOne(Users::class, ['id' => 'favorite_user_id'])->inverseOf('userFavorites');
     }
 }

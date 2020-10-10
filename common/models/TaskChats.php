@@ -5,28 +5,26 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "task_responses".
+ * This is the model class for table "task_chats".
  *
  * @property int $id
  * @property int $task_id
  * @property int $user_id
- * @property float|null $amount
- * @property string|null $comment
- * @property int|null $evaluation
  * @property string $created_at
  * @property string|null $updated_at
+ * @property string|null $message
  *
  * @property Tasks $task
  * @property Users $user
  */
-class TaskResponses extends \yii\db\ActiveRecord
+class TaskChats extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'task_responses';
+        return 'task_chats';
     }
 
     /**
@@ -36,10 +34,9 @@ class TaskResponses extends \yii\db\ActiveRecord
     {
         return [
             [['task_id', 'user_id'], 'required'],
-            [['task_id', 'user_id', 'evaluation'], 'integer'],
-            [['amount'], 'number'],
-            [['comment'], 'string'],
+            [['task_id', 'user_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
+            [['message'], 'string'],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -54,11 +51,9 @@ class TaskResponses extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'task_id' => Yii::t('app', 'Task ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'amount' => Yii::t('app', 'Amount'),
-            'comment' => Yii::t('app', 'Comment'),
-            'evaluation' => Yii::t('app', 'Evaluation'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'message' => Yii::t('app', 'Message'),
         ];
     }
 
@@ -69,7 +64,7 @@ class TaskResponses extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('taskResponses');
+        return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('taskChats');
     }
 
     /**
@@ -79,6 +74,6 @@ class TaskResponses extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('taskResponses');
+        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('taskChats');
     }
 }

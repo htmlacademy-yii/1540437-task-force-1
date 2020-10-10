@@ -7,15 +7,15 @@ use frontend\models\Task;
 class TasksController extends FrontendController
 {
     /** @var int Ограничения на колво записей */
-    const PAGE_LIMIT = 15;
+    const PAGE_SIZE = 15;
 
     public function actionIndex()
     {
         $models = Task::find()
             ->with(['category', 'city'])
-            ->avaiable()
+            ->new()
             ->orderBy(['created_at' => SORT_DESC])
-            ->limit(self::PAGE_LIMIT)
+            ->limit(self::PAGE_SIZE)
             ->all();
 
         return $this->render('index', [

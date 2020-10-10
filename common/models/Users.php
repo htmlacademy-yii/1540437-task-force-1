@@ -9,26 +9,26 @@ use Yii;
  *
  * @property int $id
  * @property int $city_id
- * @property string|null $about
+ * @property int|null $profile_id
  * @property int $role
- * @property string $first_name
- * @property string|null $last_name
- * @property string|null $gender
  * @property string $email
- * @property string|null $birth_date
- * @property string|null $avatar
  * @property string $password_hash
  * @property string|null $token
- * @property string|null $phone
- * @property string|null $skype
- * @property string|null $telegramm
- * @property int $failed_task_count
  * @property int $is_profile_public
  * @property int $is_contact_public
  * @property string $created_at
  * @property string|null $updated_at
- * @property string $last_logined_at
+ * @property string|null $last_logined_at
  *
+ * @property TaskChats[] $taskChats
+ * @property TaskResponses[] $taskResponses
+ * @property Tasks[] $tasks
+ * @property UserAttachments[] $userAttachments
+ * @property UserCategories[] $userCategories
+ * @property UserFavorites[] $userFavorites
+ * @property UserNotifications[] $userNotifications
+ * @property Cities $city
+ * @property UserProfile $profile
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -46,15 +46,14 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_id', 'role', 'first_name', 'email', 'password_hash'], 'required'],
-            [['city_id', 'role', 'failed_task_count', 'is_profile_public', 'is_contact_public'], 'integer'],
-            [['about', 'gender'], 'string'],
-            [['birth_date', 'created_at', 'updated_at', 'last_logined_at'], 'safe'],
-            [['first_name', 'last_name', 'email'], 'string', 'max' => 245],
-            [['avatar', 'phone', 'skype', 'telegramm'], 'string', 'max' => 128],
+            [['city_id', 'role', 'email', 'password_hash'], 'required'],
+            [['city_id', 'profile_id', 'role', 'is_profile_public', 'is_contact_public'], 'integer'],
+            [['created_at', 'updated_at', 'last_logined_at'], 'safe'],
+            [['email'], 'string', 'max' => 245],
             [['password_hash', 'token'], 'string', 'max' => 256],
             [['email'], 'unique'],
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['city_id' => 'id']],
+            [['profile_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserProfile::class, 'targetAttribute' => ['profile_id' => 'id']],
         ];
     }
 
@@ -66,25 +65,106 @@ class Users extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'city_id' => Yii::t('app', 'City ID'),
-            'about' => Yii::t('app', 'About'),
+            'profile_id' => Yii::t('app', 'Profile ID'),
             'role' => Yii::t('app', 'Role'),
-            'first_name' => Yii::t('app', 'First Name'),
-            'last_name' => Yii::t('app', 'Last Name'),
-            'gender' => Yii::t('app', 'Gender'),
             'email' => Yii::t('app', 'Email'),
-            'birth_date' => Yii::t('app', 'Birth Date'),
-            'avatar' => Yii::t('app', 'Avatar'),
             'password_hash' => Yii::t('app', 'Password Hash'),
             'token' => Yii::t('app', 'Token'),
-            'phone' => Yii::t('app', 'Phone'),
-            'skype' => Yii::t('app', 'Skype'),
-            'telegramm' => Yii::t('app', 'Telegramm'),
-            'failed_task_count' => Yii::t('app', 'Failed Task Count'),
             'is_profile_public' => Yii::t('app', 'Is Profile Public'),
             'is_contact_public' => Yii::t('app', 'Is Contact Public'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'last_logined_at' => Yii::t('app', 'Last Logined At'),
         ];
+    }
+
+    /**
+     * Gets query for [[TaskChats]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTaskChats()
+    {
+        return $this->hasMany(TaskChats::class, ['user_id' => 'id'])->inverseOf('user');
+    }
+
+    /**
+     * Gets query for [[TaskResponses]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTaskResponses()
+    {
+        return $this->hasMany(TaskResponses::class, ['user_id' => 'id'])->inverseOf('user');
+    }
+
+    /**
+     * Gets query for [[Tasks]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTasks()
+    {
+        return $this->hasMany(Tasks::class, ['user_id' => 'id'])->inverseOf('user');
+    }
+
+    /**
+     * Gets query for [[UserAttachments]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserAttachments()
+    {
+        return $this->hasMany(UserAttachments::class, ['user_id' => 'id'])->inverseOf('user');
+    }
+
+    /**
+     * Gets query for [[UserCategories]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserCategories()
+    {
+        return $this->hasMany(UserCategories::class, ['user_id' => 'id'])->inverseOf('user');
+    }
+
+    /**
+     * Gets query for [[UserFavorites]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserFavorites()
+    {
+        return $this->hasMany(UserFavorites::class, ['favorite_user_id' => 'id'])->inverseOf('favoriteUser');
+    }
+
+    /**
+     * Gets query for [[UserNotifications]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserNotifications()
+    {
+        return $this->hasMany(UserNotifications::class, ['user_id' => 'id'])->inverseOf('user');
+    }
+
+    /**
+     * Gets query for [[City]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(Cities::class, ['id' => 'city_id'])->inverseOf('users');
+    }
+
+    /**
+     * Gets query for [[Profile]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(UserProfile::class, ['id' => 'profile_id'])->inverseOf('users');
     }
 }

@@ -10,9 +10,6 @@ use Yii;
  * @property int $id
  * @property int $user_id
  * @property int $category_id
- *
- * @property Categories $category
- * @property Users $user
  */
 class UserCategories extends \yii\db\ActiveRecord
 {
@@ -47,25 +44,5 @@ class UserCategories extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'category_id' => Yii::t('app', 'Category ID'),
         ];
-    }
-
-    /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasOne(Categories::class, ['id' => 'category_id'])->inverseOf('userCategories');
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('userCategories');
     }
 }

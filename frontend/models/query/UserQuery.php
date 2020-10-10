@@ -10,15 +10,16 @@ class UserQuery extends \yii\db\ActiveQuery
     /** Заказчики */
     public function customers()
     {
-        list($b, $a) = $this->getTableNameAndAlias();
-        return $this->andWhere(["{$a}.role" => User::ROLE_CUSTOMER]);
+        $field = $this->_field('role');
+        return $this->andWhere([$field => User::ROLE_CUSTOMER]);
     }
 
     /** Исполнители */
     public function performers()
     {
-        list($b, $a) = $this->getTableNameAndAlias();
-        return $this->andWhere(["{$a}.role" => User::ROLE_PERFORMER]);
+        $field = $this->_field('role');
+
+        return $this->andWhere([$field => User::ROLE_PERFORMER]);
     }
 
     /**
@@ -29,8 +30,20 @@ class UserQuery extends \yii\db\ActiveQuery
      */
     public function online(int $minutes = 30): self
     {
-        list($b, $a) = $this->getTableNameAndAlias();
+        $field = $this->_field('last_logined_at');
         $expression = "NOW() - INTERVAL {$minutes} MINUTE";
-        return $this->andWhere(['>=', "{$a}.last_logined_at", new \yii\db\Expression($expression)]);
+        return $this->andWhere(['>=', $field, new \yii\db\Expression($expression)]);
+    }
+
+    /**
+     * Имя поля, с альясом таблицы или без.
+     *
+     * @param string $fieldName Имя поля
+     * @return string
+     */
+    private function _field(string $fieldName): string
+    {
+        list($b, $a) = $this->getTableNameAndAlias();
+        return $a === $b ? $fieldName : "{$a}.{$fieldName}";
     }
 }

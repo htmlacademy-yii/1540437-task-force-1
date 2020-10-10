@@ -5,7 +5,6 @@ namespace frontend\models\search;
 use frontend\models\User;
 use yii\data\ActiveDataProvider;
 use yii\data\Sort;
-use yii\db\Expression;
 
 class UserSearch extends User
 {
@@ -28,8 +27,7 @@ class UserSearch extends User
     /** @var bool В избранном */
     public $isFavorite;
 
-
-    /** {@inheritDoc} */    
+    /** {@inheritDoc} */
     public function attributeLabels()
     {
         $parent = parent::attributeLabels();
@@ -64,16 +62,23 @@ class UserSearch extends User
         $query = User::find();
         $query->alias('u')
             ->select('u.*')
-            ->joinWith(['categories c', 'taskResponses tr', 'performerTasks pt'])
-            ->performers();
+            ->with(['categories', 'profile'])
+            ->joinWith([
+                'userCategories uc',
+                'taskResponses tr',
+                'performerTasks pt'
+            ])
+            //->filterHaving(['not', 'uc.id' => null]);
+            ->having(['>', 'countUserCategory', 0]);
 
         $query->addSelect([
-            'avgRating' => 'AVG(tr.`evaluation`)',
-            'countResponses' => 'COUNT(tr.id)',
-            'countTasks' => 'COUNT(pt.id)'
+            'avgRating' => 'AVG(`tr`.`evaluation`)',
+            'countUserCategory' => 'COUNT(uc.id)',
+            'countResponses' => 'COUNT(DISTINCT `tr`.`id`)',
+            'countTasks' => 'COUNT(DISTINCT `pt`.`id`)'
         ]);
 
-        $query->addGroupBy(['u.id', 'tr.user_id']);
+        $query->addGroupBy(['u.id']);
 
         $sort = new Sort([
             'attributes' => [
@@ -117,7 +122,7 @@ class UserSearch extends User
         }
 
         if ($this->qname) {
-            $query->filterWhere(['or',
+            $query->andfilterWhere(['or',
                 ['like', 'u.last_name', $this->qname],
                 ['like', 'u.first_name', $this->qname]
             ]);
@@ -125,11 +130,7 @@ class UserSearch extends User
         }
 
         if (!empty($this->categoryIds)) {
-            $query->andFilterWhere(['c.id' => $this->categoryIds]);
-        }
-
-        if ($this->isFreeNow) {
-
+            $query->andFilterWhere(['uc.category_id' => $this->categoryIds]);
         }
 
         if ($this->isOnline) {
@@ -137,14 +138,11 @@ class UserSearch extends User
         }
 
         if ($this->isHasResponses) {
-
+            $query->andFilterHaving(['>', 'countResponses', 0]);
         }
 
         if ($this->isFavorite) {
-
         }
-
-        
 
         return $dataProvider;
     }

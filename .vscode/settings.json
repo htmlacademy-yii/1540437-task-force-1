@@ -10,7 +10,6 @@
   "namespaceResolver.exclude": "**/node_modules/**",
   "namespaceResolver.autoSort": true,
   "namespaceResolver.leadingSeparator": true,
-  "phpdoc-generator.shortType": true,
   "php-cs-fixer.executablePath": "php-cs-fixer",
   "php-cs-fixer.onsave": true,
   "php-cs-fixer.config": ".vscode/.php_cs;",
