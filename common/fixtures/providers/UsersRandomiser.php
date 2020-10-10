@@ -35,8 +35,11 @@ class UsersRandomiser extends Base
     {
         if (!$this->customers) {
             $this->customers = \frontend\models\User::find()
-                ->select('id')
-                ->customers()
+                ->select('users.id')
+                ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
+                ->joinWith('userCategories uc')
+                ->having(['=', 'countUserCategory', 0])
+                ->groupBy('users.id')
                 ->asArray()
                 ->all();
         }
@@ -49,8 +52,11 @@ class UsersRandomiser extends Base
     {
         if (!$this->repformers) {
             $this->repformers = \frontend\models\User::find()
-                ->select('id')
-                ->performers()
+                ->select('users.id')
+                ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
+                ->joinWith('userCategories uc')
+                ->having(['>', 'countUserCategory', 0])
+                ->groupBy('users.id')
                 ->asArray()
                 ->all();
         }

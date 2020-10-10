@@ -9,6 +9,8 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `taskforce` /*!40100 DEFAULT CHARACTER 
 
 USE `taskforce`;
 
+SET FOREIGN_KEY_CHECKS=0;
+
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -176,3 +178,5 @@ CREATE TABLE `users` (
   CONSTRAINT `fk_users_cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_users_profile` FOREIGN KEY (`profile_id`) REFERENCES `user_profile` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS=1;

@@ -5,8 +5,7 @@
  * @var integer $index
  */
 return [
-    'performer_user_id' => $faker->randomPerformer(true),
-    'customer_user_id' => $faker->randomCustomer,
+    'user_id' => $faker->unique()->numberBetween(1, 50),
     'city_id' => $faker->numberBetween(1, 1108),
     'category_id' => $faker->numberBetween(1, 8),
     'title' => $faker->text(20),
