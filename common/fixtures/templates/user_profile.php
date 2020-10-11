@@ -14,5 +14,6 @@ return [
     'gender' => $gender,
     'birth_date' => $faker->dateTimeInInterval('-30 years', '+5 years')->format('Y-m-d H:i:s'),
     'phone' => $faker->phoneNumber,
-    'skype' => $faker->text(5)
+    'skype' => $faker->text(5),
+    'views' => $faker->numberBetween(0, 300),
 ];

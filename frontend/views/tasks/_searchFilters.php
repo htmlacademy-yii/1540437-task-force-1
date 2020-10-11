@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var yii\db\ActiveRecord[] */
-/** @var frontend\models\search\UserSearch $model */
+/** @var frontend\models\search\TaskSearch $model */
 
 $categoryList = ArrayHelper::map(\frontend\models\Category::find()->all(), 'id', 'name');
 
@@ -43,22 +43,24 @@ $form = ActiveForm::begin([
     <fieldset class="search-task__categories">
         <?= Html::tag('legend', Yii::t('app', 'Дополнительно')); ?>
         
-        <?= $form->field($model, 'isFreeNow')->checkbox([
-            'class' => 'visually-hidden checkbox__input',            
-        ], false); ?>
-
-        <?= $form->field($model, 'isOnline')->checkbox([
+        <?= $form->field($model, 'empty')->checkbox([
             'class' => 'visually-hidden checkbox__input',
         ], false); ?>
-
-        <?= $form->field($model, 'isHasResponses')->checkbox([
-            'class' => 'visually-hidden checkbox__input',
-        ], false); ?>
-
-        <?= $form->field($model, 'isFavorite')->checkbox([
+        <?= $form->field($model, 'remoteWork')->checkbox([
             'class' => 'visually-hidden checkbox__input',
         ], false); ?>
     </fieldset>
+
+    <?= $form->field($model, 'period', [
+        'template' => "{label}\n{input}",
+        'inputOptions' => [ 'class' => 'multiple-select input' ],
+        'labelOptions' => [ 'class' => 'search-task__name' ]
+    ])->dropDownList([
+        '' => 'За всё время',
+        'd' => 'За день',
+        'm' => 'За неделю',
+        'h' => 'Зав месяц'
+    ]); ?>
 
     <?= $form->field($model, 'qname', [
         'template' => "{label}\n{input}",

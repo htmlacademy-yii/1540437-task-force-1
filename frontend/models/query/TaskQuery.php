@@ -14,17 +14,24 @@ class TaskQuery extends \yii\db\ActiveQuery
         return $this->andWhere([$status => \app\bizzlogic\Task::STATUS_NEW]);
     }
 
-    public function busy()
+    /** 
+     * Свободные или занятые пользователи.
+     * По умолчанию, пользователи без активных заданий.
+     * 
+     * @param bool $free по умолчанию true
+     * @return self
+     */
+    public function free(bool $free = true): self
     {
         $status = $this->_field('status');
-        return $this->andWhere([$status => Task::STATUS_INPROGRESS]);
-    }
 
-    public function free()
-    {
-        $status = $this->_field('status');
+        if ($free) {
+            return $this->andWhere(['!=', $status, Task::STATUS_INPROGRESS]);
+        } else {
+            return $this->andWhere([$status => Task::STATUS_INPROGRESS]);
+        }
 
-        return $this->andWhere(['!=', $status, Task::STATUS_INPROGRESS]);
+        
     }
 
     /** Завершенные задания */
@@ -38,13 +45,6 @@ class TaskQuery extends \yii\db\ActiveQuery
                 \app\bizzlogic\Task::STATUS_FAIL
             ]
         ]);
-    }
-
-    /** Без активных заданий */
-    public function nowFree()
-    {
-        $performer = $this->_field('performer_user_id');
-        return $this->andWhere([$performer => null]);
     }
 
     /**

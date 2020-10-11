@@ -2,24 +2,21 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Task;
+use frontend\models\search\TaskSearch;
 
 class TasksController extends FrontendController
 {
     /** @var int Ограничения на колво записей */
-    const PAGE_SIZE = 15;
+    const PAGE_SIZE = 5;
 
     public function actionIndex()
     {
-        $models = Task::find()
-            ->with(['category', 'city'])
-            ->new()
-            ->orderBy(['created_at' => SORT_DESC])
-            ->limit(self::PAGE_SIZE)
-            ->all();
+        $searchModel  = new TaskSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->getRequest()->post());
 
         return $this->render('index', [
-            'models' => $models
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 }

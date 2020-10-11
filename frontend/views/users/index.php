@@ -8,11 +8,14 @@ $this->title = 'Исполнители';
 ?>
 
 <section class="user__search">
-    <?= $this->render('_searchSorter', [ 'dataProvider' => $dataProvider ]); ?>
-    <?php foreach ($dataProvider->getModels() as $model) : ?>
-        <?= $this->render('_userCard', ['model' => $model]); ?>
-    <?php endforeach; ?>
+    <div class="user__wrapper">
+        <?= $this->render('_searchSorter', [ 'dataProvider' => $dataProvider ]); ?>
+        <?php foreach ($dataProvider->getModels() as $model) : ?>
+            <?= $this->render('_userCard', ['model' => $model]); ?>
+        <?php endforeach; ?>
+    </div>
 </section>
+
 <section class="search-task">
     <div class="search-task__wrapper">
         <?= $this->render('_searchFilters', [
