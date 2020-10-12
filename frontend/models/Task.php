@@ -12,41 +12,6 @@ use frontend\models\query\TaskQuery as Query;
  */
 class Task extends BaseTask
 {
-    /**
-     * Query класс [[Categories]]
-     *
-     * @return \frontend\models\query\CategoriesQuery
-     */
-    public function getCategory(): \frontend\models\query\CategoryQuery
-    {
-        return $this->hasOne(Category::class, ['id' => 'category_id']);
-    }
-
-    /**
-     * Query класс [[Cities]]
-     *
-     * @return \frontend\models\query\CitiesQuery
-     */
-    public function getCity(): \frontend\models\query\CityQuery
-    {
-        return $this->hasOne(City::class, ['id' => 'city_id']);
-    }
-
-    /**
-     * Query класс [[TaskResponses]].
-     *
-     * @return \frontend\models\query\TaskResponsesQuery
-     */
-    public function getTaskResponses(): \frontend\models\query\TaskResponsesQuery
-    {
-        return $this->hasMany(TaskResponses::class, ['id' => 'task_id'])->inverseOf('task');
-    }
-
-    public function getCustomer()
-    {
-        return $this->hasOne(User::class, ['id' => 'customer_user_id']);
-    }
-
     /** @return array \DateTime array values */
     public function getInterval(): array
     {

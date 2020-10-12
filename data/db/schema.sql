@@ -146,17 +146,18 @@ CREATE TABLE `user_notifications` (
 DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `about` text CHARACTER SET utf8 COLLATE utf8_bin,
-  `first_name` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
-  `last_name` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
-  `gender` enum('MALE','FEMALE') CHARACTER SET latin1 DEFAULT NULL,
+  `about` text DEFAULT NULL,
+  `first_name` varchar(200) DEFAULT NULL,
+  `last_name` varchar(200) DEFAULT NULL,
+  `gender` enum('MALE','FEMALE') DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
-  `phone` varchar(90) CHARACTER SET latin1 DEFAULT NULL,
-  `skype` varchar(90) CHARACTER SET latin1 DEFAULT NULL,
-  `telegramm` varchar(90) CHARACTER SET latin1 DEFAULT NULL,
-  `avatar` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `phone` varchar(90) DEFAULT NULL,
+  `skype` varchar(90) DEFAULT NULL,
+  `telegramm` varchar(90) DEFAULT NULL,
+  `avatar` varchar(45) DEFAULT NULL,
+  `views` INT unsigned NOT NULL DEFAULT '0'
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='COmm';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (

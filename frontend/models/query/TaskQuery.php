@@ -30,8 +30,16 @@ class TaskQuery extends \yii\db\ActiveQuery
         } else {
             return $this->andWhere([$status => Task::STATUS_INPROGRESS]);
         }
+    }
 
-        
+    public function withAddress(bool $remote = true): self
+    {
+        $address = $this->_field('address');
+        if ($remote) {
+            return $this->andWhere(['IS', $address, NULL]);
+        }
+        return $this->andWhere(['IS NOT', $address, NULL]);
+        // return $this->andWhere([$address, $isRemote]);
     }
 
     /** Завершенные задания */

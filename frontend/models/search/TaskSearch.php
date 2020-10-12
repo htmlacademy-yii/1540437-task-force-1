@@ -2,9 +2,9 @@
 
 namespace frontend\models\search;
 
+use DateTime;
 use frontend\models\Task;
 use yii\data\ActiveDataProvider;
-use yii\data\Sort;
 
 class TaskSearch extends Task
 {
@@ -12,11 +12,10 @@ class TaskSearch extends Task
 
     /** @var array ID категорий для поиска */
     public $categoryIds;
-    /** @var bool Сейчас свбоден */
-    public $period = 'm';
 
-    public $remoteWork;
-
+    /** @var string Интервал даты */
+    public $period = 'week';
+    public $remoteWork = false;
     public $empty;
 
     /** {@inheritDoc} */
@@ -33,11 +32,12 @@ class TaskSearch extends Task
     /** {@inheritDoc} */
     public function rules()
     {
-        return [
-            [['qname', 'period' ], 'safe'],
-            [['categoryIds'], 'safe'],
-            [['remoteWork', 'empty'], 'safe']
+        $parent = parent::rules();
+        $parent[] = [
+            ['qname', 'period', 'categoryIds', 'remoteWork', 'empty'], 'safe'
         ];
+
+        return $parent;
     }
 
     /**
@@ -48,34 +48,54 @@ class TaskSearch extends Task
      */
     public function search(array $params): ActiveDataProvider
     {
-        $query = Task::find();
-
-        $sort = new Sort([
-            'attributes' => []
-        ]);
+        $query = Task::find()->with(['city', 'category'])->new();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => $sort,
             'pagination' => [
                 'pageSize' => \frontend\controllers\TasksController::PAGE_SIZE
             ]
         ]);
 
-        // $dataProvider->sort->defaultOrder = [
-        //     'rtg' => [
-        //         'avgRating' => SORT_DESC
-        //     ]
-        // ];
-
-        if (!($this->load($params))) {
+        if (!empty($params) && !$this->load($params)) {
             return $dataProvider;
         }
 
         if ($this->qname) {
             $query->andFilterWhere(['like', 'title', $this->qname]);
+            return $dataProvider;
+        }
+
+        if (isset($this->remoteWork)) {
+            $query->withAddress($this->remoteWork);
+        }
+
+        if ($this->period) {
+            $query->andFilterWhere(['>=', 'tasks.created_at', (new DateTime("-1 {$this->period}"))->format('Y-m-d')]);
+        }
+
+        if ($this->categoryIds) {
+            $query->andFilterWhere(['tasks.category_id' => $this->categoryIds]);
+        }
+
+        if ($this->empty) {
+            $taskResponsesQuery = \frontend\models\TaskResponses::find()->select('DISTINCT(task_id)');
+            $query->andFilterWhere(['not in', 'id', $taskResponsesQuery]);
         }
 
         return $dataProvider;
+    }
+
+    /** 
+     * Варианты интервалов
+     */
+    public function periodList()
+    {
+        return [
+            '' => \Yii::t('app', 'За все время'),
+            'day' => \Yii::t('app', 'За день'),
+            'week' => \Yii::t('app', 'За неделю'),
+            'month' => \Yii::t('app', 'За месяц')
+        ];
     }
 }
