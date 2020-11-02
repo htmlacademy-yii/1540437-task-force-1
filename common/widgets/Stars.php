@@ -7,6 +7,12 @@ use yii\base\Widget;
 
 class Stars extends Widget
 {
+    /** 
+     * Заменяет сообщение по умолчанию для текущего
+     * виджета если `NULL` записей.
+     * 
+     * {@inheritDoc}
+     */
     public $nullDisplay = '';
 
     /** @var string Тэг, по умолчанию `span` */
