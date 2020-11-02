@@ -16,8 +16,7 @@ class UserQuery extends \yii\db\ActiveQuery
     public function online(int $minutes = 30): self
     {
         $field = $this->_field('last_logined_at');
-        $expression = "NOW() - INTERVAL {$minutes} MINUTE";
-        return $this->andWhere(['>=', $field, new \yii\db\Expression($expression)]);
+        return $this->andWhere(['>=', $field, new \yii\db\Expression("NOW() - INTERVAL {$minutes} MINUTE")]);
     }
 
     /**

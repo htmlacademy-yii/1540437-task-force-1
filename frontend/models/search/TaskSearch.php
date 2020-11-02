@@ -8,7 +8,8 @@ use yii\data\ActiveDataProvider;
 
 class TaskSearch extends Task
 {
-    public $qname;
+    /** @var string Поиск по названию */
+    public $searchByName;
 
     /** @var array ID категорий для поиска */
     public $categoryIds;
@@ -23,7 +24,7 @@ class TaskSearch extends Task
     {
         $parent = parent::attributeLabels();
         $parent['period'] = \Yii::t('app', 'Период');
-        $parent['qname'] = \Yii::t('app', 'Поиск по названию');
+        $parent['searchByName'] = \Yii::t('app', 'Поиск по названию');
         $parent['remoteWork'] = \Yii::t('app', 'Удаленная работа');
         $parent['empty'] = \Yii::t('app', 'Без откликов');
         return $parent;
@@ -34,7 +35,7 @@ class TaskSearch extends Task
     {
         $parent = parent::rules();
         $parent[] = [
-            ['qname', 'period', 'categoryIds', 'remoteWork', 'empty'], 'safe'
+            ['searchByName', 'period', 'categoryIds', 'remoteWork', 'empty'], 'safe'
         ];
 
         return $parent;
@@ -61,26 +62,25 @@ class TaskSearch extends Task
             return $dataProvider;
         }
 
-        if ($this->qname) {
-            $query->andFilterWhere(['like', 'title', $this->qname]);
+        if ($this->searchByName) {
+            $query->andFilterWhere(['like', 'title', $this->searchByName]);
             return $dataProvider;
         }
 
         if (isset($this->remoteWork)) {
-            $query->withAddress($this->remoteWork);
+            $query->remoteWork($this->remoteWork);
         }
 
         if ($this->period) {
-            $query->andFilterWhere(['>=', 'tasks.created_at', (new DateTime("-1 {$this->period}"))->format('Y-m-d')]);
+            $query->byPeriod('tasks.created_at', $this->period);
         }
 
         if ($this->categoryIds) {
-            $query->andFilterWhere(['tasks.category_id' => $this->categoryIds]);
+            $query->inCategories($this->categoryIds);
         }
 
         if ($this->empty) {
-            $taskResponsesQuery = \frontend\models\TaskResponses::find()->select('DISTINCT(task_id)');
-            $query->andFilterWhere(['not in', 'id', $taskResponsesQuery]);
+            $query->andFilterWhere(['not in', 'id', \frontend\models\TaskResponses::find()->select('DISTINCT(task_id)') ]);
         }
 
         return $dataProvider;

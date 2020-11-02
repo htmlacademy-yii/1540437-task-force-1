@@ -57,7 +57,7 @@ $form = ActiveForm::begin([
     'labelOptions' => ['class' => 'search-task__name']
 ])->dropDownList($model->periodList()); ?>
 
-<?= $form->field($model, 'qname', [
+<?= $form->field($model, 'searchByName', [
     'template' => "{label}\n{input}",
     'labelOptions' => ['class' => 'search-task__name']
 ])->input('search', [

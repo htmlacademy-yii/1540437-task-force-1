@@ -10,8 +10,8 @@ class TaskQuery extends \yii\db\ActiveQuery
     /** Новые задания */
     public function new()
     {
-        $status = $this->_field('status');
-        return $this->andWhere([$status => \app\bizzlogic\Task::STATUS_NEW]);
+        $statusField = $this->_field('status');
+        return $this->andWhere([$statusField => \app\bizzlogic\Task::STATUS_NEW]);
     }
 
     /** 
@@ -23,36 +23,66 @@ class TaskQuery extends \yii\db\ActiveQuery
      */
     public function free(bool $free = true): self
     {
-        $status = $this->_field('status');
+        $statusField = $this->_field('status');
 
         if ($free) {
-            return $this->andWhere(['!=', $status, Task::STATUS_INPROGRESS]);
+            return $this->andWhere(['!=', $statusField, Task::STATUS_INPROGRESS]);
         } else {
-            return $this->andWhere([$status => Task::STATUS_INPROGRESS]);
+            return $this->andWhere([$statusField => Task::STATUS_INPROGRESS]);
         }
     }
 
-    public function withAddress(bool $remote = true): self
+    /**
+     * Ели допускается удаленная работа (без привязки к адресу)
+     *
+     * @param string $fieldName Deafult `address` 
+     * @param boolean $remote Default `true`
+     * @return self
+     */
+    public function remoteWork(bool $remote = true, string $fieldName = 'address'): self
     {
-        $address = $this->_field('address');
-        if ($remote) {
-            return $this->andWhere(['IS', $address, NULL]);
+        $is = $remote ? 'IS' : 'IS NOT';
+        return $this->andWhere([$is, $fieldName, NULL]);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array[int] $categoryIds 
+     * @param string $aliase Deafult `null`
+     * @return self
+     */
+    public function inCategories(array $categoryIds, string $aliase = null): self
+    {
+        if (!is_null($aliase)) {
+            $aliase = $aliase . ".";
         }
-        return $this->andWhere(['IS NOT', $address, NULL]);
-        // return $this->andWhere([$address, $isRemote]);
+       return $this->andWhere([ "{$aliase}category_id" => $categoryIds]); 
     }
 
     /** Завершенные задания */
     public function completed()
     {
-        $status = $this->_field('status');
+        $statusField = $this->_field('status');
 
         return $this->where([
-            $status => [
+            $statusField => [
                 \app\bizzlogic\Task::STATUS_COMPLETE,
                 \app\bizzlogic\Task::STATUS_FAIL
             ]
         ]);
+    }
+
+    /**
+     * Условия выборки для периода
+     *
+     * @param string $fieldName Имя поля по которому выполнять поиск
+     * @param string $periodName Наименование периода
+     * @return self
+     */
+    public function byPeriod(string $fieldName, string $periodName): self
+    {
+        return $this->andWhere(['>=', $fieldName, new \yii\db\Expression("NOW() - INTERVAL 1  " . strtoupper($periodName)) ]);
     }
 
     /**
