@@ -31,7 +31,7 @@ class UserFavorites extends \yii\db\ActiveRecord
         return [
             [['user_id', 'favorite_user_id'], 'required'],
             [['user_id', 'favorite_user_id'], 'integer'],
-            [['favorite_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['favorite_user_id' => 'id']],
+            [['favorite_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['favorite_user_id' => 'id']],
         ];
     }
 
@@ -54,6 +54,6 @@ class UserFavorites extends \yii\db\ActiveRecord
      */
     public function getFavoriteUser()
     {
-        return $this->hasOne(Users::class, ['id' => 'favorite_user_id'])->inverseOf('userFavorites');
+        return $this->hasOne(Users::className(), ['id' => 'favorite_user_id']);
     }
 }

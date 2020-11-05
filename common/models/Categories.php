@@ -55,7 +55,7 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function getTasks()
     {
-        return $this->hasMany(Tasks::class, ['category_id' => 'id'])->inverseOf('category');
+        return $this->hasMany(Tasks::className(), ['category_id' => 'id']);
     }
 
     /**
@@ -65,6 +65,6 @@ class Categories extends \yii\db\ActiveRecord
      */
     public function getUserCategories()
     {
-        return $this->hasMany(UserCategories::class, ['category_id' => 'id'])->inverseOf('category');
+        return $this->hasMany(UserCategories::className(), ['category_id' => 'id']);
     }
 }

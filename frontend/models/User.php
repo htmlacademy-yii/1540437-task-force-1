@@ -39,21 +39,6 @@ class User extends Users
             ->via('userCategories');
     }
 
-    public function getCountTasks()
-    {
-        return count($this->tasks);
-    }
-
-    /**
-     * Gets query for [[Tasks]].
-     *
-     * @return \frontend\models\query\TaskQuery
-     */
-    public function getPerformerTasks()
-    {
-        return $this->hasMany(Task::class, ['user_id' => 'id']);
-    }
-
     /** @return int Кол-во Заданий Исполнителя */
     public function getCountPerformerTasks(): int
     {

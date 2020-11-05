@@ -39,8 +39,8 @@ class UserAttachments extends \yii\db\ActiveRecord
             [['user_id', 'task_id'], 'integer'],
             [['file_name', 'file_path', 'file_meta', 'thumb_path'], 'string'],
             [['display_name'], 'string', 'max' => 256],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -68,7 +68,7 @@ class UserAttachments extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('userAttachments');
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -78,6 +78,6 @@ class UserAttachments extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('userAttachments');
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
     }
 }

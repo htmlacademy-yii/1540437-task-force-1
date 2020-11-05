@@ -33,7 +33,7 @@ class UserNotifications extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'required'],
             [['user_id', 'new_message', 'new_respond', 'task_actions'], 'integer'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -58,6 +58,6 @@ class UserNotifications extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('userNotifications');
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 }

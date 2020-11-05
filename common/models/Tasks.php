@@ -52,9 +52,9 @@ class Tasks extends \yii\db\ActiveRecord
             [['budget', 'lattitude', 'longtitude'], 'number'],
             [['created_at', 'updated_at', 'start_date'], 'safe'],
             [['title'], 'string', 'max' => 256],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['category_id' => 'id']],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['city_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -89,7 +89,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getTaskChats()
     {
-        return $this->hasMany(TaskChats::class, ['task_id' => 'id'])->inverseOf('task');
+        return $this->hasMany(TaskChats::className(), ['task_id' => 'id']);
     }
 
     /**
@@ -99,7 +99,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getTaskResponses()
     {
-        return $this->hasMany(TaskResponses::class, ['task_id' => 'id'])->inverseOf('task');
+        return $this->hasMany(TaskResponses::className(), ['task_id' => 'id']);
     }
 
     /**
@@ -109,7 +109,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::class, ['id' => 'category_id'])->inverseOf('tasks');
+        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
     }
 
     /**
@@ -119,7 +119,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(Cities::class, ['id' => 'city_id'])->inverseOf('tasks');
+        return $this->hasOne(Cities::className(), ['id' => 'city_id']);
     }
 
     /**
@@ -129,7 +129,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('tasks');
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -139,6 +139,6 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getUserAttachments()
     {
-        return $this->hasMany(UserAttachments::class, ['task_id' => 'id'])->inverseOf('task');
+        return $this->hasMany(UserAttachments::className(), ['task_id' => 'id']);
     }
 }

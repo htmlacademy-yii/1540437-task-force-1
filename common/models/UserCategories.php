@@ -32,8 +32,8 @@ class UserCategories extends \yii\db\ActiveRecord
         return [
             [['user_id', 'category_id'], 'required'],
             [['user_id', 'category_id'], 'integer'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['category_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -56,7 +56,7 @@ class UserCategories extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::class, ['id' => 'category_id'])->inverseOf('userCategories');
+        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
     }
 
     /**
@@ -66,6 +66,6 @@ class UserCategories extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('userCategories');
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 }

@@ -56,7 +56,7 @@ class Cities extends \yii\db\ActiveRecord
      */
     public function getTasks()
     {
-        return $this->hasMany(Tasks::class, ['city_id' => 'id'])->inverseOf('city');
+        return $this->hasMany(Tasks::className(), ['city_id' => 'id']);
     }
 
     /**
@@ -66,6 +66,6 @@ class Cities extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(Users::class, ['city_id' => 'id'])->inverseOf('city');
+        return $this->hasMany(Users::className(), ['city_id' => 'id']);
     }
 }

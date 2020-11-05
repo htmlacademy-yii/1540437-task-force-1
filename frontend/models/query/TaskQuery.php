@@ -23,12 +23,12 @@ class TaskQuery extends \yii\db\ActiveQuery
      */
     public function free(bool $free = true): self
     {
-        $statusField = $this->_field('status');
+        $statusField = $this->_field('');
 
         if ($free) {
-            return $this->andWhere(['!=', $statusField, Task::STATUS_INPROGRESS]);
+            return $this->andWhere(['!=', '[[status]]', Task::STATUS_INPROGRESS]);
         } else {
-            return $this->andWhere([$statusField => Task::STATUS_INPROGRESS]);
+            return $this->andWhere(['[[status]]' => Task::STATUS_INPROGRESS]);
         }
     }
 
@@ -57,7 +57,7 @@ class TaskQuery extends \yii\db\ActiveQuery
         if (!is_null($aliase)) {
             $aliase = $aliase . ".";
         }
-       return $this->andWhere([ "{$aliase}category_id" => $categoryIds]); 
+        return $this->andWhere(["{$aliase}category_id" => $categoryIds]);
     }
 
     /** Завершенные задания */
@@ -82,7 +82,7 @@ class TaskQuery extends \yii\db\ActiveQuery
      */
     public function byPeriod(string $fieldName, string $periodName): self
     {
-        return $this->andWhere(['>=', $fieldName, new \yii\db\Expression("NOW() - INTERVAL 1  " . strtoupper($periodName)) ]);
+        return $this->andWhere(['>=', $fieldName, new \yii\db\Expression("NOW() - INTERVAL 1  " . strtoupper($periodName))]);
     }
 
     /**

@@ -64,9 +64,9 @@ class UserSearch extends User
             ->select('u.*')
             ->with(['categories'])
             ->joinWith([
-                'tasks t',
+                'performerTasks t',
                 'profile p',
-                'userCategories uc',                
+                'userCategories uc',
                 'taskResponses tr',
             ])
             ->having(['>', 'countUserCategory', 0]);
@@ -98,7 +98,7 @@ class UserSearch extends User
                     'asc' => ['p.views' => SORT_ASC],
                     'desc' => ['p.views' => SORT_DESC],
                     'default' => SORT_DESC,
-                    'label' => \Yii::t('app','Популярности')
+                    'label' => \Yii::t('app', 'Популярности')
                 ],
             ]
         ]);
@@ -135,8 +135,8 @@ class UserSearch extends User
         }
 
         if ($this->isFreeNow) {
-            $busiUsersQuery = \frontend\models\Task::find()->select('user_id')->free();
-            $query->andFilterWhere(['u.id' => $busiUsersQuery]);
+            $busyUsersQuery = \frontend\models\Task::find()->select('performer_user_id');
+            $query->andFilterWhere(['not in', 'u.id', $busyUsersQuery]);
         }
 
         if ($this->isOnline) {

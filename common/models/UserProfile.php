@@ -17,6 +17,7 @@ use Yii;
  * @property string|null $skype
  * @property string|null $telegramm
  * @property string|null $avatar
+ * @property int $views
  *
  * @property Users[] $users
  */
@@ -38,6 +39,7 @@ class UserProfile extends \yii\db\ActiveRecord
         return [
             [['about', 'gender'], 'string'],
             [['birth_date'], 'safe'],
+            [['views'], 'integer'],
             [['first_name', 'last_name'], 'string', 'max' => 200],
             [['phone', 'skype', 'telegramm'], 'string', 'max' => 90],
             [['avatar'], 'string', 'max' => 45],
@@ -60,6 +62,7 @@ class UserProfile extends \yii\db\ActiveRecord
             'skype' => Yii::t('app', 'Skype'),
             'telegramm' => Yii::t('app', 'Telegramm'),
             'avatar' => Yii::t('app', 'Avatar'),
+            'views' => Yii::t('app', 'Views'),
         ];
     }
 
@@ -70,6 +73,6 @@ class UserProfile extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(Users::class, ['profile_id' => 'id'])->inverseOf('profile');
+        return $this->hasMany(Users::className(), ['profile_id' => 'id']);
     }
 }
