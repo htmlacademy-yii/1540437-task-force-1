@@ -104,17 +104,17 @@ class Users extends \yii\db\ActiveRecord
      */
     public function getCustomerTasks()
     {
-        return $this->hasMany(Tasks::class, ['customer_user_id' => 'id']);
+        return $this->hasMany(Tasks::class, ['customer_user_id' => 'id'])->inverseOf('customer');
     }
 
     /**
-     * Gets query for [[Tasks]].
+     * Gets query for [[PerformerTasks]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getPerformerTasks()
     {
-        return $this->hasMany(Tasks::class, ['performer_user_id' => 'id']);
+        return $this->hasMany(Tasks::class, ['performer_user_id' => 'id'])->inverseOf('performer');
     }
 
     /**

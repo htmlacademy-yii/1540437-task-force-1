@@ -13,7 +13,7 @@ SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
   `icon` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -21,7 +21,7 @@ CREATE TABLE `categories` (
 
 DROP TABLE IF EXISTS `cities`;
 CREATE TABLE `cities` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(256) DEFAULT NULL,
   `lattitude` float DEFAULT NULL,
   `longtitude` float DEFAULT NULL,
@@ -30,9 +30,9 @@ CREATE TABLE `cities` (
 
 DROP TABLE IF EXISTS `task_chats`;
 CREATE TABLE `task_chats` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `task_id` int unsigned NOT NULL,
-  `user_id` int unsigned NOT NULL,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `task_id` INT unsigned NOT NULL,
+  `user_id` INT unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `message` text,
@@ -46,9 +46,9 @@ CREATE TABLE `task_chats` (
 
 DROP TABLE IF EXISTS `task_responses`;
 CREATE TABLE `task_responses` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `task_id` int unsigned NOT NULL,
-  `user_id` int unsigned NOT NULL,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `task_id` INT unsigned NOT NULL,
+  `user_id` INT unsigned NOT NULL,
   `amount` decimal(12,4) DEFAULT NULL,
   `comment` text,
   `evaluation` tinyint(1) unsigned DEFAULT NULL,
@@ -63,11 +63,11 @@ CREATE TABLE `task_responses` (
 
 DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE `tasks` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `city_id` int unsigned NOT NULL,
-  `customer_user_id` int unsigned NOT NULL,
-  `performer_user_id` int unsigned NULL,
-  `category_id` int unsigned NOT NULL,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `city_id` INT unsigned NOT NULL,
+  `customer_user_id` INT unsigned NOT NULL,
+  `performer_user_id` INT unsigned DEFAULT NULL,
+  `category_id` INT unsigned NOT NULL,
   `title` varchar(256) DEFAULT NULL,
   `description` text NOT NULL,
   `additional_info` text,
@@ -84,19 +84,19 @@ CREATE TABLE `tasks` (
   KEY `idx_start_date` (`start_date`),
   KEY `fk_tasks_categories_idx` (`category_id`),
   KEY `fk_tasks_cities_idx` (`city_id`),
-  KEY `fk_tasks_customer_idx` (`customer_user_id`),
-  KEY `fk_tasks_performer_idx` (`performer_user_id`),
+  KEY `fk_tasks_users_customer_idx` (`customer_user_id`),
+  KEY `fk_tasks_users_performer_idx` (`performer_user_id`),
   CONSTRAINT `fk_tasks_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_tasks_cities` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `fk_tasks_users_customer` FOREIGN KEY (`customer_user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `fk_tasks_users_performer` FOREIGN KEY (`performer_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `fk_tasks_users_customer` FOREIGN KEY (`customer_user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tasks_users_performer` FOREIGN KEY (`performer_user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `user_attachments`;
 CREATE TABLE `user_attachments` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int unsigned NOT NULL,
-  `task_id` int unsigned DEFAULT NULL,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` INT unsigned NOT NULL,
+  `task_id` INT unsigned DEFAULT NULL,
   `display_name` varchar(256) NOT NULL,
   `file_name` text NOT NULL,
   `file_path` text,
@@ -112,9 +112,9 @@ CREATE TABLE `user_attachments` (
 
 DROP TABLE IF EXISTS `user_categories`;
 CREATE TABLE `user_categories` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int unsigned NOT NULL,
-  `category_id` int unsigned NOT NULL,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` INT unsigned NOT NULL,
+  `category_id` INT unsigned NOT NULL,
   PRIMARY KEY (`id`,`user_id`,`category_id`),
   KEY `fk_user_categories_category_idx` (`category_id`),
   KEY `fk_user_categories_user_idx` (`user_id`),
@@ -125,9 +125,9 @@ CREATE TABLE `user_categories` (
 
 DROP TABLE IF EXISTS `user_favorites`;
 CREATE TABLE `user_favorites` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int unsigned NOT NULL,
-  `favorite_user_id` int unsigned NOT NULL,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` INT unsigned NOT NULL,
+  `favorite_user_id` INT unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_user_id` (`user_id`),
   KEY `idx_favorite_id` (`favorite_user_id`),
@@ -136,8 +136,8 @@ CREATE TABLE `user_favorites` (
 
 DROP TABLE IF EXISTS `user_notifications`;
 CREATE TABLE `user_notifications` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int unsigned NOT NULL,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` INT unsigned NOT NULL,
   `new_message` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `new_respond` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `task_actions` tinyint(1) unsigned NOT NULL DEFAULT '1',
@@ -148,7 +148,7 @@ CREATE TABLE `user_notifications` (
 
 DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
   `about` text DEFAULT NULL,
   `first_name` varchar(200) DEFAULT NULL,
   `last_name` varchar(200) DEFAULT NULL,
@@ -164,9 +164,9 @@ CREATE TABLE `user_profile` (
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `city_id` int unsigned NOT NULL,
-  `profile_id` int unsigned DEFAULT NULL,
+  `id` INT unsigned NOT NULL AUTO_INCREMENT,
+  `city_id` INT unsigned NOT NULL,
+  `profile_id` INT unsigned DEFAULT NULL,
   `email` varchar(245) NOT NULL,
   `password_hash` varchar(256) NOT NULL,
   `token` varchar(256) DEFAULT NULL,

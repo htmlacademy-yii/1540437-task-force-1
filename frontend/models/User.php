@@ -39,6 +39,26 @@ class User extends Users
             ->via('userCategories');
     }
 
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \frontend\models\query\TaskQuery
+     */
+    public function getCustomerTasks()
+    {
+        return $this->hasMany(Task::class, ['customer_user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \frontend\models\query\TaskQuery
+     */
+    public function getPerformerTasks()
+    {
+        return $this->hasMany(Task::class, ['performer_user_id' => 'id']);
+    }
+
     /** @return int Кол-во Заданий Исполнителя */
     public function getCountPerformerTasks(): int
     {

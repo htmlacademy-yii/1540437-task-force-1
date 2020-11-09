@@ -9,7 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property int $city_id
- * @property int $user_id
+ * @property int $customer_user_id
+ * @property int|null $performer_user_id
  * @property int $category_id
  * @property string|null $title
  * @property string $description
@@ -27,7 +28,8 @@ use Yii;
  * @property TaskResponses[] $taskResponses
  * @property Categories $category
  * @property Cities $city
- * @property Users $user
+ * @property Users $customer
+ * @property Users $performer
  * @property UserAttachments[] $userAttachments
  */
 class Tasks extends \yii\db\ActiveRecord
@@ -46,15 +48,16 @@ class Tasks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_id', 'user_id', 'category_id', 'description'], 'required'],
-            [['city_id', 'user_id', 'category_id'], 'integer'],
+            [['city_id', 'customer_user_id', 'category_id', 'description'], 'required'],
+            [['city_id', 'customer_user_id', 'performer_user_id', 'category_id'], 'integer'],
             [['description', 'additional_info', 'address', 'status'], 'string'],
             [['budget', 'lattitude', 'longtitude'], 'number'],
             [['created_at', 'updated_at', 'start_date'], 'safe'],
             [['title'], 'string', 'max' => 256],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['category_id' => 'id']],
-            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['city_id' => 'id']],
+            [['customer_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['customer_user_id' => 'id']],
+            [['performer_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['performer_user_id' => 'id']],
         ];
     }
 
@@ -66,7 +69,8 @@ class Tasks extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'city_id' => Yii::t('app', 'City ID'),
-            'user_id' => Yii::t('app', 'User ID'),
+            'customer_user_id' => Yii::t('app', 'Customer User ID'),
+            'performer_user_id' => Yii::t('app', 'Performer User ID'),
             'category_id' => Yii::t('app', 'Category ID'),
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
@@ -89,7 +93,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getTaskChats()
     {
-        return $this->hasMany(TaskChats::className(), ['task_id' => 'id']);
+        return $this->hasMany(TaskChats::class, ['task_id' => 'id']);
     }
 
     /**
@@ -99,7 +103,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getTaskResponses()
     {
-        return $this->hasMany(TaskResponses::className(), ['task_id' => 'id']);
+        return $this->hasMany(TaskResponses::class, ['task_id' => 'id']);
     }
 
     /**
@@ -109,7 +113,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
+        return $this->hasOne(Categories::class, ['id' => 'category_id']);
     }
 
     /**
@@ -119,17 +123,27 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getCity()
     {
-        return $this->hasOne(Cities::className(), ['id' => 'city_id']);
+        return $this->hasOne(Cities::class, ['id' => 'city_id']);
     }
 
     /**
-     * Gets query for [[User]].
+     * Gets query for [[CustomerUser]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getCustomer()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::class, ['id' => 'customer_user_id'])->inverseOf('customerTasks');
+    }
+
+    /**
+     * Gets query for [[PerformerUser]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPerformer()
+    {
+        return $this->hasOne(Users::class, ['id' => 'performer_user_id'])->inverseOf('performerTasks');
     }
 
     /**
@@ -137,8 +151,8 @@ class Tasks extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUserAttachments()
+    public function getTicketAttachments()
     {
-        return $this->hasMany(UserAttachments::className(), ['task_id' => 'id']);
+        return $this->hasMany(UserAttachments::class, ['task_id' => 'id']);
     }
 }

@@ -53,7 +53,7 @@
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {
@@ -2042,6 +2042,7 @@
         },
         {
             "name": "opis/closure",
+<<<<<<< HEAD
             "version": "3.6.0",
             "source": {
                 "type": "git",
@@ -2052,6 +2053,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/opis/closure/zipball/c547f8262a5fa9ff507bd06cc394067b83a75085",
                 "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085",
+=======
+            "version": "3.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opis/closure.git",
+                "reference": "943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opis/closure/zipball/943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5",
+                "reference": "943b5d70cc5ae7483f6aff6ff43d7e34592ca0f5",
+>>>>>>> f45c6322dd98beaf410fe1a53f39108099c13db0
                 "shasum": ""
             },
             "require": {
@@ -2101,9 +2114,15 @@
             ],
             "support": {
                 "issues": "https://github.com/opis/closure/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/opis/closure/tree/3.6.0"
             },
             "time": "2020-10-11T21:42:15+00:00"
+=======
+                "source": "https://github.com/opis/closure/tree/3.6.1"
+            },
+            "time": "2020-11-07T02:01:34+00:00"
+>>>>>>> f45c6322dd98beaf410fe1a53f39108099c13db0
         },
         {
             "name": "phar-io/manifest",
