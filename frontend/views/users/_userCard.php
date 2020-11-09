@@ -13,7 +13,7 @@ use yii\helpers\Html;
     <div class="feedback-card__top">
         <div class="user__search-icon">
             <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), "#{$model->id}"); ?>
-            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->countTasks])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => count($model->performerTasks)])); ?>
             <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => $model->countResponses])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">

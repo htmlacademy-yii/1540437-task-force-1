@@ -10,7 +10,6 @@ use Yii;
  * @property int $id
  * @property int $city_id
  * @property int|null $profile_id
- * @property int $role
  * @property string $email
  * @property string $password_hash
  * @property string|null $token
@@ -22,7 +21,8 @@ use Yii;
  *
  * @property TaskChats[] $taskChats
  * @property TaskResponses[] $taskResponses
- * @property Tasks[] $tasks
+ * @property Tasks[] $customerTasks
+ * @property Tasks[] $performerTasks
  * @property UserAttachments[] $userAttachments
  * @property UserCategories[] $userCategories
  * @property UserFavorites[] $userFavorites
@@ -46,8 +46,8 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_id', 'role', 'email', 'password_hash'], 'required'],
-            [['city_id', 'profile_id', 'role', 'is_profile_public', 'is_contact_public'], 'integer'],
+            [['city_id', 'email', 'password_hash'], 'required'],
+            [['city_id', 'profile_id', 'is_profile_public', 'is_contact_public'], 'integer'],
             [['created_at', 'updated_at', 'last_logined_at'], 'safe'],
             [['email'], 'string', 'max' => 245],
             [['password_hash', 'token'], 'string', 'max' => 256],
@@ -66,7 +66,6 @@ class Users extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'city_id' => Yii::t('app', 'City ID'),
             'profile_id' => Yii::t('app', 'Profile ID'),
-            'role' => Yii::t('app', 'Role'),
             'email' => Yii::t('app', 'Email'),
             'password_hash' => Yii::t('app', 'Password Hash'),
             'token' => Yii::t('app', 'Token'),
@@ -103,9 +102,19 @@ class Users extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks()
+    public function getCustomerTasks()
     {
-        return $this->hasMany(Tasks::class, ['user_id' => 'id'])->inverseOf('user');
+        return $this->hasMany(Tasks::class, ['customer_user_id' => 'id'])->inverseOf('customer');
+    }
+
+    /**
+     * Gets query for [[PerformerTasks]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPerformerTasks()
+    {
+        return $this->hasMany(Tasks::class, ['performer_user_id' => 'id'])->inverseOf('performer');
     }
 
     /**

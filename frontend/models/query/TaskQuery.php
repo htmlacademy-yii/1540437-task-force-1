@@ -10,26 +10,13 @@ class TaskQuery extends \yii\db\ActiveQuery
     /** Новые задания */
     public function new()
     {
-        $statusField = $this->_field('status');
-        return $this->andWhere([$statusField => \app\bizzlogic\Task::STATUS_NEW]);
+        // $statusField = $this->_field('status');
+        return $this->andWhere(['[[status]]' => \app\bizzlogic\Task::STATUS_NEW]);
     }
 
-    /** 
-     * Свободные или занятые пользователи.
-     * По умолчанию, пользователи без активных заданий.
-     * 
-     * @param bool $free по умолчанию true
-     * @return self
-     */
-    public function free(bool $free = true): self
+    public function inProgress(string $fielName = '[[status]]')
     {
-        $statusField = $this->_field('status');
-
-        if ($free) {
-            return $this->andWhere(['!=', $statusField, Task::STATUS_INPROGRESS]);
-        } else {
-            return $this->andWhere([$statusField => Task::STATUS_INPROGRESS]);
-        }
+        return $this->andWhere([$fielName => Task::STATUS_INPROGRESS]);
     }
 
     /**
@@ -61,12 +48,11 @@ class TaskQuery extends \yii\db\ActiveQuery
     }
 
     /** Завершенные задания */
-    public function completed()
+    public function completed(string $aliase = null): self
     {
-        $statusField = $this->_field('status');
-
+        $fieldName = is_null($aliase) ? '[[status]]' : "{$aliase}.[[status]]";
         return $this->where([
-            $statusField => [
+            $fieldName => [
                 \app\bizzlogic\Task::STATUS_COMPLETE,
                 \app\bizzlogic\Task::STATUS_FAIL
             ]
@@ -83,6 +69,12 @@ class TaskQuery extends \yii\db\ActiveQuery
     public function byPeriod(string $fieldName, string $periodName): self
     {
         return $this->andWhere(['>=', $fieldName, new \yii\db\Expression("NOW() - INTERVAL 1  " . strtoupper($periodName)) ]);
+    }
+
+    public function performers(): self
+    {
+        $this->select('performer_user_id');
+        return $this->andWhere('[[performer_user_id]]');
     }
 
     /**

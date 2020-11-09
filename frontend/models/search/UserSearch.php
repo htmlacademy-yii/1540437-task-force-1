@@ -64,7 +64,7 @@ class UserSearch extends User
             ->select('u.*')
             ->with(['categories'])
             ->joinWith([
-                'tasks t',
+                'performerTasks t',
                 'profile p',
                 'userCategories uc',                
                 'taskResponses tr',
@@ -135,8 +135,8 @@ class UserSearch extends User
         }
 
         if ($this->isFreeNow) {
-            $busiUsersQuery = \frontend\models\Task::find()->select('user_id')->free();
-            $query->andFilterWhere(['u.id' => $busiUsersQuery]);
+            $busiUsersQuery = \frontend\models\Task::find()->select('performer_user_id')->performers()->inProgress();
+            $query->andFilterWhere(['NOT IN','u.id', $busiUsersQuery]);
         }
 
         if ($this->isOnline) {

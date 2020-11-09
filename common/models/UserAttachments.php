@@ -68,7 +68,7 @@ class UserAttachments extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('userAttachments');
+        return $this->hasOne(Users::class, ['id' => 'user_id']);
     }
 
     /**
@@ -78,6 +78,6 @@ class UserAttachments extends \yii\db\ActiveRecord
      */
     public function getTask()
     {
-        return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('userAttachments');
+        return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('ticketAttachments');
     }
 }
