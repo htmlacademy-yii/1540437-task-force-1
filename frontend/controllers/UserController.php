@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use frontend\models\search\UserSearch;
 use Yii;
 
-class UsersController extends FrontendController
+class UserController extends FrontendController
 {
     /** @var int Ограничения на колво записей */
     const PAGE_SIZE = 5;

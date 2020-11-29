@@ -54,7 +54,7 @@ class TaskSearch extends Task
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => \frontend\controllers\TasksController::PAGE_SIZE
+                'pageSize' => \frontend\controllers\TaskController::PAGE_SIZE
             ]
         ]);
 

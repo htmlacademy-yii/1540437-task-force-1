@@ -6,6 +6,6 @@
  */
 
 return [
-    'user_id' => $faker->numberBetween(1, 50), //$faker->randomPerformer(),
+    'user_id' => $faker->numberBetween(1, 50),
     'category_id' => $faker->randomCategory()
 ];

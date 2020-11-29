@@ -18,7 +18,7 @@ class TaskResponses extends ModelsTasks
      *
      * @return \frontend\models\query\TasksQuery
      */
-    public function getTask(): \frontend\models\query\TasksQuery
+    public function getTask(): \frontend\models\query\TaskQuery
     {
         return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('taskResponses');
     }
@@ -28,7 +28,7 @@ class TaskResponses extends ModelsTasks
      *
      * @return \frontend\models\query\UsersQuery
      */
-    public function getUser(): \frontend\models\query\UsersQuery
+    public function getUser(): \frontend\models\query\UserQuery
     {
         return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('taskReponses');
     }

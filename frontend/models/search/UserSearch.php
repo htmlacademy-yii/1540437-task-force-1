@@ -107,7 +107,7 @@ class UserSearch extends User
             'query' => $query,
             'sort' => $sort,
             'pagination' => [
-                'pageSize' => \frontend\controllers\UsersController::PAGE_SIZE
+                'pageSize' => \frontend\controllers\UserController::PAGE_SIZE
             ]
         ]);
 
