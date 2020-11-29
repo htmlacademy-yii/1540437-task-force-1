@@ -12,6 +12,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'formatter' => [
+            'defaultTimeZone' => 'Europe/Moscow',
             'decimalSeparator' => '.',
             'thousandSeparator' => ' ',
             'currencyDecimalSeparator' => ',',

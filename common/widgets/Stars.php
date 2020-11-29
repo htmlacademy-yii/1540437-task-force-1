@@ -7,6 +7,14 @@ use yii\base\Widget;
 
 class Stars extends Widget
 {
+    /** 
+     * Заменяет сообщение по умолчанию для текущего
+     * виджета если `NULL` записей.
+     * 
+     * {@inheritDoc}
+     */
+    public $nullDisplay = '';
+
     /** @var string Тэг, по умолчанию `span` */
     public $tag = 'span';
 
@@ -22,6 +30,7 @@ class Stars extends Widget
     /** @var float Рейтинг */
     public $rating;
 
+
     /** {@inheritDoc} */
     public function run(): string
     {
@@ -31,7 +40,7 @@ class Stars extends Widget
             $html .= $this->renderStar($isEmptyStar);
         }
 
-        if ($this->showRating) {
+        if ($this->showRating && is_numeric($this->rating)) {
             $html .= \Yii::$app->formatter->asDecimal($this->rating, 2);
         }
 

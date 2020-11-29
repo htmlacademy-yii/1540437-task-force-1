@@ -25,7 +25,8 @@ return [
             'namespace' => 'common\fixtures',
             'providers' => [
                 \common\fixtures\providers\TasksRandomiser::class,
-                \common\fixtures\providers\UsersRandomiser::class
+                \common\fixtures\providers\UsersRandomiser::class,
+                \common\fixtures\providers\CategorySelector::class
             ]
         ],
     ],

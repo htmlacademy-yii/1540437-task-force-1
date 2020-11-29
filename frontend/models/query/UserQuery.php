@@ -7,15 +7,27 @@ use app\bizzlogic\User;
 /** {@inheritDoc} */
 class UserQuery extends \yii\db\ActiveQuery
 {
-    /** Заказчики */
-    public function customers()
+    /**
+     * {@inheritDoc}
+     *
+     * @param int $minutes Unsigned
+     * @return self
+     */
+    public function online(int $minutes = 30): self
     {
-        return $this->andWhere(['role' => User::ROLE_CUSTOMER]);
+        $field = $this->_field('last_logined_at');
+        return $this->andWhere(['>=', '[[last_logined_at]]', new \yii\db\Expression("NOW() - INTERVAL {$minutes} MINUTE")]);
     }
 
-    /** Исполнители */
-    public function performers()
+    /**
+     * Имя поля, с альясом таблицы или без.
+     *
+     * @param string $fieldName Имя поля
+     * @return string
+     */
+    private function _field(string $fieldName): string
     {
-        return $this->andWhere(['role' => User::ROLE_PERFORMER]);
+        list($b, $a) = $this->getTableNameAndAlias();
+        return $a === $b ? $fieldName : "{$a}.{$fieldName}";
     }
 }

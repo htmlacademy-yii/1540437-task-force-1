@@ -58,6 +58,6 @@ class UserNotifications extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id'])->inverseOf('userNotifications');
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 }

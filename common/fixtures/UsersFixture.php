@@ -8,4 +8,7 @@ use common\models\Users;
 class UsersFixture extends ActiveFixture
 {
     public $modelClass = Users::class;
+    public $depends = [
+        UserProfileFixture::class
+    ];
 }

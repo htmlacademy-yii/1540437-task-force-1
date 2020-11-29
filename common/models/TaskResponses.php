@@ -10,12 +10,14 @@ use Yii;
  * @property int $id
  * @property int $task_id
  * @property int $user_id
- * @property float|null $price
+ * @property float|null $amount
  * @property string|null $comment
  * @property int|null $evaluation
- * @property int|null $is_success
  * @property string $created_at
  * @property string|null $updated_at
+ *
+ * @property Tasks $task
+ * @property Users $user
  */
 class TaskResponses extends \yii\db\ActiveRecord
 {
@@ -34,8 +36,8 @@ class TaskResponses extends \yii\db\ActiveRecord
     {
         return [
             [['task_id', 'user_id'], 'required'],
-            [['task_id', 'user_id', 'evaluation', 'is_success'], 'integer'],
-            [['price'], 'number'],
+            [['task_id', 'user_id', 'evaluation'], 'integer'],
+            [['amount'], 'number'],
             [['comment'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
@@ -52,12 +54,31 @@ class TaskResponses extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'task_id' => Yii::t('app', 'Task ID'),
             'user_id' => Yii::t('app', 'User ID'),
-            'price' => Yii::t('app', 'Price'),
+            'amount' => Yii::t('app', 'Amount'),
             'comment' => Yii::t('app', 'Comment'),
             'evaluation' => Yii::t('app', 'Evaluation'),
-            'is_success' => Yii::t('app', 'Is Success'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasOne(Tasks::className(), ['id' => 'task_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 }

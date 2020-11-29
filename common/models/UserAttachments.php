@@ -16,6 +16,8 @@ use Yii;
  * @property string|null $file_meta
  * @property string|null $thumb_path
  *
+ * @property Users $user
+ * @property Tasks $task
  */
 class UserAttachments extends \yii\db\ActiveRecord
 {
@@ -37,8 +39,8 @@ class UserAttachments extends \yii\db\ActiveRecord
             [['user_id', 'task_id'], 'integer'],
             [['file_name', 'file_path', 'file_meta', 'thumb_path'], 'string'],
             [['display_name'], 'string', 'max' => 256],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::class, 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
 
@@ -57,5 +59,25 @@ class UserAttachments extends \yii\db\ActiveRecord
             'file_meta' => Yii::t('app', 'File Meta'),
             'thumb_path' => Yii::t('app', 'Thumb Path'),
         ];
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Users::class, ['id' => 'user_id']);
+    }
+
+    /**
+     * Gets query for [[Task]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTask()
+    {
+        return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('ticketAttachments');
     }
 }

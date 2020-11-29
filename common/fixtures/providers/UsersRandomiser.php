@@ -34,9 +34,12 @@ class UsersRandomiser extends Base
     private function getCustomers(): ?array
     {
         if (!$this->customers) {
-            $this->customers = \frontend\models\Users::find()
-                ->select('id')
-                ->customers()
+            $this->customers = \frontend\models\User::find()
+                ->select('users.id')
+                ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
+                ->joinWith('userCategories uc')
+                ->having(['=', 'countUserCategory', 0])
+                ->groupBy('users.id')
                 ->asArray()
                 ->all();
         }
@@ -48,9 +51,12 @@ class UsersRandomiser extends Base
     private function getPerformers(): ?array
     {
         if (!$this->repformers) {
-            $this->repformers = \frontend\models\Users::find()
-                ->select('id')
-                ->performers()
+            $this->repformers = \frontend\models\User::find()
+                ->select('users.id')
+                ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
+                ->joinWith('userCategories uc')
+                ->having(['>', 'countUserCategory', 0])
+                ->groupBy('users.id')
                 ->asArray()
                 ->all();
         }
