@@ -30,7 +30,7 @@ class TaskResponses extends ModelsTasks
      */
     public function getUser(): \frontend\models\query\UserQuery
     {
-        return $this->hasOne(Users::class, ['id' => 'user_id'])->inverseOf('taskReponses');
+        return $this->hasOne(User::class, ['id' => 'user_id'])->inverseOf('taskResponses');
     }
 
     /**

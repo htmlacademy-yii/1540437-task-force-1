@@ -4,10 +4,11 @@ namespace frontend\models;
 
 use common\models\Tasks as BaseTask;
 use frontend\models\query\TaskQuery as Query;
+use frontend\models\query\TaskResponsesQuery;
 
 /**
  * {@inheritDoc}
- * @property TaskResponses[] $taskResponse
+ * @property TaskResponses[] $taskResponses
  * @property Categories $category
  */
 class Task extends BaseTask
@@ -18,6 +19,11 @@ class Task extends BaseTask
         $now = new \DateTime();
         $created = new \DateTime($this->created_at);
         return (array) $now->diff($created);
+    }
+
+    public function getTaskResponses(): TaskResponsesQuery
+    {
+        return $this->hasMany(TaskResponses::class, ['task_id' => 'id']);
     }
 
     /**

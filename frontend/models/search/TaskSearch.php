@@ -72,7 +72,7 @@ class TaskSearch extends Task
         }
 
         if ($this->period) {
-            $query->byPeriod('tasks.created_at', $this->period);
+            $query->byPeriod($this->period);
         }
 
         if ($this->categoryIds) {
@@ -80,7 +80,7 @@ class TaskSearch extends Task
         }
 
         if ($this->empty) {
-            $query->andFilterWhere(['not in', 'id', \frontend\models\TaskResponses::find()->select('DISTINCT(task_id)') ]);
+            $query->andFilterWhere(['not in', 'id', \frontend\models\TaskResponses::find()->select('DISTINCT(task_id)')]);
         }
 
         return $dataProvider;

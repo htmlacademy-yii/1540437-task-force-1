@@ -101,6 +101,20 @@ class User extends Users
         return $this->profile ? $this->profile->first_name : null;
     }
 
+    public function getRatingAgregation()
+    {
+        return $this->getTaskResponses()
+            ->select(['user_id', 'avgRating' => 'AVG(evaluation)'])
+            // ->orderBy('avgRating DESC')
+            ->groupBy(['user_id'])
+            ->asArray(true);
+    }
+
+    public function getRating()
+    {
+        return $this->ratingAgregation[0]['avgRating'];
+    }
+
     /**
      * @return Query the active query used by this AR class.
      */

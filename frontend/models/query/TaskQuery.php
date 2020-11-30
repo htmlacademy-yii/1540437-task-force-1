@@ -10,13 +10,14 @@ class TaskQuery extends \yii\db\ActiveQuery
     /** Новые задания */
     public function new()
     {
-        // $statusField = $this->_field('status');
-        return $this->andWhere(['[[status]]' => \app\bizzlogic\Task::STATUS_NEW]);
+        $statusField = $this->_field('status');
+        return $this->andWhere([$statusField => \app\bizzlogic\Task::STATUS_NEW]);
     }
 
-    public function inProgress(string $fielName = '[[status]]')
+    public function inProgress()
     {
-        return $this->andWhere([$fielName => Task::STATUS_INPROGRESS]);
+        $fieldName = $this->_field('status');
+        return $this->andWhere([$fieldName => Task::STATUS_INPROGRESS]);
     }
 
     /**
@@ -26,8 +27,9 @@ class TaskQuery extends \yii\db\ActiveQuery
      * @param boolean $remote Default `true`
      * @return self
      */
-    public function remoteWork(bool $remote = true, string $fieldName = 'address'): self
+    public function remoteWork(bool $remote = true): self
     {
+        $fieldName = $this->_field('address');
         $is = $remote ? 'IS' : 'IS NOT';
         return $this->andWhere([$is, $fieldName, NULL]);
     }
@@ -39,18 +41,16 @@ class TaskQuery extends \yii\db\ActiveQuery
      * @param string $aliase Deafult `null`
      * @return self
      */
-    public function inCategories(array $categoryIds, string $aliase = null): self
+    public function inCategories(array $categoryIds): self
     {
-        if (!is_null($aliase)) {
-            $aliase = $aliase . ".";
-        }
-        return $this->andWhere(["{$aliase}category_id" => $categoryIds]);
+        $fieldName = $this->_field('category_id');
+        return $this->andWhere([$fieldName => $categoryIds]);
     }
 
     /** Завершенные задания */
-    public function completed(string $aliase = null): self
+    public function completed(): self
     {
-        $fieldName = is_null($aliase) ? '[[status]]' : "{$aliase}.[[status]]";
+        $fieldName = $this->_field('status');
         return $this->where([
             $fieldName => [
                 \app\bizzlogic\Task::STATUS_COMPLETE,
@@ -62,19 +62,19 @@ class TaskQuery extends \yii\db\ActiveQuery
     /**
      * Условия выборки для периода
      *
-     * @param string $fieldName Имя поля по которому выполнять поиск
      * @param string $periodName Наименование периода
      * @return self
      */
-    public function byPeriod(string $fieldName, string $periodName): self
+    public function byPeriod(string $periodName): self
     {
+        $fieldName = $this->_field('created_at');
         return $this->andWhere(['>=', $fieldName, new \yii\db\Expression("NOW() - INTERVAL 1  " . strtoupper($periodName))]);
     }
 
     public function performers(): self
     {
-        $this->select('performer_user_id');
-        return $this->andWhere('[[performer_user_id]]');
+        $fieldName = $this->_field('performer_user_id');
+        return $this->andWhere([$fieldName => '']);
     }
 
     /**
@@ -85,7 +85,7 @@ class TaskQuery extends \yii\db\ActiveQuery
      */
     private function _field(string $fieldName): string
     {
-        list($b, $a) = $this->getTableNameAndAlias();
-        return $a === $b ? $fieldName : "{$a}.{$fieldName}";
+        list($tbaleName, $aliase) = $this->getTableNameAndAlias();
+        return $aliase === $tbaleName ? "{$tbaleName}.{$fieldName}" : "{$aliase}.{$fieldName}";
     }
 }

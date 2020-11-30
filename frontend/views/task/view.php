@@ -1,9 +1,18 @@
 <?php
 
+use common\widgets\Interval;
+use common\widgets\Stars;
+use frontend\models\search\TaskSearch;
+use frontend\widgets\GenderIcon;
 use yii\helpers\Html;
+use yii\web\YiiAsset;
+
+YiiAsset::register($this);
 
 /** @var \yii\web\View $this */
 /** @var frontend\models\Task $model */
+
+$this->title = "{$model->title}::" . Yii::$app->name;
 
 ?>
 
@@ -13,18 +22,16 @@ use yii\helpers\Html;
             <!-- TODO: Add translate, Interval widget -->
             <div class="content-view__header">
                 <div class="content-view__headline">
-                    <?= Html::tag('h1', $model->title);?>
+                    <?= Html::tag('h1', $model->title); ?>
                     <span>Размещено в категории
-                        <?= Html::a($model->category->name, ['#'], ['class' => 'link-regular']); ?>
-                        <?php
-                            if ($model->interval['d'] >= 1) {
-                                echo Yii::t('intl', 'interval.d', ['n' => $model->interval['d']]);
-                            } elseif ($model->interval['h'] > 0) {
-                                echo Yii::t('intl', 'interval.h', ['n' => $model->interval['h']]);
-                            } elseif ($model->interval['i'] >= 0) {
-                                echo Yii::t('intl', 'interval.i', ['n' => $model->interval['i']]);
-                            }
-                        ?>
+                        <?= Html::a($model->category->name, ['task/index'], [
+                            'class' => 'link-regular',
+                            'data-method' => 'post',
+                            'data-params' => [
+                                (new TaskSearch)->formName() . "[categoryIds][]" => $model->category->id,
+                            ]
+                        ]); ?>
+                        <?php echo Interval::widget(['interval' => $model->interval]); ?>
                     </span>
                 </div>
                 <?= $model->budget ? Html::tag('b', \Yii::$app->formatter->asCurrency($model->budget, 'RUR'), ['class' => "new-task__price content-view-price new-task__price--{$model->category->icon}"]) : ''; ?>
@@ -43,10 +50,10 @@ use yii\helpers\Html;
             </div>
             <!-- TODO: Условия, отрисовки локации -->
             <div class="content-view__location">
-                <?= Html::tag('h3', \Yii::t('app', 'Location'), [ 'class' => 'content-view__h3' ]); ?>
+                <?= Html::tag('h3', \Yii::t('app', 'Location'), ['class' => 'content-view__h3']); ?>
                 <div class="content-view__location-wrapper">
                     <div class="content-view__map">
-                        <?= Html::a(Html::img('/img/map.jpg', [ 'width' => 361, 'height' => 292, 'alt' => 'Москва, Новый арбат, 23 к. 1' ]), '#'); ?>
+                        <?= Html::a(Html::img('/img/map.jpg', ['width' => 361, 'height' => 292, 'alt' => 'Москва, Новый арбат, 23 к. 1']), '#'); ?>
                     </div>
                     <div class="content-view__address">
                         <?= Html::tag('span', 'Москва', ['class' => 'address__town']); ?> <br />
@@ -58,45 +65,40 @@ use yii\helpers\Html;
         </div>
         <!-- TODO: Add button translate -->
         <div class="content-view__action-buttons">
-            <?= Html::button('Откликнуться', [ 'class' => 'button button__big-color response-button open-modal', 'data-for' => 'response-form' ]); ?>
-            <?= Html::button('Отказаться',   [ 'class' => 'button button__big-color refusal-button open-modal', 'data-for' => 'refuse-form' ]); ?>
-            <?= Html::button('Завершить',    [ 'class' => 'button button__big-color request-button open-modal', 'data-for' => 'complete-form' ]); ?>
+            <?= Html::button('Откликнуться', ['class' => 'button button__big-color response-button open-modal', 'data-for' => 'response-form']); ?>
+            <?= Html::button('Отказаться',   ['class' => 'button button__big-color refusal-button open-modal', 'data-for' => 'refuse-form']); ?>
+            <?= Html::button('Завершить',    ['class' => 'button button__big-color request-button open-modal', 'data-for' => 'complete-form']); ?>
         </div>
     </div>
     <!-- TODO: Add translate -->
     <div class="content-view__feedback">
         <?= $model->taskResponses ?
-            Html::tag('h2', \Yii::t('app', 'Feedbacks') . " <span>(" . count($model->taskResponses). ")</span>") :
+            Html::tag('h2', \Yii::t('app', 'Feedbacks') . " <span>(" . count($model->taskResponses) . ")</span>") :
             "На Вашу заявку еще никто не откликнулся";
         ?>
-        <?php if ($model->taskResponses): ?>
+        <?php if ($model->taskResponses) : ?>
             <!-- TODO: Верстка, переводы -->
             <div class="content-view__feedback-wrapper">
-                <?php foreach($model->taskResponses as $taskResponse): ?>
+                <?php foreach ($model->taskResponses as $taskResponse) : ?>
                     <div class="content-view__feedback-card">
                         <div class="feedback-card__top">
-                            <a href="#"><img src="/img/man-glasses.jpg" width="55" height="55"></a>
+
+                            <a href="#">
+                                <?= GenderIcon::widget(['gender' => $taskResponse->user->gender, 'htmlOptions' => ['width' => 55, 'height' => 55]]); ?>
+                            </a>
                             <div class="feedback-card__top--name">
-                                <p><a href="#" class="link-regular">Астахов Павел</a></p>
-                                <span></span><span></span><span></span><span></span><span class="star-disabled"></span>
-                                <b>4.25</b>
+                                <p>
+                                    <?= Html::a($taskResponse->user->getFirstName() . " " . $taskResponse->user->getLastName(), "#", ['class' => 'link-regular']); ?>
+                                </p>
+                                <?= Stars::widget(['rating' => $taskResponse->user->rating]); ?>
                             </div>
                             <span class="new-task__time">
-                            <?php
-                                if ($model->interval['d'] >= 1) {
-                                    echo Yii::t('intl', 'interval.d', ['n' => $model->interval['d']]);
-                                } elseif ($model->interval['h'] > 0) {
-                                    echo Yii::t('intl', 'interval.h', ['n' => $model->interval['h']]);
-                                } elseif ($model->interval['i'] >= 0) {
-                                    echo Yii::t('intl', 'interval.i', ['n' => $model->interval['i']]);
-                                }
-                            ?>
-                                25 минут назад
+                                <?= Interval::widget(['interval' => $taskResponse->user->lastLogin]); ?>
                             </span>
                         </div>
                         <div class="feedback-card__content">
                             <?= Html::tag('p', $taskResponse->comment); ?>
-                            <?= $taskResponse->amount ? Html::tag('span', \Yii::$app->formatter->asCurrency($taskResponse->amount, 'RUR')): '' ; ?>
+                            <?= $taskResponse->amount ? Html::tag('span', \Yii::$app->formatter->asCurrency($taskResponse->amount, 'RUR')) : ''; ?>
                         </div>
                         <div class="feedback-card__actions">
                             <?= Html::a(\Yii::t('app', 'Confirm'), '', ['class' => 'button__small-color request-button button', 'type' => 'button']); ?>
@@ -105,7 +107,7 @@ use yii\helpers\Html;
                     </div>
                 <?php endforeach; ?>
             </div>
-        <?php endif;?>
+        <?php endif; ?>
     </div>
 </section>
 
@@ -150,24 +152,24 @@ use yii\helpers\Html;
     <h2>Завершение задания</h2>
     <p class="form-modal-description">Задание выполнено?</p>
     <form action="#" method="post">
-    <input class="visually-hidden completion-input completion-input--yes" type="radio" id="completion-radio--yes" name="completion" value="yes">
-    <label class="completion-label completion-label--yes" for="completion-radio--yes">Да</label>
-    <input class="visually-hidden completion-input completion-input--difficult" type="radio" id="completion-radio--yet" name="completion" value="difficulties">
-    <label  class="completion-label completion-label--difficult" for="completion-radio--yet">Возникли проблемы</label>
-    <p>
-        <label class="form-modal-description" for="completion-comment">Комментарий</label>
-        <textarea class="input textarea" rows="4" id="completion-comment" name="completion-comment" placeholder="Place your text"></textarea>
-    </p>
-    <p class="form-modal-description">
-        Оценка
-        <div class="feedback-card__top--name completion-form-star">
-            <span class="star-disabled"></span>
-            <span class="star-disabled"></span>
-            <span class="star-disabled"></span>
-            <span class="star-disabled"></span>
-            <span class="star-disabled"></span>
-        </div>
-    </p>
+        <input class="visually-hidden completion-input completion-input--yes" type="radio" id="completion-radio--yes" name="completion" value="yes">
+        <label class="completion-label completion-label--yes" for="completion-radio--yes">Да</label>
+        <input class="visually-hidden completion-input completion-input--difficult" type="radio" id="completion-radio--yet" name="completion" value="difficulties">
+        <label class="completion-label completion-label--difficult" for="completion-radio--yet">Возникли проблемы</label>
+        <p>
+            <label class="form-modal-description" for="completion-comment">Комментарий</label>
+            <textarea class="input textarea" rows="4" id="completion-comment" name="completion-comment" placeholder="Place your text"></textarea>
+        </p>
+        <p class="form-modal-description">
+            Оценка
+            <div class="feedback-card__top--name completion-form-star">
+                <span class="star-disabled"></span>
+                <span class="star-disabled"></span>
+                <span class="star-disabled"></span>
+                <span class="star-disabled"></span>
+                <span class="star-disabled"></span>
+            </div>
+        </p>
         <input type="hidden" name="rating" id="rating">
         <button class="button modal-button" type="submit">Отправить</button>
     </form>
@@ -180,10 +182,8 @@ use yii\helpers\Html;
         Это действие приведёт к снижению вашего рейтинга.
         Вы уверены?
     </p>
-    <button class="button__form-modal button" id="close-modal"
-            type="button">Отмена</button>
-    <button class="button__form-modal refusal-button button"
-            type="button">Отказаться</button>
+    <button class="button__form-modal button" id="close-modal" type="button">Отмена</button>
+    <button class="button__form-modal refusal-button button" type="button">Отказаться</button>
     <button class="form-modal-close" type="button">Закрыть</button>
 </section>
 <div class="overlay"></div>

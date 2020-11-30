@@ -3,6 +3,7 @@
 namespace frontend\widgets;
 
 use yii\helpers\Html;
+
 /**
  * Иконка в завивисмости от пола.
  */
@@ -22,7 +23,7 @@ class GenderIcon extends \yii\base\Widget
     {
         return $this->renderTag();
     }
-    
+
     /** @return string Icons */
     private function getIconContent(): string
     {
@@ -43,7 +44,7 @@ class GenderIcon extends \yii\base\Widget
             return '';
         }
 
-        return "img/{$iconName}-glasses.jpg";
+        return "/img/{$iconName}-glasses.jpg";
     }
 
     /** @return string Html tag with content */
@@ -51,5 +52,4 @@ class GenderIcon extends \yii\base\Widget
     {
         return Html::img($this->getIconContent(), $this->htmlOptions);
     }
-
 }
