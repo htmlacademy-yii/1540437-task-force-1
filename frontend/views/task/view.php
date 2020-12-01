@@ -115,15 +115,21 @@ $this->title = "{$model->title}::" . Yii::$app->name;
 <section class="connect-desk">
     <div class="connect-desk__profile-mini">
         <div class="profile-mini__wrapper">
-            <h3>Заказчик</h3>
+            <?= Html::tag('h3', \Yii::t('app', 'Customer')); ?>
+
             <div class="profile-mini__top">
-                <img src="/img/man-brune.jpg" width="62" height="62" alt="Аватар заказчика">
+                <?= GenderIcon::widget(['gender' => $model->customer->gender, 'htmlOptions' => ['width' => 62, 'height' => 62, 'alt' => 'Аватар заказчика']]); ?>
                 <div class="profile-mini__name five-stars__rate">
-                    <p>Николай Демченко</p>
+                    <?= Html::tag('p', $model->customer->firstName . ' ' . $model->customer->lastName); ?>
                 </div>
             </div>
-            <p class="info-customer"><span>12 заданий</span><span class="last-">2 года на сайте</span></p>
-            <a href="#" class="link-regular">Смотреть профиль</a>
+            <p class="info-customer">
+                <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->customer->countCustomerTasks])); ?>
+                <span class="last-">
+                    <?= Yii::t('intl', 'users.registered', ['n' => $model->customer->registerDateInterval['y']]); ?>
+                </span>
+            </p>
+            <?= Html::a(Yii::t('app', 'Show Profile'), ['/user/view', 'id' => $model->customer->id], ['class' => 'link-regular']); ?>
         </div>
     </div>
     <div id="chat-container">

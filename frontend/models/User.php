@@ -12,6 +12,7 @@ use Yii;
  * @property TaskResponses[] $taskResponses
  * @property int $countPerformerTasks
  * @property int $countCustomerTasks
+ * @property array $registerDateInterval Interval Datetime as array
  */
 class User extends Users
 {
@@ -25,6 +26,13 @@ class User extends Users
     {
         $now = new \DateTime('now');
         $created = new \DateTime($this->last_logined_at);
+        return (array) $now->diff($created);
+    }
+
+    public function getRegisterDateInterval(): array
+    {
+        $now = new \DateTime('now');
+        $created = new \DateTime($this->created_at);
         return (array) $now->diff($created);
     }
 

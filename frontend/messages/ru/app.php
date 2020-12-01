@@ -5,5 +5,7 @@ return [
     'Feedbacks' => 'Отклики',
     'Deny' => 'Отказать',
     'Location' => 'Расположение',
-    'Attachments' => 'Вложения'
+    'Attachments' => 'Вложения',
+    'Show Profile' => 'Смотреть профиль',
+    'Customer' => 'Заказчик'
 ];

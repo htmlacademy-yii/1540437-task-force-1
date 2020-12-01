@@ -5,6 +5,9 @@ namespace common\widgets;
 use yii\helpers\Html;
 use yii\base\Widget;
 
+/**
+ * @property string $interval
+ */
 class Interval extends Widget
 {
     /** 
@@ -14,24 +17,12 @@ class Interval extends Widget
      * {@inheritDoc}
      */
     public $nullDisplay = '';
-
-    /** @var string Тэг, по умолчанию `span` */
     public $interval;
 
 
     /** {@inheritDoc} */
     public function run(): string
     {
-        // $html = '';
-        // for ($i = 0; $i < $this->max; $i++) {
-        //     $isEmptyStar = floor($this->rating) <= $i;
-        //     $html .= $this->renderStar($isEmptyStar);
-        // }
-
-        // if ($this->showRating && is_numeric($this->rating)) {
-        //     $html .= \Yii::$app->formatter->asDecimal($this->rating, 2);
-        // }
-
         return $this->renderInterval();
     }
 

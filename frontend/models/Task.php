@@ -26,6 +26,11 @@ class Task extends BaseTask
         return $this->hasMany(TaskResponses::class, ['task_id' => 'id']);
     }
 
+    public function getCustomer()
+    {
+        return $this->hasOne(User::class, ['id' => 'customer_user_id']);
+    }
+
     /**
      * {@inheritdoc}
      * @return Query the active query used by this AR class.
