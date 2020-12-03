@@ -3,7 +3,9 @@
 namespace frontend\controllers;
 
 use frontend\models\search\UserSearch;
+use frontend\models\User;
 use Yii;
+use yii\web\NotFoundHttpException;
 
 class UserController extends FrontendController
 {
@@ -18,6 +20,19 @@ class UserController extends FrontendController
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionView(string $id)
+    {
+        $model = User::findOne($id);
+
+        if ($model === null) {
+            throw new NotFoundHttpException('Пользователь не найден');
+        }
+
+        return $this->render('view', [
+            'model' => $model
         ]);
     }
 }

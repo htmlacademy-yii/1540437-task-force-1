@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'TaskForce' => 'ТаскФорс',
     'Confirm' => 'Подтвердить',
     'Feedbacks' => 'Отклики',
     'Deny' => 'Отказать',

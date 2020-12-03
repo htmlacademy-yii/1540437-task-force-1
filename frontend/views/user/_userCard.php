@@ -12,13 +12,13 @@ use yii\helpers\Html;
 <div class="content-view__feedback-card user__search-wrapper">
     <div class="feedback-card__top">
         <div class="user__search-icon">
-            <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), "#{$model->id}"); ?>
+            <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), ['view', 'id' => $model->id]); ?>
             <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => count($model->performerTasks)])); ?>
             <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => $model->countResponses])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">
-                <?= Html::a("{$model->lastName} {$model->firstName}", "#{$model->id}", ['class' => 'link-regular']); ?>
+                <?= Html::a("{$model->lastName} {$model->firstName}", ['view', 'id' => $model->id], ['class' => 'link-regular']); ?>
             </p>
             <?= Stars::widget(['rating' => $model->avgRating]); ?>
         </div>
@@ -32,9 +32,6 @@ use yii\helpers\Html;
                 echo Yii::t('intl', 'users.lastlogin.i', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['i']]);
             } ?>
         </span>
-    </div>
-    <div style="white-space: pre;">
-        <?= print_r($model->performerTasks, true) ?>
     </div>
     <?php if ($model->categories) : ?>
         <div class="link-specialization user__search-link--bottom">
