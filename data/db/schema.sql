@@ -183,4 +183,19 @@ CREATE TABLE `users` (
   CONSTRAINT `fk_users_profile` FOREIGN KEY (`profile_id`) REFERENCES `user_profile` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `user_reviews`;
+CREATE TABLE `user_reviews` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL COMMENT 'Customer',
+  `task_id` int unsigned NOT NULL COMMENT 'Task',
+  `rate` tinyint NOT NULL COMMENT 'Rating',
+  `comment` text,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Created',
+  PRIMARY KEY (`id`),
+  KEY `fk_user_reviews_users_id_idx` (`user_id`),
+  KEY `fk_user_reviews_tasks_id_idx` (`task_id`),
+  CONSTRAINT `fk_user_reviews_tasks_id` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`),
+  CONSTRAINT `fk_user_reviews_users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+
 SET FOREIGN_KEY_CHECKS=1;

@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use common\models\Users;
+use DateTime;
 use frontend\models\query\UserQuery as Query;
 use Yii;
 
@@ -13,6 +14,9 @@ use Yii;
  * @property int $countPerformerTasks
  * @property int $countCustomerTasks
  * @property array $registerDateInterval Interval Datetime as array
+ * @property string $birthDate Дата рождения
+ * @property string $skype
+ * @property string $phone
  */
 class User extends Users
 {
@@ -73,10 +77,22 @@ class User extends Users
         return (int) count($this->performerTasks);
     }
 
-    /** @return int|string Кол-во Заданий заказчика */
+    /** @return int Кол-во Заданий заказчика */
     public function getCountCustomerTasks(): int
     {
         return (int) count($this->customerTasks);
+    }
+
+    /** @return string|null Profile phone if set */
+    public function getPhone(): ?string
+    {
+        return $this->profile ? $this->profile->phone : null;
+    }
+
+    /** @return string|null Profile skype if set */
+    public function getSkype(): ?string
+    {
+        return $this->profile ? $this->profile->skype : null;        
     }
 
     /**
@@ -87,6 +103,24 @@ class User extends Users
     public function getGender(): ?string
     {
         return $this->profile ? $this->profile->gender : null;
+    }
+
+
+    /** 
+     * День рождения
+     * @return string|null $birthDate В строковом формате
+     */
+    public function getBirthDate(): ?string
+    {
+        return $this->profile ? $this->profile->birth_date : null;
+    }
+
+    public function getBirthDateInterval(string $interval = 'y')
+    {
+        $now = new DateTime();
+        $_intreval = $now->diff( new DateTime($this->getBirthDate()) )->{$interval};
+
+        return isset($_intreval) ? $_intreval : null;
     }
 
     /**
@@ -121,6 +155,11 @@ class User extends Users
     public function getRating()
     {
         return $this->ratingAgregation[0]['avgRating'];
+    }
+
+    public function getIsPerformer(): bool
+    {
+        return $this->countPerformerTasks > 0 ? true : false;
     }
 
     /**

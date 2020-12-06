@@ -2,6 +2,7 @@
 
 namespace common\widgets;
 
+use DateTime;
 use yii\helpers\Html;
 use yii\base\Widget;
 
@@ -23,13 +24,42 @@ class Interval extends Widget
 
     public $type;
 
+    /** @var string Date on string format */
+    public $date;
+
+    /** @var DateTime */
+    public $startDate;
+    /** @var DateTime */
+    public $endDate;
+
+    public function init()
+    {
+        if (!isset($this->startDate)) {
+            $this->startDate = new DateTime();
+        }
+
+        if ($this->startDate && !($this->startDate instanceof DateTime)) {
+            $this->startDate = new DateTime($this->startDate);
+        }
+
+        if ($this->endDate && !($this->endDate instanceof DateTime)) {
+            $this->endDate = new DateTime($this->endDate);
+        }
+    
+        parent::init();
+    }
 
     /** {@inheritDoc} */
     public function run(): string
     {
-        if ($this->type = 'users.lastlogin') {
+        if ($this->type === 'users.lastlogin') {
             return $this->lastLoginInterval();
         }
+
+        if ($this->type === 'users.years') {
+            return self::yearsInterval($this->date);
+        }
+
         return $this->renderInterval();
     }
 
@@ -42,6 +72,14 @@ class Interval extends Widget
         } elseif ($this->interval['i'] >= 0) {
             return \Yii::t('intl', 'users.lastlogin.i', ['gender' => strtolower($this->gender), 'n' => $this->interval['i']]);
         }
+    }
+
+    private static function yearsInterval(string $date): string
+    {
+        $now = new DateTime();
+        $interval = $now->diff(new DateTime($date));
+
+        return \Yii::t('intl', 'users.years', [ 'n' => $interval->y ]);
     }
 
 

@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'language' => 'ru',
     'name' => 'TaskForce',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],

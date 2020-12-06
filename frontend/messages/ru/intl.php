@@ -28,6 +28,7 @@ return [
     'interval.d' => $intervalDays,
     'interval.h' => $intervalHours,
     'interval.i' => $intervalMinutes,
+    'interval.y' => $intervalYears,
     /** Дней */
     'users.lastlogin.d' => "{$gender} на сайте {$intervalDays}",
     /** Часы */
@@ -36,8 +37,11 @@ return [
     'users.lastlogin.i' => "{$gender} на сайте {$intervalMinutes}",
     /** Годы */
     'users.registered' => "{n, plural, =0{менее года} =1{# год} one{# год} few{# года} many{# лет} other{# года}} на сайте",
+    'users.years' => $intervalYears,
     /** Другое */
     'tasks.count' => '{n, plural, one{# задание} few{# задания} many{# заданий} other{# от задания}}',
-    'responses.count' => '{n, plural, one{# отзыв} few{# отзыва} many{# отзывов} other{# от отзыва}}',
+    'tasks.completed' => 'Выполнил {n, plural, =0{# заданий} =1{# задание} one{# задание} few{# задания} many{# заданий} other{# задания}}',
+    'tasks.responses' => 'Получил {n, plural, =0{# отзывов} =1{# отзыв} one{# отзыв} few{# отзыва} many{# отзывов} other{# отзыва}}',    
+    // 'responses.count' => '{n, plural, one{# отзыв} few{# отзыва} many{# отзывов} other{# от отзыва}}',
 
 ];

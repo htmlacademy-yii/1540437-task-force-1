@@ -8,5 +8,8 @@ return [
     'Location' => 'Расположение',
     'Attachments' => 'Вложения',
     'Show Profile' => 'Смотреть профиль',
-    'Customer' => 'Заказчик'
+    'Customer' => 'Заказчик',
+    'Contacts' => 'Контакты',
+    'Specializations' => 'Специализации',
+    'Reviews <span>({0})</span>' => 'Отзывы ({0})'
 ];

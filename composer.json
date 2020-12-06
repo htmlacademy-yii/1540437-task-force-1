@@ -49,6 +49,10 @@
     ],
     "autoload": {
         "psr-4": {
+            "frontend\\": "frontend/",
+            "backend\\": "backend/",
+            "common\\": "common/",
+            "console\\": "console",
             "app\\": "src/"
         }
     }

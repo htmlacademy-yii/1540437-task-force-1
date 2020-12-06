@@ -34,7 +34,9 @@ $this->title = "{$model->title}::" . Yii::$app->name;
                         <?php echo Interval::widget(['interval' => $model->interval]); ?>
                     </span>
                 </div>
-                <?= $model->budget ? Html::tag('b', \Yii::$app->formatter->asCurrency($model->budget, 'RUR'), ['class' => "new-task__price content-view-price new-task__price--{$model->category->icon}"]) : ''; ?>
+                <?= $model->budget ?
+                    Html::tag('b', \Yii::$app->formatter->asCurrency($model->budget, 'RUR'), ['class' => "new-task__price content-view-price new-task__price--{$model->category->icon}"]) :
+                    ''; ?>
                 <?= Html::tag('div', null, ['class' => "new-task__icon content-view-icon new-task__icon--{$model->category->icon}"]); ?>
             </div>
             <!-- TODO: Add translate -->

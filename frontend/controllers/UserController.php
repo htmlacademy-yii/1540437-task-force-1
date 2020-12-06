@@ -23,13 +23,13 @@ class UserController extends FrontendController
         ]);
     }
 
-    public function actionView(string $id)
+    public function actionView($id): string
     {
         $model = User::findOne($id);
 
-        if ($model === null) {
-            throw new NotFoundHttpException('Пользователь не найден');
-        }
+        // if ($model === null || $model->isPerformer === false) {
+        //     throw new NotFoundHttpException('Пользователь не найден');
+        // }
 
         return $this->render('view', [
             'model' => $model
