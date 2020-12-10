@@ -5,11 +5,16 @@ namespace frontend\models;
 use common\models\Tasks as BaseTask;
 use frontend\models\query\TaskQuery as Query;
 use frontend\models\query\TaskResponsesQuery;
+use frontend\models\query\UserQuery;
+use frontend\models\query\UserReviewQuery;
 
 /**
- * {@inheritDoc}
- * @property TaskResponses[] $taskResponses
- * @property Categories $category
+ * @inheritDoc
+ * 
+ * @property-read TaskResponses[] $taskResponses
+ * @property-read PerformerResponses[] $performerResponses
+ * @property-read CustomerReviews[] $customerReviews
+ * @property-read Categories[] $category
  */
 class Task extends BaseTask
 {
@@ -26,9 +31,46 @@ class Task extends BaseTask
         return $this->hasMany(TaskResponses::class, ['task_id' => 'id']);
     }
 
-    public function getCustomer()
+    /**
+     * @inheritDoc
+     *
+     * @return UserQuery
+     */
+    public function getCustomer(): UserQuery
     {
         return $this->hasOne(User::class, ['id' => 'customer_user_id']);
+    }
+
+    /** 
+     * @inheritDoc
+     * 
+     * @return UserQuery
+     */
+    public function getPerformer(): UserQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'performer_user_id']);
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @return TaskResponsesQuery
+     */
+    public function getPerformerResponses(): TaskResponsesQuery
+    {
+        return $this->hasMany(TaskResponses::class, ['performer_user_id' => 'id'])
+            ->via('performer');
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @return UserReviewQuery
+     */
+    public function getCustomerReviews(): UserReviewQuery
+    {
+        return $this->hasMany(UserReview::class, ['customer_user_id' => 'id'])
+            ->via('customer');
     }
 
     /**

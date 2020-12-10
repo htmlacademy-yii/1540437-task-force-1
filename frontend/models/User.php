@@ -2,10 +2,9 @@
 
 namespace frontend\models;
 
-use common\models\Users;
 use DateTime;
+use frontend\models\query\TaskResponsesQuery;
 use frontend\models\query\UserQuery as Query;
-use Yii;
 
 /**
  * {@inheritDoc}
@@ -18,7 +17,7 @@ use Yii;
  * @property string $skype
  * @property string $phone
  */
-class User extends Users
+class User extends \common\models\Users
 {
     /** @var float Виртуальное поле, усредненный рейтинг */
     public $avgRating;
@@ -32,6 +31,17 @@ class User extends Users
         $created = new \DateTime($this->last_logined_at);
         return (array) $now->diff($created);
     }
+
+    // /**
+    //  * Undocumented function
+    //  *
+    //  * @return TaskResponsesQuery
+    //  */
+    // public function getTaskResponses(): TaskResponsesQuery
+    // {
+    //     return $this->hasMany(TaskResponses::class, ['user_id' => 'id'])
+    //         ->inverseOf('user');
+    // }
 
     public function getRegisterDateInterval(): array
     {
@@ -92,7 +102,7 @@ class User extends Users
     /** @return string|null Profile skype if set */
     public function getSkype(): ?string
     {
-        return $this->profile ? $this->profile->skype : null;        
+        return $this->profile ? $this->profile->skype : null;
     }
 
     /**
@@ -104,7 +114,6 @@ class User extends Users
     {
         return $this->profile ? $this->profile->gender : null;
     }
-
 
     /** 
      * День рождения
@@ -118,7 +127,7 @@ class User extends Users
     public function getBirthDateInterval(string $interval = 'y')
     {
         $now = new DateTime();
-        $_intreval = $now->diff( new DateTime($this->getBirthDate()) )->{$interval};
+        $_intreval = $now->diff(new DateTime($this->getBirthDate()))->{$interval};
 
         return isset($_intreval) ? $_intreval : null;
     }
@@ -141,6 +150,11 @@ class User extends Users
     public function getFirstName(): ?string
     {
         return $this->profile ? $this->profile->first_name : null;
+    }
+
+    public function getFullName(): ?string
+    {
+        return trim($this->getLastName() . " " . $this->getFirstName());
     }
 
     public function getRatingAgregation()

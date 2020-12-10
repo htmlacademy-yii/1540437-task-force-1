@@ -20,7 +20,7 @@ class TaskResponses extends ModelsTasks
      */
     public function getTask(): \frontend\models\query\TaskQuery
     {
-        return $this->hasOne(Tasks::class, ['id' => 'task_id'])->inverseOf('taskResponses');
+        return $this->hasOne(Task::class, ['id' => 'task_id'])->inverseOf('taskResponses');
     }
 
     /**

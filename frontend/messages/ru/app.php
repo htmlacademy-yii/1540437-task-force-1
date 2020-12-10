@@ -11,5 +11,6 @@ return [
     'Customer' => 'Заказчик',
     'Contacts' => 'Контакты',
     'Specializations' => 'Специализации',
-    'Reviews <span>({0})</span>' => 'Отзывы ({0})'
+    'Reviews <span>({0})</span>' => 'Отзывы ({0})',
+    'Task' => 'Задание'
 ];
