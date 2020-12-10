@@ -19,7 +19,7 @@ use Yii;
  * @property string|null $avatar
  * @property int $views
  *
- * @property Users[] $users
+ * @property User[] $users
  */
 class UserProfile extends \yii\db\ActiveRecord
 {
@@ -73,6 +73,6 @@ class UserProfile extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(Users::className(), ['profile_id' => 'id']);
+        return $this->hasMany(User::className(), ['profile_id' => 'id']);
     }
 }
