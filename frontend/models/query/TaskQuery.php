@@ -21,9 +21,8 @@ class TaskQuery extends \yii\db\ActiveQuery
     }
 
     /**
-     * Ели допускается удаленная работа (без привязки к адресу)
+     * Еcли допускается удаленная работа (без привязки к адресу)
      *
-     * @param string $fieldName Deafult `address` 
      * @param boolean $remote Default `true`
      * @return self
      */
@@ -38,13 +37,12 @@ class TaskQuery extends \yii\db\ActiveQuery
      * Undocumented function
      *
      * @param array[int] $categoryIds 
-     * @param string $aliase Deafult `null`
      * @return self
      */
     public function inCategories(array $categoryIds): self
     {
         $fieldName = $this->_field('category_id');
-        return $this->andWhere([$fieldName => $categoryIds]);
+        return $this->andOnCondition([$fieldName => $categoryIds]);
     }
 
     /** Завершенные задания */

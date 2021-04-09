@@ -32,16 +32,26 @@ class UserController extends FrontendController
         ]);
     }
 
-    private function loadModel($id)
+    /**
+     * Загрузка модели
+     *
+     * @param string $id
+     * @return User
+     * 
+     * @throws NotFoundHttpException
+     */
+    private function loadModel(string $id)
     {
-        $model = User::find()->with([
-            'profile',
-            'taskResponses' => function ($q) {
-                return $q->with(['task', 'user']);
-            }
-        ])
-            ->where(['id' => $id])
-            ->one();
+        // $model = User::find()->with([
+        //     'profile',
+        //     'taskResponses' => function ($q) {
+        //         return $q->with(['task', 'user']);
+        //     }
+        // ])
+        //     ->where(['id' => $id])
+        //     ->one();
+
+        $model = User::findOne($id);
 
         if ($model === null) {
             throw new NotFoundHttpException('Страница не найдена');

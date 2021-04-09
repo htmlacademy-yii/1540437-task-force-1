@@ -16,8 +16,6 @@ class Formatter extends I18nFormatter
         $start = new \DateTime($start);
         $end = new \DateTime($end);
 
-        $intlType = 'interval.' . $type;
-
-        return Yii::t('intl', $intlType, [ 'n' => $end->diff($start)->{$type} ]);
+        return Yii::t('intl', "interval.{$type}", [ 'n' => $end->diff($start)->{$type} ]);
     }
 }

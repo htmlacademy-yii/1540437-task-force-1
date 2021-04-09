@@ -10,12 +10,6 @@ class UserSearch extends User
 {
     public $qname;
 
-    public $avgRating;
-    public $countTasks;
-    public $countResponses;
-
-    public $fullName;
-
     /** @var array ID категорий для поиска */
     public $categoryIds;
     /** @var bool Сейчас свбоден */
@@ -46,7 +40,6 @@ class UserSearch extends User
             [['qname', 'isFreeNow', 'isOnline', 'isHasResponses', 'isFavorite'], 'safe'],
             [['categoryIds'], 'safe'],
             [['avgRating', 'countResponses', 'fullName'], 'safe'],
-            // [['courier', 'cargo', 'translation', 'construction', 'walking'], 'safe'],
             [['free', 'online', 'withResponses', 'favorites'], 'safe']
         ];
     }
@@ -64,15 +57,16 @@ class UserSearch extends User
             ->select('u.*')
             ->with(['categories'])
             ->joinWith([
-                'performerTasks t',
+                'customerTasks t',
                 'profile p',
-                'userCategories uc',
-                'taskResponses tr',
+                'categories uc',
+                'responses tr',
+                'userReviews ur'
             ])
             ->having(['>', 'countUserCategory', 0]);
 
         $query->addSelect([
-            'avgRating' => 'AVG(`evaluation`)',
+            'avgRating' => 'AVG(`ur`.`rate`)',
             'countResponses' => 'COUNT(DISTINCT tr.id)',
             'countUserCategory' => 'COUNT(DISTINCT uc.id)',
             'countTasks' => 'COUNT(DISTINCT `t`.`id`)'
@@ -100,7 +94,12 @@ class UserSearch extends User
                     'default' => SORT_DESC,
                     'label' => \Yii::t('app', 'Популярности')
                 ],
-            ]
+            ],
+            'defaultOrder' => [
+                'rtg' => [
+                    'avgRating' => SORT_DESC
+                ]
+            ],
         ]);
 
         $dataProvider = new ActiveDataProvider([
@@ -111,11 +110,11 @@ class UserSearch extends User
             ]
         ]);
 
-        $dataProvider->sort->defaultOrder = [
-            'rtg' => [
-                'avgRating' => SORT_DESC
-            ]
-        ];
+        // $dataProvider->sort->defaultOrder = [
+        //     'rtg' => [
+        //         'avgRating' => SORT_DESC
+        //     ]
+        // ];
 
         if (!($this->load($params))) {
             return $dataProvider;
@@ -144,12 +143,12 @@ class UserSearch extends User
         }
 
         if ($this->isHasResponses) {
-            $query->andFilterHaving(['>', 'countResponses', 0]);
+            // $query->andFilterHaving(['>', 'countResponses', 0]);
         }
 
         if ($this->isFavorite) {
-            $query->joinWith(['userFavorites uf']);
-            $query->andFilterWhere(['uf.user_id' => \Yii::$app->user->id]);
+            // $query->joinWith(['userFavorites uf']);
+            // $query->andFilterWhere(['uf.user_id' => \Yii::$app->user->id]);
         }
 
         return $dataProvider;

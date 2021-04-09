@@ -13,9 +13,6 @@ use Yii;
  * @property string $created_at
  * @property string|null $updated_at
  * @property string|null $message
- *
- * @property Task $task
- * @property User $user
  */
 class TaskChat extends \yii\db\ActiveRecord
 {
@@ -55,25 +52,5 @@ class TaskChat extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
             'message' => Yii::t('app', 'Message'),
         ];
-    }
-
-    /**
-     * Gets query for [[Task]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTask()
-    {
-        return $this->hasOne(Task::className(), ['id' => 'task_id']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

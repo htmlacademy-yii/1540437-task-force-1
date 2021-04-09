@@ -2,18 +2,46 @@
 
 namespace frontend\models;
 
-use common\models\Cities as BaseModel;
-use frontend\models\query\CityQuery as Query;
+use frontend\models\query\CityQuery;
+use Yii;
 
-/** {@inheritDoc} */
-class City extends BaseModel
+/**
+ * This is the model class for table "cities".
+ *
+ * @property int $id
+ * @property string|null $name
+ * @property float|null $lattitude
+ * @property float|null $longtitude
+ *
+ * @property Task[] $tasks
+ * @property User[] $users
+ */
+class City extends \common\models\City
 {
+
     /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
+     * Gets query for [[Tasks]].
+     *
+     * @return \yii\db\ActiveQuery
      */
-    public static function find(): Query
+    public function getTasks()
     {
-        return new Query(get_called_class());
+        return $this->hasMany(Task::class, ['city_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Users]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::class, ['city_id' => 'id']);
+    }
+
+    /** @return CityQuery */
+    public static function find(): CityQuery
+    {
+        return new CityQuery(get_called_class());
     }
 }

@@ -2,7 +2,6 @@
 
 namespace frontend\models;
 
-use Codeception\Step\Retry;
 use frontend\models\query\CategoryQuery;
 use frontend\models\query\TaskQuery;
 use frontend\models\query\TaskResponseQuery;
@@ -13,39 +12,27 @@ use Yii;
  * This is the model class for table "users".
  *
  * @property TaskChat[] $taskChats
- * @property TaskResponse[] $responses Отклики на задания
- * @property Task[] $customerTasks
+ * @property TaskResponse[] $response Отклики на задания
+ * @property Task[] $tasks
+ * @property Task[] $tasks0
  * @property UserAttachment[] $userAttachments
  * @property UserCategory[] $userCategories
  * @property UserFavorite[] $userFavorites
  * @property UserNotification[] $userNotifications
- * @property UserReview[] $userReviews 
+ * @property UserReview[] $userReviews
  * @property City $city
  * @property UserProfile $profile
+ * @property bool isPerformer 
  */
-class User extends \common\models\User
+class BaseUser extends \common\models\User
 {
 
     public $avgRating;
-    public $countTasks;
-    public $countResponses;
 
-    public function getTaskAggregation()
+    public function getAvgRating()
     {
-        return $this->getResponses()
-            ->select(['performer_user_id', 'count' => 'count(*)', 'avgRating' => 'AVG(`rate`)'])
-            ->groupBy('performer_user_id')
-            ->asArray(true);
+        return 4.3;
     }
-
-    // public function getAvgRating()
-    // {
-    //     if ($this->isNewRecord) {
-    //         return null; // this avoid calling a query searching for null primary keys
-    //     }
-
-    //     return empty($this->taskAggregation) ? 0 : $this->taskAggregation[0]['avgRating'];
-    // }
 
     /**
      * Gets query for [[TaskChats]].
@@ -60,7 +47,7 @@ class User extends \common\models\User
     /** @return TaskResponseQuery */
     public function getResponses(): TaskResponseQuery
     {
-        return $this->hasMany(TaskResponse::class, ['performer_user_id' => 'id']);
+        return $this->hasMany(TaskResponse::class, ['user_id' => 'id']);
     }
 
     /** @return TaskQuery */
@@ -78,7 +65,7 @@ class User extends \common\models\User
     {
         return $this->hasMany(UserAttachment::class, ['user_id' => 'id']);
     }
-
+    
     /**
      * Query class for table [[categories]]
      *
@@ -117,7 +104,7 @@ class User extends \common\models\User
      */
     public function getUserReviews()
     {
-        return $this->hasMany(UserReview::class, ['performer_user_id' => 'id']);
+        return $this->hasMany(UserReview::class, ['user_id' => 'id']);
     }
 
     /**
@@ -161,16 +148,6 @@ class User extends \common\models\User
         $end = new \DateTime('now');
 
         return $end->diff($start)->i > 30;
-    }
-
-    public function getGender()
-    {
-        return $this->profile ? $this->profile->gender : null;
-    }
-
-    public function getLastLogin()
-    {
-        return $this->last_logined_at;
     }
 
     /**

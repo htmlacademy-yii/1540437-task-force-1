@@ -10,9 +10,6 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string|null $icon
- *
- * @property Task[] $tasks
- * @property UserCategory[] $userCategories
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -46,25 +43,5 @@ class Category extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'icon' => Yii::t('app', 'Icon'),
         ];
-    }
-
-    /**
-     * Gets query for [[Tasks]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getTasks()
-    {
-        return $this->hasMany(Task::className(), ['category_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[UserCategories]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserCategories()
-    {
-        return $this->hasMany(UserCategory::className(), ['category_id' => 'id']);
     }
 }

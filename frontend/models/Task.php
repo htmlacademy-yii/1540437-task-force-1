@@ -2,83 +2,82 @@
 
 namespace frontend\models;
 
-use common\models\Tasks as BaseTask;
-use frontend\models\query\TaskQuery as Query;
-use frontend\models\query\TaskResponsesQuery;
+use frontend\models\query\CategoryQuery;
+use frontend\models\query\CityQuery;
+use frontend\models\query\TaskQuery;
+use frontend\models\query\TaskResponseQuery;
 use frontend\models\query\UserQuery;
 use frontend\models\query\UserReviewQuery;
 
 /**
- * @inheritDoc
+ * This is the model class for table "tasks".
  * 
- * @property-read TaskResponses[] $taskResponses
- * @property-read PerformerResponses[] $performerResponses
- * @property-read CustomerReviews[] $customerReviews
- * @property-read Categories[] $category
+ * @property TaskChat[] $chats Чаты
+ * @property TaskResponse[] $responses Отклики на задания
+ * @property Category $category
+ * @property User $customer Заказчик
+ * @property User $performer Исполнитель
+ * @property UserReview[] $userReviews Оценки пользователей
  */
-class Task extends BaseTask
+class Task extends \common\models\Task
 {
-    /** @return array \DateTime array values */
-    public function getInterval(): array
-    {
-        $now = new \DateTime();
-        $created = new \DateTime($this->created_at);
-        return (array) $now->diff($created);
-    }
 
-    public function getTaskResponses(): TaskResponsesQuery
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
     {
-        return $this->hasMany(TaskResponses::class, ['task_id' => 'id']);
+        $rules = parent::rules();
+        return $rules;
     }
 
     /**
-     * @inheritDoc
-     *
-     * @return UserQuery
+     * {@inheritdoc}
      */
+    public function attributeLabels()
+    {
+        $labels = parent::attributeLabels();
+        return $labels;
+    }
+
+    public function getCity()
+    {
+        return null;
+    }
+
+    /** @return TaskResponseQuery */
+    public function getResponses(): TaskResponseQuery
+    {
+        return $this->hasMany(TaskResponse::class, ['task_id' => 'id']);
+    }
+
+    /** @return CategoryQuery */
+    public function getCategory(): CategoryQuery
+    {
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    /** @return UserQuery */
     public function getCustomer(): UserQuery
     {
         return $this->hasOne(User::class, ['id' => 'customer_user_id']);
     }
 
-    /** 
-     * @inheritDoc
-     * 
-     * @return UserQuery
-     */
+    /** @return UserQuery */
     public function getPerformer(): UserQuery
     {
         return $this->hasOne(User::class, ['id' => 'performer_user_id']);
     }
 
-    /**
-     * @inheritDoc
-     *
-     * @return TaskResponsesQuery
-     */
-    public function getPerformerResponses(): TaskResponsesQuery
+    /** @return UserReviewQuery Query for [[user_reviews]] */
+    public function getUserReviews(): UserReviewQuery
     {
-        return $this->hasMany(TaskResponses::class, ['performer_user_id' => 'id'])
-            ->via('performer');
+        return $this->hasMany(UserReview::class, ['task_id' => 'id']);
     }
 
-    /**
-     * @inheritDoc
-     *
-     * @return UserReviewQuery
-     */
-    public function getCustomerReviews(): UserReviewQuery
+    /** @return TaskQuery */
+    public static function find(): TaskQuery
     {
-        return $this->hasMany(UserReview::class, ['customer_user_id' => 'id'])
-            ->via('customer');
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Query the active query used by this AR class.
-     */
-    public static function find(): Query
-    {
-        return new Query(get_called_class());
+        return new TaskQuery(get_called_class());
     }
 }

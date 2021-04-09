@@ -5,22 +5,22 @@
 
 use yii\helpers\Html;
 
-$countResponses = count($model->taskResponses);
+$countResponses = count($model->responses);
 ?>
 <div class="content-view__feedback">
     <?= Html::tag('h2', Yii::t('app', 'Reviews <span>({0})</span>', $countResponses)); ?>
     <div class="content-view__feedback-wrapper reviews-wrapper">
-        <?php foreach ($model->taskResponses as $taskResponse) : ?>
+        <?php foreach ($model->responses as $taskResponse) : ?>
             <div class="feedback-card__reviews">
                 <p class="link-task link">
                     <?= Yii::t('app', 'Task'); ?>
                     <?= Html::a($taskResponse->task->title, ['/task/view', 'id' => $taskResponse->task_id], ['class' => 'link-regular']); ?>
                 </p>
                 <div class="card__review">
-                    <?= Html::a('<img src="/img/man-glasses.jpg" width="55" height="54">', ['user/view', 'id' => $taskResponse->user_id]); ?>
+                    <?= Html::a('<img src="/img/man-glasses.jpg" width="55" height="54">', ['user/view', 'id' => $taskResponse->performer->id]); ?>
                     <div class="feedback-card__reviews-content">
                         <p class="link-name link">
-                            <?= Html::a($taskResponse->user->fullName, ['/user/view', 'id' => $taskResponse->user->id], ['class' => 'link-regular']); ?>
+                            <?= Html::a($taskResponse->customer->name, ['/user/view', 'id' => $taskResponse->performer->id], ['class' => 'link-regular']); ?>
                             <!-- <a href="#" class="link-regular">Астахов Павел</a> -->
                         </p>
                         <p class="review-text">

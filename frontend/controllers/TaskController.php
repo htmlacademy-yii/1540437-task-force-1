@@ -6,6 +6,7 @@ use frontend\models\search\TaskSearch;
 use frontend\models\Task;
 use frontend\models\TaskResponses;
 use yii\web\NotFoundHttpException;
+use Yii;
 
 class TaskController extends FrontendController
 {
@@ -16,7 +17,7 @@ class TaskController extends FrontendController
     public function actionIndex()
     {
         $searchModel  = new TaskSearch();
-        $dataProvider = $searchModel->search(\Yii::$app->getRequest()->post());
+        $dataProvider = $searchModel->search(Yii::$app->getRequest()->post());
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -28,24 +29,44 @@ class TaskController extends FrontendController
     public function actionView($id): string
     {
 
-        $model = Task::find()
-            ->with([
-                'taskChats',
-                'taskResponses.user' => function ($q) {
-                    return $q->with(['ratingAgregation', 'profile']);
-                },
-                'category',
-                'ticketAttachments'
-            ])
-            ->where(['id' => $id])
-            ->one();
+        $model = $this->loadModel($id);
+        
 
-        if ($model === null) {
-            throw new NotFoundHttpException('Запрашиваемая страница не найдена');
-        }
+        // $model = Task::find()
+        //     ->with([
+        //         'taskChats',
+        //         'taskResponses.user' => function ($q) {
+        //             return $q->with(['ratingAgregation', 'profile']);
+        //         },
+        //         'category',
+        //         'ticketAttachments'
+        //     ])
+        //     ->where(['id' => $id])
+        //     ->one();
+
+        // if ($model === null) {
+        //     throw new NotFoundHttpException('Запрашиваемая страница не найдена');
+        // }
 
         return $this->render('view', [
-            'model' => $model
+            'model' => $model, // $model
         ]);
+    }
+
+    /**
+     * Загрузка модели по ее ID
+     *
+     * @param string $id
+     * @return frontend\models\Task
+     */
+    private function loadModel(string $id): \frontend\models\Task
+    {
+        $model = \frontend\models\Task::findOne($id);
+
+        if ($model === null) {
+            throw new NotFoundHttpException('Страница не найдена');
+        }
+
+        return $model;
     }
 }

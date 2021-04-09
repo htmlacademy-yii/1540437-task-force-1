@@ -10,7 +10,7 @@ use yii\web\YiiAsset;
 YiiAsset::register($this);
 
 /** @var \yii\web\View $this */
-/** @var frontend\models\Task $model */
+/** @var \frontend\models\Task $model */
 
 $this->title = "{$model->title}::" . Yii::$app->name;
 
@@ -31,7 +31,8 @@ $this->title = "{$model->title}::" . Yii::$app->name;
                                 (new TaskSearch)->formName() . "[categoryIds][]" => $model->category->id,
                             ]
                         ]); ?>
-                        <?php echo Interval::widget(['interval' => $model->interval]); ?>
+                        <?= \Yii::$app->formatter->asInterval('d', $model->created_at);?>
+                        
                     </span>
                 </div>
                 <?= $model->budget ?
@@ -74,28 +75,27 @@ $this->title = "{$model->title}::" . Yii::$app->name;
     </div>
     <!-- TODO: Add translate -->
     <div class="content-view__feedback">
-        <?= $model->taskResponses ?
-            Html::tag('h2', \Yii::t('app', 'Feedbacks') . " <span>(" . count($model->taskResponses) . ")</span>") :
+        <?= $model->responses ?
+            Html::tag('h2', \Yii::t('app', 'Feedbacks') . " <span>(" . count($model->responses) . ")</span>") :
             "На Вашу заявку еще никто не откликнулся";
         ?>
-        <?php if ($model->taskResponses) : ?>
+        <?php if ($model->responses) : ?>
             <!-- TODO: Верстка, переводы -->
             <div class="content-view__feedback-wrapper">
-                <?php foreach ($model->taskResponses as $taskResponse) : ?>
+                <?php foreach ($model->responses as $taskResponse) : ?>
                     <div class="content-view__feedback-card">
                         <div class="feedback-card__top">
-
                             <a href="#">
-                                <?= GenderIcon::widget(['gender' => $taskResponse->user->gender, 'htmlOptions' => ['width' => 55, 'height' => 55]]); ?>
+                                <?php GenderIcon::widget(['gender' => $taskResponse->performer->profile->gender, 'htmlOptions' => ['width' => 55, 'height' => 55]]); ?>
                             </a>
                             <div class="feedback-card__top--name">
                                 <p>
-                                    <?= Html::a($taskResponse->user->getFirstName() . " " . $taskResponse->user->getLastName(), "#", ['class' => 'link-regular']); ?>
+                                    <?= Html::a($taskResponse->performer->name, "#", ['class' => 'link-regular']); ?>
                                 </p>
-                                <?= Stars::widget(['rating' => $taskResponse->user->rating]); ?>
+                                <?= Stars::widget(['rating' => $taskResponse->evaluation]); ?>
                             </div>
                             <span class="new-task__time">
-                                <?= Interval::widget(['interval' => $taskResponse->user->lastLogin]); ?>
+                                <?= \Yii::$app->formatter->asInterval('d', $taskResponse->created_at); ?>
                             </span>
                         </div>
                         <div class="feedback-card__content">
@@ -120,15 +120,16 @@ $this->title = "{$model->title}::" . Yii::$app->name;
             <?= Html::tag('h3', \Yii::t('app', 'Customer')); ?>
 
             <div class="profile-mini__top">
-                <?= GenderIcon::widget(['gender' => $model->customer->gender, 'htmlOptions' => ['width' => 62, 'height' => 62, 'alt' => 'Аватар заказчика']]); ?>
+                <?= GenderIcon::widget(['gender' => $model->customer->profile->gender, 'htmlOptions' => ['width' => 62, 'height' => 62, 'alt' => 'Аватар заказчика']]); ?>
                 <div class="profile-mini__name five-stars__rate">
-                    <?= Html::tag('p', $model->customer->firstName . ' ' . $model->customer->lastName); ?>
+                    <?= Html::tag('p', $model->customer->name); ?>
                 </div>
             </div>
             <p class="info-customer">
-                <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->customer->countCustomerTasks])); ?>
-                <span class="last-">
-                    <?= Yii::t('intl', 'users.registered', ['n' => $model->customer->registerDateInterval['y']]); ?>
+                <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => count($model->customer->customerTasks)])); ?>
+                <span class="last-visit">
+                    <?= $model->customer->created_at; ?>
+                    <?php  //Yii::t('intl', 'users.registered', ['n' => $model->customer->registerDateInterval['y']]); ?>
                 </span>
             </p>
             <?= Html::a(Yii::t('app', 'Show Profile'), ['/user/view', 'id' => $model->customer->id], ['class' => 'link-regular']); ?>

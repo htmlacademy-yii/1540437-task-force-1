@@ -2,18 +2,33 @@
 
 namespace frontend\models;
 
-use common\models\UserReviews;
-use frontend\models\query\UserReviewQuery;
+use frontend\models\query\TaskQuery;
+use frontend\models\query\UserQuery;
 
-class UserReview extends UserReviews
+/**
+ * {@inheritDoc}
+ * @property Task $task
+ * @property User $user
+ */
+class UserReview extends \common\models\UserReview
 {
     /**
-     * @inheritDoc
+     * Gets query for [[Task]].
      *
-     * @return UserReviewQuery
+     * @return TaskQuery
      */
-    public static function find(): UserReviewQuery
+    public function getTask(): TaskQuery
     {
-        return new UserReviewQuery(get_called_class());
+        return $this->hasOne(Task::class, ['id' => 'task_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return UserQuery
+     */
+    public function getUser(): UserQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

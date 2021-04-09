@@ -12,8 +12,6 @@ use Yii;
  * @property int $new_message
  * @property int $new_respond
  * @property int $task_actions
- *
- * @property User $user
  */
 class UserNotification extends \yii\db\ActiveRecord
 {
@@ -49,15 +47,5 @@ class UserNotification extends \yii\db\ActiveRecord
             'new_respond' => Yii::t('app', 'New Respond'),
             'task_actions' => Yii::t('app', 'Task Actions'),
         ];
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

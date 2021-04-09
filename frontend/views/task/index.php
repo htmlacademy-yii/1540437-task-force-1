@@ -15,6 +15,7 @@ $this->title = 'Задания';
             <?= $this->render('_taskCard', ['model' => $model]); ?>
         <?php endforeach; ?>
     </div>
+    <?php /** Пагинация */ ?>
     <div class="new-task__pagination">
         <ul class="new-task__pagination-list">
             <li class="pagination__item"><a href="#"></a></li>

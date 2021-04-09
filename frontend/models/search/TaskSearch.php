@@ -15,7 +15,7 @@ class TaskSearch extends Task
     public $categoryIds;
 
     /** @var string Интервал даты */
-    public $period = 'week';
+    public $period = '';
     public $remoteWork = false;
     public $empty;
 
@@ -49,7 +49,7 @@ class TaskSearch extends Task
      */
     public function search(array $params): ActiveDataProvider
     {
-        $query = Task::find()->with(['city', 'category'])->new();
+        $query = Task::find()->with(['category'])->new();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -80,8 +80,13 @@ class TaskSearch extends Task
         }
 
         if ($this->empty) {
-            $query->andFilterWhere(['not in', 'id', \frontend\models\TaskResponses::find()->select('DISTINCT(task_id)')]);
+            $taskIdsWithResponsesQuery = \frontend\models\TaskResponse::find()->select('DISTINCT(task_id)');
+            $query->andFilterWhere(['not in', 'id', $taskIdsWithResponsesQuery]);
         }
+
+        // if ($this->empty) {
+        //     $query->andFilterWhere(['not in', 'id', \frontend\models\TaskResponses::find()->select('DISTINCT(task_id)')]);
+        // }
 
         return $dataProvider;
     }

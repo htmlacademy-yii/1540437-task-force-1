@@ -16,26 +16,26 @@ $this->title = "Профиль";
             <div class="user__card">
                 <img src="/img/man-hat.png" width="120" height="120" alt="Аватар пользователя">
                 <div class="content-view__headline">
-                    <?= Html::tag('h1', $model->lastName . " " . $model->firstName); ?>
+                    <?= Html::tag('h1', $model->name); ?>
                     <p>
                         Россия,
-                        <?= $model->city->name; ?>,
-                        <?= Yii::$app->formatter->asInterval('y', $model->birthDate); ?>
+                        <?= $model->city ? $model->city->name : ''; ?>,
+                        <?= Yii::$app->formatter->asInterval('y', $model->profile->birth_date); ?>
                     </p>
                     <div class="profile-mini__name five-stars__rate">
                         <span></span><span></span><span></span><span></span><span class="star-disabled"></span>
                         <b>4.25</b>
                     </div>
                     <b class="done-task">
-                        <?= Yii::t('intl', 'tasks.completed', ['n' => $model->getCountPerformerTasks()]); ?>
+                        <?= Yii::t('intl', 'tasks.completed', ['n' => 2 ]); ?>
                     </b>
                     <b class="done-review">
-                        <?= Yii::t('intl', 'tasks.responses', ['n' => 6]); ?>
+                        <?= Yii::t('intl', 'tasks.responses', ['n' => 6 ]); ?>
                     </b>
                 </div>
                 <div class="content-view__headline user__card-bookmark user__card-bookmark--current">
                     <span>
-                        <?= Interval::widget(['interval' => $model->getLastLogin(), 'gender' => $model->getGender(), 'type' => 'users.lastlogin']); ?>
+                        <?php //Interval::widget(['interval' => $model->last_logined_at, 'gender' => $model->profile->gender, 'type' => 'users.lastlogin']); ?>
                     </span>
                     <a href="#"><b></b></a>
                 </div>
