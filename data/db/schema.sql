@@ -169,7 +169,7 @@ CREATE TABLE `users` (
   `is_profile_public` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `is_contact_public` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_logined_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uidx_email` (`email`),
@@ -183,15 +183,15 @@ DROP TABLE IF EXISTS `user_reviews`;
 CREATE TABLE `user_reviews` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL COMMENT 'Customer',
-  `task_id` int unsigned NOT NULL COMMENT 'Task',
+  `related_task_id` int unsigned NOT NULL COMMENT 'Task',
   `rate` tinyint NOT NULL COMMENT 'Rating',
   `comment` text,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Created',
   PRIMARY KEY (`id`),
   KEY `fk_user_reviews_users_id_idx` (`user_id`),
   KEY `fk_user_reviews_tasks_id_idx` (`task_id`),
-  CONSTRAINT `fk_user_reviews_tasks_id` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`),
-  CONSTRAINT `fk_user_reviews_users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `fk_user_reviews_tasks` FOREIGN KEY (`related_task_id`) REFERENCES `tasks` (`id`),
+  CONSTRAINT `fk_user_reviews_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `user_role`;
