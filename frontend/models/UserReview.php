@@ -8,7 +8,7 @@ use frontend\models\query\UserQuery;
 /**
  * {@inheritDoc}
  * @property Task $task
- * @property User $user
+ * @property User $user Заказчик
  */
 class UserReview extends \common\models\UserReview
 {
@@ -19,7 +19,7 @@ class UserReview extends \common\models\UserReview
      */
     public function getTask(): TaskQuery
     {
-        return $this->hasOne(Task::class, ['id' => 'task_id']);
+        return $this->hasOne(Task::class, ['id' => 'related_task_id']);
     }
 
     /**

@@ -86,13 +86,13 @@ $this->title = "{$model->title}::" . Yii::$app->name;
                     <div class="content-view__feedback-card">
                         <div class="feedback-card__top">
                             <a href="#">
-                                <?php GenderIcon::widget(['gender' => $taskResponse->performer->profile->gender, 'htmlOptions' => ['width' => 55, 'height' => 55]]); ?>
+                                <?php GenderIcon::widget(['gender' => $taskResponse->performer->gender, 'htmlOptions' => ['width' => 55, 'height' => 55]]); ?>
                             </a>
                             <div class="feedback-card__top--name">
                                 <p>
                                     <?= Html::a($taskResponse->performer->name, "#", ['class' => 'link-regular']); ?>
                                 </p>
-                                <?= Stars::widget(['rating' => $taskResponse->evaluation]); ?>
+                                <?= Stars::widget(['rating' => $taskResponse->rate]); ?>
                             </div>
                             <span class="new-task__time">
                                 <?= \Yii::$app->formatter->asInterval('d', $taskResponse->created_at); ?>
@@ -114,15 +114,16 @@ $this->title = "{$model->title}::" . Yii::$app->name;
 </section>
 
 <!-- TODO: Content desc -->
-<section class="connect-desk">
+<?php if ($model->customer) : ?>
+    <section class="connect-desk">
     <div class="connect-desk__profile-mini">
         <div class="profile-mini__wrapper">
             <?= Html::tag('h3', \Yii::t('app', 'Customer')); ?>
 
             <div class="profile-mini__top">
-                <?= GenderIcon::widget(['gender' => $model->customer->profile->gender, 'htmlOptions' => ['width' => 62, 'height' => 62, 'alt' => 'Аватар заказчика']]); ?>
+                <?= GenderIcon::widget(['gender' => $model->customer->gender, 'htmlOptions' => ['width' => 62, 'height' => 62, 'alt' => 'Аватар заказчика']]); ?>
                 <div class="profile-mini__name five-stars__rate">
-                    <?= Html::tag('p', $model->customer->name); ?>
+                    <?= Html::tag('p', $model->customer->gender); ?>
                 </div>
             </div>
             <p class="info-customer">
@@ -140,6 +141,10 @@ $this->title = "{$model->title}::" . Yii::$app->name;
         <chat class="connect-desk__chat"></chat>
     </div>
 </section>
+
+<?php endif;?>
+
+
 
 <!-- TODO: Modal Widget -->
 <section class="modal response-form form-modal" id="response-form">

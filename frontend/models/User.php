@@ -2,7 +2,6 @@
 
 namespace frontend\models;
 
-use Codeception\Step\Retry;
 use frontend\models\query\CategoryQuery;
 use frontend\models\query\TaskQuery;
 use frontend\models\query\TaskResponseQuery;
@@ -14,7 +13,8 @@ use Yii;
  *
  * @property TaskChat[] $taskChats
  * @property TaskResponse[] $responses Отклики на задания
- * @property Task[] $customerTasks
+ * @property Task[] $customerTasks Задачи заказчика
+ * @property Task[] $performerTasks Задания исполнителя
  * @property UserAttachment[] $userAttachments
  * @property UserCategory[] $userCategories
  * @property UserFavorite[] $userFavorites
@@ -22,6 +22,9 @@ use Yii;
  * @property UserReview[] $userReviews 
  * @property City $city
  * @property UserProfile $profile
+ * @property-read bool $isCustomer Если пользвоатель заказчик
+ * @property-read bool $isPerformer Если пользователь исполнитель
+ * @property-read bool $isOnline Если последняя активыность была менее 30 минут
  */
 class User extends \common\models\User
 {
@@ -29,23 +32,6 @@ class User extends \common\models\User
     public $avgRating;
     public $countTasks;
     public $countResponses;
-
-    public function getTaskAggregation()
-    {
-        return $this->getResponses()
-            ->select(['performer_user_id', 'count' => 'count(*)', 'avgRating' => 'AVG(`rate`)'])
-            ->groupBy('performer_user_id')
-            ->asArray(true);
-    }
-
-    // public function getAvgRating()
-    // {
-    //     if ($this->isNewRecord) {
-    //         return null; // this avoid calling a query searching for null primary keys
-    //     }
-
-    //     return empty($this->taskAggregation) ? 0 : $this->taskAggregation[0]['avgRating'];
-    // }
 
     /**
      * Gets query for [[TaskChats]].
@@ -66,7 +52,13 @@ class User extends \common\models\User
     /** @return TaskQuery */
     public function getCustomerTasks(): TaskQuery
     {
-        return $this->hasMany(Task::class, ['customer_user_id' => 'id']);
+        return $this->hasMany(Task::class, ['user_id' => 'id']);
+    }
+
+    /** @return TaskQuery */
+    public function getPerformerTasks(): TaskQuery
+    {
+        return $this->hasMany(Task::class, ['performer_user_id' => 'id']);
     }
 
     /**
@@ -117,7 +109,7 @@ class User extends \common\models\User
      */
     public function getUserReviews()
     {
-        return $this->hasMany(UserReview::class, ['performer_user_id' => 'id']);
+        return $this->hasMany(UserReview::class, ['user_id' => 'id']);
     }
 
     /**
@@ -135,9 +127,23 @@ class User extends \common\models\User
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProfile()
+    public function getProfile(): \yii\db\ActiveQuery
     {
         return $this->hasOne(UserProfile::class, ['id' => 'profile_id']);
+    }
+
+    /**
+     * Является ли пользователь Заказчиком
+     * 
+     * @return bool
+     */
+    public function getIsCustomer(): bool
+    {
+        if ($this->isNewRecord) {
+            return false;
+        }
+
+        return $this->role === \app\bizzlogic\User::ROLE_CUSTOMER;
     }
 
     /**
@@ -147,28 +153,30 @@ class User extends \common\models\User
      */
     public function getIsPerformer(): bool
     {
-        return count($this->categories) > 0;
+        if ($this->isNewRecord) {
+            return false;
+        }
+
+        return $this->role === \app\bizzlogic\User::ROLE_PERFORMER;
     }
 
-    public function getIsFreeNow(): bool
+    /** @return bool */
+    public function getIsOnline(): bool
     {
-        return $this->tasks === null;
-    }
+        if ($this->isNewRecord) {
+            return false;
+        }
 
-    public function isOnline(): bool
-    {
         $start = new \DateTime($this->last_logined_at);
         $end = new \DateTime('now');
 
         return $end->diff($start)->i > 30;
     }
 
-    public function getGender()
-    {
-        return $this->profile ? $this->profile->gender : null;
-    }
-
-    public function getLastLogin()
+    /** 
+     * @return string|null Дата последного входа в систему
+     */
+    public function getLastLogin(): ?string
     {
         return $this->last_logined_at;
     }

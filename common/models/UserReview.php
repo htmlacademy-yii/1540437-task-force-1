@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "user_reviews".
  *
  * @property int $id
- * @property int|null $user_id Customer
- * @property int|null $task_id Task
+ * @property int $user_id Customer
+ * @property int $related_task_id Task
  * @property int $rate Rating
  * @property string|null $comment
  * @property string $created_at Created
@@ -30,11 +30,11 @@ class UserReview extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'task_id', 'rate'], 'integer'],
-            [['rate'], 'required'],
+            [['user_id', 'related_task_id', 'rate'], 'required'],
+            [['user_id', 'related_task_id', 'rate'], 'integer'],
             [['comment'], 'string'],
             [['created_at'], 'safe'],
-            [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['task_id' => 'id']],
+            [['related_task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Task::className(), 'targetAttribute' => ['related_task_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -47,7 +47,7 @@ class UserReview extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'Customer'),
-            'task_id' => Yii::t('app', 'Task'),
+            'related_task_id' => Yii::t('app', 'Task'),
             'rate' => Yii::t('app', 'Rating'),
             'comment' => Yii::t('app', 'Comment'),
             'created_at' => Yii::t('app', 'Created'),

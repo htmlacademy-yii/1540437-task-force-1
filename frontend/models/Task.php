@@ -2,8 +2,8 @@
 
 namespace frontend\models;
 
+use common\models\UserRole;
 use frontend\models\query\CategoryQuery;
-use frontend\models\query\CityQuery;
 use frontend\models\query\TaskQuery;
 use frontend\models\query\TaskResponseQuery;
 use frontend\models\query\UserQuery;
@@ -16,12 +16,13 @@ use frontend\models\query\UserReviewQuery;
  * @property TaskResponse[] $responses Отклики на задания
  * @property Category $category
  * @property User $customer Заказчик
- * @property User $performer Исполнитель
+ * @property User|null $performer Исполнитель
  * @property UserReview[] $userReviews Оценки пользователей
+ * @property UserRole|null $role Роль пользователя
+ * @property City|null $city Город проживания
  */
 class Task extends \common\models\Task
 {
-
     /**
      * {@inheritdoc}
      */
@@ -40,9 +41,16 @@ class Task extends \common\models\Task
         return $labels;
     }
 
-    public function getCity()
+    /** @return \yii\db\ActiveQuery */
+    public function getCity(): \yii\db\ActiveQuery
     {
-        return null;
+        return $this->hasOne(City::class, ['id' => 'city_id']);
+    }
+
+    /** @return \yii\db\ActiveQuery */
+    public function getRole(): \yii\db\ActiveQuery
+    {
+        return $this->hasOne(UserRole::class, ['user_id', 'id']);
     }
 
     /** @return TaskResponseQuery */
@@ -60,7 +68,7 @@ class Task extends \common\models\Task
     /** @return UserQuery */
     public function getCustomer(): UserQuery
     {
-        return $this->hasOne(User::class, ['id' => 'customer_user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /** @return UserQuery */

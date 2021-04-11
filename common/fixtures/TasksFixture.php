@@ -2,13 +2,13 @@
 
 namespace common\fixtures;
 
+use common\models\Task;
 use yii\test\ActiveFixture;
-use common\models\Tasks;
 
 class TasksFixture extends ActiveFixture
 {
-    public $modelClass = Tasks::class;
+    public $modelClass = Task::class;
     public $depends = [
-        UsersFixture::class
+        \common\fixtures\UsersFixture::class
     ];
 }

@@ -74,8 +74,8 @@ CREATE TABLE `tasks` (
   `status` enum('NEW','CANCELED','INPROGRESS','COMPLETE','FAIL') NOT NULL DEFAULT 'NEW',
   `budget` decimal(12,4) unsigned DEFAULT NULL,
   `expire` date DEFAULT NULL,
-  `lattitude` decimal(11,7) DEFAULT NULL,
-  `longtitude` decimal(11,7) DEFAULT NULL,
+  `latitude` decimal(11,7) DEFAULT NULL,
+  `longitude` decimal(11,7) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -147,7 +147,6 @@ DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `about` text,
-  `gender` enum('MALE','FEMALE') DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `phone` varchar(90) DEFAULT NULL,
   `skype` varchar(90) DEFAULT NULL,
@@ -164,6 +163,7 @@ CREATE TABLE `users` (
   `city_id` int(10) unsigned DEFAULT NULL COMMENT 'Город',
   `profile_id` int(10) unsigned NOT NULL COMMENT 'Профиль',
   `name` varchar(45) DEFAULT NULL COMMENT 'Имя',
+  `gender` enum('MALE','FEMALE') DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL COMMENT 'Пароль',
   `email` varchar(245) NOT NULL,
   `is_profile_public` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -189,7 +189,7 @@ CREATE TABLE `user_reviews` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Created',
   PRIMARY KEY (`id`),
   KEY `fk_user_reviews_users_id_idx` (`user_id`),
-  KEY `fk_user_reviews_tasks_id_idx` (`task_id`),
+  KEY `fk_user_reviews_tasks_id_idx` (`related_task_id`),
   CONSTRAINT `fk_user_reviews_tasks` FOREIGN KEY (`related_task_id`) REFERENCES `tasks` (`id`),
   CONSTRAINT `fk_user_reviews_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

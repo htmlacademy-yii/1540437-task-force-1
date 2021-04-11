@@ -1,3 +1,26 @@
+# Первый запуск
+
+## База данных, и данные по умолчанию
+Схема базы лежит в каталоге `data/db/schema.sql` наименование базы **`taskforce`**.
+
+Файл соджержит строки колторые удаляют все данные в базе и саму базу с именем **`taskforce`**.
+
+Выполнить команды или импортировать данные вручную:
+- `php import.php` - Генерация из CSV файлов
+- `sudo mysql < data/db/schema.sql` - Загрузить схему
+- `sudo mysql < data/sql/categories.sql` - Загрузка списка Категорий 
+- `sudo mysql < data/sql/cities.sql` - Загрузка списка Городов
+
+или одной строкой
+
+```php
+php import.php && sudo mysql < data/db/schema.sql && sudo mysql < data/sql/categories.sql && sudo mysql < data/sql/cities.sql
+```
+## Подготовка тестовых данных для задания
+
+```php
+php yii fixture/generate users --count=30, user_profile --count=30, user_categories --count=10, tasks --count=100 && php yii fixture/load Tasks,UserCategories
+```
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">

@@ -2,11 +2,10 @@
 
 namespace common\fixtures;
 
-use UserReview;
+use common\models\UserReview;
 use yii\test\ActiveFixture;
 
-
-class UserReviewFixture extends ActiveFixture
+class UserReviewsFixture extends ActiveFixture
 {
     public $modelClass = UserReview::class;
     public $depends = [];
