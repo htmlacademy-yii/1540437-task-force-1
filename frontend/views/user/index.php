@@ -9,10 +9,22 @@ $this->title = 'Исполнители';
 
 <section class="user__search">
     <div class="user__wrapper">
-        <?= $this->render('_searchSorter', [ 'dataProvider' => $dataProvider ]); ?>
+        <?= $this->render('_searchSorter', ['dataProvider' => $dataProvider]); ?>
         <?php foreach ($dataProvider->getModels() as $model) : ?>
             <?= $this->render('_userCard', ['model' => $model]); ?>
         <?php endforeach; ?>
+    </div>
+    <div class="new-task__pagination" style="margin: 0 -20px -20px -20px;">
+        <?= yii\widgets\LinkPager::widget([
+            'pagination' => $dataProvider->pagination,
+            'options' => ['class' => 'new-task__pagination-list'],
+            'nextPageLabel' => '',
+            'prevPageLabel' => '',
+            'prevPageCssClass' => 'pagination__item',
+            'nextPageCssClass' => 'pagination__item',
+            'pageCssClass' => 'pagination__item',
+            'activePageCssClass' => 'pagination__item--current'
+        ]); ?>
     </div>
 </section>
 

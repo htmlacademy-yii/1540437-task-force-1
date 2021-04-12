@@ -14,7 +14,7 @@ use yii\helpers\Html;
         <div class="user__search-icon">
             <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), ['view', 'id' => $model->id]); ?>
             <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => 0])); ?>
-            <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => $model->countResponses ])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => count($model->userReviews)])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">
@@ -23,17 +23,7 @@ use yii\helpers\Html;
             <?= Stars::widget(['rating' => $model->avgRating]); ?>
         </div>
         <span class="new-task__time">
-            Последний раз видили <?= $model->last_logined_at; ?>
-            <?php
-
-            // if ($model->lastLogin['d'] > 0) {
-            //     echo Yii::t('intl', 'users.lastlogin.d', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['d']]);
-            // } elseif ($model->lastLogin['h'] > 0) {
-            //     echo Yii::t('intl', 'users.lastlogin.h', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['h']]);
-            // } elseif ($model->lastLogin['i'] >= 0) {
-            //     echo Yii::t('intl', 'users.lastlogin.i', ['gender' => strtolower($model->gender), 'n' => $model->lastLogin['i']]);
-            // } 
-            ?>
+            Последний раз видили <?= \Yii::$app->formatter->asInterval('auto', $model->last_logined_at ); ?>
         </span>
     </div>
     <?php if ($model->categories) : ?>

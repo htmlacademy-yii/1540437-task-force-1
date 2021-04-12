@@ -41,7 +41,8 @@ return [
     /** Другое */
     'tasks.count' => '{n, plural, one{# задание} few{# задания} many{# заданий} other{# от задания}}',
     'tasks.completed' => 'Выполнил {n, plural, =0{# заданий} =1{# задание} one{# задание} few{# задания} many{# заданий} other{# задания}}',
-    'tasks.responses' => 'Получил {n, plural, =0{# отзывов} =1{# отзыв} one{# отзыв} few{# отзыва} many{# отзывов} other{# отзыва}}',    
-    // 'responses.count' => '{n, plural, one{# отзыв} few{# отзыва} many{# отзывов} other{# от отзыва}}',
+    'tasks.responses' => 'Получил {n, plural, =0{# отзывов} =1{# отзыв} one{# отзыв} few{# отзыва} many{# отзывов} other{# отзыва}}',
+    'tasks.reviews' => 'Получил {n, plural, =0{# отзывов} =1{# отзыв} one{# отзыв} few{# отзыва} many{# отзывов} other{# отзыва}}',
+    'responses.count' => '{n, plural, one{# отзыв} few{# отзыва} many{# отзывов} other{# от отзыва}}',
 
 ];

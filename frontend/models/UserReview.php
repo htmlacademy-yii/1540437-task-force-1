@@ -12,6 +12,8 @@ use frontend\models\query\UserQuery;
  */
 class UserReview extends \common\models\UserReview
 {
+    public $avgReating;
+    
     /**
      * Gets query for [[Task]].
      *

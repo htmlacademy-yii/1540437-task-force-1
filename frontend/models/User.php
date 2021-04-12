@@ -7,6 +7,7 @@ use frontend\models\query\TaskQuery;
 use frontend\models\query\TaskResponseQuery;
 use frontend\models\query\UserQuery;
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "users".
@@ -16,7 +17,8 @@ use Yii;
  * @property Task[] $customerTasks Задачи заказчика
  * @property Task[] $performerTasks Задания исполнителя
  * @property UserAttachment[] $userAttachments
- * @property UserCategory[] $userCategories
+ * @property UserCategory[] $userCategory
+ * @property Category[] $categories
  * @property UserFavorite[] $userFavorites
  * @property UserNotification[] $userNotifications
  * @property UserReview[] $userReviews 
@@ -29,9 +31,50 @@ use Yii;
 class User extends \common\models\User
 {
 
-    public $avgRating;
+    public $_avgRating;
     public $countTasks;
     public $countResponses;
+
+    public function getRating(): ?int
+    {
+        if ($this->isNewRecord) {
+            return null; // нет смысла выполнять запрос на поиск по пустым ключам
+        }
+
+        return $this->reviewsAggregation[0]['avgRating'];
+    }
+
+    public function getReviewsAggregation()
+    {
+        return $this->getUserReviews()
+            ->select(['user_id','avgRating' => 'avg(`rate`)'])
+            ->groupBy('user_id')
+            ->asArray(true);
+    }
+
+    public function getAvgRating()
+    {
+        if ($this->_avgRating === null) {
+            $this->_avgRating = $this->getUserReviews()
+                ->select(['avgRating' => 'avg(`rate`)'])
+                ->groupBy('user_id')
+                ->scalar();
+        } elseif ($this->_avgRating === 'empty') {
+            return null;
+        }        
+
+        return $this->_avgRating;
+    }
+
+    public function setAvgRating(?string $value)
+    {
+        if ($value === null) {
+            $value = 'empty';
+        }
+
+        $this->_avgRating = $value;
+
+    }
 
     /**
      * Gets query for [[TaskChats]].
@@ -80,6 +123,12 @@ class User extends \common\models\User
     {
         return $this->hasMany(Category::class, ['id' => 'category_id'])
             ->viaTable('user_categories', ['user_id' => 'id']);
+    }
+
+    /** @return ActiveQuery */
+    public function getUserCategories(): ActiveQuery
+    {
+        return $this->hasMany(UserCategory::class,  ['user_id' => 'id']);
     }
 
     /**

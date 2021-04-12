@@ -123,7 +123,7 @@ $this->title = "{$model->title}::" . Yii::$app->name;
             <div class="profile-mini__top">
                 <?= GenderIcon::widget(['gender' => $model->customer->gender, 'htmlOptions' => ['width' => 62, 'height' => 62, 'alt' => 'Аватар заказчика']]); ?>
                 <div class="profile-mini__name five-stars__rate">
-                    <?= Html::tag('p', $model->customer->gender); ?>
+                    <?= Html::tag('p', $model->customer->name); ?>
                 </div>
             </div>
             <p class="info-customer">

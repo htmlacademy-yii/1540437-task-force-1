@@ -55,20 +55,21 @@ class UserSearch extends User
         $query = User::find();
         $query->alias('u')
             ->select('u.*')
-            ->with(['categories'])
+            // ->with(['categories'])
             ->joinWith([
                 'customerTasks t',
                 'profile p',
-                'categories uc',
+                'categories c',
                 'responses tr',
                 'userReviews ur'
             ])
             ->having(['>', 'countUserCategory', 0]);
 
+
         $query->addSelect([
             'avgRating' => 'AVG(`ur`.`rate`)',
             'countResponses' => 'COUNT(DISTINCT tr.id)',
-            'countUserCategory' => 'COUNT(DISTINCT uc.id)',
+            'countUserCategory' => 'COUNT(DISTINCT c.id)',
             'countTasks' => 'COUNT(DISTINCT `t`.`id`)'
         ]);
 
@@ -130,7 +131,7 @@ class UserSearch extends User
         }
 
         if (!empty($this->categoryIds)) {
-            $query->andFilterWhere(['uc.category_id' => $this->categoryIds]);
+            $query->andFilterWhere(['c.id' => $this->categoryIds]);
         }
 
         if ($this->isFreeNow) {

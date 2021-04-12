@@ -16,6 +16,31 @@ class Formatter extends I18nFormatter
         $start = new \DateTime($start);
         $end = new \DateTime($end);
 
-        return Yii::t('intl', "interval.{$type}", [ 'n' => $end->diff($start)->{$type} ]);
+        $interval = $end->diff($start);
+
+        if ($type === 'auto') {
+            $type = self::autoType($interval);
+        }
+
+        return Yii::t('intl', "interval.{$type}", [ 'n' => $interval->{$type} ]);
+    }
+
+    /**
+     * Auto type
+     *
+     * @param \DateInterval $interval
+     * @return string
+     */
+    private static function autoType(\DateInterval $interval): string
+    {
+        if ($interval->y > 0) {
+            return 'y';
+        } elseif ($interval->d > 0) {
+            return 'd';
+        } elseif ($interval->h > 0) {
+            return 'h';
+        } else {
+            return 'i';
+        }
     }
 }

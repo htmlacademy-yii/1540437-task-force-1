@@ -1,6 +1,7 @@
 <?php
 
 use common\widgets\Interval;
+use common\widgets\Stars;
 use yii\helpers\Html;
 
 /** @var frontend\models\User $model */
@@ -23,19 +24,19 @@ $this->title = "Профиль";
                         <?= Yii::$app->formatter->asInterval('y', $model->profile->birth_date); ?>
                     </p>
                     <div class="profile-mini__name five-stars__rate">
-                        <span></span><span></span><span></span><span></span><span class="star-disabled"></span>
-                        <b>4.25</b>
+                        <?= Stars::widget(['rating' => $model->getAvgRating()]); ?>
                     </div>
                     <b class="done-task">
-                        <?= Yii::t('intl', 'tasks.completed', ['n' => 2 ]); ?>
+                        <?= Yii::t('intl', 'tasks.completed', ['n' => $model->getPerformerTasks()->completed()->count()]); ?>
                     </b>
                     <b class="done-review">
-                        <?= Yii::t('intl', 'tasks.responses', ['n' => 6 ]); ?>
+                        <?= Yii::t('intl', 'tasks.reviews', ['n' => $model->getUserReviews()->count()]); ?>
                     </b>
                 </div>
                 <div class="content-view__headline user__card-bookmark user__card-bookmark--current">
                     <span>
-                        <?php //Interval::widget(['interval' => $model->last_logined_at, 'gender' => $model->profile->gender, 'type' => 'users.lastlogin']); ?>
+                        <?php //Interval::widget(['interval' => $model->last_logined_at, 'gender' => $model->profile->gender, 'type' => 'users.lastlogin']); 
+                        ?>
                     </span>
                     <a href="#"><b></b></a>
                 </div>
@@ -45,12 +46,12 @@ $this->title = "Профиль";
             </div>
             <div class="user__card-general-information">
                 <div class="user__card-info">
-                    <?= Html::tag('h3', Yii::t('app','Specializations'), ['content-view__h3']); ?>
+                    <?= Html::tag('h3', Yii::t('app', 'Specializations'), ['content-view__h3']); ?>
                     <div class="link-specialization">
                         <?php foreach ($model->categories as $category) : ?>
                             <?= Html::a($category->name, ["#"], ['class' => 'link-regular']); ?>
                         <?php endforeach; ?>
-                    </div>                    
+                    </div>
                     <?= $this->render('_contacts', ['model' => $model]); ?>
                 </div>
                 <div class="user__card-photo">

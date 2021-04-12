@@ -48,13 +48,7 @@ class TaskQuery extends \yii\db\ActiveQuery
     /** Завершенные задания */
     public function completed(): self
     {
-        $fieldName = $this->_field('status');
-        return $this->where([
-            $fieldName => [
-                \app\bizzlogic\Task::STATUS_COMPLETE,
-                \app\bizzlogic\Task::STATUS_FAIL
-            ]
-        ]);
+        return $this->andOnCondition(['status' => \app\bizzlogic\Task::STATUS_COMPLETE]);
     }
 
     /**
