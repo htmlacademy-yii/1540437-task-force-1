@@ -11,7 +11,7 @@
 - `sudo mysql < data/sql/categories.sql` - Загрузка списка Категорий 
 - `sudo mysql < data/sql/cities.sql` - Загрузка списка Городов
 
-или одной строкой
+### или одной строкой
 
 ```bash
 php import.php &&
@@ -19,10 +19,12 @@ sudo mysql < data/db/schema.sql &&
 sudo mysql < data/sql/categories.sql &&
 sudo mysql < data/sql/cities.sql
 ```
-## Подготовка тестовых данных для задания
+
+## Тестовые данные
 
 ```php
-php yii fixture/generate users, user_profile --count=100 --interactive=0 &&
+php yii fixture/generate user_profile --count=100 --interactive=0 &&
+php yii fixture/generate users --count=100 --interactive=0 &&
 php yii fixture/load Users --interactive=0 &&
 php yii fixture/generate tasks --count=200 --interactive=0 && 
 php yii fixture/load Tasks --interactive=0 &&
