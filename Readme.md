@@ -13,13 +13,23 @@
 
 или одной строкой
 
-```php
-php import.php && sudo mysql < data/db/schema.sql && sudo mysql < data/sql/categories.sql && sudo mysql < data/sql/cities.sql
+```bash
+php import.php &&
+sudo mysql < data/db/schema.sql &&
+sudo mysql < data/sql/categories.sql &&
+sudo mysql < data/sql/cities.sql
 ```
 ## Подготовка тестовых данных для задания
 
 ```php
-php yii fixture/generate users --count=30, user_profile --count=30, user_categories --count=10, tasks --count=100 && php yii fixture/load Tasks,UserCategories
+php yii fixture/generate users, user_profile --count=100 --interactive=0 &&
+php yii fixture/load Users --interactive=0 &&
+php yii fixture/generate tasks --count=200 --interactive=0 && 
+php yii fixture/load Tasks --interactive=0 &&
+php yii fixture/generate user_categories --count=35 --interactive=0 &&
+php yii fixture/load UserCategories --interactive=0 &&
+php yii fixture/generate user_reviews --count=50 --interactive=0 &&
+php yii fixture/load UserReviews --interactive=0
 ```
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
