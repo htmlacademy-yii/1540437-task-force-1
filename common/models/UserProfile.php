@@ -9,7 +9,6 @@ use Yii;
  *
  * @property int $id
  * @property string|null $about
- * @property string|null $gender
  * @property string|null $birth_date
  * @property string|null $phone
  * @property string|null $skype
@@ -34,7 +33,7 @@ class UserProfile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['about', 'gender'], 'string'],
+            [['about'], 'string'],
             [['birth_date'], 'safe'],
             [['views'], 'integer'],
             [['phone', 'skype', 'telegramm', 'address'], 'string', 'max' => 90],
@@ -50,7 +49,6 @@ class UserProfile extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'about' => Yii::t('app', 'About'),
-            'gender' => Yii::t('app', 'Gender'),
             'birth_date' => Yii::t('app', 'Birth Date'),
             'phone' => Yii::t('app', 'Phone'),
             'skype' => Yii::t('app', 'Skype'),

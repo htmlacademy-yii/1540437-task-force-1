@@ -42,7 +42,7 @@ class Task extends \yii\db\ActiveRecord
             [['user_id', 'category_id', 'description'], 'required'],
             [['user_id', 'performer_user_id', 'category_id'], 'integer'],
             [['description', 'additional_info', 'address', 'status'], 'string'],
-            [['budget', 'lattitude', 'longtitude'], 'number'],
+            [['budget', 'latitude', 'longitude'], 'number'],
             [['expire', 'created_at', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 256],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],

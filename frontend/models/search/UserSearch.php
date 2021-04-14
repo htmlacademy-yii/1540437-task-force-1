@@ -62,14 +62,14 @@ class UserSearch extends User
                 'categories c',
                 'responses tr',
                 'userReviews ur'
-            ])
-            ->having(['>', 'countUserCategory', 0]);
+            ]);
+
+        // $query->andFilterWhere();
 
 
         $query->addSelect([
             'avgRating' => 'AVG(`ur`.`rate`)',
             'countResponses' => 'COUNT(DISTINCT tr.id)',
-            'countUserCategory' => 'COUNT(DISTINCT c.id)',
             'countTasks' => 'COUNT(DISTINCT `t`.`id`)'
         ]);
 
@@ -111,22 +111,12 @@ class UserSearch extends User
             ]
         ]);
 
-        // $dataProvider->sort->defaultOrder = [
-        //     'rtg' => [
-        //         'avgRating' => SORT_DESC
-        //     ]
-        // ];
-
         if (!($this->load($params))) {
             return $dataProvider;
         }
 
         if ($this->qname) {
-            $query->andfilterWhere([
-                'or',
-                ['like', 'p.last_name', $this->qname],
-                ['like', 'p.first_name', $this->qname]
-            ]);
+            $query->andOnCondition(['like', 'u.name', $this->qname]);
             return $dataProvider;
         }
 
@@ -135,7 +125,7 @@ class UserSearch extends User
         }
 
         if ($this->isFreeNow) {
-            $busyUsersQuery = \frontend\models\Task::find()->select('performer_user_id');
+            $busyUsersQuery = \frontend\models\Task::find()->select('performer_user_id')->inProgress();
             $query->andFilterWhere(['not in', 'u.id', $busyUsersQuery]);
         }
 
@@ -144,7 +134,8 @@ class UserSearch extends User
         }
 
         if ($this->isHasResponses) {
-            // $query->andFilterHaving(['>', 'countResponses', 0]);
+            $query->addSelect(['cntReviews' => 'count(DISTINCT ur.id)']);
+            $query->andFilterHaving(['>', 'cntReviews', 0]);
         }
 
         if ($this->isFavorite) {

@@ -9,6 +9,6 @@ class TasksFixture extends ActiveFixture
 {
     public $modelClass = Task::class;
     public $depends = [
-        \common\fixtures\UsersFixture::class
+        UsersFixture::class
     ];
 }

@@ -8,5 +8,4 @@ use yii\test\ActiveFixture;
 class UserReviewsFixture extends ActiveFixture
 {
     public $modelClass = UserReview::class;
-    public $depends = [];
 }

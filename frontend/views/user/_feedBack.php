@@ -20,7 +20,7 @@ $reviewsCount = count($model->userReviews);
                     <?= Html::a($review->task->title, ['/task/view', 'id' => $review->task->id], ['class' => 'link-regular']); ?>
                 </p>
                 <div class="card__review">
-                    <?= Html::a('<img src="/img/man-glasses.jpg" width="55" height="54">', ['user/view', 'id' => $review->task->performer? $review->task->performer->id: null]); ?>
+                    <?= Html::a('<img src="/img/man-glasses.jpg" width="55" height="54">', ['user/view', 'id' => $review->task->customer ? $review->task->customer->id: null]); ?>
                     <div class="feedback-card__reviews-content">
                         <p class="link-name link">
                             <?= Html::a($review->task->customer->name, ['/user/view', 'id' => $review->task->customer->id], ['class' => 'link-regular']); ?>

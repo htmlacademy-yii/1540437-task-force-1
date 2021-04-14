@@ -1,6 +1,5 @@
 <?php
 
-use common\widgets\Interval;
 use common\widgets\Stars;
 use yii\helpers\Html;
 

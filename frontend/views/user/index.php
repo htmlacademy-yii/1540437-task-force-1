@@ -11,7 +11,7 @@ $this->title = 'Исполнители';
     <div class="user__wrapper">
         <?= $this->render('_searchSorter', ['dataProvider' => $dataProvider]); ?>
         <?php foreach ($dataProvider->getModels() as $model) : ?>
-            <?= $this->render('_userCard', ['model' => $model]); ?>
+            <?= $this->render('_userCard', ['model' => $model, 'searchString' => $searchModel->qname]); ?>
         <?php endforeach; ?>
     </div>
     <div class="new-task__pagination" style="margin: 0 -20px -20px -20px;">

@@ -43,7 +43,7 @@ class User extends \common\models\User
 
         return $this->reviewsAggregation[0]['avgRating'];
     }
-
+    
     public function getReviewsAggregation()
     {
         return $this->getUserReviews()

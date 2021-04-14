@@ -8,7 +8,7 @@ $isRemoteWork = $faker->boolean(70);
 $isExpire = $faker->boolean(20);
 
 return [
-    'user_id' => $faker->numberBetween(1, 30), // Рандомный пользователь
+    'user_id' => $faker->getCustomer()->id, // Рандомный пользователь
     'category_id' => $faker->numberBetween(1, 8), // ID катеогрии задания
     'performer_user_id' => null, // NULL или Рандомный пользователь с ролью "исполнитель"
     'title' => $faker->sentence(6), // Заголовок

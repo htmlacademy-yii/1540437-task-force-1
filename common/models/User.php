@@ -10,14 +10,14 @@ use Yii;
  * @property int $id
  * @property int|null $city_id Город
  * @property int $profile_id Профиль
- * @property string|null $gender
  * @property string|null $name Имя
+ * @property string|null $gender
  * @property string|null $password Пароль
  * @property string $email
  * @property int $is_profile_public
  * @property int $is_contact_public
  * @property string $created_at
- * @property string|null $updated_at
+ * @property string $updated_at
  * @property string|null $last_logined_at
  */
 class User extends \yii\db\ActiveRecord
@@ -58,8 +58,8 @@ class User extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'city_id' => Yii::t('app', 'Город'),
             'profile_id' => Yii::t('app', 'Профиль'),
-            'gender' => Yii::t('app', 'Gender'),
             'name' => Yii::t('app', 'Имя'),
+            'gender' => Yii::t('app', 'Gender'),
             'password' => Yii::t('app', 'Пароль'),
             'email' => Yii::t('app', 'Email'),
             'is_profile_public' => Yii::t('app', 'Is Profile Public'),

@@ -1,11 +1,13 @@
 <?php
 
+use app\utils\Text;
 use common\widgets\Stars;
 use frontend\widgets\GenderIcon;
 use yii\helpers\Html;
 
 /** @var \yii\base\View $this */
 /** @var \frontend\models\User $model */
+/** @var string|null $searchString */
 ?>
 
 
@@ -13,12 +15,15 @@ use yii\helpers\Html;
     <div class="feedback-card__top">
         <div class="user__search-icon">
             <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), ['view', 'id' => $model->id]); ?>
-            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => 0])); ?>
-            <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => count($model->userReviews)])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => count($model->performerTasks) ])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => count($model->userReviews) ])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">
-                <?= Html::a($model->name, ['view', 'id' => $model->id], ['class' => 'link-regular']); ?>
+                <?php
+                    $name = $searchString ? Text::highlight($searchString, $model->name) : $model->name;
+                ?>
+                <?= Html::a($name, ['view', 'id' => $model->id], ['class' => 'link-regular']); ?>
             </p>
             <?= Stars::widget(['rating' => $model->avgRating]); ?>
         </div>

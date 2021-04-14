@@ -10,6 +10,13 @@ class TasksRandomiser extends Base
     private $_data;
     private $_completedTasks;
 
+    public function getFreeTask(): ?Task
+    {
+        return $this->generator->randomElement(
+            Task::find()->where(['performer_user_id' => null])->limit(20)->all()
+        );
+    }
+
     /** @return int ID Задачи */
     public function EmptyTasks(bool $unique = false): int
     {
