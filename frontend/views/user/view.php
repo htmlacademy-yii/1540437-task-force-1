@@ -1,5 +1,6 @@
 <?php
 
+use common\widgets\Interval;
 use common\widgets\Stars;
 use yii\helpers\Html;
 
@@ -34,7 +35,7 @@ $this->title = "Профиль";
                 </div>
                 <div class="content-view__headline user__card-bookmark user__card-bookmark--current">
                     <span>
-                        <?php //Interval::widget(['interval' => $model->last_logined_at, 'gender' => $model->profile->gender, 'type' => 'users.lastlogin']); 
+                        <?php Interval::widget(['interval' => Yii::$app->formatter->asDateInterval($model->last_logined_at), 'gender' => $model->gender, 'type' => 'users.lastlogin']); 
                         ?>
                     </span>
                     <a href="#"><b></b></a>
@@ -61,11 +62,21 @@ $this->title = "Профиль";
                 </div>
             </div>
         </div>
-        <?= $this->render('_feedback', ['model' => $model]); ?>
+        <?= $this->render('_feedBack', ['model' => $model]); ?>
     </section>
     <section class="connect-desk">
-        <div class="connect-desk__chat">
+        <div class="connect-desk__chat pre">
 
         </div>
     </section>
 </div>
+
+<?php
+
+$css = <<< CSS
+    .pre {
+        white-space: pre-wrap;
+    }
+CSS;
+
+$this->registerCss($css);

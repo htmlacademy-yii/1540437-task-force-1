@@ -25,6 +25,14 @@ class Formatter extends I18nFormatter
         return Yii::t('intl', "interval.{$type}", [ 'n' => $interval->{$type} ]);
     }
 
+    public function asDateInterval(string $start, string $end = 'now')
+    {
+        $start = new \DateTime($start);
+        $end = new \DateTime($end);
+
+        return (array) $end->diff($start);
+    }
+
     /**
      * Auto type
      *

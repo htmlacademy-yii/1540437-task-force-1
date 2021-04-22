@@ -2,9 +2,8 @@
 
 namespace app\components\Convertor;
 
-use app\components\Convertor\interfaces\DataTransferInterface;
 
-class DataTransferObject implements DataTransferInterface
+class DataTransferObject implements \app\components\Convertor\Interfaces\DataTransferInterface
 {
     /** @var string Имя объекта данных */
     private $name;

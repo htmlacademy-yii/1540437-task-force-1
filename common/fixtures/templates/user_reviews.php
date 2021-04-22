@@ -20,7 +20,7 @@ if ($performer === null || $task === null) {
 }
 
 return [
-    'user_id' => $task->performer->id, // ID пользователя
+    'user_id' => $task->customer->id, // ID пользователя, что оставил Отзыв
     'related_task_id' => $task->id, // ID Исполнителя задания
     'rate' => $isCompleteStatus === 'FAIL' ? $faker->numberBetween(1, 2) : $faker->numberBetween(3, 5),
     'comment' => $faker->text
