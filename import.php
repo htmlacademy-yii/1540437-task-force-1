@@ -10,11 +10,11 @@ error_reporting(E_ALL);
 $files = [
     'categories.csv',
     'cities.csv',
-    'opinions.csv',
-    'profiles.csv',
-    'replies.csv',
-    'tasks.csv',
-    'users.csv'
+    // 'task_responses.csv',
+    // 'tasks.csv',
+    // 'user_profile.csv',
+    // 'user_reviews.csv',
+    // 'users.csv'
 ];
 
 $csvPath = './data/csv';

@@ -57,11 +57,11 @@ use yii\helpers\Url;
             </div>
             <div class="header__nav">
                 <ul class="header-nav__list site-list">
-                    <li class="site-list__item <?= Yii::$app->controller->id === 'tasks' ? 'site-list__item--active' : '' ?>">
-                        <a href="<?= Url::to(['/tasks/index']) ?>">Задания</a>
+                    <li class="site-list__item <?= Yii::$app->controller->id === 'task' ? 'site-list__item--active' : '' ?>">
+                        <a href="<?= Url::to(['/task/index']) ?>">Задания</a>
                     </li>
-                    <li class="site-list__item <?= Yii::$app->controller->id === 'users' ? 'site-list__item--active' : '' ?>">
-                        <a href="<?= Url::to(['/users/index']) ?>">Исполнители</a>
+                    <li class="site-list__item <?= Yii::$app->controller->id === 'user' ? 'site-list__item--active' : '' ?>">
+                        <a href="<?= Url::to(['/user/index']) ?>">Исполнители</a>
                     </li>
                     <li class="site-list__item">
                         <a href="#">Создать задание</a>

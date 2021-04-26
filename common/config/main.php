@@ -1,7 +1,7 @@
 <?php
 return [
     'sourceLanguage' => 'en_US',
-    'language' => 'ru_RU',
+    'language' => 'en_US',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -12,6 +12,7 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'formatter' => [
+            'class' => \common\components\Formatter::class,
             'defaultTimeZone' => 'Europe/Moscow',
             'decimalSeparator' => '.',
             'thousandSeparator' => ' ',

@@ -5,6 +5,11 @@ namespace common\widgets;
 use yii\helpers\Html;
 use yii\base\Widget;
 
+/**
+ * Виджет отрисовки звезд
+ * @property int $max Максимальное число звезд. По умолчанию `5`
+ * @property bool $showRating По умолчанию `true`
+ */
 class Stars extends Widget
 {
     /** 
@@ -18,7 +23,7 @@ class Stars extends Widget
     /** @var string Тэг, по умолчанию `span` */
     public $tag = 'span';
 
-    /** @var int Максимальнео число звезд. По умолчанию `true` */
+    /** @var int Максимальное число звезд. По умолчанию `5` */
     public $max = 5;
 
     /** @var bool По умолчанию `true` */
@@ -26,7 +31,7 @@ class Stars extends Widget
 
     /** @var string Класс, пустой звезды */
     public $emptyStarClass = 'star-disabled';
-    
+
     /** @var float Рейтинг */
     public $rating;
 
@@ -35,7 +40,7 @@ class Stars extends Widget
     public function run(): string
     {
         $html = '';
-        for($i=0; $i < $this->max; $i++) {
+        for ($i = 0; $i < $this->max; $i++) {
             $isEmptyStar = floor($this->rating) <= $i;
             $html .= $this->renderStar($isEmptyStar);
         }

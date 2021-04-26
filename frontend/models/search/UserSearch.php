@@ -10,12 +10,6 @@ class UserSearch extends User
 {
     public $qname;
 
-    public $avgRating;
-    public $countTasks;
-    public $countResponses;
-
-    public $fullName;
-
     /** @var array ID категорий для поиска */
     public $categoryIds;
     /** @var bool Сейчас свбоден */
@@ -46,7 +40,6 @@ class UserSearch extends User
             [['qname', 'isFreeNow', 'isOnline', 'isHasResponses', 'isFavorite'], 'safe'],
             [['categoryIds'], 'safe'],
             [['avgRating', 'countResponses', 'fullName'], 'safe'],
-            // [['courier', 'cargo', 'translation', 'construction', 'walking'], 'safe'],
             [['free', 'online', 'withResponses', 'favorites'], 'safe']
         ];
     }
@@ -62,19 +55,21 @@ class UserSearch extends User
         $query = User::find();
         $query->alias('u')
             ->select('u.*')
-            ->with(['categories'])
+            // ->with(['categories'])
             ->joinWith([
-                'performerTasks t',
+                'customerTasks t',
                 'profile p',
-                'userCategories uc',
-                'taskResponses tr',
-            ])
-            ->having(['>', 'countUserCategory', 0]);
+                'categories c',
+                'responses tr',
+                'userReviews ur'
+            ]);
+
+        // $query->andFilterWhere();
+
 
         $query->addSelect([
-            'avgRating' => 'AVG(`evaluation`)',
+            'avgRating' => 'AVG(`ur`.`rate`)',
             'countResponses' => 'COUNT(DISTINCT tr.id)',
-            'countUserCategory' => 'COUNT(DISTINCT uc.id)',
             'countTasks' => 'COUNT(DISTINCT `t`.`id`)'
         ]);
 
@@ -100,42 +95,37 @@ class UserSearch extends User
                     'default' => SORT_DESC,
                     'label' => \Yii::t('app', 'Популярности')
                 ],
-            ]
+            ],
+            'defaultOrder' => [
+                'rtg' => [
+                    'avgRating' => SORT_DESC
+                ]
+            ],
         ]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => $sort,
             'pagination' => [
-                'pageSize' => \frontend\controllers\UsersController::PAGE_SIZE
+                'pageSize' => \frontend\controllers\UserController::PAGE_SIZE
             ]
         ]);
-
-        $dataProvider->sort->defaultOrder = [
-            'rtg' => [
-                'avgRating' => SORT_DESC
-            ]
-        ];
 
         if (!($this->load($params))) {
             return $dataProvider;
         }
 
         if ($this->qname) {
-            $query->andfilterWhere([
-                'or',
-                ['like', 'p.last_name', $this->qname],
-                ['like', 'p.first_name', $this->qname]
-            ]);
+            $query->andOnCondition(['like', 'u.name', $this->qname]);
             return $dataProvider;
         }
 
         if (!empty($this->categoryIds)) {
-            $query->andFilterWhere(['uc.category_id' => $this->categoryIds]);
+            $query->andFilterWhere(['c.id' => $this->categoryIds]);
         }
 
         if ($this->isFreeNow) {
-            $busyUsersQuery = \frontend\models\Task::find()->select('performer_user_id');
+            $busyUsersQuery = \frontend\models\Task::find()->select('performer_user_id')->inProgress();
             $query->andFilterWhere(['not in', 'u.id', $busyUsersQuery]);
         }
 
@@ -144,12 +134,13 @@ class UserSearch extends User
         }
 
         if ($this->isHasResponses) {
-            $query->andFilterHaving(['>', 'countResponses', 0]);
+            $query->addSelect(['cntReviews' => 'count(DISTINCT ur.id)']);
+            $query->andFilterHaving(['>', 'cntReviews', 0]);
         }
 
         if ($this->isFavorite) {
-            $query->joinWith(['userFavorites uf']);
-            $query->andFilterWhere(['uf.user_id' => \Yii::$app->user->id]);
+            // $query->joinWith(['userFavorites uf']);
+            // $query->andFilterWhere(['uf.user_id' => \Yii::$app->user->id]);
         }
 
         return $dataProvider;

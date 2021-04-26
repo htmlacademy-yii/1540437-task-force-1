@@ -9,17 +9,13 @@ use Yii;
  *
  * @property int $id
  * @property string|null $about
- * @property string|null $first_name
- * @property string|null $last_name
- * @property string|null $gender
  * @property string|null $birth_date
  * @property string|null $phone
  * @property string|null $skype
  * @property string|null $telegramm
  * @property string|null $avatar
  * @property int $views
- *
- * @property Users[] $users
+ * @property string|null $address
  */
 class UserProfile extends \yii\db\ActiveRecord
 {
@@ -37,11 +33,10 @@ class UserProfile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['about', 'gender'], 'string'],
+            [['about'], 'string'],
             [['birth_date'], 'safe'],
             [['views'], 'integer'],
-            [['first_name', 'last_name'], 'string', 'max' => 200],
-            [['phone', 'skype', 'telegramm'], 'string', 'max' => 90],
+            [['phone', 'skype', 'telegramm', 'address'], 'string', 'max' => 90],
             [['avatar'], 'string', 'max' => 45],
         ];
     }
@@ -54,25 +49,13 @@ class UserProfile extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'about' => Yii::t('app', 'About'),
-            'first_name' => Yii::t('app', 'First Name'),
-            'last_name' => Yii::t('app', 'Last Name'),
-            'gender' => Yii::t('app', 'Gender'),
             'birth_date' => Yii::t('app', 'Birth Date'),
             'phone' => Yii::t('app', 'Phone'),
             'skype' => Yii::t('app', 'Skype'),
             'telegramm' => Yii::t('app', 'Telegramm'),
             'avatar' => Yii::t('app', 'Avatar'),
             'views' => Yii::t('app', 'Views'),
+            'address' => Yii::t('app', 'Address'),
         ];
-    }
-
-    /**
-     * Gets query for [[Users]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(Users::className(), ['profile_id' => 'id']);
     }
 }

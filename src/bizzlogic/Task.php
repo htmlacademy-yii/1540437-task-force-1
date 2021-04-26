@@ -14,8 +14,8 @@ use app\actions\task\Cancel as ActionCancel;
 use app\actions\task\Complete as ActionComplete;
 use app\actions\task\Pending as ActionPending;
 use app\actions\task\Refuse as ActionRefuse;
-use app\exceptions\action\NotFoundTaskActionException;
 use app\exceptions\task\NotAllowedStatusException;
+use app\exceptions\task\NotFoundActionException;
 
 class Task
 {
@@ -51,7 +51,7 @@ class Task
     /**
      * @param AbstractTaskAction $actionInternalName Внутренее имя Объекта действия
      * @return string Новый статус
-     * @throws NotFoundTaskActionException Если Запрашиваемое действие не описано
+     * @throws NotFoundActionException Если Запрашиваемое действие не описано
      */
     public function getNextStatus(AbstractTaskAction $action): string
     {
@@ -64,7 +64,8 @@ class Task
 
 
         if (!isset($map[$action::internalName()])) {
-            throw new NotFoundTaskActionException($action::internalName());
+            
+            throw new NotFoundActionException($action::internalName());
         }
 
         return $map[$action::internalName()];
