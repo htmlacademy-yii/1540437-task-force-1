@@ -230,6 +230,16 @@ class User extends \common\models\User
         return $this->last_logined_at;
     }
 
+    public function setPassword(string $value)
+    {
+        $this->password = Yii::$app->getSecurity()->generatePasswordHash($value);
+    }
+
+    public function generateAuthKey(string $value)
+    {
+
+    }
+
     /**
      * User query class
      *

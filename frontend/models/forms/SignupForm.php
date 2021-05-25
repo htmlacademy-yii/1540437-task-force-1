@@ -4,7 +4,8 @@ namespace frontend\models\forms;
 
 use Yii;
 use yii\base\Model;
-use common\models\User;
+use frontend\models\User;
+use frontend\models\UserProfile;
 
 /**
  * Signup form
@@ -14,6 +15,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $city;
 
 
     /**
@@ -24,14 +26,13 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => User::class, 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
@@ -50,30 +51,56 @@ class SignupForm extends Model
         }
 
         $user = new User();
-        $user->username = $this->username;
+        $user->name = $this->username;
         $user->email = $this->email;
+        $user->city_id = $this->city;
         $user->setPassword($this->password);
-        $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
+
+        $userProfile = new UserProfile();
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+            $userProfile->save();
+            $user->link('profile', $userProfile);
+            $transaction->commit();
+            return true;
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            return false;
+        }
     }
 
-    /**
-     * Sends confirmation email to user
-     * @param User $user user model to with email should be send
-     * @return bool whether the email was sent
-     */
-    protected function sendEmail($user)
+    public static function cityMap() :array
     {
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
+        return [
+            'Moscow' => 'Москва',
+            'SPB' => 'Санкт-Петербург',
+            'Krasnodar' => 'Краснодар',
+            'Irkutsk' => 'Иркутск',
+            'Vladivostok' => 'Владивосток'
+        ];
+    }
+
+    /** @inheritDoc */
+    public function attributeLabels(): array
+    {
+        return  [
+            'username' => 'Ваше имя',
+            'email' => 'Электронная почта',
+            'city' => 'Город проживания',
+            'password' => 'Пароль'
+        ];
+    }
+
+    /** @inheritDoc */
+    public function attributeHints(): array
+    {
+        return [
+            'username' => 'Введите ваше имя и фамилию',
+            'email' => 'Введите валидный адрес электронной почты',
+            'city' => 'Укажите город, чтобы находить подходящие задачи',
+            
+        ];
     }
 }
