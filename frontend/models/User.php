@@ -235,10 +235,6 @@ class User extends \common\models\User
         $this->password = Yii::$app->getSecurity()->generatePasswordHash($value);
     }
 
-    public function generateAuthKey(string $value)
-    {
-
-    }
 
     /**
      * User query class
