@@ -3,8 +3,6 @@
 namespace frontend\controllers;
 
 use frontend\models\search\TaskSearch;
-use frontend\models\Task;
-use frontend\models\TaskResponses;
 use yii\web\NotFoundHttpException;
 use Yii;
 
@@ -31,23 +29,6 @@ class TaskController extends FrontendController
 
         $model = $this->loadModel($id);
         
-
-        // $model = Task::find()
-        //     ->with([
-        //         'taskChats',
-        //         'taskResponses.user' => function ($q) {
-        //             return $q->with(['ratingAgregation', 'profile']);
-        //         },
-        //         'category',
-        //         'ticketAttachments'
-        //     ])
-        //     ->where(['id' => $id])
-        //     ->one();
-
-        // if ($model === null) {
-        //     throw new NotFoundHttpException('Запрашиваемая страница не найдена');
-        // }
-
         return $this->render('view', [
             'model' => $model, // $model
         ]);

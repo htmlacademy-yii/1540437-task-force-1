@@ -43,6 +43,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '//' => '/',
+                '/signup' => 'auth/signup',
                 '/<controller>s' => '<controller>/index',
                 '/<controller>/view/<id:\d+>' => '<controller>/view',
                 '/<controller>/<id:\d+>/<action>' => '<controller>/<action>',

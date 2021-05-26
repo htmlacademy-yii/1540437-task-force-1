@@ -3,6 +3,7 @@
 /** @var \yii\web\View $this */
 /** @var string $content */
 
+use common\widgets\Nav;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -56,21 +57,20 @@ use yii\helpers\Url;
                 </a>
             </div>
             <div class="header__nav">
-                <ul class="header-nav__list site-list">
-                    <li class="site-list__item <?= Yii::$app->controller->id === 'task' ? 'site-list__item--active' : '' ?>">
-                        <a href="<?= Url::to(['/task/index']) ?>">Задания</a>
-                    </li>
-                    <li class="site-list__item <?= Yii::$app->controller->id === 'user' ? 'site-list__item--active' : '' ?>">
-                        <a href="<?= Url::to(['/user/index']) ?>">Исполнители</a>
-                    </li>
-                    <li class="site-list__item">
-                        <a href="#">Создать задание</a>
-                    </li>
-                    <li class="site-list__item">
-                        <a href="#">Создать задание</a>
-                    </li>
-                </ul>
+            <?= Nav::widget([
+                'options' => [ 'class' => 'header-nav__list site-list' ],
+                'itemOptions' => [ 'class' => 'site-list__item' ],
+                'items' => [
+                    ['label' => 'Задания', 'url' => ['/task/index']],
+                    ['label' => 'Исполнители', 'url' => [ '/user/index']],
+                    ['label' => 'Создать задание', 'url' => '#', 'visible' => Yii::$app->user->isGuest === false ],
+                    ['label' => 'Мой профиль', 'url' => '#']
+                ],
+                'encodeLabels' => false
+            ]); ?>
             </div>
+
+            <?php if (Yii::$app->controller->id !== 'auth'): ?>
             <div class="header__town">
                 <select class="multiple-select input town-select" size="1" name="town[]">
                     <option value="Moscow">Москва</option>
@@ -117,6 +117,7 @@ use yii\helpers\Url;
                     </li>
                 </ul>
             </div>
+            <?php endif; ?>
         </div>
     </header>
 
