@@ -17,21 +17,16 @@ class LandingController extends SecureController
             'roles' => [ '?' ]
         ];
 
-        // $rules['rules'][] = [
-        //         'actions' => ['index'],
-        //         'allow' => true,
-        //         'roles' => [ '?' ]
-
-        // ];
-
-        // array_unshift($behaviors['access']['rules'], $rules);
-
         return $behaviors;
 
     }
 
     public function actionIndex()
     {
+        if (!\Yii::$app->user->isGuest) {
+            return $this->redirect(['task/index']);
+        }
+        
         return $this->render('index');
     }
 }
