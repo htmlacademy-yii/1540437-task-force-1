@@ -1,3 +1,7 @@
+<?php
+
+use yii\helpers\Html;
+?>
 
  
         <div class="landing-container">
@@ -7,7 +11,8 @@
                <p>Сломался кран на кухне? Надо отправить документы? Нет времени самому гулять с собакой?
                    У нас вы быстро найдёте исполнителя для любой жизненной ситуации?<br>
                    Быстро, безопасно и с гарантией. Просто, как раз, два, три. </p>
-               <button class="button">Создать аккаунт</button>
+                <?= Html::a('Создать аккаунт', ['auth/signup'], ['class' => 'button']); ?>
+               
            </div>
            <div class="landing-center">
                <div class="landing-instruction">
@@ -155,7 +160,7 @@
                    </div>
                </div>
                <div class="landing-bottom-container">
-                   <button type="button" class="button red-button">смотреть все задания</button>
+                   <?= Html::a('смотреть все задания', ['task/index'], ['class' => 'button red-button']); ?>
                </div>
            </div>
         </div>
