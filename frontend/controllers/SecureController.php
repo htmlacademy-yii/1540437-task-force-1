@@ -1,4 +1,5 @@
 <?php
+namespace frontend\controllers;
 
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -13,9 +14,12 @@ abstract class SecureController extends Controller
             'class' => AccessControl::class,
             'except' => [ 'signin', 'signup' ],
             'rules' => [
-                'actions' => ['*'],
-                'allow' => false,
-                'roles' => [ '?' ]
+                [
+                    'actions' => ['*'],
+                    'allow' => false,
+                    'roles' => [ '?' ]
+                ]
+                
             ]
         ];
 

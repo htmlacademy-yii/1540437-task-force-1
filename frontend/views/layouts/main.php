@@ -5,7 +5,8 @@
 
 use common\widgets\Nav;
 use yii\helpers\Html;
-use yii\helpers\Url;
+
+\frontend\assets\AppAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>
@@ -16,9 +17,6 @@ use yii\helpers\Url;
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/fix_layout.css?v=1.0.3">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -169,6 +167,7 @@ use yii\helpers\Url;
         </div>
     </footer>
 
+    <div class="overlay"></div>
     <?php $this->endBody() ?>
 </body>
 
