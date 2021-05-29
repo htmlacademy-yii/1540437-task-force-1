@@ -44,6 +44,7 @@ return [
             'rules' => [
                 // '/' => '/',
                 '/signup' => 'auth/signup',
+                '/signin' => 'auth/signin',
                 '/<controller>s' => '<controller>/index',
                 '/<controller>/view/<id:\d+>' => '<controller>/view',
                 '/<controller>/<id:\d+>/<action>' => '<controller>/<action>',

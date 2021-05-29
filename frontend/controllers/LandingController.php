@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
 
+use frontend\models\forms\SigninForm;
+use Yii;
 use yii\filters\AccessControl;
 
 class LandingController extends SecureController
@@ -26,7 +28,7 @@ class LandingController extends SecureController
         if (!\Yii::$app->user->isGuest) {
             return $this->redirect(['task/index']);
         }
-        
+
         return $this->render('index');
     }
 }
