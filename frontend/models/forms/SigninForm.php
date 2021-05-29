@@ -37,7 +37,7 @@ class SigninForm extends \yii\base\Model
         }
     }
 
-    private function getUser()
+    protected function getUser()
     {
         if ($this->_user === null) {
             $this->_user = User::findOne(['email' => $this->email]);
