@@ -2,9 +2,6 @@
 -- ------------------------------------------------------
 -- Ver 14.14 Distrib 5.7.32, for Linux (x86_64) using  EditLine wrapper
 
-DROP DATABASE `taskforce`;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `taskforce` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
 USE `taskforce`;
 
 SET FOREIGN_KEY_CHECKS=0;

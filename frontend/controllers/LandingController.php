@@ -1,9 +1,6 @@
 <?php
-namespace frontend\controllers;
 
-use frontend\models\forms\SigninForm;
-use Yii;
-use yii\filters\AccessControl;
+namespace frontend\controllers;
 
 class LandingController extends SecureController
 {
@@ -16,16 +13,15 @@ class LandingController extends SecureController
         $behaviors['access']['rules'][] = [
             'actions' => ['index'],
             'allow' => true,
-            'roles' => [ '?' ]
+            'roles' => ['?']
         ];
 
         return $behaviors;
-
     }
 
     public function actionIndex()
     {
-        if (!\Yii::$app->user->isGuest) {
+        if (\Yii::$app->user->isGuest) {
             return $this->redirect(['task/index']);
         }
 
