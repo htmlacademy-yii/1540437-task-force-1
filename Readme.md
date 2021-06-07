@@ -9,12 +9,6 @@
 - `php import.php` - Генерация из CSV файлов
 - `php yii migrate/up` - Загрузить схему и базовые данные
 
-### или одной строкой
-
-```php
-php import.php && php yii migrate-app/up
-```
-
 ## Тестовые данные
 
 ```php
