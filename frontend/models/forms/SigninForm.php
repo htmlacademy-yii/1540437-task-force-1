@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\models\forms;
 
 use common\models\UserIdentity as User;
@@ -37,7 +38,7 @@ class SigninForm extends \yii\base\Model
         }
     }
 
-    protected function getUser()
+    protected function getUser(): ?User
     {
         if ($this->_user === null) {
             $this->_user = User::findOne(['email' => $this->email]);

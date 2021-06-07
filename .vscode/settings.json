@@ -1,16 +1,16 @@
 {
-  "phpcs.enable": false,
-  "phpcs.standard": ".vscode/.yii2cs.xml",
   "files.associations": {
     "*.module": "php",
     "*.inc": "php",
     ".php_cs": "php"
   },
-  "editor.formatOnSave": false,
+  "editor.defaultFormatter": "junstyle.php-cs-fixer",
+  "editor.formatOnType": false,
+  "editor.formatOnSave": true,
   "namespaceResolver.exclude": "**/node_modules/**",
   "namespaceResolver.autoSort": true,
   "namespaceResolver.leadingSeparator": true,
-  "php-cs-fixer.executablePath": "php-cs-fixer",
+  "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
   "php-cs-fixer.onsave": true,
   "php-cs-fixer.config": ".vscode/.php_cs;",
   "php-cs-fixer.pathMode": "override",

@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use Yii;
+
 class LandingController extends SecureController
 {
     public $layout = 'landing';
@@ -21,7 +23,7 @@ class LandingController extends SecureController
 
     public function actionIndex()
     {
-        if (\Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest === false) {
             return $this->redirect(['task/index']);
         }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models;
 
 /**
@@ -8,17 +9,20 @@ class UserIdentity extends User implements \yii\web\IdentityInterface
 {
 
     /** @inheritDoc */
-    public function getId() { 
+    public function getId()
+    {
         return $this->id;
     }
 
     /** @inheritDoc */
-    public function getAuthKey() {
+    public function getAuthKey()
+    {
         /** Заглушка */
     }
 
     /** @inheritDoc */
-    public function validateAuthKey($authKey) {
+    public function validateAuthKey($authKey)
+    {
         return $this->getAuthKey() === $authKey;
     }
 
@@ -40,8 +44,7 @@ class UserIdentity extends User implements \yii\web\IdentityInterface
      */
     public function validatePassword(string $password): bool
     {
-        return \Yii::$app->getSecurity()->validatePassword($password, $this->password);
+        return $this->password === $password;
+        // return \Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
-    
-
 }
