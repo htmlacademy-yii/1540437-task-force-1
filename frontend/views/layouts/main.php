@@ -4,9 +4,10 @@
 /** @var string $content */
 
 use common\widgets\Nav;
+use frontend\assets\AppAsset;
 use yii\helpers\Html;
 
-\frontend\assets\AppAsset::register($this);
+AppAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>
@@ -69,7 +70,7 @@ use yii\helpers\Html;
                 ]); ?>
             </div>
 
-            <?php if (Yii::$app->controller->id !== 'auth') : ?>
+            <?php if (!Yii::$app->user->isGuest) : ?>
                 <div class="header__town">
                     <select class="multiple-select input town-select" size="1" name="town[]">
                         <option value="Moscow">Москва</option>
@@ -100,7 +101,7 @@ use yii\helpers\Html;
                         <img src="/img/user-photo.png" width="43" height="44" alt="Аватар пользователя">
                     </a>
                     <span class="header__account-name">
-                        Василий
+                        <?= Yii::$app->user->identity->name; ?>
                     </span>
                 </div>
                 <div class="account__pop-up">
@@ -112,7 +113,7 @@ use yii\helpers\Html;
                             <a href="#">Настройки</a>
                         </li>
                         <li>
-                            <a href="#">Выход</a>
+                            <?= Html::a('Выход', ['auth/logout'], ['data-method' => 'POST']); ?>
                         </li>
                     </ul>
                 </div>

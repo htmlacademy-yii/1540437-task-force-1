@@ -15,7 +15,7 @@ class LandingController extends SecureController
         $behaviors['access']['rules'][] = [
             'actions' => ['index'],
             'allow' => true,
-            'roles' => ['?']
+            'roles' => ['?', '@']
         ];
 
         return $behaviors;

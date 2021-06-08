@@ -7,11 +7,12 @@
 /** @var \frontend\models\forms\SigninForm $signinForm */
 /** @var string $content */
 
+use frontend\assets\LandingAsset;
 use frontend\widgets\WSignin;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
 
-$asset = \frontend\assets\AppAsset::register($this);
+LandingAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

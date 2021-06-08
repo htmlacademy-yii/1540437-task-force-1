@@ -39,29 +39,28 @@ class WSignin extends Widget
         $formId = $this->getId();
         $js = <<< JS
 
-            document.getElementById("$formId").addEventListener('submit', function(event){
-                event.preventDefault();
-                var httpRequest = new XMLHttpRequest();
-
-                httpRequest.open('POST', event.target.action);
-                httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                // httpRequest.setRequestHeader("Content-Type", "multipart/form-data");
-                httpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                httpRequest.send(new FormData(document.getElementById(event.target.id)));
-
-                if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                    if (httpRequest.status === 200) {
-                        alert(httpRequest.responseText);
-                    } else {
-                        alert('There was a problem with the request.');
+            $('#$formId').on('beforeSubmit', function () {
+                var yiiform = $(this);
+                $.ajax({
+                        type: yiiform.attr('method'),
+                        url: yiiform.attr('action'),
+                        data: yiiform.serializeArray(),
                     }
-                }
+                ).done(function(data) {
+                    if (data.success) {
+                        window.location.href = data.redirect;
+                    } else if (data.validation) {
+                        yiiform.yiiActiveForm('updateMessages', data.validation ,true);
+                    } else {
 
-                
+                    }
+                });
+
+                return false; // prevent default form submission
             });
 
         JS;
-        $this->getView()->registerJs($js, \yii\web\View::POS_LOAD);
+        $this->getView()->registerJs($js, \yii\web\View::POS_READY);
     }
 
     private function getModel()

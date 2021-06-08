@@ -4,13 +4,45 @@ namespace frontend\controllers;
 
 use frontend\models\forms\SigninForm;
 use frontend\models\forms\SignupForm;
-use frontend\widgets\WSignin;
+
 use Yii;
-use yii\helpers\Json;
+
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
-class AuthController extends FrontendController
+class AuthController extends \yii\web\Controller
 {
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['logout', 'signup', 'signin'],
+                'rules' => [
+                    [
+                        'actions' => ['signup', 'signin'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => \yii\filters\VerbFilter::class,
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Действие для Авторизации пользователя
@@ -26,39 +58,23 @@ class AuthController extends FrontendController
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $data['success'] = false;
+            $data['validation'] = ActiveForm::validate($form);
 
-            // Yii::$app->response->data = json_encode([
+            if (empty($data['validation'])) {
+                $data['success'] = true;
+            }
 
-            // ]);
-
-            $data = [
-                'post' => Yii::$app->request->post(),
-                'validate' => ActiveForm::validate($form)
-            ];
+            if ($data['success'] && $form->login()) {
+                $data['redirect'] = Url::toRoute($this->goHome(), true);
+            }
 
             return $data;
-
-            return \json_encode($data, 0);
-            // return ActiveForm::validate($form);
         }
 
-        if (Yii::$app->request->getIsPost()) {
-            if (Yii::$app->request->isAjax) {
-
-                $form->validate();
-
-                // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                // return ActiveForm::validate($form);
-                return $this->renderAjax('signin', [
-                    'model' => $form
-                ]);
-            } elseif ($form->validate()) {
-                Yii::$app->user->login($form->getUser());
-                return $this->goHome();
-            }
+        if ($form->validate() && $form->login()) {
+            return $this->goHome();
         }
-
-
 
         return $this->render('signin', [
             'model' => $form
@@ -81,13 +97,17 @@ class AuthController extends FrontendController
         ]);
     }
 
+    /**
+     * Действия для выхода из системы
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+        return $this->goHome();
+    }
+
     public function beforeAction($action)
     {
-        if (Yii::$app->request->isAjax) {
-            $this->enableCsrfValidation = false;
-            // Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        }
-
         return parent::beforeAction($action);
     }
 }

@@ -46,4 +46,16 @@ class SigninForm extends \yii\base\Model
 
         return $this->_user;
     }
+
+    public function login()
+    {
+        $user = $this->getUser();
+
+        if ($user) {
+            \Yii::$app->user->login($user);
+            return true;
+        }
+
+        return false;
+    }
 }

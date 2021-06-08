@@ -7,20 +7,17 @@ use yii\web\AssetBundle;
 /**
  * Main frontend application asset bundle.
  */
-class AppAsset extends AssetBundle
+class LandingAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $css = [
-        'css/normalize.css',
-        'css/style.css',
-        'css/fix_layout.css?v=1.0.3'
-    ];
+    public $css = [];
 
     public $js = [
-        // 'js/main.js'
+        'js/main.js'
     ];
+
     public $depends = [
-        'yii\web\YiiAsset'
+        AppAsset::class
     ];
 }

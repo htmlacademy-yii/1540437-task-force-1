@@ -16,39 +16,32 @@ echo Html::tag('h2', $title);
 
 $form = ActiveForm::begin([
     'id' => $id,
-    // 'enableClientValidation' => false,
-    // 'enableAjaxValidation' => false,
+    'enableClientValidation' => true,
+    'enableAjaxValidation' => false,
     'action' => \Yii::$app->user->loginUrl,
     'method' => 'POST',
-    // 'encodeErrorSummary' => false,
-    // 'errorSummaryCssClass' => 'help-block',
     'fieldConfig' => [
         'options' => [
-            'tag' => false,
+            'style' => [
+                'display' => 'flex',
+                'flex-direction' => 'column'
+            ]
+
         ],
         'inputOptions' => [
             'class' => 'input textarea',
             'rows' => 1,
         ],
         'labelOptions' => [
-            'class' => false
-        ],
-        'hintOptions' => [
-            'tag' => 'span',
-            'class' => false
+            'class' => 'form-modal-description'
         ]
     ]
 ]);
 
 ?>
 
-
-<p>
-    <?= $form->field($model, 'email')->label(null, ['class' => 'form-modal-description']);; ?>
-</p>
-<p>
-    <?= $form->field($model, 'password')->label(null, ['class' => 'form-modal-description']); ?>
-</p>
+<?= $form->field($model, 'email'); ?>
+<?= $form->field($model, 'password')->passwordInput(['autocomplete' => 'on']); ?>
 
 <?= Html::submitButton('Войти', ['class' => 'button']); ?>
 
