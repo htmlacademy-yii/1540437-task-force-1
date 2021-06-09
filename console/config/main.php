@@ -8,10 +8,8 @@ $params = array_merge(
 
 return [
     'id' => 'app-console',
-    // 'sourceLanguage' => 'en_US',
-    // 'language' => 'ru_RU',
     'sourceLanguage' => 'en_US',
-    'language' => 'en_US',
+    'language' => 'ru_RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'console\controllers',
@@ -20,6 +18,11 @@ return [
         '@npm'   => '@vendor/npm-asset',
     ],
     'controllerMap' => [
+        'migrate' => [
+            'class' => \yii\console\controllers\MigrateController::class,
+            'migrationPath' => null,
+            'migrationNamespaces' => ['console\migrations']
+        ],
         'fixture' => [
             'class' => 'yii\faker\FixtureController',
             'language' => 'ru_RU',

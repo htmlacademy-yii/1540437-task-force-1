@@ -1,4 +1,5 @@
 <?php
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -13,14 +14,13 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'defaultRoute' => 'landing',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+            'class' => \common\components\WebUser::class,
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
@@ -42,8 +42,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '//' => '/',
+                // '/' => '/',
                 '/signup' => 'auth/signup',
+                '/signin' => 'auth/signin',
                 '/<controller>s' => '<controller>/index',
                 '/<controller>/view/<id:\d+>' => '<controller>/view',
                 '/<controller>/<id:\d+>/<action>' => '<controller>/<action>',

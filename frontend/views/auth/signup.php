@@ -6,7 +6,9 @@
 use frontend\models\City;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\widgets\ActiveField;
 use yii\widgets\ActiveForm;
+
 
 
 $cityList = ArrayHelper::merge($model::cityMap(), ArrayHelper::map(City::find()->all(), 'id', 'name'));
@@ -16,7 +18,7 @@ sort($cityList);
 
 
 <section class="registration__user">
-    <?= Html::tag('h1', 'Регистрация аккаунта'); ?> 
+    <?= Html::tag('h1', 'Регистрация аккаунта'); ?>
     <div class="registration-wrapper">
         <?php $form = ActiveForm::begin([
             'options' => [
@@ -24,8 +26,10 @@ sort($cityList);
                 'class' => 'registration__user-form form-create'
             ],
             'fieldConfig' => [
+                'template' => "{label}\n{input}\n{error}",
+                'errorOptions' => ['tag' => 'span'],
                 'options' => [
-                    'tag' => false,
+                    'style' => 'display: flex; flex-direction: column; padding-bottom: 10px;'
                 ],
                 'inputOptions' => [
                     'class' => 'input textarea',
@@ -33,24 +37,19 @@ sort($cityList);
                 ],
                 'labelOptions' => [
                     'class' => false
-                ],
-                'hintOptions' => [
-                    'tag' => 'span',
-                    'class' => false
                 ]
             ]
-            
+
         ]); ?>
-        <?= $form->field($model, 'email')->textarea(['placeholder' => 'kumarm@mail.ru'])->label(null, ['class' => 'input-danger']); ?>
-        <?= $form->field($model, 'username')->textarea(['placeholder' => 'Мамедов Кумар']); ?>
+        <?= $form->field($model, 'email')->textarea(['placeholder' => 'Ваша электронная почта']); ?>
+        <?= $form->field($model, 'username')->textarea(['placeholder' => 'Ваше имя']); ?>
         <?= $form->field($model, 'city')->dropDownList($cityList, ['class' => 'multiple-select input town-select registration-town']); ?>
-        <?= $form->field($model, 'password')->input('password'); ?>
+        <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Придумайте пароль', 'autocomplete' => 'on']); ?>
 
-        <input type="hidden" name="<?=Yii::$app->request->csrfParam; ?>" value="<?=Yii::$app->request->getCsrfToken(); ?>" />
+        <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->getCsrfToken(); ?>" />
 
-        <?= Html::submitButton('Cоздать аккаунт', [ 'class' => 'button button__registration' ]); ?>
+        <?= Html::submitButton('Cоздать аккаунт', ['class' => 'button button__registration']); ?>
 
         <?php ActiveForm::end(); ?>
     </div>
 </section>
-

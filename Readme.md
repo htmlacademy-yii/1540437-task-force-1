@@ -3,22 +3,11 @@
 ## База данных, и данные по умолчанию
 Схема базы лежит в каталоге `data/db/schema.sql` наименование базы **`taskforce`**.
 
-Файл соджержит строки колторые удаляют все данные в базе и саму базу с именем **`taskforce`**.
+Перед началом выполнения команд создайте базу с именем **`taskforce`**.
 
 Выполнить команды или импортировать данные вручную:
 - `php import.php` - Генерация из CSV файлов
-- `sudo mysql < data/db/schema.sql` - Загрузить схему
-- `sudo mysql < data/sql/categories.sql` - Загрузка списка Категорий 
-- `sudo mysql < data/sql/cities.sql` - Загрузка списка Городов
-
-### или одной строкой
-
-```bash
-php import.php &&
-sudo mysql < data/db/schema.sql &&
-sudo mysql < data/sql/categories.sql &&
-sudo mysql < data/sql/cities.sql
-```
+- `php yii migrate/up` - Загрузить схему и базовые данные
 
 ## Тестовые данные
 
