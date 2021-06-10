@@ -28,9 +28,22 @@ class TaskController extends FrontendController
     {
 
         $model = $this->loadModel($id);
-        
+
         return $this->render('view', [
             'model' => $model, // $model
+        ]);
+    }
+
+    public function actionCreate()
+    {
+
+        if (\Yii::$app->user->role !== \app\bizzlogic\User::ROLE_CUSTOMER) {
+        }
+
+        $model = new \frontend\models\forms\TaskForm();
+
+        return $this->render('create', [
+            'model' => $model
         ]);
     }
 

@@ -22,7 +22,6 @@ sort($cityList);
     <div class="registration-wrapper">
         <?php $form = ActiveForm::begin([
             'options' => [
-                'csrf' => false,
                 'class' => 'registration__user-form form-create'
             ],
             'fieldConfig' => [
