@@ -1,15 +1,24 @@
 <?php
+
 namespace common\components;
 
-/** @inheritDoc */
+/**
+ * @property-read string|null $name Имя залогиненного пользователя
+ */
 class WebUser extends \yii\web\User
 {
-    /** @inheritDoc */
     public $identityClass = \common\models\UserIdentity::class;
-    /** @inheritDoc */
     public $enableAutoLogin = true;
-    /** @inheritDoc */
     public $loginUrl = ['auth/signin'];
-    /** @inheritDoc */
     public $identityCookie = ['name' => '_identity', 'httpOnly' => true];
+
+    /**
+     * 
+     * @return null|string Username
+     */
+    public function getName(): ?string
+    {
+        $identity = $this->getIdentity();
+        return $identity !== null ? $identity->name : null;
+    }
 }
