@@ -10,6 +10,7 @@ class WebUser extends \yii\web\User
     public $identityClass = \common\models\UserIdentity::class;
     public $enableAutoLogin = true;
     public $loginUrl = ['auth/signin'];
+    public $returnUrl = ['task/list'];
     public $identityCookie = ['name' => '_identity', 'httpOnly' => true];
 
     /**
