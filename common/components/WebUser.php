@@ -26,6 +26,14 @@ class WebUser extends \yii\web\User
         return $identity !== null ? $identity->name : null;
     }
 
+    /** @return null|string Gender */
+    public function getGender(): ?string
+    {
+        $identity = $this->getIdentity();
+
+        return $identity !== null ? $identity->gender : null;
+    }
+
     /**
      * Роль пользователя.
      * 

@@ -7,6 +7,33 @@ use app\bizzlogic\Task;
 /** {@inheritDoc} */
 class TaskQuery extends \yii\db\ActiveQuery
 {
+    /**
+     * Пользователь 
+     * 
+     * @param mixed $user_id 
+     * @return $this 
+     */
+    public function user($userId)
+    {
+        $userIDField = $this->_field('user_id');
+        return $this->andWhere([
+            $userIDField => $userId
+        ]);
+    }
+
+    /**
+     * Черновики
+     * 
+     * @return $this 
+     */
+    public function draft()
+    {
+        $statusField = $this->_field('status');
+        return $this->andWhere([
+            $statusField => \app\bizzlogic\Task::STATUS_DRAFT,
+        ]);
+    }
+
     /** Новые задания */
     public function new()
     {

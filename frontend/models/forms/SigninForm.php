@@ -3,13 +3,6 @@
 namespace frontend\models\forms;
 
 use common\models\UserIdentity as User;
-use yii\base\InvalidCallException;
-use yii\base\Exception;
-use yii\base\InvalidArgumentException;
-use Exception as GlobalException;
-use Throwable;
-use yii\base\InvalidConfigException;
-use yii\base\InvalidValueException;
 
 class SigninForm extends \yii\base\Model
 {

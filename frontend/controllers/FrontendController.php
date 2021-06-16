@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use yii\web\Controller as WebController;
@@ -18,26 +19,13 @@ class FrontendController extends WebController
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
                         'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
+                        'roles' => ['@']
+                    ]
                 ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+            ]
         ];
     }
 
@@ -57,4 +45,3 @@ class FrontendController extends WebController
         ];
     }
 }
-

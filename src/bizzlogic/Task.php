@@ -19,6 +19,8 @@ use app\exceptions\task\NotFoundActionException;
 
 class Task
 {
+    /** Здаание еще не опубликовано */
+    const STATUS_DRAFT = 'DRAFT';
     /** Задание опубликовано, исполнитель ещё не найден */
     const STATUS_NEW = 'NEW';
     /** Заказчик отменил задание */
@@ -64,7 +66,7 @@ class Task
 
 
         if (!isset($map[$action::internalName()])) {
-            
+
             throw new NotFoundActionException($action::internalName());
         }
 
@@ -92,7 +94,7 @@ class Task
 
         return false;
     }
-    
+
 
     /**
      * Исполнитель отказался от выполнения задания.
