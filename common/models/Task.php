@@ -10,18 +10,19 @@ use Yii;
  * @property int $id
  * @property int $user_id
  * @property int|null $performer_user_id
- * @property int $category_id
+ * @property int|null $category_id
  * @property string|null $title
  * @property string $description
  * @property string|null $additional_info
  * @property string|null $address
- * @property string $status
+ * @property string|null $status
  * @property float|null $budget
  * @property string|null $expire
  * @property float|null $latitude
  * @property float|null $longitude
  * @property string $created_at
  * @property string|null $updated_at
+ * @property string|null $published_at
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -39,11 +40,11 @@ class Task extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'category_id', 'description'], 'required'],
+            [['user_id', 'description'], 'required'],
             [['user_id', 'performer_user_id', 'category_id'], 'integer'],
             [['description', 'additional_info', 'address', 'status'], 'string'],
             [['budget', 'latitude', 'longitude'], 'number'],
-            [['expire', 'created_at', 'updated_at'], 'safe'],
+            [['expire', 'created_at', 'updated_at', 'published_at'], 'safe'],
             [['title'], 'string', 'max' => 256],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -72,6 +73,7 @@ class Task extends \yii\db\ActiveRecord
             'longitude' => Yii::t('app', 'Longitude'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'published_at' => Yii::t('app', 'Published At'),
         ];
     }
 }

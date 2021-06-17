@@ -14,8 +14,8 @@ class M210616124212ChangeTasksTable extends Migration
      */
     public function safeUp()
     {
-        $this->alterColumn('tasks', 'status', "ENUM('NEW', 'CANCELED', 'INPROGRESS', 'COMPLETE', 'FAIL', 'DRAFT')");
         $this->alterColumn('tasks', 'category_id', $this->integer()->unsigned()->null());
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class M210616124212ChangeTasksTable extends Migration
      */
     public function safeDown()
     {
-        $this->alterColumn('tasks', 'status', "ENUM('NEW', 'CANCELED', 'INPROGRESS', 'COMPLETE', 'FAIL')");
-        $this->alterColumn('tasks', 'category_id', $this->integer()->unsigned()->notNull());
+        echo "M210616124212ChangeTasksTable cannot be reverted.\n";
+        return false;
     }
 
     /*

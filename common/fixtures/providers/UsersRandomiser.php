@@ -6,44 +6,12 @@ use Faker\Provider\Base;
 
 class UsersRandomiser extends Base
 {
-    /** @var array */
-    private $customers;
-    /** @var array */
-    private $repformers;
     /** @var \frontend\models\User[] $_customers */
     private $_customers;
     /** @var \frontend\models\User[] $_performers */
     private $_performers;
 
-    /** @return \frontend\models\User Заказчик */
-    public function getCustomer()
-    {
-        return $this->generator->randomElement(\frontend\models\User::find()->all());
-    }
 
-    /**
-     * Исполнитель
-     *
-     * @param string|null $skill ID навыка, необходимого для задания
-     * @return void
-     */
-    public function getPerformer(?string $skill = null)
-    {
-        if(!$this->_performers) {
-            $query = \frontend\models\User::find();
-            // $query->addSelect(['countSkills' => 'count(`uc`.`id`)']);
-            $query->joinWith(['userCategories uc' => function($query) use ($skill) {
-                /** @var \yii\db\ActiveQuery $query */
-                if ($skill) {
-                    $query->onCondition(['category_id' => $skill]);
-                }
-                return $query;
-            }]);
-            $this->_performers = $query->all();
-        }
-
-        return $this->generator->randomElement($this->_performers);
-    }
 
     public function getFreePerformer(?string $skill = null)
     {
@@ -88,8 +56,8 @@ class UsersRandomiser extends Base
     /** @return array|null Заказчики */
     private function getCustomers(): ?array
     {
-        if (!$this->customers) {
-            $this->customers = \frontend\models\User::find()
+        if (!$this->_customers) {
+            $this->_customers = \frontend\models\User::find()
                 ->select('users.id')
                 ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
                 ->joinWith('userCategories uc')
@@ -99,14 +67,14 @@ class UsersRandomiser extends Base
                 ->all();
         }
 
-        return $this->customers;
+        return $this->_customers;
     }
 
     /** @return array|null Исполнители */
     private function getPerformers(): ?array
     {
-        if (!$this->repformers) {
-            $this->repformers = \frontend\models\User::find()
+        if (!$this->_performers) {
+            $this->_performers = \frontend\models\User::find()
                 ->select('users.id')
                 ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
                 ->joinWith('userCategories uc')
@@ -115,6 +83,6 @@ class UsersRandomiser extends Base
                 ->asArray()
                 ->all();
         }
-        return $this->repformers;
+        return $this->_performers;
     }
 }

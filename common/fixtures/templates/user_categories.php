@@ -6,6 +6,6 @@
  */
 
 return [
-    'user_id' => $faker->getCustomer()->id,
-    'category_id' => $faker->numberBetween(1, 8),
+    'user_id' => $faker->numberBetween(50, 100),
+    'category_id' => $faker->numberBetween(1, 8)
 ];

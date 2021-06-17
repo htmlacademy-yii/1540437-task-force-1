@@ -13,25 +13,23 @@ class TaskQuery extends \yii\db\ActiveQuery
      * @param mixed $user_id 
      * @return $this 
      */
-    public function user($userId)
+    public function user($user_id)
     {
         $userIDField = $this->_field('user_id');
         return $this->andWhere([
-            $userIDField => $userId
+            $userIDField => $user_id
         ]);
     }
 
     /**
      * Черновики
      * 
-     * @return $this 
+     * @return self
      */
-    public function draft()
+    public function draft(): self
     {
-        $statusField = $this->_field('status');
-        return $this->andWhere([
-            $statusField => \app\bizzlogic\Task::STATUS_DRAFT,
-        ]);
+        $published_at = $this->_field('published_at');
+        return $this->andWhere([$published_at => NULL]);
     }
 
     /** Новые задания */

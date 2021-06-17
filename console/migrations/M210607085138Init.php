@@ -22,6 +22,7 @@ class M210607085138Init extends Migration
         $this->execute($schemaSql . $categoriesSql . $citiesSql);
         // $this->execute($categoriesSql);
         // $this->execute($citiesSql);
+        return true;
     }
 
     /**

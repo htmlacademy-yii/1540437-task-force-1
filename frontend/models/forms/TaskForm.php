@@ -5,10 +5,13 @@ namespace frontend\models\forms;
 use yii\base\Model;
 use frontend\models\Task as TaskModel;
 use app\bizzlogic\Task as TaskLogic;
+use Yii;
+use yii\db\StaleObjectException;
+use yii\db\Exception;
+use yii\web\ForbiddenHttpException;
 
 class TaskForm extends Model
 {
-    public $id;
     public $title;
     public $description;
     public $category;
@@ -17,7 +20,8 @@ class TaskForm extends Model
     public $expire;
     public $status;
 
-    private $_relatedId;
+    /** @var TaskModel $_taskModel */
+    private $_taskModel;
 
     public function rules()
     {
@@ -36,16 +40,6 @@ class TaskForm extends Model
             [['expire', 'status'], 'safe'],
             [['title'], 'string', 'max' => 256]
         ];
-    }
-
-    public function setCategory(string $value)
-    {
-        $this->category_id = $value;
-    }
-
-    public function getCategory()
-    {
-        return $this->category_id;
     }
 
     public function attributeLabels()
@@ -74,48 +68,76 @@ class TaskForm extends Model
         ];
     }
 
-    public function publish(): ?int
+    public function getTaskId()
     {
-        $model = new \frontend\models\Task();
-        $model->user_id = \Yii::$app->user->id;
-        $model->category_id = $this->category;
-        $model->title = $this->title;
-        $model->description = $this->description;
-        $model->status = \app\bizzlogic\Task::STATUS_NEW;
-
-        if (isset($this->budget)) {
-            $model->budget = $this->budget;
-        }
-
-        if (isset($this->expire)) {
-            $model->expire = $this->expire;
-        }
-
-        return $model->save() ? $model->id : null;
+        return $this->getTaskModel()->id;
     }
 
-    public static function draftModel(): self
+    /**
+     * Опубликовать задание
+     * 
+     * @return bool 
+     */
+    public function publish(): bool
     {
-        $form = new static;
+        $taskModel = $this->getTaskModel();
 
-        $model = TaskModel::find()
-            ->user(\Yii::$app->user->id)
-            ->draft()
-            ->one();
+        if ($taskModel->user_id !== \Yii::$app->user->id) {
+            throw new \yii\web\ForbiddenHttpException('Только владелец может публиковать задание');
+        }
 
-        if ($model === null) {
+        try {
+            $taskModel->status = \app\bizzlogic\Task::STATUS_NEW;
+            $taskModel->published_at = new \yii\db\Expression('NOW()');
+            $taskModel->save(false);
+            return true;
+        } catch (\Throwable $e) {
+
+            return false;
+        }
+    }
+
+    public function saveDraft(): bool
+    {
+        $taskModel = $this->getTaskModel();
+        $taskModel->setAttributes($this->getAttributes());
+
+        try {
+            $taskModel->save(false);
+            return true;
+        } catch (\Throwable $e) {
+            Yii::error($e->getMessage());
+            // $this->addErrors($taskModel->getErrors());
+            return false;
+        }
+    }
+
+    public function loadDraft()
+    {
+        $this->setAttributes($this->getTaskModel()->getAttributes());
+    }
+
+    /**
+     * Модель для Задания
+     * 
+     * @return TaskModel 
+     */
+    private function getTaskModel(): TaskModel
+    {
+        if (!$this->_taskModel) {
+            $this->_taskModel = TaskModel::find()->user(\Yii::$app->user->id)->draft()->one();
+        }
+
+        if ($this->_taskModel === null) {
             $model = new TaskModel();
             $model->user_id = \Yii::$app->user->id;
-            $model->status = TaskLogic::STATUS_DRAFT;
+            $model->status = TaskLogic::STATUS_NEW;
             $model->title = '';
             $model->description = '';
             $model->save(false);
+            $this->_taskModel = $model;
         }
 
-        $form->setAttributes($model->getAttributes(), ['id', 'category_id']);
-        $form->category = $model->category_id;
-        $form->id = $model->id;
-
-        return $form;
+        return $this->_taskModel;
     }
 }

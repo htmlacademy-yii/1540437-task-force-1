@@ -6,6 +6,9 @@ use frontend\models\forms\TaskForm;
 use frontend\models\search\TaskSearch;
 use yii\web\NotFoundHttpException;
 use Yii;
+use yii\base\InvalidConfigException;
+use yii\db\StaleObjectException;
+use yii\db\Exception;
 use yii\web\UploadedFile;
 
 class TaskController extends FrontendController
@@ -86,28 +89,46 @@ class TaskController extends FrontendController
         $model = new \frontend\models\forms\TaskForm();
         $model->load(Yii::$app->request->post());
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        // return [
-        //     'validate' => \common\widgets\ActiveForm::validate($model),
-        //     'data' => $this->renderAjax('_create-warnings', ['model' => $model])
-        // ];
+        // // return [
+        // //     'validate' => \common\widgets\ActiveForm::validate($model),
+        // //     'data' => $this->renderAjax('_create-warnings', ['model' => $model])
+        // // ];
         return \common\widgets\ActiveForm::validate($model);
+        // return $this->renderPartial('_createForm', ['model' => $model]);
+    }
+
+    /**
+     * Опубликовать задание
+     * 
+     * @param mixed $id Идентификатор задания
+     */
+    public function actionPublish($id)
+    {
+        $model = $this->loadModel($id);
+        $model->published_at = new \yii\db\Expression('NOW()');
+        if ($model->save()) {
+            $this->redirect(['task/view', 'id' => $id]);
+        }
     }
 
     public function actionCreate()
     {
-        $model = TaskForm::draftModel();
-        // $model = new \frontend\models\forms\TaskForm();
+        $form = new TaskForm();
+        // $form->loadDraft();
 
         if (Yii::$app->request->getIsPost()) {
-            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-                $taskId = $model->publish();
-                return $this->redirect(['task/view', 'id' => $taskId]);
-            } elseif (Yii::$app->request->getIsAjax()) {
-                return $this->renderAjax('_create-warnings', ['model' => $model]);
+            $form->load(Yii::$app->request->post());
+            $form->saveDraft();
+            $form->validate();
+
+            if (Yii::$app->getRequest()->getIsPjax()) {
+                return $this->renderPartial('_createForm', ['model' => $form]);
             }
         }
 
-        return $this->render('create', ['model' => $model]);
+
+
+        return $this->render('create', ['model' => $form]);
     }
 
     /**

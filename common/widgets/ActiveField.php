@@ -19,5 +19,5 @@ class ActiveField extends \yii\widgets\ActiveField
         'tag' => 'span'
     ];
     public $labelOptions = ['class' => null];
-    public $hintOptions = ['class' => null, 'tag' => 'span'];
+    public $hintOptions = ['class' => 'help-text', 'tag' => 'span'];
 }
