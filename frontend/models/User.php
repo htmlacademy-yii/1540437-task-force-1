@@ -17,16 +17,16 @@ use yii\db\ActiveQuery;
  * @property Task[] $customerTasks Задачи заказчика
  * @property Task[] $performerTasks Задания исполнителя
  * @property UserAttachment[] $userAttachments
- * @property UserCategory[] $userCategory
+ * @property UserCategory[] $userCategories
  * @property Category[] $categories
  * @property UserFavorite[] $userFavorites
  * @property UserNotification[] $userNotifications
  * @property UserReview[] $userReviews 
  * @property City $city
  * @property UserProfile $profile
- * @property-read bool $isCustomer Если пользвоатель заказчик
- * @property-read bool $isPerformer Если пользователь исполнитель
- * @property-read bool $isOnline Если последняя активыность была менее 30 минут
+ * @property-read bool $isCustomer `true` Если пользвоатель заказчик
+ * @property-read bool $isPerformer `true` Если пользователь исполнитель
+ * @property-read bool $isOnline `true `Если последняя активыность была менее 30 минут
  */
 class User extends \common\models\User
 {
@@ -43,11 +43,11 @@ class User extends \common\models\User
 
         return $this->reviewsAggregation[0]['avgRating'];
     }
-    
+
     public function getReviewsAggregation()
     {
         return $this->getUserReviews()
-            ->select(['user_id','avgRating' => 'avg(`rate`)'])
+            ->select(['user_id', 'avgRating' => 'avg(`rate`)'])
             ->groupBy('user_id')
             ->asArray(true);
     }
@@ -61,7 +61,7 @@ class User extends \common\models\User
                 ->scalar();
         } elseif ($this->_avgRating === 'empty') {
             return null;
-        }        
+        }
 
         return $this->_avgRating;
     }
@@ -73,7 +73,6 @@ class User extends \common\models\User
         }
 
         $this->_avgRating = $value;
-
     }
 
     /**
@@ -90,6 +89,12 @@ class User extends \common\models\User
     public function getResponses(): TaskResponseQuery
     {
         return $this->hasMany(TaskResponse::class, ['performer_user_id' => 'id']);
+    }
+
+    /** @return TaskQuery */
+    public function getTasks(): TaskQuery
+    {
+        return $this->hasMany(Task::class, ['user_id' => 'id']);
     }
 
     /** @return TaskQuery */
@@ -122,7 +127,7 @@ class User extends \common\models\User
     public function getCategories(): CategoryQuery
     {
         return $this->hasMany(Category::class, ['id' => 'category_id'])
-            ->viaTable('user_categories', ['user_id' => 'id']);
+            ->via('userCategories');
     }
 
     /** @return ActiveQuery */
@@ -188,11 +193,7 @@ class User extends \common\models\User
      */
     public function getIsCustomer(): bool
     {
-        if ($this->isNewRecord) {
-            return false;
-        }
-
-        return $this->role === \app\bizzlogic\User::ROLE_CUSTOMER;
+        return empty($this->userCategories);
     }
 
     /**
@@ -202,11 +203,7 @@ class User extends \common\models\User
      */
     public function getIsPerformer(): bool
     {
-        if ($this->isNewRecord) {
-            return false;
-        }
-
-        return $this->role === \app\bizzlogic\User::ROLE_PERFORMER;
+        return count($this->userCategories) > 0;
     }
 
     /** @return bool */

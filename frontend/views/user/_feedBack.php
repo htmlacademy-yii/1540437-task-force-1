@@ -14,13 +14,14 @@ $reviewsCount = count($model->userReviews);
     <?= Html::tag('h2', Yii::t('app', 'Reviews <span>({0})</span>', $reviewsCount)); ?>
     <div class="content-view__feedback-wrapper reviews-wrapper">
         <?php foreach ($model->userReviews as $review) : ?>
+
             <div class="feedback-card__reviews">
                 <p class="link-task link">
                     <?= Yii::t('app', 'Task'); ?>
                     <?= Html::a($review->task->title, ['/task/view', 'id' => $review->task->id], ['class' => 'link-regular']); ?>
                 </p>
                 <div class="card__review">
-                    <?= Html::a('<img src="/img/man-glasses.jpg" width="55" height="54">', ['user/view', 'id' => $review->task->customer ? $review->task->customer->id: null]); ?>
+                    <?= Html::a('<img src="/img/man-glasses.jpg" width="55" height="54">', ['user/view', 'id' => $review->task->customer ? $review->task->customer->id : null]); ?>
                     <div class="feedback-card__reviews-content">
                         <p class="link-name link">
                             <?= Html::a($review->user->name, ['/user/view', 'id' => $review->user->id], ['class' => 'link-regular']); ?>

@@ -21,12 +21,13 @@ if ($faker->boolean(45)) {
 
 $created = $faker->dateTimeInInterval('now', '-1 months');
 $published = $faker->dateTimeInInterval($created, '+30 minutes');
+$skill = $faker->numberBetween(1, 8);
 
 
 return [
-    'user_id' => $faker->randomCustomer(), // Рандомный пользователь
-    'performer_user_id' => $status !== TaskLogic::STATUS_NEW ? $faker->randomPerformer() : null,
-    'category_id' => $faker->numberBetween(1, 8), // ID катеогрии задания
+    'user_id' => $faker->randomCustomer()->id, // Рандомный пользователь
+    'performer_user_id' => $status !== TaskLogic::STATUS_NEW ? $faker->randomPerformer($skill)->id : null,
+    'category_id' => $skill, // ID катеогрии задания
     'title' => $faker->sentence(6), // Заголовок
     'description' => $faker->text(100), // Описание
     'address' => $isHasRemoteWork ? $faker->address : null,

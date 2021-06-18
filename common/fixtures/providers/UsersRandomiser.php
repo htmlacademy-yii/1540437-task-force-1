@@ -11,8 +11,6 @@ class UsersRandomiser extends Base
     /** @var \frontend\models\User[] $_performers */
     private $_performers;
 
-
-
     public function getFreePerformer(?string $skill = null)
     {
 
@@ -35,53 +33,66 @@ class UsersRandomiser extends Base
     }
 
     /** @return int|null ИД Заказчика */
-    public function randomCustomer(): ?int
+    public function randomCustomer(): \frontend\models\User
     {
-        $result = $this->generator->randomElement($this->getCustomers());
-        return $result ? $result['id'] : null;
+        return $this->generator->randomElement($this->getCustomers());
     }
 
-    /** @return int|null ИД Исполнителя */
-    public function randomPerformer(bool $allowNull = false): ?int
+    /** @return \frontend\models\User|null ИД Исполнителя */
+    public function randomPerformer(?int $skillId = null): ?\frontend\models\User
     {
-        $generator = $this->generator;
-        if ($allowNull) {
-            $generator = $this->generator->optional(0.8, null);
+        $performers = $this->getPerformers();
+
+        if (\is_null($skillId)) {
+            return $this->generator->randomElement($performers);
         }
-        $result = $generator->randomElement($this->getPerformers());
 
-        return $result ? $result['id'] : null;
+        $_perfomers = null;
+
+        foreach ($performers as $performer) {
+            foreach ($performer->userCategories as $skill) {
+                if ($skill->id === $skillId) {
+                    $_perfomers[] = $performer;
+                }
+            }
+        }
+
+        return \is_null($_perfomers) ? null : $this->generator->randomElement($_perfomers);
     }
 
-    /** @return array|null Заказчики */
+
+    private function getUsersQuery(): \frontend\models\query\UserQuery
+    {
+        return \frontend\models\User::find()
+            ->with('userCategories');
+    }
+
+    /** @return \frontend\models\User[]|null Заказчики */
     private function getCustomers(): ?array
     {
         if (!$this->_customers) {
-            $this->_customers = \frontend\models\User::find()
-                ->select('users.id')
-                ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
-                ->joinWith('userCategories uc')
-                ->having(['=', 'countUserCategory', 0])
-                ->groupBy('users.id')
-                ->asArray()
-                ->all();
+            foreach ($this->getUsersQuery()->all() as $user) {
+                /** @var \frontend\models\User $user */
+                if ($user && $user->isCustomer) {
+                    $this->_customers[] = $user;
+                }
+            }
         }
 
         return $this->_customers;
     }
 
-    /** @return array|null Исполнители */
+    /** @return \frontend\models\User[]|null Исполнители */
     private function getPerformers(): ?array
     {
         if (!$this->_performers) {
-            $this->_performers = \frontend\models\User::find()
-                ->select('users.id')
-                ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
-                ->joinWith('userCategories uc')
-                ->having(['>', 'countUserCategory', 0])
-                ->groupBy('users.id')
-                ->asArray()
-                ->all();
+            foreach ($this->getUsersQuery()->all() as $user) {
+                /** @var \frontend\models\User $user */
+                if ($user && $user->isPerformer) {
+                    // echo $user->id . "\n";
+                    $this->_performers[] = $user;
+                }
+            }
         }
         return $this->_performers;
     }

@@ -5,7 +5,7 @@ namespace frontend\models\query;
 /** {@inheritDoc} */
 class UserQuery extends \yii\db\ActiveQuery
 {
-    
+
     /**
      * {@inheritDoc}
      *

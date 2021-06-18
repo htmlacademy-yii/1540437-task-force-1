@@ -32,6 +32,21 @@ class TaskQuery extends \yii\db\ActiveQuery
         return $this->andWhere([$published_at => NULL]);
     }
 
+    /**
+     * Завершенные задания
+     * 
+     * @return TaskQuery 
+     */
+    public function done(): self
+    {
+        $statusFieldName = $this->_field('status');
+
+        return $this->andOnCondition(["NOT IN", $statusFieldName, [
+            \app\bizzlogic\Task::STATUS_INPROGRESS,
+            \app\bizzlogic\Task::STATUS_NEW
+        ]]);
+    }
+
     /** Новые задания */
     public function new()
     {

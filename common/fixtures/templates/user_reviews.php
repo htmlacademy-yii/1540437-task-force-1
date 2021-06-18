@@ -6,33 +6,25 @@
  * @var frontend\models\Task $task
  */
 
+$completedTasks = $faker->completedTasks();
 
-$isCompleteStatus = $faker->randomElement(['COMPLETE', 'FAIL']);
-
-/** @var frontend\models\Task $task */
-$task = $faker->getFreeTask();
-$performer = $faker->getFreePerformer($task->category_id);
-$task->status = $isCompleteStatus;
-$task->link('performer', $performer);
-
-if ($performer === null || $task === null) {
-    return [];
+if ($completedTasks === null) {
+    return null;
 }
 
-return [
-    'user_id' => $task->customer->id, // ID пользователя, что оставил Отзыв
-    'related_task_id' => $task->id, // ID Исполнителя задания
-    'rate' => $isCompleteStatus === 'FAIL' ? $faker->numberBetween(1, 2) : $faker->numberBetween(3, 5),
+$data = [
+    'user_id' => $completedTasks->user_id, // ID пользователя, что оставил Отзыв
+    'related_task_id' => $completedTasks->id, // ID Исполнителя задания
     'comment' => $faker->text
 ];
 
-$bash = "
-php yii fixture/generate users, user_profile --count=100 --interactive=0 &&
-php yii fixture/load Users --interactive=0 &&
-php yii fixture/generate tasks --count=200 --interactive=0 && 
-php yii fixture/load Tasks --interactive=0 &&
-php yii fixture/generate user_categories --count=35 --interactive=0 &&
-php yii fixture/load UserCategories --interactive=0 &&
-php yii fixture/generate user_reviews --count=50 --interactive=0 &&
-php yii fixture/load UserReviews --interactive=0
-";
+if ($completedTasks->status === \app\bizzlogic\Task::STATUS_FAIL) {
+    $data['rate'] = $faker->numberBetween(1, 3);
+} else {
+    if ($faker->boolean(10)) {
+        return null;
+    }
+    $data['rate'] = $faker->numberBetween(4, 5);
+}
+
+return $data;

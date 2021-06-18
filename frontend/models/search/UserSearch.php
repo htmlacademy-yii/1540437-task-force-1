@@ -57,21 +57,23 @@ class UserSearch extends User
             ->select('u.*')
             // ->with(['categories'])
             ->joinWith([
-                'customerTasks t',
+                'tasks t',
                 'profile p',
                 'categories c',
                 'responses tr',
                 'userReviews ur'
             ]);
 
-        // $query->andFilterWhere();
-
+        $query->where(['in', 'id', User::find()->select('id')->with('categories')]);
 
         $query->addSelect([
             'avgRating' => 'AVG(`ur`.`rate`)',
             'countResponses' => 'COUNT(DISTINCT tr.id)',
-            'countTasks' => 'COUNT(DISTINCT `t`.`id`)'
+            'countTasks' => 'COUNT(DISTINCT `t`.`id`)',
+            'countCategories' => 'COUNT(`c`.`id`)',
         ]);
+
+        $query->andHaving('countCategories > 0');
 
         $query->addGroupBy(['u.id']);
 
