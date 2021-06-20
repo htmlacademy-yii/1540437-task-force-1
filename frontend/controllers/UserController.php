@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\search\PerformerSearch;
 use frontend\models\search\UserSearch;
 use frontend\models\User;
 use Yii;
@@ -29,6 +30,17 @@ class UserController extends FrontendController
 
         return $this->render('view', [
             'model' => $model
+        ]);
+    }
+
+    public function actionPerformer()
+    {
+        $searchModel = new PerformerSearch();
+        $dataProvider = $searchModel->search(Yii::$app->getRequest()->post());
+
+        return $this->render('performer', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

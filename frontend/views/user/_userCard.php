@@ -10,13 +10,14 @@ use yii\helpers\Html;
 /** @var string|null $searchString */
 ?>
 
+<?php echo Html::tag('pre', $model->getPerformerReviews()); ?>
 
 <div class="content-view__feedback-card user__search-wrapper">
     <div class="feedback-card__top">
         <div class="user__search-icon">
             <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), ['view', 'id' => $model->id]); ?>
             <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => count($model->performerTasks) ])); ?>
-            <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' => count($model->userReviews) ])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' =>  $model->getCustomerReviews() ])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
             <p class="link-name">

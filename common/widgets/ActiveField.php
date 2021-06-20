@@ -15,9 +15,9 @@ class ActiveField extends \yii\widgets\ActiveField
         'rows' => 1,
     ];
     public $errorOptions = [
-        'class' => null,
+        'class' => 'small',
         'tag' => 'span'
     ];
     public $labelOptions = ['class' => null];
-    public $hintOptions = ['class' => 'help-text', 'tag' => 'span'];
+    public $hintOptions = ['class' => 'help-text', 'tag' => 'div'];
 }

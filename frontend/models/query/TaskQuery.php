@@ -106,7 +106,7 @@ class TaskQuery extends \yii\db\ActiveQuery
     public function performers(): self
     {
         $fieldName = $this->_field('performer_user_id');
-        return $this->andWhere([$fieldName => '']);
+        return $this->andWhere(['IS NOT',$fieldName, null]);
     }
 
     /**

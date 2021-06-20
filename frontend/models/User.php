@@ -31,49 +31,96 @@ use yii\db\ActiveQuery;
 class User extends \common\models\User
 {
 
-    public $_avgRating;
-    public $countTasks;
+    // public $countTasks;
     public $countResponses;
+    public $avgRating;
+    public $countReviews;
 
-    public function getRating(): ?int
+    private $_countTasks;
+
+    public function getCustomerReviews()
     {
-        if ($this->isNewRecord) {
-            return null; // нет смысла выполнять запрос на поиск по пустым ключам
-        }
-
-        return $this->reviewsAggregation[0]['avgRating'];
+        return $this->customerReviewsAggregation ? $this->customerReviewsAggregation[0]['count'] : 0;
     }
 
-    public function getReviewsAggregation()
+    private $_perfomerReviews;
+
+    public function getPerformerReviews()
     {
-        return $this->getUserReviews()
-            ->select(['user_id', 'avgRating' => 'avg(`rate`)'])
+        return $this->getTaskUserReview()->count();
+
+        $reviews = 0;
+        foreach($this->taskUserReview as $review) {
+
+            if ($review->user_id === $this->id) {
+                $reviews++;
+            }
+        }
+
+        return $reviews;
+        // return $this->performerTasks();
+    }
+
+    public function getCustomerReviewsAggregation()
+    {
+        return $this->getTaskUserReview()
+            ->select([
+                'user_id',
+                'count'=>'count(id)'
+            ])
             ->groupBy('user_id')
-            ->asArray(true);
+            ->asArray();
     }
 
-    public function getAvgRating()
+    public function getCountTasks()
     {
-        if ($this->_avgRating === null) {
-            $this->_avgRating = $this->getUserReviews()
-                ->select(['avgRating' => 'avg(`rate`)'])
-                ->groupBy('user_id')
-                ->scalar();
-        } elseif ($this->_avgRating === 'empty') {
-            return null;
-        }
-
-        return $this->_avgRating;
+        return $this->_countTasks;
     }
 
-    public function setAvgRating(?string $value)
+    public function setCountTasks($value)
     {
-        if ($value === null) {
-            $value = 'empty';
-        }
-
-        $this->_avgRating = $value;
+        $this->_countTasks = $value;
     }
+
+    // public function getRating(): ?int
+    // {
+    //     if ($this->isNewRecord) {
+    //         return null; // нет смысла выполнять запрос на поиск по пустым ключам
+    //     }
+
+    //     return $this->reviewsAggregation[0]['avgRating'];
+    // }
+
+    // public function getReviewsAggregation()
+    // {
+    //     return $this->getUserReviews()
+    //         ->select(['user_id', 'avgRating' => 'avg(`rate`)'])
+    //         ->groupBy('user_id')
+    //         ->asArray(true);
+    // }
+
+    // public function getAvgRating()
+    // {
+    //     if ($this->_avgRating === null) {
+    //         $this->_avgRating = $this->getUserReviews()
+    //             ->select(['avgRating' => 'avg(`rate`)'])
+    //             ->groupBy('user_id')
+    //             ->scalar();
+    //     } elseif ($this->_avgRating === 'empty') {
+    //         return null;
+    //     }
+
+    //     return $this->_avgRating;
+    // }
+
+    // public function setAvgRating(?string $value)
+    // {
+    //     if ($value === null) {
+    //         $value = 'empty';
+    //     }
+
+    //     $this->_avgRating = $value;
+    // }
 
     /**
      * Gets query for [[TaskChats]].
@@ -89,12 +136,6 @@ class User extends \common\models\User
     public function getResponses(): TaskResponseQuery
     {
         return $this->hasMany(TaskResponse::class, ['performer_user_id' => 'id']);
-    }
-
-    /** @return TaskQuery */
-    public function getTasks(): TaskQuery
-    {
-        return $this->hasMany(Task::class, ['user_id' => 'id']);
     }
 
     /** @return TaskQuery */
@@ -156,14 +197,10 @@ class User extends \common\models\User
         return $this->hasMany(UserNotification::class, ['user_id' => 'id']);
     }
 
-    /**
-     * Gets query for [[UserReviews]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserReviews()
+    public function getTaskUserReview()
     {
-        return $this->hasMany(UserReview::class, ['user_id' => 'id']);
+        return $this->hasMany(UserReview::class, ['related_task_id' => 'id'])
+            ->via('performerTasks');
     }
 
     /**

@@ -80,7 +80,7 @@ class Task extends \common\models\Task
     /** @return UserReviewQuery Query for [[user_reviews]] */
     public function getUserReviews(): UserReviewQuery
     {
-        return $this->hasMany(UserReview::class, ['task_id' => 'id']);
+        return $this->hasMany(UserReview::class, ['related_task_id' => 'id']);
     }
 
     /** @return TaskQuery */

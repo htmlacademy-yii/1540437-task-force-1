@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use frontend\models\query\TaskQuery;
 use frontend\models\query\UserQuery;
+use frontend\models\query\UserReviewQuery;
 
 /**
  * {@inheritDoc}
@@ -13,7 +14,8 @@ use frontend\models\query\UserQuery;
 class UserReview extends \common\models\UserReview
 {
     public $avgReating;
-    
+
+   
     /**
      * Gets query for [[Task]].
      *
@@ -32,5 +34,10 @@ class UserReview extends \common\models\UserReview
     public function getUser(): UserQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public static function find(): UserReviewQuery
+    {
+        return new UserReviewQuery(get_called_class());
     }
 }

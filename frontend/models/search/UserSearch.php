@@ -52,28 +52,30 @@ class UserSearch extends User
      */
     public function search(array $params): ActiveDataProvider
     {
-        $query = User::find();
-        $query->alias('u')
+        $query = User::find()
+            ->alias('u')
             ->select('u.*')
-            // ->with(['categories'])
             ->joinWith([
-                'tasks t',
                 'profile p',
                 'categories c',
-                'responses tr',
-                'userReviews ur'
+                'responses r',
+                'performerTasks pt' => function($query) {
+                    $query->done();
+                    $query->joinWith('userReviews ur');
+                },
             ]);
 
-        $query->where(['in', 'id', User::find()->select('id')->with('categories')]);
+        
+        $query->andWhere(['in', 'u.id', \frontend\models\UserCategory::find()->alias('uc')->select('uc.user_id')->distinct()]);
 
         $query->addSelect([
             'avgRating' => 'AVG(`ur`.`rate`)',
-            'countResponses' => 'COUNT(DISTINCT tr.id)',
-            'countTasks' => 'COUNT(DISTINCT `t`.`id`)',
-            'countCategories' => 'COUNT(`c`.`id`)',
+            'countResponses' => 'COUNT(DISTINCT r.id)',
+            'countTasks' => 'count(pt.id)',
+            'countReviews' => 'count(ur.id)'
         ]);
 
-        $query->andHaving('countCategories > 0');
+        // $query->andHaving('countCategories > 0');
 
         $query->addGroupBy(['u.id']);
 
@@ -82,7 +84,7 @@ class UserSearch extends User
                 'rtg' => [
                     'asc' => ['avgRating' => SORT_ASC],
                     'desc' => ['avgRating' => SORT_DESC],
-                    'default' => SORT_DESC,
+                    'default' => SORT_ASC,
                     'label' => \Yii::t('app', 'Рейтингу')
                 ],
                 'tsc' => [
@@ -136,8 +138,8 @@ class UserSearch extends User
         }
 
         if ($this->isHasResponses) {
-            $query->addSelect(['cntReviews' => 'count(DISTINCT ur.id)']);
-            $query->andFilterHaving(['>', 'cntReviews', 0]);
+            // $query->addSelect(['cntReviews' => 'count(DISTINCT ur.id)']);
+            // $query->andFilterHaving(['>', 'cntReviews', 0]);
         }
 
         if ($this->isFavorite) {
