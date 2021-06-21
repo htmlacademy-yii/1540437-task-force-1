@@ -15,7 +15,7 @@ class UserController extends FrontendController
 
     public function actionIndex()
     {
-        $searchModel  = new UserSearch();
+        $searchModel  = new PerformerSearch();
         $dataProvider = $searchModel->search(Yii::$app->getRequest()->post());
 
         return $this->render('index', [

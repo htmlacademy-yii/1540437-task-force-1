@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use common\models\UserRole;
 use frontend\models\query\CategoryQuery;
+use frontend\models\query\PerformerQuery;
 use frontend\models\query\TaskQuery;
 use frontend\models\query\TaskResponseQuery;
 use frontend\models\query\UserQuery;
@@ -23,6 +24,7 @@ use frontend\models\query\UserReviewQuery;
  */
 class Task extends \common\models\Task
 {
+
     /**
      * {@inheritdoc}
      */
@@ -71,10 +73,10 @@ class Task extends \common\models\Task
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /** @return UserQuery */
-    public function getPerformer(): UserQuery
+    /** @return PerformerQuery */
+    public function getPerformer(): PerformerQuery
     {
-        return $this->hasOne(User::class, ['id' => 'performer_user_id']);
+        return $this->hasOne(Performer::class, ['id' => 'performer_user_id']);
     }
 
     /** @return UserReviewQuery Query for [[user_reviews]] */

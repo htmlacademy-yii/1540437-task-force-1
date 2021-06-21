@@ -14,18 +14,20 @@ $this->title = 'Исполнители';
             <?= $this->render('_userCard', ['model' => $model, 'searchString' => $searchModel->qname]); ?>
         <?php endforeach; ?>
     </div>
-    <div class="new-task__pagination" style="margin: 0 -20px -20px -20px;">
-        <?= yii\widgets\LinkPager::widget([
-            'pagination' => $dataProvider->pagination,
-            'options' => ['class' => 'new-task__pagination-list'],
-            'nextPageLabel' => '',
-            'prevPageLabel' => '',
-            'prevPageCssClass' => 'pagination__item',
-            'nextPageCssClass' => 'pagination__item',
-            'pageCssClass' => 'pagination__item',
-            'activePageCssClass' => 'pagination__item--current'
-        ]); ?>
-    </div>
+    <?php if ($dataProvider->pagination && $dataProvider->totalCount > 0) : ?>
+        <div class="new-task__pagination" style="margin: 0 -20px -20px -20px;">
+            <?= yii\widgets\LinkPager::widget([
+                'pagination' => $dataProvider->pagination,
+                'options' => ['class' => 'new-task__pagination-list'],
+                'nextPageLabel' => '',
+                'prevPageLabel' => '',
+                'prevPageCssClass' => 'pagination__item',
+                'nextPageCssClass' => 'pagination__item',
+                'pageCssClass' => 'pagination__item',
+                'activePageCssClass' => 'pagination__item--current'
+            ]); ?>
+        </div>
+    <?php endif; ?>
 </section>
 
 <section class="search-task">

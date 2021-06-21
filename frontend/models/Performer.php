@@ -19,62 +19,25 @@ use yii\db\ActiveQuery;
  * @property Category[] $categories
  * @property-read bool $isOnline `true `Если последняя активыность была менее 30 минут
  */
-class Performer extends \common\models\User
+class Performer extends User
 {
-
-    // public $avgRating;
-    private $_avgRating;
-    private $_countReviews;
-
-    public function getAvgRating()
-    {
-        if ($this->isNewRecord) {
-            return null;
-        }
-
-        if (!$this->_avgRating) {
-            $this->_avgRating = isset($this->reviewsAggregation) ? $this->reviewsAggregation['avgRating'] : 0;
-        }
-
-        return $this->_avgRating;
-    }
-
-    public function getCountReviews()
-    {
-        if (!$this->_countReviews) {
-            $this->_countReviews = isset($this->reviewsAggregation) ? $this->reviewsAggregation['countReviews'] : 0;
-        }
-
-        return $this->_countReviews;
-    }
-
-    public function getReviewsAggregation()
-    {
-        $userReviewsQuery = \frontend\models\UserReview::find()->where(['related_task_id' => $this->getTasks()->select('id') ]);
-        $userReviewsQuery->select([
-            'countReviews' => 'count(id)',
-            'avgRating' => 'avg(rate)'
-        ]);
-        
-        return $userReviewsQuery->asArray(true);
-
-        // return $userReviewsQuery->all();
-
-        // return $userReviewsQuery;
-
-        // return $this->getReviews()
-        //     ->select([
-        //         'id',
-        //         'avgRating' => 'AVG(`rate`)',
-        //         'countReviews' => 'count(`id`)'
-        //     ])
-        //     ->groupBy(['id'])
-        //     ->asArray(true);
-    }
+    public $avgRating;
+    public $countTasks;
+    public $countReviews;
 
     public function getTaskCustomer()
     {
         return $this->getTasks()->with('customers');
+    }
+
+    /**
+     * Gets query for [[UserFavorites]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserFavorites()
+    {
+        return $this->hasMany(UserFavorite::class, ['favorite_user_id' => 'id']);
     }
 
     /**
@@ -92,21 +55,11 @@ class Performer extends \common\models\User
         return $this->hasMany(UserReview::class, ['related_task_id' => 'id'])->via('tasks');
     }
 
-    /**
-     * Отзывы пользователей
-     * 
-     * @return UserReviewQuery 
-     */
-    public function getReviews(): UserReviewQuery
-    {
-        return $this->hasMany(UserReview::class, ['related_task_id' => 'id'])->via('tasks');
-    }
-
     /** @return TaskResponseQuery */
     public function getResponses(): TaskResponseQuery
     {
         return $this->hasMany(TaskResponse::class, ['performer_user_id' => 'id']);
-    }    
+    }
 
     /**
      * Query class for table [[categories]]
@@ -135,45 +88,6 @@ class Performer extends \common\models\User
         return $this->hasMany(UserNotification::class, ['user_id' => 'id']);
     }
 
-    /**
-     * Gets query for [[City]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCity()
-    {
-        return $this->hasOne(City::class, ['id' => 'city_id']);
-    }
-
-    /**
-     * Gets query for [[Profile]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProfile(): \yii\db\ActiveQuery
-    {
-        return $this->hasOne(UserProfile::class, ['id' => 'profile_id']);
-    }
-
-    /**
-     * Является ли пользователь Заказчиком
-     * 
-     * @return bool
-     */
-    public function getIsCustomer(): bool
-    {
-        return empty($this->userCategories);
-    }
-
-    /**
-     * Является ли пользователь Исполнителем
-     *
-     * @return bool
-     */
-    public function getIsPerformer(): bool
-    {
-        return count($this->userCategories) > 0;
-    }
 
     /** @return bool */
     public function getIsOnline(): bool
@@ -186,19 +100,6 @@ class Performer extends \common\models\User
         $end = new \DateTime('now');
 
         return $end->diff($start)->i > 30;
-    }
-
-    /** 
-     * @return string|null Дата последного входа в систему
-     */
-    public function getLastLogin(): ?string
-    {
-        return $this->last_logined_at;
-    }
-
-    public function setPassword(string $value)
-    {
-        $this->password = Yii::$app->getSecurity()->generatePasswordHash($value);
     }
 
     /**
