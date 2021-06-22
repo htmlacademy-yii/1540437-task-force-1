@@ -72,6 +72,7 @@ class Task extends \common\models\Task
     public function getCustomer(): CustomerQuery
     {
         return $this->hasOne(Customer::class, ['id' => 'user_id']);
+        
     }
 
     /** @return PerformerQuery */

@@ -2,21 +2,17 @@
 
 namespace common\widgets;
 
+use frontend\models\forms\FileUploadForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Json;
 use yii\helpers\Url;
 
 class Dropzone extends \yii\base\Widget
 {
-    // public $id = 'file_upload';
+    public $action = ['file/ajax-upload'];
+    public $task = null;
+    public $user = null;
 
-    /** @var \yii\base\Model $model */
-    public $modelClass;
-    /** @var string $attribute Attribute name */
-    public $attribute;
-
-    public $action;
     public $actionMessage = 'Добавить новый файл';
 
     /** @var array */
@@ -24,25 +20,36 @@ class Dropzone extends \yii\base\Widget
         'class' => 'create__file'
     ];
 
-    private $model;
-
-    private $_target;
+    private $_mainId;
+    private $_model;
     private $_tag;
 
     public function init()
     {
+        $this->_mainId = $this->getId();
+        $this->_model = self::model();
         $this->_tag = ArrayHelper::remove($this->targetOptions, 'tag', 'div');
-        $this->_target = "#" . $this->getId();
-        $this->model = new $this->modelClass();
 
         $this->registerAssets();
+        $this->registerJs();
+    }
+
+    /**
+     * @see https://www.dropzonejs.com/#layout
+     */
+    private function showTemplate()
+    {
+        /** TODO: реализовать собственный шаблон, если потребутеся */
+        return null;
     }
 
     public function run()
     {
-        $this->registerJs();
 
         $this->targetOptions['id'] = $this->getId();
+
+        echo Html::activeLabel($this->_model, 'file');
+        echo Html::activeHint($this->_model, 'file', ['tag' => 'span', 'class' => null]);
         echo Html::tag($this->_tag, "<span>{$this->actionMessage}</span>", $this->targetOptions);
     }
 
@@ -54,22 +61,41 @@ class Dropzone extends \yii\base\Widget
     private function registerJs()
     {
 
-        $target = $this->getTarget();
+        $userFieldName = Html::getInputName($this->_model, 'user');
+        $taskFieldName = Html::getInputName($this->_model, 'task');
+        $fileFieldName = Html::getInputName($this->_model, 'file');
 
-        $dropzoneOptions = Json::encode([
-            'url' => isset($this->action) ? Url::toRoute($this->action) : \Yii::$app->request->url,
-            'paramName' => Html::getInputName($this->model, $this->attribute)
-        ]);
+        $csrfParam = \Yii::$app->request->csrfParam;
+        $csrfValue = \Yii::$app->request->csrfToken;
+
+
+        $id = \lcfirst(\yii\helpers\Inflector::camelize($this->_mainId));
 
         $js = <<<JS
-            var dropzone_{$this->id} = new Dropzone('$target', $dropzoneOptions);
+            Dropzone.autoDiscover = false;
+
+            var dropzone_$id = new Dropzone('#{$this->_mainId}', {
+                url: "{$this->action()}",
+                paramName: "{$fileFieldName}"                
+            });
+
+            dropzone_$id.on('sending', function(file, xhr, formData) {
+                formData.append('{$csrfParam}', '{$csrfValue}');
+                formData.append('{$userFieldName}', '{$this->user}');
+                formData.append('{$taskFieldName}', '{$this->task}');
+            })
         JS;
 
         $this->getView()->registerJs($js, \yii\web\View::POS_READY);
     }
 
-    private function getTarget(): string
+    public static function model()
     {
-        return $this->_tag . $this->_target;
+        return new FileUploadForm();
+    }
+
+    private function action()
+    {
+        return isset($this->action) ? Url::toRoute($this->action) : \Yii::$app->request->url;
     }
 }

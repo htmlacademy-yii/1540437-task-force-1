@@ -31,7 +31,9 @@ $reviewsCount = count($model->taskReviews);
                         </p>
                     </div>
                     <div class="card__review-rate">
-                        <p class="five-rate big-rate"><?= $review->rate; ?><span></span></p>
+                        <?php $rateTagClass = $review->rate > 3 ? 'five-rate big-rate' : 'three-rate big-rate'; ?>
+                        <?= Html::tag('p', "{$review->rate}<span></span>", ['class' => $rateTagClass]); ?>
+
                     </div>
                 </div>
             </div>

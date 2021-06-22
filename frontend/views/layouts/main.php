@@ -127,10 +127,10 @@ AppAsset::register($this);
             <?= $content ?>
         </div>
     </main>
-
     <?= $this->render('_footer'); ?>
 
     <div class="overlay"></div>
+
     <?php $this->endBody() ?>
 </body>
 

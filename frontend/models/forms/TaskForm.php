@@ -6,12 +6,14 @@ use yii\base\Model;
 use frontend\models\Task as TaskModel;
 use app\bizzlogic\Task as TaskLogic;
 use Yii;
-use yii\db\StaleObjectException;
-use yii\db\Exception;
-use yii\web\ForbiddenHttpException;
 
+/**
+ * 
+ * @property int $taskId
+ */
 class TaskForm extends Model
 {
+    public $id;
     public $title;
     public $description;
     public $category;

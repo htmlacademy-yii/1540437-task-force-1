@@ -31,8 +31,8 @@ $this->title = "{$model->title}::" . Yii::$app->name;
                                 (new TaskSearch)->formName() . "[categoryIds][]" => $model->category->id,
                             ]
                         ]); ?>
-                        <?= \Yii::$app->formatter->asInterval('d', $model->created_at);?>
-                        
+                        <?= \Yii::$app->formatter->asInterval('d', $model->created_at); ?>
+
                     </span>
                 </div>
                 <?= $model->budget ?
@@ -116,33 +116,34 @@ $this->title = "{$model->title}::" . Yii::$app->name;
 <!-- TODO: Content desc -->
 <?php if ($model->customer) : ?>
     <section class="connect-desk">
-    <div class="connect-desk__profile-mini">
-        <div class="profile-mini__wrapper">
-            <?= Html::tag('h3', \Yii::t('app', 'Customer')); ?>
+        <div class="connect-desk__profile-mini">
+            <div class="profile-mini__wrapper">
+                <?= Html::tag('h3', \Yii::t('app', 'Customer')); ?>
 
-            <div class="profile-mini__top">
-                <?= GenderIcon::widget(['gender' => $model->customer->gender, 'htmlOptions' => ['width' => 62, 'height' => 62, 'alt' => 'Аватар заказчика']]); ?>
-                <div class="profile-mini__name five-stars__rate">
-                    <?= Html::tag('p', $model->customer->name); ?>
+                <div class="profile-mini__top">
+                    <?= GenderIcon::widget(['gender' => $model->customer->gender, 'htmlOptions' => ['width' => 62, 'height' => 62, 'alt' => 'Аватар заказчика']]); ?>
+                    <div class="profile-mini__name five-stars__rate">
+                        <?= Html::tag('p', $model->customer->name); ?>
+                    </div>
                 </div>
+                <p class="info-customer">
+                    <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->customer->countTasks])); ?>
+                    <span class="last-visit">
+                        <?= $model->customer->created_at; ?>
+                        <?php  //Yii::t('intl', 'users.registered', ['n' => $model->customer->registerDateInterval['y']]); 
+                        ?>
+                    </span>
+                </p>
+                <?= Html::a(Yii::t('app', 'Show Profile'), ['/user/view', 'id' => $model->customer->id], ['class' => 'link-regular']); ?>
             </div>
-            <p class="info-customer">
-                <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => count($model->customer->customerTasks)])); ?>
-                <span class="last-visit">
-                    <?= $model->customer->created_at; ?>
-                    <?php  //Yii::t('intl', 'users.registered', ['n' => $model->customer->registerDateInterval['y']]); ?>
-                </span>
-            </p>
-            <?= Html::a(Yii::t('app', 'Show Profile'), ['/user/view', 'id' => $model->customer->id], ['class' => 'link-regular']); ?>
         </div>
-    </div>
-    <div id="chat-container">
-        <!-- добавьте сюда атрибут task с указанием в нем id текущего задания-->
-        <chat class="connect-desk__chat"></chat>
-    </div>
-</section>
+        <div id="chat-container">
+            <!-- добавьте сюда атрибут task с указанием в нем id текущего задания-->
+            <chat class="connect-desk__chat"></chat>
+        </div>
+    </section>
 
-<?php endif;?>
+<?php endif; ?>
 
 
 
@@ -176,13 +177,13 @@ $this->title = "{$model->title}::" . Yii::$app->name;
         </p>
         <p class="form-modal-description">
             Оценка
-            <div class="feedback-card__top--name completion-form-star">
-                <span class="star-disabled"></span>
-                <span class="star-disabled"></span>
-                <span class="star-disabled"></span>
-                <span class="star-disabled"></span>
-                <span class="star-disabled"></span>
-            </div>
+        <div class="feedback-card__top--name completion-form-star">
+            <span class="star-disabled"></span>
+            <span class="star-disabled"></span>
+            <span class="star-disabled"></span>
+            <span class="star-disabled"></span>
+            <span class="star-disabled"></span>
+        </div>
         </p>
         <input type="hidden" name="rating" id="rating">
         <button class="button modal-button" type="submit">Отправить</button>

@@ -44,13 +44,11 @@ use yii\helpers\Html;
     ); ?>
 
     <div class="field-taskform-files" style="display: flex; flex-direction: column; padding-bottom: 10px;">
-        <?= Html::activeLabel($model, 'files'); ?>
-        <?= Html::activeHint($model, 'files', ['tag' => 'span', 'class' => null]); ?>
 
         <?= \common\widgets\Dropzone::widget([
-            'action' => ['task/ajax-upload'],
-            'modelClass' => FileUploadForm::class,
-            'attribute' => 'file[]'
+            'id' => 'tasks-upload',
+            'user' => \Yii::$app->user->id,
+            'task' => $model->taskId
         ]); ?>
 
     </div>

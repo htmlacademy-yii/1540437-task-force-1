@@ -6,9 +6,6 @@ use frontend\models\forms\TaskForm;
 use frontend\models\search\TaskSearch;
 use yii\web\NotFoundHttpException;
 use Yii;
-use yii\base\InvalidConfigException;
-use yii\db\StaleObjectException;
-use yii\db\Exception;
 use yii\web\UploadedFile;
 
 class TaskController extends FrontendController
@@ -58,43 +55,13 @@ class TaskController extends FrontendController
         ]);
     }
 
-    public function actionAjaxUpload()
-    {
-
-        if (!Yii::$app->request->isAjax) {
-            Yii::$app->response->statusCode = '500';
-            return [];
-        }
-
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        $uploadForm = new \frontend\models\forms\FileUploadForm();
-        $uploadForm->file = UploadedFile::getInstances($uploadForm, 'file');
-
-        if ($uploadForm->file && $uploadForm->validate()) {
-            return [
-                'success' => true,
-                'files' => $uploadForm->file,
-            ];
-        } else {
-            return [
-                'success' => false,
-                'errors' => $uploadForm->getErrors('file')
-            ];
-        }
-    }
-
     public function actionAjaxValidate()
     {
         $model = new \frontend\models\forms\TaskForm();
         $model->load(Yii::$app->request->post());
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        // // return [
-        // //     'validate' => \common\widgets\ActiveForm::validate($model),
-        // //     'data' => $this->renderAjax('_create-warnings', ['model' => $model])
-        // // ];
+        $model->saveDraft();
         return \common\widgets\ActiveForm::validate($model);
-        // return $this->renderPartial('_createForm', ['model' => $model]);
     }
 
     /**
@@ -114,7 +81,7 @@ class TaskController extends FrontendController
     public function actionCreate()
     {
         $form = new TaskForm();
-        // $form->loadDraft();
+        $form->loadDraft();
 
         if (Yii::$app->request->getIsPost()) {
             $form->load(Yii::$app->request->post());

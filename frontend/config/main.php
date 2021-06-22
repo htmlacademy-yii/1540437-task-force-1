@@ -12,6 +12,7 @@ return [
     'language' => 'ru',
     'name' => 'TaskForce',
     'basePath' => dirname(__DIR__),
+    // 'bootstrap' => ['log', 'common\widgets\Dropzone'],
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'defaultRoute' => 'landing',
