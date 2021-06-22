@@ -8,7 +8,8 @@ class PerformerQuery extends \yii\db\ActiveQuery
 
     public function init()
     {
-        $this->innerJoinWith('userCategories');
+        $field = $this->_field('id');
+        $this->andOnCondition([$field => \common\models\UserCategory::find()->select('user_id')->distinct()]);
         parent::init();
     }
 

@@ -63,7 +63,7 @@ AppAsset::register($this);
                     'itemOptions' => ['class' => 'site-list__item'],
                     'items' => [
                         ['label' => 'Задания', 'url' => ['/task/index']],
-                        ['label' => 'Исполнители', 'url' => ['/user/index']],
+                        ['label' => 'Исполнители', 'url' => ['/performer/index']],
                         ['label' => 'Создать задание', 'url' => ['/task/create'], 'visible' => Yii::$app->user->isGuest === false],
                         ['label' => 'Мой профиль', 'url' => '#', 'visible' => Yii::$app->user->isGuest === false]
                     ],

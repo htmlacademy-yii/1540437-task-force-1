@@ -16,18 +16,83 @@ use yii\db\ActiveQuery;
  * @property Task[] $tasks Мои задания
  * @property UserReview[] $reviews Отзывы пользователей
  * @property TaskResponse $responses Я откликнулся
- * @property Category[] $categories
+ * @property Category[] $skill
  * @property-read bool $isOnline `true `Если последняя активыность была менее 30 минут
  */
 class Performer extends User
 {
-    public $avgRating;
-    public $countTasks;
-    public $countReviews;
+    // public $avgRating;
+    // public $countTasks;
+    // public $countReviews;
 
-    public function getTaskCustomer()
+    private $_avgRating;
+    private $_countReviews;
+    private $_countTasks;
+
+    public function setAvgRating(?string $value)
     {
-        return $this->getTasks()->with('customers');
+        if ($value !== null) {
+            $this->_avgRating = $value;
+        }
+    }
+
+    public function getAvgRating()
+    {
+        if (!$this->_avgRating) {
+            $this->_avgRating = $this->totalReviewsAggregation ? $this->totalReviewsAggregation[0]['avgRating'] : 0;
+        }
+
+        return $this->_avgRating;
+    }
+
+    public function getCountReviews()
+    {
+        if (!$this->_countReviews) {
+            $this->_countReviews = $this->totalReviewsAggregation ? $this->totalReviewsAggregation[0]['countReviews'] : 0;
+        }
+
+        return $this->_countReviews;
+    }
+
+    public function setCountReviews(?string $value)
+    {
+        if ($value === null) {
+            $value = 0;
+        }
+        $this->_countReviews = $value;
+    }
+
+    public function setCountTasks(?string $value)
+    {
+        if ($value === null) {
+            $value = 0;
+        }
+
+        $this->_countTasks = $value;
+    }
+
+    public function getCountTasks()
+    {
+        return $this->_countTasks;
+    }
+
+    public function getCountCompletedTasks()
+    {
+        if (!$this->_countTasks) {
+            $this->_countTasks = $this->getCompletedTasks()->count();
+        }
+
+        return $this->_countTasks;
+    }
+
+    public function getTotalReviewsAggregation()
+    {
+        return $this->getTaskReviews()
+            ->select([
+                'avgRating' => 'avg(`user_reviews`.rate)',
+                'countReviews' => 'count(`user_reviews`.`id`)',
+            ])
+            ->asArray(true);
     }
 
     /**
@@ -40,6 +105,11 @@ class Performer extends User
         return $this->hasMany(UserFavorite::class, ['favorite_user_id' => 'id']);
     }
 
+    public function getCompletedTasks()
+    {
+        return $this->hasMany(Task::class, ['performer_user_id' => 'id'])->done();
+    }
+
     /**
      * Задания
      * 
@@ -47,12 +117,12 @@ class Performer extends User
      */
     public function getTasks(): TaskQuery
     {
-        return $this->hasMany(Task::class, ['performer_user_id' => 'id'])->inverseOf('performer');
+        return $this->hasMany(Task::class, ['performer_user_id' => 'id']);
     }
 
-    public function getTaskReviews()
+    public function getTaskReviews(): UserReviewQuery
     {
-        return $this->hasMany(UserReview::class, ['related_task_id' => 'id'])->via('tasks');
+        return $this->hasMany(UserReview::class, ['related_task_id' => 'id'])->via('completedTasks');
     }
 
     /** @return TaskResponseQuery */
@@ -66,7 +136,7 @@ class Performer extends User
      *
      * @return CategoryQuery
      */
-    public function getCategories(): CategoryQuery
+    public function getSkils(): CategoryQuery
     {
         return $this->hasMany(Category::class, ['id' => 'category_id'])
             ->via('userCategories');

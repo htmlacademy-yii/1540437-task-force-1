@@ -113,26 +113,25 @@ class PerformerSearch extends Performer
         $this->load($params);
 
         $query = Performer::find();
-        $query->joinWith([
-            'profile p',
-            'categories c' => function ($query) {
-                if (!empty($this->categoryIds)) {
-                    $query->andFilterWhere(['c.id' => $this->categoryIds]);
-                    // $query->andFilterWhere(['c.id' => true]);
-                }
-            },
-            'tasks t' => function ($query) {
-                $query->done()->joinWith('userReviews ur');
-            },
-        ]);
+
+        $query->with(['skils']);
+
+        $query->joinWith(['tasks ct' => function ($query) {
+            $query->done();
+            $query->joinWith('userReviews ur');
+        }], true, 'LEFT JOIN');
+
+        $query->joinWith(['profile p']);
 
         $query->select([
             'users.*',
-            't.performer_user_id',
-            'countTasks' => 'count(`t`.`id`)',
+            'ct.performer_user_id',
+            'countTasks' => 'count(`ct`.`id`)',
             'countReviews' => 'count(`ur`.`id`)',
             'avgRating' => 'avg(ur.rate)'
         ]);
+
+        $query->groupBy('users.id');
 
         $sort = new Sort([
             'attributes' => [
@@ -162,7 +161,7 @@ class PerformerSearch extends Performer
             ],
         ]);
 
-        $query->groupBy('users.id');
+
 
         if ($this->qname) {
             $query->andOnCondition(['like', 'users.name', $this->qname]);
@@ -195,7 +194,7 @@ class PerformerSearch extends Performer
             'query' => $query,
             'sort' => $sort,
             'pagination' => [
-                'pageSize' => \frontend\controllers\UserController::PAGE_SIZE
+                'pageSize' => \frontend\controllers\PerformerController::PAGE_SIZE
             ]
         ]);
     }

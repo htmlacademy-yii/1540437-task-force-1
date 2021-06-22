@@ -6,7 +6,7 @@ use frontend\widgets\GenderIcon;
 use yii\helpers\Html;
 
 /** @var \yii\base\View $this */
-/** @var \frontend\models\User $model */
+/** @var \frontend\models\Performer $model */
 /** @var string|null $searchString */
 ?>
 
@@ -15,7 +15,7 @@ use yii\helpers\Html;
     <div class="feedback-card__top">
         <div class="user__search-icon">
             <?= Html::a(GenderIcon::widget(['gender' => $model->gender]), ['view', 'id' => $model->id]); ?>
-            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->countTasks])); ?>
+            <?= Html::tag('span', Yii::t('intl', 'tasks.count', ['n' => $model->getCountCompletedTasks()])); ?>
             <?= Html::tag('span', Yii::t('intl', 'responses.count', ['n' =>  $model->countReviews])); ?>
         </div>
         <div class="feedback-card__top--name user__search-card">
@@ -33,8 +33,8 @@ use yii\helpers\Html;
     </div>
     <?php if ($model->categories) : ?>
         <div class="link-specialization user__search-link--bottom">
-            <?php foreach ($model->categories as $category) : ?>
-                <?= Html::a($category->name, null, ['class' => 'link-regular']) ?>
+            <?php foreach ($model->skils as $skil) : ?>
+                <?= Html::a($skil->name, null, ['class' => 'link-regular']) ?>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>

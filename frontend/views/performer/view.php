@@ -4,7 +4,7 @@ use common\widgets\Interval;
 use common\widgets\Stars;
 use yii\helpers\Html;
 
-/** @var frontend\models\User $model */
+/** @var frontend\models\Performer $model */
 /** @var yii\web\View $this */
 
 $this->title = "Профиль";
@@ -24,18 +24,18 @@ $this->title = "Профиль";
                         <?= Yii::$app->formatter->asInterval('y', $model->profile->birth_date); ?>
                     </p>
                     <div class="profile-mini__name five-stars__rate">
-                        <?= Stars::widget(['rating' => $model->getAvgRating()]); ?>
+                        <?= Stars::widget(['rating' => $model->avgRating]); ?>
                     </div>
                     <b class="done-task">
-                        <?= Yii::t('intl', 'tasks.completed', ['n' => $model->getPerformerTasks()->completed()->count()]); ?>
+                        <?= Yii::t('intl', 'tasks.completed', ['n' => $model->countCompletedTasks]); ?>
                     </b>
                     <b class="done-review">
-                        <?= Yii::t('intl', 'tasks.reviews', ['n' => $model->getUserReviews()->count()]); ?>
+                        <?= Yii::t('intl', 'tasks.reviews', ['n' => $model->countReviews]); ?>
                     </b>
                 </div>
                 <div class="content-view__headline user__card-bookmark user__card-bookmark--current">
                     <span>
-                        <?php Interval::widget(['interval' => Yii::$app->formatter->asDateInterval($model->last_logined_at), 'gender' => $model->gender, 'type' => 'users.lastlogin']); 
+                        <?php Interval::widget(['interval' => Yii::$app->formatter->asDateInterval($model->lastLogin), 'gender' => $model->gender, 'type' => 'users.lastlogin']);
                         ?>
                     </span>
                     <a href="#"><b></b></a>
@@ -48,11 +48,12 @@ $this->title = "Профиль";
                 <div class="user__card-info">
                     <?= Html::tag('h3', Yii::t('app', 'Specializations'), ['content-view__h3']); ?>
                     <div class="link-specialization">
-                        <?php foreach ($model->categories as $category) : ?>
-                            <?= Html::a($category->name, ["#"], ['class' => 'link-regular']); ?>
+                        <?php foreach ($model->skils as $skil) : ?>
+                            <?= Html::a($skil->name, ["#"], ['class' => 'link-regular']); ?>
                         <?php endforeach; ?>
                     </div>
-                    <?= $this->render('_contacts', ['model' => $model]); ?>
+                    <?php $this->render('_contacts', ['model' => $model]);
+                    ?>
                 </div>
                 <div class="user__card-photo">
                     <h3 class="content-view__h3">Фото работ</h3>
@@ -62,7 +63,7 @@ $this->title = "Профиль";
                 </div>
             </div>
         </div>
-        <?= $this->render('_feedBack', ['model' => $model]); ?>
+        <?php echo $this->render('_feedBack', ['model' => $model]); ?>
     </section>
     <section class="connect-desk">
         <div class="connect-desk__chat pre">

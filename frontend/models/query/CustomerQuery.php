@@ -8,9 +8,9 @@ class CustomerQuery extends \yii\db\ActiveQuery
 
     public function init()
     {
-        $this->joinWith('userCategories')->andOnCondition([
-            'userCategories.category_id' => NULL
-        ]);
+        $this->joinWith(['userCategories' => function ($query) {
+            $query->andOnCondition(['category_id' => null]);
+        }]);
         parent::init();
     }
 
