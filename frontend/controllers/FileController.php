@@ -2,12 +2,14 @@
 
 namespace frontend\controllers;
 
+use frontend\models\UserAttachment;
 use Yii;
 
 use yii\web\UploadedFile;
 
 class FileController extends FrontendController
 {
+
     public function actionAjaxUpload()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -18,9 +20,7 @@ class FileController extends FrontendController
         $model->file = UploadedFile::getInstance($model, 'file');
 
         if ($model->validate() && $model->upload()) {
-            return [
-                'success' => 'true'
-            ];
+            return 'OK';
         } else {
             return [
                 'success' => 'false',

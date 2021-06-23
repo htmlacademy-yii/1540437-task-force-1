@@ -2,7 +2,6 @@
 
 use common\models\Category;
 use common\widgets\ActiveForm;
-use frontend\models\forms\FileUploadForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -11,6 +10,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="create__task-form form-create">
+
     <?php $form = ActiveForm::begin([
         // 'id' => 'create-task-form',
         'action' => ['task/publish', 'id' => $model->getTaskId()],
@@ -46,9 +46,8 @@ use yii\helpers\Html;
     <div class="field-taskform-files" style="display: flex; flex-direction: column; padding-bottom: 10px;">
 
         <?= \common\widgets\Dropzone::widget([
-            'id' => 'tasks-upload',
             'user' => \Yii::$app->user->id,
-            'task' => $model->taskId
+            'task' => $model->taskId            
         ]); ?>
 
     </div>

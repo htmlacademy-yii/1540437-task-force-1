@@ -12,6 +12,7 @@ class Dropzone extends \yii\base\Widget
     public $action = ['file/ajax-upload'];
     public $task = null;
     public $user = null;
+    public $target;
 
     public $actionMessage = 'Добавить новый файл';
 
@@ -74,7 +75,7 @@ class Dropzone extends \yii\base\Widget
         $js = <<<JS
             Dropzone.autoDiscover = false;
 
-            var dropzone_$id = new Dropzone('#{$this->_mainId}', {
+            var dropzone_$id = new Dropzone('{$this->mainId()}', {
                 url: "{$this->action()}",
                 paramName: "{$fileFieldName}"                
             });
@@ -87,6 +88,15 @@ class Dropzone extends \yii\base\Widget
         JS;
 
         $this->getView()->registerJs($js, \yii\web\View::POS_READY);
+    }
+
+    private function mainId()
+    {
+        if (isset($this->target)) {
+            return $this->target;
+        } else {
+            return "#" .$this->_mainId;
+        }
     }
 
     public static function model()

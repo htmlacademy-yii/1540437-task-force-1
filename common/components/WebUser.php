@@ -56,4 +56,5 @@ class WebUser extends \yii\web\User
 
         return $this->_role;
     }
+
 }
