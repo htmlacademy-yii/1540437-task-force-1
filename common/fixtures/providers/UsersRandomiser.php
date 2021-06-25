@@ -71,12 +71,7 @@ class UsersRandomiser extends Base
     private function getCustomers(): ?array
     {
         if (!$this->_customers) {
-            foreach ($this->getUsersQuery()->all() as $user) {
-                /** @var \frontend\models\User $user */
-                if ($user && $user->isCustomer) {
-                    $this->_customers[] = $user;
-                }
-            }
+            $this->_customers = \frontend\models\Customer::find()->all();
         }
 
         return $this->_customers;
@@ -86,13 +81,7 @@ class UsersRandomiser extends Base
     private function getPerformers(): ?array
     {
         if (!$this->_performers) {
-            foreach ($this->getUsersQuery()->all() as $user) {
-                /** @var \frontend\models\User $user */
-                if ($user && $user->isPerformer) {
-                    // echo $user->id . "\n";
-                    $this->_performers[] = $user;
-                }
-            }
+            $this->_performers = \frontend\models\Performer::find()->all();
         }
         return $this->_performers;
     }
