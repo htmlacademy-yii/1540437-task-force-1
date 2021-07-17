@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use common\widgets\ActiveForm;
 
 /** @var string $title */
 /** @var bool $isRemoteLogin */
@@ -47,7 +47,7 @@ $form = ActiveForm::begin([
 
 <?php ActiveForm::end(); ?>
 
-<?= Html::button('Закрыть', ['id' => 'close-modal', 'class' => 'form-modal-close']); ?>
+<?= \Yii::$app->request->isAjax ? Html::button('Закрыть', ['id' => 'close-modal', 'class' => 'form-modal-close']) : ''; ?>
 
 <?php
 

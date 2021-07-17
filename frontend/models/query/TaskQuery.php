@@ -7,6 +7,46 @@ use app\bizzlogic\Task;
 /** {@inheritDoc} */
 class TaskQuery extends \yii\db\ActiveQuery
 {
+    /**
+     * Пользователь 
+     * 
+     * @param mixed $user_id 
+     * @return $this 
+     */
+    public function user($user_id)
+    {
+        $userIDField = $this->_field('user_id');
+        return $this->andWhere([
+            $userIDField => $user_id
+        ]);
+    }
+
+    /**
+     * Черновики
+     * 
+     * @return self
+     */
+    public function draft(): self
+    {
+        $published_at = $this->_field('published_at');
+        return $this->andWhere([$published_at => NULL]);
+    }
+
+    /**
+     * Завершенные задания
+     * 
+     * @return TaskQuery 
+     */
+    public function done(): self
+    {
+        $statusFieldName = $this->_field('status');
+
+        return $this->andOnCondition(["NOT IN", $statusFieldName, [
+            \app\bizzlogic\Task::STATUS_INPROGRESS,
+            \app\bizzlogic\Task::STATUS_NEW
+        ]]);
+    }
+
     /** Новые задания */
     public function new()
     {
@@ -66,7 +106,7 @@ class TaskQuery extends \yii\db\ActiveQuery
     public function performers(): self
     {
         $fieldName = $this->_field('performer_user_id');
-        return $this->andWhere([$fieldName => '']);
+        return $this->andWhere(['IS NOT',$fieldName, null]);
     }
 
     /**

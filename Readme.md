@@ -6,22 +6,26 @@
 Перед началом выполнения команд создайте базу с именем **`taskforce`**.
 
 Выполнить команды или импортировать данные вручную:
-- `php import.php` - Генерация из CSV файлов
-- `php yii migrate/up` - Загрузить схему и базовые данные
+- `composer update && php init` - Загрузить зависимости и инициировать проект
+- `php import.php && php yii migrate/up` - Генерация из CSV файлов и обвнолений базы данных
 
 ## Тестовые данные
 
 ```php
-php yii fixture/generate user_profile --count=100 --interactive=0 &&
-php yii fixture/generate users --count=100 --interactive=0 &&
-php yii fixture/load Users --interactive=0 &&
+php yii fixture/generate users user_profile --count=100 --interactive=0 && 
+php yii fixture/generate user_categories --count=70 --interactive=0 && 
+php yii fixture/load Users,UserProfile,UserCategories --interactive=0 && 
 php yii fixture/generate tasks --count=200 --interactive=0 && 
-php yii fixture/load Tasks --interactive=0 &&
-php yii fixture/generate user_categories --count=35 --interactive=0 &&
-php yii fixture/load UserCategories --interactive=0 &&
-php yii fixture/generate user_reviews --count=50 --interactive=0 &&
+php yii fixture/load Tasks --interactive=0 && 
+php yii fixture/generate user_reviews --count=700 --interactive=0 &&
 php yii fixture/load UserReviews --interactive=0
 ```
+
+## Запуск тествого сервера
+```php
+php yii serve -t "@frontend/web"
+```
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">

@@ -3,8 +3,16 @@
 namespace frontend\models\query;
 
 /** {@inheritDoc} */
-class UserQuery extends \yii\db\ActiveQuery
+class CustomerQuery extends \yii\db\ActiveQuery
 {
+
+    public function init()
+    {
+        $this->joinWith(['userCategories' => function ($query) {
+            $query->andOnCondition(['category_id' => null]);
+        }]);
+        parent::init();
+    }
 
     /**
      * {@inheritDoc}

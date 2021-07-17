@@ -24,7 +24,7 @@ return [
             'migrationNamespaces' => ['console\migrations']
         ],
         'fixture' => [
-            'class' => 'yii\faker\FixtureController',
+            'class' => \yii\faker\FixtureController::class,
             'language' => 'ru_RU',
             'templatePath' => '@common/fixtures/templates',
             'fixtureDataPath' => '@common/fixtures/data',

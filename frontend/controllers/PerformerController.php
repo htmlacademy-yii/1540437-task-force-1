@@ -2,19 +2,19 @@
 
 namespace frontend\controllers;
 
-use frontend\models\search\UserSearch;
-use frontend\models\User;
+use frontend\models\Performer;
+use frontend\models\search\PerformerSearch;
 use Yii;
 use yii\web\NotFoundHttpException;
 
-class UserController extends FrontendController
+class PerformerController extends FrontendController
 {
     /** @var int Ограничения на колво записей */
     const PAGE_SIZE = 5;
 
     public function actionIndex()
     {
-        $searchModel  = new UserSearch();
+        $searchModel  = new PerformerSearch();
         $dataProvider = $searchModel->search(Yii::$app->getRequest()->post());
 
         return $this->render('index', [
@@ -42,16 +42,20 @@ class UserController extends FrontendController
      */
     private function loadModel(string $id)
     {
-        // $model = User::find()->with([
-        //     'profile',
-        //     'taskResponses' => function ($q) {
-        //         return $q->with(['task', 'user']);
-        //     }
-        // ])
-        //     ->where(['id' => $id])
-        //     ->one();
+        $query = Performer::find();
+        $query->with([
+            'city',
+            'profile',
+            'skils',
+            'taskReviews' => function ($query) {
+                /** @var \frontend\models\query\UserReviewQuery $query */
+                $query->with(['customer', 'performer', 'task']);
+            },
+        ]);
 
-        $model = User::findOne($id);
+        $query->andWhere(['users.id' => $id]);
+
+        $model = $query->one();
 
         if ($model === null) {
             throw new NotFoundHttpException('Страница не найдена');

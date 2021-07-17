@@ -1,4 +1,5 @@
 <?php
+
 return [
     'sourceLanguage' => 'en_US',
     'language' => 'en_US',
@@ -18,11 +19,11 @@ return [
             'thousandSeparator' => ' ',
             'currencyDecimalSeparator' => ',',
             'numberFormatterOptions' => [
-                NumberFormatter::MIN_FRACTION_DIGITS => 0,
-                NumberFormatter::MAX_FRACTION_DIGITS => 2
+                \NumberFormatter::MIN_FRACTION_DIGITS => 0,
+                \NumberFormatter::MAX_FRACTION_DIGITS => 2
             ],
             'numberFormatterSymbols' => [
-                NumberFormatter::CURRENCY_SYMBOL => '<b>₽</b>',
+                \NumberFormatter::CURRENCY_SYMBOL => '<b>₽</b>',
             ]
         ],
         'i18n' => [

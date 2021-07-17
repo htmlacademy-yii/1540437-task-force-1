@@ -3,8 +3,15 @@
 namespace frontend\models\query;
 
 /** {@inheritDoc} */
-class UserQuery extends \yii\db\ActiveQuery
+class PerformerQuery extends \yii\db\ActiveQuery
 {
+
+    public function init()
+    {
+        $field = $this->_field('id');
+        $this->andOnCondition([$field => \common\models\UserCategory::find()->select('user_id')->distinct()]);
+        parent::init();
+    }
 
     /**
      * {@inheritDoc}

@@ -5,6 +5,7 @@
 
 use common\widgets\Nav;
 use frontend\assets\AppAsset;
+use common\widgets\Alert;
 use yii\helpers\Html;
 
 AppAsset::register($this);
@@ -62,8 +63,8 @@ AppAsset::register($this);
                     'itemOptions' => ['class' => 'site-list__item'],
                     'items' => [
                         ['label' => 'Задания', 'url' => ['/task/index']],
-                        ['label' => 'Исполнители', 'url' => ['/user/index']],
-                        ['label' => 'Создать задание', 'url' => '#', 'visible' => Yii::$app->user->isGuest === false],
+                        ['label' => 'Исполнители', 'url' => ['/performer/index']],
+                        ['label' => 'Создать задание', 'url' => ['/task/create'], 'visible' => Yii::$app->user->isGuest === false],
                         ['label' => 'Мой профиль', 'url' => '#', 'visible' => Yii::$app->user->isGuest === false]
                     ],
                     'encodeLabels' => false
@@ -96,7 +97,7 @@ AppAsset::register($this);
                         <a href="#" class="link-regular">«Помочь с курсовой»</a>
                     </p>
                 </div>
-                <div class="header__account">
+                <div class="header__account" style="max-width: 180px;">
                     <a class="header__account-photo">
                         <img src="/img/user-photo.png" width="43" height="44" alt="Аватар пользователя">
                     </a>
@@ -120,16 +121,16 @@ AppAsset::register($this);
             <?php endif; ?>
         </div>
     </header>
-
+    <?= Alert::widget(); ?>
     <main class="page-main">
         <div class="main-container page-container">
             <?= $content ?>
         </div>
     </main>
-
     <?= $this->render('_footer'); ?>
 
     <div class="overlay"></div>
+
     <?php $this->endBody() ?>
 </body>
 

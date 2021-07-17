@@ -8,7 +8,7 @@ use Yii;
  *
  * @property User $user
  */
-class UserFavorite extends \yii\db\ActiveRecord
+class UserFavorite extends \common\models\UserFavorite
 {
     /**
      * Gets query for [[FavoriteUser]].

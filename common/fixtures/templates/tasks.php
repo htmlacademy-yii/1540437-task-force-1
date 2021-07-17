@@ -1,22 +1,42 @@
 <?php
+
 /**
  * @var Faker\Generator $faker
  * @var integer $index
  */
 
-$isRemoteWork = $faker->boolean(70);
-$isExpire = $faker->boolean(20);
+use app\bizzlogic\Task as TaskLogic;
+
+$isHasRemoteWork = $faker->boolean(70);
+
+if ($faker->boolean(45)) {
+    $status = TaskLogic::STATUS_COMPLETE;
+} elseif ($faker->boolean(45)) {
+    $status = TaskLogic::STATUS_INPROGRESS;
+} elseif ($faker->boolean(45)) {
+    $status = TaskLogic::STATUS_FAIL;
+} else {
+    $status = TaskLogic::STATUS_NEW;
+}
+
+$created = $faker->dateTimeInInterval('now', '-1 months');
+$published = $faker->dateTimeInInterval($created, '+30 minutes');
+$skill = $faker->numberBetween(1, 8);
+
 
 return [
-    'user_id' => $faker->getCustomer()->id, // Рандомный пользователь
-    'category_id' => $faker->numberBetween(1, 8), // ID катеогрии задания
-    'performer_user_id' => null, // NULL или Рандомный пользователь с ролью "исполнитель"
+    'user_id' => $faker->randomCustomer()->id, // Рандомный пользователь
+    'performer_user_id' => $status !== TaskLogic::STATUS_NEW ? $faker->randomPerformer($skill)->id : null,
+    'category_id' => $skill, // ID катеогрии задания
     'title' => $faker->sentence(6), // Заголовок
     'description' => $faker->text(100), // Описание
-    'address' => $isRemoteWork ? $faker->address : null,
-    'latitude' => $isRemoteWork? $faker->latitude : null,
-    'longitude' => $isRemoteWork ? $faker->longitude : null,
-    'budget' => $faker->optional(0.7)->numberBetween(0, 10000),
-    'expire' => $isExpire ?  $faker->dateTimeInInterval('+5 days', 'now')->format('Y-m-d H:i:s') : null,
-    'created_at' => $faker->dateTimeInInterval('now', '-1 months')->format('Y-m-d H:i:s')
+    'address' => $isHasRemoteWork ? $faker->address : null,
+    'latitude' => $isHasRemoteWork ? $faker->latitude : null,
+    'longitude' => $isHasRemoteWork ? $faker->longitude : null,
+    'budget' => $faker->optional()->numberBetween(0, 10000),
+    'expire' => $faker->boolean() ?  $faker->dateTimeInInterval('+5 days', 'now')->format('Y-m-d H:i:s') : null,
+    'created_at' => $created->format('Y-m-d H:i:s'),
+    'updated_at' => $published->format('Y-m-d H:i:s'),
+    'published_at' => $published->format('Y-m-d H:i:s'),
+    'status' => $status
 ];

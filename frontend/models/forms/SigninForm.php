@@ -12,13 +12,30 @@ class SigninForm extends \yii\base\Model
     /** @var User $_user */
     private $_user;
 
-    /** @inheritDoc */
+    /**
+     * Правила валидации формы
+     * 
+     * @return array 
+     */
     public function rules()
     {
         return [
             [['email', 'password'], 'required'],
             ['email', 'email'],
             ['password', 'validatePassword'],
+        ];
+    }
+
+    /**
+     * Подписи аттрибутов
+     * 
+     * @return array 
+     */
+    public function attributeLabels()
+    {
+        return [
+            'email' => 'Электронная почта',
+            'password' => 'Пароль'
         ];
     }
 
@@ -38,6 +55,9 @@ class SigninForm extends \yii\base\Model
         }
     }
 
+    /**
+     * @return null|User 
+     */
     protected function getUser(): ?User
     {
         if ($this->_user === null) {
@@ -47,13 +67,19 @@ class SigninForm extends \yii\base\Model
         return $this->_user;
     }
 
-    public function login()
+    /**
+     * Авторизация пользователя
+     * 
+     * @param int $duration Длительность хранения данных
+     * @see \yii\web\User::login()
+     * @return bool 
+     */
+    public function login(int $duration = 0)
     {
         $user = $this->getUser();
 
         if ($user) {
-            \Yii::$app->user->login($user);
-            return true;
+            return \Yii::$app->user->login($user, $duration);
         }
 
         return false;

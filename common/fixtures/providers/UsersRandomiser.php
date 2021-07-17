@@ -6,44 +6,10 @@ use Faker\Provider\Base;
 
 class UsersRandomiser extends Base
 {
-    /** @var array */
-    private $customers;
-    /** @var array */
-    private $repformers;
     /** @var \frontend\models\User[] $_customers */
     private $_customers;
     /** @var \frontend\models\User[] $_performers */
     private $_performers;
-
-    /** @return \frontend\models\User Заказчик */
-    public function getCustomer()
-    {
-        return $this->generator->randomElement(\frontend\models\User::find()->all());
-    }
-
-    /**
-     * Исполнитель
-     *
-     * @param string|null $skill ID навыка, необходимого для задания
-     * @return void
-     */
-    public function getPerformer(?string $skill = null)
-    {
-        if(!$this->_performers) {
-            $query = \frontend\models\User::find();
-            // $query->addSelect(['countSkills' => 'count(`uc`.`id`)']);
-            $query->joinWith(['userCategories uc' => function($query) use ($skill) {
-                /** @var \yii\db\ActiveQuery $query */
-                if ($skill) {
-                    $query->onCondition(['category_id' => $skill]);
-                }
-                return $query;
-            }]);
-            $this->_performers = $query->all();
-        }
-
-        return $this->generator->randomElement($this->_performers);
-    }
 
     public function getFreePerformer(?string $skill = null)
     {
@@ -67,54 +33,56 @@ class UsersRandomiser extends Base
     }
 
     /** @return int|null ИД Заказчика */
-    public function randomCustomer(): ?int
+    public function randomCustomer(): \frontend\models\User
     {
-        $result = $this->generator->randomElement($this->getCustomers());
-        return $result ? $result['id'] : null;
+        return $this->generator->randomElement($this->getCustomers());
     }
 
-    /** @return int|null ИД Исполнителя */
-    public function randomPerformer(bool $allowNull = false): ?int
+    /** @return \frontend\models\User|null ИД Исполнителя */
+    public function randomPerformer(?int $skillId = null): ?\frontend\models\User
     {
-        $generator = $this->generator;
-        if ($allowNull) {
-            $generator = $this->generator->optional(0.8, null);
+        $performers = $this->getPerformers();
+
+        if (\is_null($skillId)) {
+            return $this->generator->randomElement($performers);
         }
-        $result = $generator->randomElement($this->getPerformers());
 
-        return $result ? $result['id'] : null;
+        $_perfomers = null;
+
+        foreach ($performers as $performer) {
+            foreach ($performer->userCategories as $skill) {
+                if ($skill->id === $skillId) {
+                    $_perfomers[] = $performer;
+                }
+            }
+        }
+
+        return \is_null($_perfomers) ? null : $this->generator->randomElement($_perfomers);
     }
 
-    /** @return array|null Заказчики */
+
+    private function getUsersQuery(): \frontend\models\query\UserQuery
+    {
+        return \frontend\models\User::find()
+            ->with('userCategories');
+    }
+
+    /** @return \frontend\models\User[]|null Заказчики */
     private function getCustomers(): ?array
     {
-        if (!$this->customers) {
-            $this->customers = \frontend\models\User::find()
-                ->select('users.id')
-                ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
-                ->joinWith('userCategories uc')
-                ->having(['=', 'countUserCategory', 0])
-                ->groupBy('users.id')
-                ->asArray()
-                ->all();
+        if (!$this->_customers) {
+            $this->_customers = \frontend\models\Customer::find()->all();
         }
 
-        return $this->customers;
+        return $this->_customers;
     }
 
-    /** @return array|null Исполнители */
+    /** @return \frontend\models\User[]|null Исполнители */
     private function getPerformers(): ?array
     {
-        if (!$this->repformers) {
-            $this->repformers = \frontend\models\User::find()
-                ->select('users.id')
-                ->addSelect(['countUserCategory' => 'COUNT(uc.id)'])
-                ->joinWith('userCategories uc')
-                ->having(['>', 'countUserCategory', 0])
-                ->groupBy('users.id')
-                ->asArray()
-                ->all();
+        if (!$this->_performers) {
+            $this->_performers = \frontend\models\Performer::find()->all();
         }
-        return $this->repformers;
+        return $this->_performers;
     }
 }
